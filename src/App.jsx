@@ -16,46 +16,32 @@ import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import ProtectedRoute from "./ui/ProtectedRoute";
 
-// Lazily loaded pages
-const Dashboard = React.lazy(() => import("./pages/Dashboard"));
-const Users = React.lazy(() => import("./pages/Users"));
-const Login = React.lazy(() => import("./pages/Login"));
-const PageNotFound = React.lazy(() => import("./pages/PageNotFound"));
+// Regularly loaded pages
+import Dashboard from "./pages/Dashboard";
+import Users from "./pages/Users";
+import Login from "./pages/Login";
+import PageNotFound from "./pages/PageNotFound";
 
-// Other lazily loaded pages
-const CarService = React.lazy(() => import("./pages/CarService"));
-const Drivers = React.lazy(() => import("./pages/Drivers"));
-const Rides = React.lazy(() => import("./pages/Rides"));
-const Vehicles = React.lazy(() => import("./pages/Vehicles"));
-const Logistic = React.lazy(() => import("./pages/Logistic"));
-const Profit = React.lazy(() => import("./pages/Profit"));
-const Documents = React.lazy(() => import("./pages/Documents"));
-const PushNotification = React.lazy(() => import("./pages/PushNotification"));
-const Rating = React.lazy(() => import("./pages/Rating"));
-const Promos = React.lazy(() => import("./pages/Promos"));
+// Other regularly loaded pages
+import CarService from "./pages/CarService";
+import Drivers from "./pages/Drivers";
+import Rides from "./pages/Rides";
+import Vehicles from "./pages/Vehicles";
+import Logistic from "./pages/Logistic";
+import Profit from "./pages/Profit";
+import Documents from "./pages/Documents";
+import PushNotification from "./pages/PushNotification";
+import Rating from "./pages/Rating";
+import Promos from "./pages/Promos";
 
-// Lazily loaded features
-const ServiceInformation = React.lazy(() =>
-  import("./features/car-services/ServiceInformation")
-);
-const UserInformation = React.lazy(() =>
-  import("./features/users/user/UserInformation")
-);
-const DriverInformation = React.lazy(() =>
-  import("./features/drivers/driver/DriverInformation")
-);
-const DriverPendingInformation = React.lazy(() =>
-  import("./features/drivers/driver/DriverPendingInformation")
-);
-const VehicleInformation = React.lazy(() =>
-  import("./features/vehicles/vehicle/VehicleInformation")
-);
-const RideInformation = React.lazy(() =>
-  import("./features/rides/ride/RideInformation")
-);
-const UserPendingInformation = React.lazy(() =>
-  import("./features/users/user/UserPendingInformarion")
-);
+// Regularly loaded features
+import ServiceInformation from "./features/car-services/ServiceInformation";
+import UserInformation from "./features/users/user/UserInformation";
+import DriverInformation from "./features/drivers/driver/DriverInformation";
+import DriverPendingInformation from "./features/drivers/driver/DriverPendingInformation";
+import VehicleInformation from "./features/vehicles/vehicle/VehicleInformation";
+import RideInformation from "./features/rides/ride/RideInformation";
+import UserPendingInformation from "./features/users/user/UserPendingInformarion";
 
 // Configure QueryClient
 const queryClient = new QueryClient({
