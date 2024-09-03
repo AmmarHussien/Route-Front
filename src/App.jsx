@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import {
   Navigate,
   Route,
@@ -42,6 +42,7 @@ import DriverPendingInformation from "./features/drivers/driver/DriverPendingInf
 import VehicleInformation from "./features/vehicles/vehicle/VehicleInformation";
 import RideInformation from "./features/rides/ride/RideInformation";
 import UserPendingInformation from "./features/users/user/UserPendingInformarion";
+import Spinner from "./ui/Spinner";
 
 // Configure QueryClient
 const queryClient = new QueryClient({
@@ -128,7 +129,7 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Spinner />}>
           <AdminRoutes />
         </Suspense>
       </Router>
