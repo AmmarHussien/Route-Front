@@ -178,6 +178,7 @@ function SalesChart() {
 
         <StyledSalesChartHeaderRight>
           <KeyboardArrowLeftIcon
+            cursor="pointer"
             onClick={handlePrevMonth}
             sx={{
               fontSize: "50px",
@@ -185,6 +186,7 @@ function SalesChart() {
           />
           <Heading as="h2"> {monthName} </Heading>
           <ChevronRightIcon
+            cursor="pointer"
             onClick={handleNextMonth}
             sx={{
               fontSize: "50px",

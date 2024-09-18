@@ -1,11 +1,10 @@
-import Heading from "../ui/Heading";
-import Row from "../ui/Row";
+import RatingLayout from "../features/rating/ratingLayout";
 
 function Rating() {
   return (
-    <Row type="horizontal">
-      <Heading variant="h1">Rating</Heading>
-    </Row>
+    <>
+      <RatingLayout />
+    </>
   );
 }
 

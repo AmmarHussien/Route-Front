@@ -28,7 +28,7 @@ const InternalNotes = ({ notes: initialNotes }) => {
   useEffect(() => {
     if (isAdded) {
       // Update the notes state to reflect the addition (already handled above with setNotes)
-      console.log("New note added successfully, updating UI...");
+      //console.log("New note added successfully, updating UI...");
     }
   }, [isAdded]); // This effect runs when `isAdded` changes
 

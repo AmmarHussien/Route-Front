@@ -1,4 +1,3 @@
-import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 import UsersTable from "../features/users/UsersTable";
 import AddUser from "../features/users/AddUser";
@@ -19,7 +18,6 @@ function Users() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <Heading variant="h1">Users</Heading>
           <UsersTableOperations
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}

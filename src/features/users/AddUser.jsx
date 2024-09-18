@@ -12,7 +12,6 @@ function AddUser() {
             variant="contained"
             startIcon={<AddIcon />}
             sx={{
-              width: 139,
               height: 56,
               borderRadius: 5,
               fontSize: 16,
@@ -20,7 +19,7 @@ function AddUser() {
               boxShadow: "0 4px 60px 0 rgba(0, 56, 255, 0.15)", // Updated shadow property
             }}
           >
-            Add New
+            Add User
           </Button>
         </Modal.Open>
         <Modal.Window name="user-form">

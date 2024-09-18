@@ -5,6 +5,7 @@ const StyledItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 10px;
 `;
 
 const StyledTitle = styled.p`
@@ -29,7 +30,7 @@ const StyledNum = styled.p`
 function StatistecsItem({ icon, title, statistecs, color }) {
   return (
     <StyledItem>
-      {icon}
+      <img id={icon} src={icon} alt={icon} />
       <StyledTitle color={color}>{title}</StyledTitle>
       <StyledNum>{statistecs}</StyledNum>
     </StyledItem>

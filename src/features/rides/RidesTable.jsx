@@ -1,88 +1,19 @@
+import Empty from "../../ui/Empty";
 import Pagination from "../../ui/Pagination";
+import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import RidesRow from "./RidesRow";
 
-const fakeData = [
-  {
-    id: 1,
-    driverName: "Miimz",
-    userName: "Ammar",
-    dateAndTime: "2017-10-15  10:40 PM",
-    price: "140",
-    status: "On Going",
-  },
-  {
-    id: 2,
-    driverName: "Miimz",
-    userName: "Ammar",
-    dateAndTime: "2017-10-15  10:40 PM",
-    price: "140",
-    status: "On Going",
-  },
-  {
-    id: 3,
-    driverName: "Miimz",
-    userName: "Ammar",
-    dateAndTime: "2017-10-15  10:40 PM",
-    price: "140",
-    status: "On Going",
-  },
-  {
-    id: 4,
-    driverName: "Miimz",
-    userName: "Ammar",
-    dateAndTime: "2017-10-15  10:40 PM",
-    price: "140",
-    status: "completed",
-  },
-  {
-    id: 5,
-    driverName: "Miimz",
-    userName: "Ammar",
-    dateAndTime: "2017-10-15  10:40 PM",
-    price: "140",
-    status: "completed",
-  },
-  {
-    id: 6,
-    driverName: "Miimz",
-    userName: "Ammar",
-    dateAndTime: "2017-10-15  10:40 PM",
-    price: "140",
-    status: "completed",
-  },
-  {
-    id: 7,
-    driverName: "Miimz",
-    userName: "Ammar",
-    dateAndTime: "2017-10-15  10:40 PM",
-    price: "140",
-    status: "cancelled",
-  },
-  {
-    id: 8,
-    driverName: "Miimz",
-    userName: "Ammar",
-    dateAndTime: "2017-10-15  10:40 PM",
-    price: "140",
-    status: "cancelled",
-  },
-  {
-    id: 9,
-    driverName: "Miimz",
-    userName: "Ammar",
-    dateAndTime: "2017-10-15  10:40 PM",
-    price: "140",
-    status: "cancelled",
-  },
+function RidesTable({ rides, isLoading, ridesCount }) {
+  // Show the loading spinner while the data is being fetched
+  if (isLoading) return <Spinner />;
 
-  // Add more fake data as needed
-];
+  // Show an empty state if there are no drivers to display
+  if (!rides.length) return <Empty resourceName="Rides" />;
 
-function RidesTable() {
   return (
-    <Table columns="1fr 1fr 1fr 1fr 1fr 1fr">
-      <Table.TableNav title="Recent Rides" />
+    <Table columns="0.4fr 1fr 1fr 1fr 1fr 1fr">
+      <Table.TableNav title="ALL Rides" tableData={rides} />
       <Table.Header>
         <div>Ride ID</div>
         <div>Driver Name</div>
@@ -93,12 +24,12 @@ function RidesTable() {
       </Table.Header>
 
       <Table.Body
-        data={fakeData}
-        render={(item) => <RidesRow userInfo={item} key={item.id} />}
+        data={rides}
+        render={(item) => <RidesRow RideInfo={item} key={item.id} />}
       />
 
       <Table.Footer>
-        <Pagination count={fakeData.length} />
+        <Pagination count={ridesCount} />
       </Table.Footer>
     </Table>
   );

@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
-import Stats from "./stats";
 
 import RidesStatistics from "./Statistics";
 import RecentRide from "./ResentRide.jsx/RecentRide";
 import useStatistics from "./useStatisctics";
 import SalesChart from "./SalesChart";
+import Stats from "./Stats";
+
 const StyledDashboardLayout = styled.div`
   display: flex;
   flex-direction: row;
@@ -32,6 +33,7 @@ function DashboardLayout() {
           totalUser={statistics.totalUsersCount}
           totalDrivers={statistics.totalDriversCount}
           totalVehicles={statistics.totalVehiclesCount}
+          totalRides={statistics.completedRides}
         />
       </StyledDashboardLayout>
       <SmallContainer>

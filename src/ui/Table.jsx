@@ -108,11 +108,12 @@ function Table({ columns, children }) {
   );
 }
 
-function TableNaView({ title }) {
+function TableNaView({ title, subtitle }) {
   return (
     <StyledNav>
       <StyledNavDiv>
-        <Heading as="h6">{title}</Heading>
+        <Heading variant="h6">{title}</Heading>
+        <Heading variant="h5">{subtitle}</Heading>
       </StyledNavDiv>
     </StyledNav>
   );

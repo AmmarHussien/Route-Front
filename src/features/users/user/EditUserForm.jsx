@@ -37,11 +37,7 @@ function EditUserForm({ onCloseModal }) {
     setValue,
     reset,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      model_id: modelId, // Add default value if needed
-    },
-  });
+  } = useForm();
   const { upload } = useUploader();
   const { editUsers, isEditing } = useEditUser();
 
@@ -105,10 +101,13 @@ function EditUserForm({ onCloseModal }) {
       // This runs every time profileImage changes
       setValue("profile_image", profileImage.path);
     }
-  }, [profileImage, setValue]);
+    if (selectedModel) {
+      // This runs every time profileImage changes
+      setValue("model_id", selectedModel);
+    }
+  }, [profileImage, setValue, selectedModel]);
 
   const onSubmit = async (data) => {
-    console.log("a7a", data);
     try {
       await editUsers(
         { newUserData: data, id },
@@ -134,9 +133,9 @@ function EditUserForm({ onCloseModal }) {
     // console.log("Form errors:", errors);
   };
 
-  const manufactureOptions = manufactures.map(({ id, manufacture }) => ({
+  const manufactureOptions = manufactures.map(({ id, name }) => ({
     id,
-    name: manufacture,
+    name,
   }));
 
   const modelOptions =

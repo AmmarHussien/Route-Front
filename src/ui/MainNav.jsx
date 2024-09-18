@@ -1,14 +1,10 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import {
-  HiOutlineCog6Tooth,
-  HiOutlineHome,
-  HiOutlineUsers,
-} from "react-icons/hi2";
 
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
+  width: 247px;
   gap: 0.8rem;
 `;
 
@@ -32,14 +28,14 @@ const StyledNavLink = styled(NavLink)`
   &.active:link,
   &.active:visited {
     color: var(--color-grey-800);
-    background-color: var(--color-grey-50);
+    background-color: #eff6ff;
     border-radius: var(--border-radius-sm);
   }
 
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    color: var(--color-grey-400);
+    color: #005379;
     transition: all 0.3s;
   }
 
@@ -57,7 +53,13 @@ function MainNav() {
       <NavList>
         <li>
           <StyledNavLink to="/adminpanel/dashboard">
-            <HiOutlineHome />
+            <img
+              id="dashboard-img"
+              src="/Dashboard.svg"
+              alt="Dashboard"
+              width="30"
+              height="30"
+            />
             <span>Dashboard</span>
           </StyledNavLink>
         </li>
@@ -69,23 +71,42 @@ function MainNav() {
         </li> */}
         <li>
           <StyledNavLink to="/adminpanel/users">
-            <HiOutlineUsers />
+            <img
+              id="users-img"
+              src="/Users.svg"
+              alt="Users"
+              width="30"
+              height="30"
+            />
             <span>Users</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/adminpanel/drivers">
-            <HiOutlineUsers />
+            <img
+              id="drivers-img"
+              src="/Drivers.svg"
+              alt="Drivers"
+              width="30"
+              height="30"
+            />
             <span>Drivers</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/adminpanel/rides">
-            <HiOutlineCog6Tooth />
+            <img
+              id="rides-img"
+              src="/Rides.svg"
+              alt="Rides"
+              width="30"
+              height="30"
+            />
             <span>Rides</span>
           </StyledNavLink>
         </li>
-        {/* <li>
+        {
+          /* <li>
           <StyledNavLink to="/vehicles">
             <HiOutlineCog6Tooth />
             <span>Vehicles</span>
@@ -114,14 +135,20 @@ function MainNav() {
             <HiOutlineCog6Tooth />
             <span>Push Notification</span>
           </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/rating">
-            <HiOutlineCog6Tooth />
-            <span>Rating</span>
-          </StyledNavLink>
-        </li>
-        <li>
+        </li> */
+          <li>
+            <StyledNavLink to="/adminpanel/rating">
+              <img
+                id="rating-img"
+                src="/Rating.svg"
+                alt="Rating"
+                width="30"
+                height="30"
+              />
+              <span>Rating</span>
+            </StyledNavLink>
+          </li>
+          /*<li>
           <StyledNavLink to="/promos">
             <HiOutlineCog6Tooth />
             <span>Promos</span>
@@ -132,7 +159,8 @@ function MainNav() {
             <HiOutlineCog6Tooth />
             <span>Customisation</span>
           </StyledNavLink>
-        </li> */}
+        </li> */
+        }
       </NavList>
     </nav>
   );

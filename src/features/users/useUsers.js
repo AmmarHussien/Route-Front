@@ -7,7 +7,7 @@ function useUsers() {
   const [searchParams] = useSearchParams();
 
   // Filter Logic
-  const filterValue = searchParams.get("status");
+  const filterValue = searchParams.get("status") || "Approved";
   const filter =
     filterValue && filterValue !== "All"
       ? { field: "status", value: filterValue }

@@ -12,6 +12,8 @@ import Spinner from "../../../ui/Spinner";
 import DriverInformationWithImage from "./DriverInformationWithImage";
 import RecentRideTable from "./RecentRideTable";
 import Unblock from "./Unblock";
+import { useEffect } from "react";
+import { useNotes } from "./useNotes";
 
 const ActivityData = {
   CreditBalance: 1500,
@@ -53,8 +55,6 @@ function DriverInformation() {
 
   const { isLoading, driverData } = useDriver(userId);
 
-  if (isLoading) return <Spinner />;
-
   const {
     full_name,
     email,
@@ -67,6 +67,8 @@ function DriverInformation() {
     rides,
     status,
   } = driverData;
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>

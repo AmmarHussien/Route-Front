@@ -33,11 +33,12 @@ function DriversRow({ driverInfo }) {
     const status = searchParams.get("status");
 
     // Navigate based on status
-    if (status === "All" || status === null) {
-    } else if (status === "Pending") {
-      navigate(`/adminpanel/driver-pending-information/${driverInfo.id}`);
+    if (status === "Pending") {
+      navigate(
+        `/adminpanel/drivers/driver-pending-information/${driverInfo.id}`
+      );
     } else {
-      navigate(`/adminpanel/driver-information/${driverInfo.id}`);
+      navigate(`/adminpanel/drivers/driver-information/${driverInfo.id}`);
     }
 
     // Update search parameters in the URL
@@ -51,22 +52,14 @@ function DriversRow({ driverInfo }) {
   return (
     <Table columns={columns}>
       <Table.Row>
-        {searchParams.get("status") === "All" ||
-        searchParams.get("status") === null ? (
-          <>
-            <div>{driverInfo.id}</div>
-            <div>{driverInfo.full_name}</div>
-          </>
-        ) : (
-          <>
-            <div onClick={handleClick} style={{ cursor: "pointer" }}>
-              {driverInfo.id}
-            </div>
-            <div onClick={handleClick} style={{ cursor: "pointer" }}>
-              {driverInfo.full_name}
-            </div>
-          </>
-        )}
+        <>
+          <div onClick={handleClick} style={{ cursor: "pointer" }}>
+            {driverInfo.id}
+          </div>
+          <div onClick={handleClick} style={{ cursor: "pointer" }}>
+            {driverInfo.full_name}
+          </div>
+        </>
 
         {searchParams.get("status") === "Blocked" && (
           <div>
@@ -75,7 +68,6 @@ function DriversRow({ driverInfo }) {
               : driverInfo.blocked_reason}
           </div>
         )}
-
         <div>{driverInfo.email}</div>
         <div>{driverInfo.phone}</div>
         <Status $status={driverInfo.status}>{driverInfo.status}</Status>

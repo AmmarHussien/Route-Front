@@ -44,39 +44,21 @@ function RideStatistics() {
       </StyledTextContainer>
       <StyledContentContainer>
         <StatistecsItem
-          icon={
-            <VerifiedOutlinedIcon
-              sx={{
-                color: "#20C992",
-              }}
-            />
-          }
+          icon="/Complete.svg"
           title={"Complete"}
           color="#20C992"
           statistecs={statistics.completedRides}
         />
         <VerticalDivider />
         <StatistecsItem
-          icon={
-            <DirectionsCarOutlinedIcon
-              sx={{
-                color: "#EAB308",
-              }}
-            />
-          }
+          icon="/Ongoing.svg"
           title={"Ongoing"}
           color="#EAB308"
           statistecs={statistics.ongoingRides}
         />
         <VerticalDivider />
         <StatistecsItem
-          icon={
-            <CancelPresentationOutlinedIcon
-              sx={{
-                color: "#FC5555",
-              }}
-            />
-          }
+          icon="/Cancelled.svg"
           title={"Cancelled"}
           color="#FC5555"
           statistecs={statistics.cancelledRides}

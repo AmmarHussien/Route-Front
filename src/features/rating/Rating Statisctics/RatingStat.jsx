@@ -1,0 +1,168 @@
+import styled from "styled-components";
+
+const StatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  width: 25%;
+  padding: 16px;
+  border-radius: 33.6px;
+  gap: 16px;
+  background: ${(props) => props.color};
+`;
+const Icon = styled.div`
+  width: 56px;
+  height: 56px;
+  padding: 11.2px;
+  border-radius: 33.6px;
+  background: ${(props) => hexToRgba(props.color, 1)};
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  height: 61px;
+  gap: 8px;
+`;
+
+const Title = styled.p`
+  //styleName: Hero/H1 Regular;
+  font-family: Noto Sans Display;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+  color: #72788e;
+`;
+
+const ValuesContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+`;
+
+const Value = styled.h5`
+  //styleName: Hero/H0 Bold;
+  font-family: Noto Sans Display;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 26px;
+  text-align: left;
+  color: #272424;
+`;
+
+const ChangeMetric = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  padding: 4px;
+  gap: 4px;
+`;
+
+const ChangeNumberContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const Arrow = styled.img`
+  width: 16px;
+  height: 16px;
+`;
+
+const NumberOfChange = styled.h5`
+  //styleName: footnote and caption/Footnote Semibold;
+  font-family: Noto Sans Display;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  color: ${(props) => props.color};
+`;
+
+const MonthOfChange = styled.h5`
+  //styleName: footnote and caption/Caption Regular;
+  font-family: Noto Sans Display;
+  font-size: 11px;
+  font-weight: 400;
+  text-align: left;
+`;
+
+function hexToRgba(hex, opacity) {
+  if (!hex || (hex.length !== 4 && hex.length !== 7)) {
+    console.error("Invalid hex color:", hex);
+    return `rgba(0, 0, 0, ${opacity})`; // Return a default color in case of invalid input
+  }
+
+  let r = 0,
+    g = 0,
+    b = 0;
+  if (hex.length === 4) {
+    r = parseInt(hex[1] + hex[1], 16);
+    g = parseInt(hex[2] + hex[2], 16);
+    b = parseInt(hex[3] + hex[3], 16);
+  } else if (hex.length === 7) {
+    r = parseInt(hex[1] + hex[2], 16);
+    g = parseInt(hex[3] + hex[4], 16);
+    b = parseInt(hex[5] + hex[6], 16);
+  }
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}
+
+function RatingStat({
+  icon,
+  title,
+  pastMonthValue,
+  thisMonthvalue,
+  backgroundColor,
+  colorIconBackground,
+}) {
+  // const pastMonth = (pastMonthValue / 5) * 100;
+  // const thisMonth = (thisMonthvalue / 5) * 100;
+  const changeNumber =
+    pastMonthValue === 0
+      ? thisMonthvalue
+      : pastMonthValue === 0 && thisMonthvalue === 0
+      ? 0
+      : ((thisMonthvalue - pastMonthValue) / pastMonthValue) * 100;
+  const formattedChangeNumber = changeNumber.toFixed(0);
+
+  console.log(changeNumber);
+
+  return (
+    <StatContainer color={backgroundColor}>
+      <Icon color={colorIconBackground}>
+        <img id={icon} src={icon} alt={icon} />
+      </Icon>
+
+      <TextContainer>
+        <Title>{title}</Title>
+        <ValuesContainer>
+          <Value>{thisMonthvalue.toFixed(2)}</Value>
+          <ChangeMetric>
+            {changeNumber > 0 ? (
+              <ChangeNumberContainer>
+                <Arrow id="ArrowUp" src="/ArrowUp.svg" alt="ArrowUp" />
+                <NumberOfChange color="#20C992">
+                  {formattedChangeNumber}%
+                </NumberOfChange>
+              </ChangeNumberContainer>
+            ) : changeNumber === 0 ? null : (
+              <ChangeNumberContainer>
+                <Arrow id="ArrowDown" src="/ArrowDown.svg" alt="ArrowDown" />
+                <NumberOfChange color="#FC5555">
+                  {Math.abs(formattedChangeNumber)}%
+                </NumberOfChange>
+              </ChangeNumberContainer>
+            )}
+
+            <MonthOfChange>This Month</MonthOfChange>
+          </ChangeMetric>
+        </ValuesContainer>
+      </TextContainer>
+    </StatContainer>
+  );
+}
+
+export default RatingStat;

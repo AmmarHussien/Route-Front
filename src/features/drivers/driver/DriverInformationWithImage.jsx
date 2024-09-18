@@ -105,7 +105,11 @@ function DriverInformationWithImage({ data, title }) {
               {key === "userName" &&
               key !== "nationalId" &&
               key !== "driverIicense" &&
-              key !== "profileImage" ? (
+              key !== "profileImage" &&
+              key !== "carLicenseExpiry" &&
+              key !== "towTruckRegisterion" &&
+              key !== "criminalRecord" &&
+              key !== "carImage" ? (
                 <Row type="horizontal">
                   <Avater>
                     <p>
@@ -127,7 +131,11 @@ function DriverInformationWithImage({ data, title }) {
                 </Row>
               ) : key !== "nationalId" &&
                 key !== "driverLicense" &&
-                key !== "profileImage" ? (
+                key !== "profileImage" &&
+                key !== "carLicenseExpiry" &&
+                key !== "towTruckRegisterion" &&
+                key !== "criminalRecord" &&
+                key !== "carImage" ? (
                 <>
                   <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
                   <Value>{value}</Value>

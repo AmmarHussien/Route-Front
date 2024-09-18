@@ -45,39 +45,21 @@ function DriverStatistecs() {
       </StyledTextContainer>
       <StyledContentContainer>
         <StatistecsItem
-          icon={
-            <VerifiedOutlinedIcon
-              sx={{
-                color: "#20C992",
-              }}
-            />
-          }
+          icon="/Complete.svg"
           title={"Aproved"}
           color="#20C992"
           statistecs={statistics.approvedDrivers}
         />
         <VerticalDivider />
         <StatistecsItem
-          icon={
-            <DirectionsCarOutlinedIcon
-              sx={{
-                color: "#EAB308",
-              }}
-            />
-          }
+          icon="/Pending.svg"
           title={"Pending"}
           color="#EAB308"
           statistecs={statistics.pendingDrivers}
         />
         <VerticalDivider />
         <StatistecsItem
-          icon={
-            <CancelPresentationOutlinedIcon
-              sx={{
-                color: "#FC5555",
-              }}
-            />
-          }
+          icon="/Blocked.svg"
           title={"Blocked"}
           color="#FC5555"
           statistecs={statistics.cancelledDrivers}

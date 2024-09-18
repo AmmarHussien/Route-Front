@@ -12,7 +12,6 @@ function AddDriver() {
             variant="contained"
             startIcon={<AddIcon />}
             sx={{
-              width: 139,
               height: 56,
               borderRadius: 5,
               fontSize: 16,
@@ -20,7 +19,7 @@ function AddDriver() {
               shadow: "0 4 60 0 #0038FF26",
             }}
           >
-            Add New
+            Add Driver
           </Button>
         </Modal.Open>
         <Modal.Window name="user-form">

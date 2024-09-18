@@ -2,35 +2,48 @@ import { useNavigate } from "react-router-dom";
 import Table from "../../ui/Table";
 import styled, { css } from "styled-components";
 
-function RidesRow({ userInfo }) {
+const Status = styled.div`
+  ${(props) =>
+    props.$status === "Suspended" &&
+    css`
+      color: #fe9e46;
+    `}
+  ${(props) =>
+    props.$status === "Completed" &&
+    css`
+      color: #20c992;
+    `}
+  ${(props) =>
+    props.$status === "Cancelled" &&
+    css`
+      color: #fc5555;
+    `}
+  ${(props) =>
+    props.$status === "Pending" &&
+    css`
+      color: #fedf46;
+    `}
+`;
+
+function RidesRow({ RideInfo }) {
   const navigete = useNavigate();
-  const { id, driverName, userName, dateAndTime, price, status } = userInfo;
+  const {
+    id,
+    driver: driverName,
+    user: userName,
+    created_at: dateAndTime,
+    price,
+    status,
+  } = RideInfo;
 
   function handleClick() {
-    navigete(`/adminpanel/ride-information/${id}`);
+    navigete(`/adminpanel/rides/ride-information/${id}`);
 
     // Add your click handling logic here
   }
-  const Div = styled.div`
-    ${(props) =>
-      props.as === "ongoing" &&
-      css`
-        color: #fe9e46;
-      `}
-    ${(props) =>
-      props.as === "completed" &&
-      css`
-        color: #20c992;
-      `}
-      ${(props) =>
-      props.as === "cancelled" &&
-      css`
-        color: #fc5555;
-      `}
-  `;
 
   return (
-    <Table columns="1fr 1fr 1fr 1fr 1fr 1fr">
+    <Table columns="0.4fr 1fr 1fr 1fr 1fr 1fr">
       <Table.Row>
         <div onClick={handleClick} style={{ cursor: "pointer" }}>
           {id}
@@ -39,13 +52,7 @@ function RidesRow({ userInfo }) {
         <div>{userName}</div>
         <div>{dateAndTime}</div>
         <div>{price}</div>
-        {status === "On Going" ? (
-          <Div as="ongoing">{status}</Div>
-        ) : status === "completed" ? (
-          <Div as="completed">{status}</Div>
-        ) : status === "cancelled" ? (
-          <Div as="cancelled">{status}</Div>
-        ) : null}
+        <Status $status={status}>{status}</Status>
       </Table.Row>
     </Table>
   );

@@ -12,6 +12,9 @@ import useDriver from "./useDriver";
 import { useParams } from "react-router-dom";
 import Textarea from "../../../ui/Textarea";
 import useEditDriver from "./useEditDriver";
+import DropDownMenu from "../../../ui/DropDownMenu";
+import useOrganizations from "../useOrganizations";
+import useCarType from "../useCarType";
 
 function EditDriverForm({ onCloseModal }) {
   const { userId } = useParams();
@@ -30,7 +33,12 @@ function EditDriverForm({ onCloseModal }) {
     vehicle_license,
     criminal_record,
     car_spec,
-  } = driverData;
+    organization: {
+      id: organizationId = null, // Fallback to null if organization or id is undefined
+      name: organizationName = "Unknown Organization", // Fallback to a default name
+    } = {}, // Fallback to empty object if organization is undefinedorganization: { id: organizationId, name: organizationName },
+    car_type: { id: carTypeId, name: carTypeName },
+  } = driverData || {};
   const { register, handleSubmit, setValue, reset, formState } = useForm();
   const { errors } = formState;
 
@@ -44,6 +52,36 @@ function EditDriverForm({ onCloseModal }) {
 
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle password visibility
+
+  const [checkOrganization, setCheckOrganization] = useState(); // State to toggle organization visibility
+  const [selectedOrganization, setSelectedOrganization] = useState();
+
+  const { organizations = [] } = useOrganizations();
+  const [selectCarType, setSelectCarType] = useState(); // select car to toggle
+
+  const { carType = [] } = useCarType();
+
+  const organizationsOptions =
+    organizations?.map(({ id, name }) => ({
+      id,
+      name,
+    })) || [];
+
+  const carTypeOptions = carType?.map(({ id, name }) => ({ id, name })) || [];
+
+  const handleCarTypeSelect = (id) => {
+    setSelectCarType(id);
+  };
+
+  const handleOrganizationSelect = (id) => {
+    setSelectedOrganization(id);
+  };
+
+  useEffect(() => {
+    if (checkOrganization === false) {
+      setSelectedOrganization(null);
+    }
+  }, [setSelectedOrganization, checkOrganization]);
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword); // Toggle password visibility
@@ -81,6 +119,16 @@ function EditDriverForm({ onCloseModal }) {
       const { full_name, email, car_spec } = driverData;
       const [firstNames, lastNames] = full_name.split(" ");
 
+      if (organizationName) {
+        // carTypeName has a value
+        setSelectedOrganization(organizationId);
+      }
+
+      if (carTypeName) {
+        // carTypeName has a value
+        setSelectCarType(carTypeId);
+      }
+
       reset({
         first_name: firstNames,
         last_name: lastNames,
@@ -88,10 +136,18 @@ function EditDriverForm({ onCloseModal }) {
         car_spec,
       });
     }
-  }, [driverData, reset]);
+  }, [
+    driverData,
+    reset,
+    setSelectedOrganization,
+    organizationId,
+    organizationName,
+    setSelectCarType,
+    carTypeId,
+    carTypeName,
+  ]);
 
   const onSubmit = (data) => {
-    console.log(data);
     try {
       const formData = new FormData();
 
@@ -101,6 +157,8 @@ function EditDriverForm({ onCloseModal }) {
       formData.append("last_name", data.last_name || "");
       formData.append("email", data.email || "");
       formData.append("car_spec", data.car_spec || "");
+      formData.append("organization_id", selectedOrganization);
+      formData.append("car_type_id", selectCarType);
 
       // Append files if they exist
       if (profileImage) formData.append("profile_image", profileImage.file);
@@ -128,7 +186,7 @@ function EditDriverForm({ onCloseModal }) {
   return (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
-      type={onCloseModal ? "grid" : "regular"}
+      type={onCloseModal ? "gridx3" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
         <Input
@@ -240,6 +298,67 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <DropDownMenu
+          title="Car Type"
+          options={carTypeOptions}
+          onSelect={handleCarTypeSelect}
+          selectedOption={carTypeOptions.find(
+            (option) => option.id === selectCarType
+          )}
+        />
+      </FormRowVertical>
+
+      <FormRowVertical>
+        {/* // ✅ Good: controlled checkbox with onChange */}
+        <label style={{ display: "flex", alignItems: "center" }}>
+          <Input
+            type="checkbox"
+            checked={
+              selectedOrganization === null
+                ? checkOrganization
+                : !checkOrganization
+            }
+            onChange={(e) => setCheckOrganization(e.target.checked)}
+            disabled={organizationName === null ? false : true}
+            style={{
+              backgroundColor: "rgb(247, 248, 250)",
+              width: "20px",
+              height: "20px",
+              paddingLeft: "20px",
+              marginLeft: "10px",
+            }}
+          />
+          <span style={{ marginLeft: "8px", fontSize: "14px" }}>
+            Registration with Organization
+          </span>
+        </label>
+      </FormRowVertical>
+
+      {organizationName ? (
+        <FormRowVertical>
+          <Input
+            type="text"
+            id="organization"
+            placeholder="Organization"
+            defaultValue={organizationName}
+            disabled={true}
+            $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+          />
+        </FormRowVertical>
+      ) : selectedOrganization === null && checkOrganization === true ? (
+        <FormRowVertical>
+          <DropDownMenu
+            title="Organizations"
+            options={organizationsOptions}
+            onSelect={handleOrganizationSelect}
+            selectedOption={organizationsOptions.find(
+              (option) => option.id === selectedOrganization
+            )}
+          />
+        </FormRowVertical>
+      ) : null}
+
+      <FormRowVertical>
         <FileInput
           placeholder="National Id"
           id="nationalId"
@@ -311,6 +430,8 @@ function EditDriverForm({ onCloseModal }) {
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
+
+      {checkOrganization === false ? <FormRowVertical></FormRowVertical> : null}
 
       <FormRow>
         <Button size="xlarge" type="submit">

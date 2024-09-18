@@ -94,11 +94,19 @@ const Title = styled.p`
   color: white;
 `;
 
-function Stat({ icon, title, value, backgroundColor, colorIconBackground }) {
+function RatingStat({
+  icon,
+  title,
+  value,
+  backgroundColor,
+  colorIconBackground,
+}) {
   return (
     <StyledStat color={backgroundColor}>
       <StyledContent>
-        <Icon color={colorIconBackground}>{icon}</Icon>
+        <Icon color={colorIconBackground}>
+          <img id={icon} src={icon} alt={icon} width={40} height={40} />
+        </Icon>
         <StyledText>
           <Value>{value}</Value>
           <Title>{title}</Title>
@@ -108,4 +116,4 @@ function Stat({ icon, title, value, backgroundColor, colorIconBackground }) {
   );
 }
 
-export default Stat;
+export default RatingStat;

@@ -5,7 +5,7 @@ import InternalNotes from "../../../ui/internalNotes/InternalNotes";
 import RideInformationItemTable from "./RideInformationItemTable";
 
 const MapData = {
-  src: "/map.png",
+  src: "/Logo.svg",
 };
 
 const RideData = {
@@ -55,7 +55,7 @@ function RideInformation() {
         <RideInformationItemTable data={MapData} />
       </Row>
 
-      <InternalNotes />
+      {/* <InternalNotes notes={notes} /> */}
     </>
   );
 }

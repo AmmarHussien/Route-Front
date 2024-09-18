@@ -8,6 +8,11 @@ import Input from "../../ui/Input";
 import { useAddDrive } from "./useAddDriver";
 import FormRow from "../../ui/FormRow";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Using FontAwesome icons
+import DropDownMenu from "../../ui/DropDownMenu";
+import useOrganizations from "./useOrganizations";
+import Textarea from "../../ui/Textarea";
+import useCarType from "./useCarType";
+import Spinner from "../../ui/Spinner";
 
 function CreateDriverForm({ onCloseModal }) {
   const { register, handleSubmit, setValue, reset, formState, watch } =
@@ -28,6 +33,9 @@ function CreateDriverForm({ onCloseModal }) {
 
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle password visibility
+  const [checkOrganization, setCheckOrganization] = useState(false); // select  organization
+  const [selectedOrganization, setSelectedOrganization] = useState();
+  const [selectCarType, setSelectCarType] = useState(); // select car to toggle
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword); // Toggle password visibility
@@ -40,6 +48,32 @@ function CreateDriverForm({ onCloseModal }) {
     setFileState(file);
     setValue(file.name, file);
   };
+
+  const { organizations = [] } = useOrganizations();
+
+  const { carType = [] } = useCarType();
+
+  const carTypeOptions = carType?.map(({ id, name }) => ({ id, name })) || [];
+
+  const handleCarTypeSelect = (id) => {
+    setSelectCarType(id);
+  };
+
+  const organizationsOptions =
+    organizations?.map(({ id, name }) => ({
+      id,
+      name,
+    })) || [];
+
+  const handleOrganizationSelect = (id) => {
+    setSelectedOrganization(id);
+  };
+
+  useEffect(() => {
+    if (checkOrganization === false) {
+      setSelectedOrganization(null);
+    }
+  }, [setSelectedOrganization, checkOrganization]);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -57,6 +91,9 @@ function CreateDriverForm({ onCloseModal }) {
     formData.append("criminal_record", criminalRecord);
     formData.append("national_id", nationalId);
     formData.append("tow_truck_registration", towTruckRegistration);
+    formData.append("organization_id", selectedOrganization);
+    formData.append("car_type_id", selectCarType);
+    formData.append("car_spec", data.car_spec);
 
     addDriver(formData, {
       onSuccess: () => {
@@ -67,23 +104,23 @@ function CreateDriverForm({ onCloseModal }) {
   };
 
   const onError = (errors) => {
-    console.log(errors);
+    // console.log(errors);
   };
 
   useEffect(() => {
     if (isAdded) {
       // This will run when the driver is successfully added
-      console.log("Driver successfully added.");
+      //console.log("Driver successfully added.");
       // You can trigger additional UI updates here if needed
     }
   }, [isAdded]); // Dependency array includes `isAdded`
 
   const password = watch("password");
 
-  return (
+  return !isAdded ? (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
-      type={onCloseModal ? "grid" : "regular"}
+      type={onCloseModal ? "gridx3" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
         <Input
@@ -92,6 +129,10 @@ function CreateDriverForm({ onCloseModal }) {
           placeholder="First Name"
           {...register("firstName", {
             required: "First Name is required",
+            minLength: {
+              value: 3,
+              message: "First Name must be at least 3 characters",
+            },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
@@ -212,48 +253,94 @@ function CreateDriverForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <DropDownMenu
+          title="Car-Type"
+          options={carTypeOptions}
+          onSelect={handleCarTypeSelect}
+          selectedOption={carTypeOptions.find(
+            (option) => option.id === selectCarType
+          )}
+        />
+      </FormRowVertical>
+
+      <FormRowVertical>
+        {/* // ✅ Good: controlled checkbox with onChange */}
+        <label style={{ display: "flex", alignItems: "center" }}>
+          <Input
+            type="checkbox"
+            checked={checkOrganization}
+            onChange={(e) => setCheckOrganization(e.target.checked)}
+            style={{
+              backgroundColor: "rgb(247, 248, 250)",
+              width: "20px",
+              height: "20px",
+              paddingLeft: "20px",
+              marginLeft: "10px",
+            }}
+          />
+          <span style={{ marginLeft: "8px", fontSize: "14px" }}>
+            Registration with Organization
+          </span>
+        </label>
+      </FormRowVertical>
+
+      {checkOrganization === true ? (
+        <FormRowVertical>
+          <DropDownMenu
+            title="Organizations"
+            options={organizationsOptions}
+            disabled={!checkOrganization}
+            onSelect={handleOrganizationSelect}
+            selectedOption={organizationsOptions.find(
+              (option) => option.id === selectedOrganization
+            )}
+          />
+        </FormRowVertical>
+      ) : null}
+
+      <FormRowVertical error={errors?.nationalId?.message}>
         <FileInput
           placeholder="National Id"
           id="nationalId"
           onFileChange={handleFileChange(setNationalId)}
         />
       </FormRowVertical>
-      <FormRowVertical>
+      <FormRowVertical error={errors?.profileImage?.message}>
         <FileInput
           placeholder="Driver Photo"
           id="profileImage"
           onFileChange={handleFileChange(setProfileImage)}
         />
       </FormRowVertical>
-      <FormRowVertical>
+      <FormRowVertical error={errors?.driverLicense?.message}>
         <FileInput
           placeholder="Driver License Photo"
           id="driverLicense"
           onFileChange={handleFileChange(setDriverLicense)}
         />
       </FormRowVertical>
-      <FormRowVertical>
+      <FormRowVertical error={errors?.vehicleLicense?.message}>
         <FileInput
           placeholder="Vehicle License"
           id="vehicleLicense"
           onFileChange={handleFileChange(setVehicleLicense)}
         />
       </FormRowVertical>
-      <FormRowVertical>
+      <FormRowVertical error={errors?.vehicleImage?.message}>
         <FileInput
           placeholder="Vehicle Image"
           id="vehicleImage"
           onFileChange={handleFileChange(setVehicleImage)}
         />
       </FormRowVertical>
-      <FormRowVertical>
+      <FormRowVertical error={errors?.criminalRecord?.message}>
         <FileInput
           placeholder="Criminal Record"
           id="criminalRecord"
           onFileChange={handleFileChange(setCriminalRecord)}
         />
       </FormRowVertical>
-      <FormRowVertical>
+      <FormRowVertical error={errors?.towTruckRegistration?.message}>
         <FileInput
           placeholder="Tow Truck Registration"
           id="towTruckRegistration"
@@ -261,12 +348,30 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
 
+      <FormRowVertical error={errors?.carSpec?.message}>
+        <Textarea
+          type="text"
+          id="carSpec"
+          placeholder="Car Spec"
+          {...register("car_spec", {
+            maxLength: {
+              value: 180,
+              message: "Car Spec must be at Most 180 characters",
+            },
+          })}
+          $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+        />
+      </FormRowVertical>
+      {checkOrganization === false ? <FormRowVertical></FormRowVertical> : null}
+
       <FormRow>
         <Button size="xlarge" type="submit" disabled={isWorking}>
           Submit
         </Button>
       </FormRow>
     </Form>
+  ) : (
+    <Spinner />
   );
 }
 

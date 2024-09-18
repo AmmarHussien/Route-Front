@@ -1,4 +1,3 @@
-import Pagination from "../../../ui/Pagination";
 import Table from "../../../ui/Table";
 import RideRow from "./RideRow";
 
@@ -20,9 +19,7 @@ function RecentRideTable({ rides }) {
         render={(rides) => <RideRow rideInfo={rides} key={rides.id} />}
       />
 
-      <Table.Footer>
-        <Pagination count={rides.length} />
-      </Table.Footer>
+      <Table.Footer></Table.Footer>
     </Table>
   );
 }

@@ -37,28 +37,6 @@ const TableData = styled.p`
   margin: 0;
   padding: 0;
   position: relative;
-
-  /* Tooltip effect */
-  &:hover {
-    overflow: "auto";
-    white-space: normal;
-  }
-
-  &:hover::after {
-    content: attr(data-text);
-    position: absolute;
-    left: 0;
-    top: 100%;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 5px;
-    z-index: 2;
-    max-width: 300px; /* Adjust the tooltip width as needed */
-    word-wrap: break-word;
-  }
 `;
 
 function RideRow({ ride }) {

@@ -60,9 +60,7 @@ function UserComplainsTable() {
         render={(item) => <ComplainsRow userInfo={item} key={item.id} />}
       />
 
-      <Table.Footer>
-        <Pagination count={fakeData.length} />
-      </Table.Footer>
+      <Table.Footer></Table.Footer>
     </Table>
   );
 }

@@ -13,6 +13,7 @@ import useManufactures from "./useManufactures";
 import useModel from "./useModel";
 import { useUploader } from "../../hooks/useUploader";
 import toast from "react-hot-toast";
+import Spinner from "../../ui/Spinner";
 
 function CreateUserForm({ onCloseModal }) {
   const {
@@ -25,12 +26,15 @@ function CreateUserForm({ onCloseModal }) {
   } = useForm();
   const { upload } = useUploader();
   const { isAdded, addUser } = useAddUser();
+
   const [profileImage, setProfileImage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { isLoading, manufactures = [] } = useManufactures();
   const [selectedBrand, setSelectedBrand] = useState();
   const [selectedModel, setSelectedModel] = useState();
+
+  const { isLoading, manufactures } = useManufactures();
+
   const { models } = useModel(selectedBrand);
 
   const password = watch("password");
@@ -75,6 +79,25 @@ function CreateUserForm({ onCloseModal }) {
     }
   }, [profileImage]);
 
+  useEffect(() => {
+    if (isAdded) {
+      // Update the notes state to reflect the addition (already handled above with setNotes)
+    }
+  }, [isAdded]); //
+
+  const onError = (errors) => {};
+
+  const manufactureOptions = manufactures?.map(({ id, name }) => ({
+    id,
+    name,
+  }));
+
+  const modelOptions =
+    models?.map(({ id, model }) => ({
+      id,
+      model,
+    })) || [];
+
   const onSubmit = async (data) => {
     const formData = new FormData();
     const imagePath = profileImage ? profileImage.path : "";
@@ -102,28 +125,7 @@ function CreateUserForm({ onCloseModal }) {
     }
   };
 
-  useEffect(() => {
-    if (isAdded) {
-      // Update the notes state to reflect the addition (already handled above with setNotes)
-    }
-  }, [isAdded]); //
-
-  const onError = (errors) => {
-    toast("Form errors:", errors);
-  };
-
-  const manufactureOptions = manufactures.map(({ id, manufacture }) => ({
-    id,
-    name: manufacture,
-  }));
-
-  const modelOptions =
-    models?.map(({ id, model }) => ({
-      id,
-      model,
-    })) || [];
-
-  return (
+  return !isAdded ? (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
       type={onCloseModal ? "grid" : "regular"}
@@ -136,7 +138,7 @@ function CreateUserForm({ onCloseModal }) {
           {...register("firstName", {
             required: "First Name is required",
           })}
-          sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+          $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.lastName?.message}>
@@ -151,7 +153,7 @@ function CreateUserForm({ onCloseModal }) {
               message: "Last Name must be at least 3 characters",
             },
           })}
-          sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+          $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.phoneNumber?.message}>
@@ -166,7 +168,7 @@ function CreateUserForm({ onCloseModal }) {
               message: "Phone Number must be 10 numeric",
             },
           })}
-          sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+          $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
@@ -182,7 +184,7 @@ function CreateUserForm({ onCloseModal }) {
               message: "Please enter a valid email address",
             },
           })}
-          sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+          $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
@@ -209,7 +211,7 @@ function CreateUserForm({ onCloseModal }) {
                   "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
               },
             })}
-            sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+            $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
           <span
             onClick={handleTogglePassword}
@@ -238,7 +240,7 @@ function CreateUserForm({ onCloseModal }) {
               validate: (value) =>
                 value === password || "Passwords do not match",
             })}
-            sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+            $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
           <span
             onClick={handleToggleConfirmPassword}
@@ -269,7 +271,7 @@ function CreateUserForm({ onCloseModal }) {
           options={manufactureOptions}
           onSelect={handleBrandSelect}
           disabled={isLoading}
-          selectedOption={manufactureOptions.find(
+          selectedOption={manufactureOptions?.find(
             (option) => option.id === selectedBrand
           )}
         />
@@ -281,7 +283,7 @@ function CreateUserForm({ onCloseModal }) {
           options={modelOptions}
           onSelect={handleModelSelect}
           disabled={isLoading || !selectedBrand}
-          selectedOption={modelOptions.find(
+          selectedOption={modelOptions?.find(
             (option) => option.id === selectedModel
           )}
         />
@@ -302,7 +304,7 @@ function CreateUserForm({ onCloseModal }) {
             validate: (value) =>
               Number.isInteger(value) || "Registration year must be an integer",
           })}
-          sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+          $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
 
@@ -312,6 +314,8 @@ function CreateUserForm({ onCloseModal }) {
         </Button>
       </FormRow>
     </Form>
+  ) : (
+    <Spinner />
   );
 }
 

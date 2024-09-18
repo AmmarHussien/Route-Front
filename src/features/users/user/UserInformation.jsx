@@ -37,9 +37,9 @@ const Row = styled.div.withConfig({
 `;
 
 function UserInformation() {
-  const moveBack = useMoveBack();
-
   const { userInfo, isLoading: userInfoLoading } = useUser();
+
+  const moveBack = useMoveBack();
 
   if (userInfoLoading) return <Spinner />;
 
@@ -57,7 +57,7 @@ function UserInformation() {
     currency,
     profile_image,
     car: {
-      manufacture: { manufacture },
+      manufacture: { name: manufacture },
       model: { model },
       registration_year,
     },
@@ -67,7 +67,7 @@ function UserInformation() {
     <>
       <Row type="horizontal" even={false}>
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
+          <ButtonText onClick={moveBack}>&larr; Users</ButtonText>
           <h1>User Information</h1>
         </Row>
         <Row type="horizontal">
@@ -84,7 +84,9 @@ function UserInformation() {
             email: email,
             MobileNumber: phone,
             JoiningDate: created_at,
-            profileImage: profile_image,
+            ...(profile_image === " "
+              ? { profileImage: profile_image }
+              : profile_image && { profileImage: profile_image }),
           }}
           title="User's Info"
         />

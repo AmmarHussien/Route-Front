@@ -26,6 +26,15 @@ const Form = styled.form`
       grid-template-columns: repeat(2, 1fr); // Creates two equal-width columns
       gap: 1rem; // Adds space between grid items (optional)
     `}
+
+    ${(props) =>
+    props.type === "gridx3" &&
+    css`
+      display: grid;
+      width: 105rem;
+      grid-template-columns: repeat(3, 1fr); // Creates two equal-width columns
+      gap: 1rem; // Adds space between grid items (optional)
+    `}
     overflow: visible;
 
   font-size: 1.4rem;

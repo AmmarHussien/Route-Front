@@ -3,7 +3,7 @@ import {
   Navigate,
   Route,
   Routes,
-  HashRouter as Router,
+  BrowserRouter as Router,
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -75,35 +75,35 @@ function AdminRoutes() {
         <Route path="/adminpanel/dashboard" element={<Dashboard />} />
         <Route path="/adminpanel/car-services" element={<CarService />} />
         <Route
-          path="/adminpanel/car-service-information/:Id"
+          path="/adminpanel/car-services/car-service-information/:Id"
           element={<ServiceInformation />}
         />
         <Route path="/adminpanel/users" element={<Users />} />
         <Route
-          path="/adminpanel/user-information/:Id"
+          path="/adminpanel/users/user-information/:Id"
           element={<UserInformation />}
         />
         <Route
-          path="/adminpanel/user-pending-information/:Id"
+          path="/adminpanel/users/user-pending-information/:Id"
           element={<UserPendingInformation />}
         />
         <Route path="/adminpanel/drivers" element={<Drivers />} />
         <Route
-          path="/adminpanel/driver-information/:userId"
+          path="/adminpanel/drivers/driver-information/:userId"
           element={<DriverInformation />}
         />
         <Route
-          path="/adminpanel/driver-pending-information/:userId"
+          path="/adminpanel/drivers/driver-pending-information/:userId"
           element={<DriverPendingInformation />}
         />
         <Route path="/adminpanel/rides" element={<Rides />} />
         <Route
-          path="/adminpanel/ride-information/:Id"
+          path="/adminpanel/rides/ride-information/:Id"
           element={<RideInformation />}
         />
         <Route path="/adminpanel/vehicles" element={<Vehicles />} />
         <Route
-          path="/adminpanel/vehicle-information/:Id"
+          path="/adminpanel/vehicles/vehicle-information/:Id"
           element={<VehicleInformation />}
         />
         <Route path="/adminpanel/logistic" element={<Logistic />} />

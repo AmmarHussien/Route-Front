@@ -10,12 +10,12 @@ function UsersTableOperations({ searchTerm, setSearchTerm }) {
         <Filter
           filterField="status"
           options={[
-            { value: "All", label: "All" },
+            // { value: "All", label: "All" },
 
             { value: "Approved", label: "Approved" },
-            { value: "Pending", label: "Pending" },
+            // { value: "Pending", label: "Pending" },
             { value: "Blocked", label: "Blocked" },
-            { value: "Suspended", label: "Suspended" },
+            // { value: "Suspended", label: "Suspended" },
           ]}
         />
         <SearchField searchTerm={searchTerm} setSearchTerm={setSearchTerm} />

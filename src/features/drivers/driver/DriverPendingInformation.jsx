@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { useMoveBack } from "../../../hooks/useMoveBack";
 import ButtonText from "../../../ui/ButtonText";
-import InformationItemTable from "../../users/user/InformationItemTable";
 
 import useDriver from "./useDriver";
 import Spinner from "../../../ui/Spinner";
@@ -9,13 +8,6 @@ import { useParams } from "react-router-dom";
 import DriverInformationWithImage from "./DriverInformationWithImage";
 import AcceptDriver from "./AcceptDriver";
 import RejectDriver from "./RejectDriver";
-
-const VehicleInfo = {
-  CarLicenseExpiry: 1500,
-  TowTruckRegisterion: 5,
-  CodeForCostPerKm: 150,
-  VehicleSpec: `4 Seats Electric Automatic 30000 - 50000 KM Gray`,
-};
 
 function DriverPendingInformation() {
   const Row = styled.div`
@@ -54,8 +46,13 @@ function DriverPendingInformation() {
     phone,
     national_id,
     driver_license,
-
     profile_image,
+    criminal_record,
+    vehicle_license,
+    vehicle_image,
+    tow_truck_registration,
+    car_spec,
+    organization,
   } = driverData;
   return (
     <>
@@ -69,16 +66,47 @@ function DriverPendingInformation() {
       <Row>
         <DriverInformationWithImage
           data={{
-            userName: full_name,
-            email: email,
-            mobileNumber: phone,
-            profileImage: profile_image,
-            nationalId: national_id,
-            driverLicense: driver_license,
+            userName: full_name || "",
+            email: email || "",
+            mobileNumber: phone || "",
+            ...(organization != null
+              ? { organization: organization.name }
+              : organization && { organization: organization }),
+            ...(profile_image === " "
+              ? { profileImage: profile_image }
+              : profile_image && { profileImage: profile_image }),
+            ...(national_id === " "
+              ? { nationalId: national_id }
+              : national_id && { nationalId: national_id }),
+            ...(driver_license === " "
+              ? { driverLicense: driver_license }
+              : driver_license && { driverLicense: driver_license }),
+            ...(criminal_record === " "
+              ? { criminalRecord: criminal_record }
+              : criminal_record && { criminalRecord: criminal_record }),
           }}
           title="Drivers's Info"
         />
-        <InformationItemTable data={VehicleInfo} title="Activities Info" />
+        <DriverInformationWithImage
+          data={{
+            ...(vehicle_image === " "
+              ? { carImage: vehicle_image }
+              : vehicle_image && { carImage: vehicle_image }),
+            ...(vehicle_license === " "
+              ? { carLicenseExpiry: vehicle_license }
+              : vehicle_license && { carLicenseExpiry: vehicle_license }),
+            ...(tow_truck_registration === " "
+              ? { towTruckRegisterion: tow_truck_registration }
+              : tow_truck_registration && {
+                  towTruckRegisterion: tow_truck_registration,
+                }),
+            codeForCostPerKm: "10$" || "",
+            ...(car_spec === " "
+              ? { vehicleSpec: car_spec }
+              : car_spec && { vehicleSpec: car_spec }),
+          }}
+          title="Car Info"
+        />
       </Row>
 
       <Row type="horizontal">

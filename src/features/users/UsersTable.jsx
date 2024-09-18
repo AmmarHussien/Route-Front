@@ -16,7 +16,7 @@ function UsersTable({ users, isLoading, userCount }) {
 
   const columns = isBlocked
     ? "0.4fr 1fr 1fr 1.2fr 0.8fr 0.8fr 0.6fr 0.6fr"
-    : "0.4fr 1fr 1.2fr 0.8fr 0.8fr 0.6fr 0.6fr";
+    : "0.4fr 1fr 1.2fr 1.2fr 0.8fr 0.6fr 0.6fr";
 
   return (
     <Table columns={columns}>

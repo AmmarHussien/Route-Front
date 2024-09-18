@@ -9,27 +9,27 @@ import useUser from "../useUserInfo";
 import Empty from "../../../ui/Empty";
 import AcceptUser from "./AcceptUser";
 import RejectUser from "./RejectUser";
+const Row = styled.div`
+  display: flex;
+
+  ${(props) =>
+    props.type === "horizontal" &&
+    css`
+      //justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    `}
+
+  ${(props) =>
+    props.type === "vertical" &&
+    css`
+      flex-direction: column;
+      //gap: 1.6rem;
+      align-items: start;
+    `}
+`;
 
 function UserPendingInformation() {
-  const Row = styled.div`
-    display: flex;
-
-    ${(props) =>
-      props.type === "horizontal" &&
-      css`
-        //justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-      `}
-
-    ${(props) =>
-      props.type === "vertical" &&
-      css`
-        flex-direction: column;
-        //gap: 1.6rem;
-        align-items: start;
-      `}
-  `;
   const { userInfo, isLoading: userInfoLoading } = useUser();
 
   const moveBack = useMoveBack();
