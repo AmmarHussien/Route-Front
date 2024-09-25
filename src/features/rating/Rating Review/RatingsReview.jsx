@@ -30,10 +30,6 @@ function RatingsReview() {
     format(currentMonth, "M")
   );
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
   if (error) {
     return <div>Error loading Ratings Review</div>;
   }
@@ -44,7 +40,7 @@ function RatingsReview() {
 
   const rate = ["1 Star", "2 Star", "3 Star", "4 Star", "5 Star"];
 
-  const maxLength = Math.min(COLORS.length, reviews.length);
+  let maxLength;
 
   return (
     <>
@@ -55,23 +51,28 @@ function RatingsReview() {
         setCurrentMonth={setCurrentMonth}
       />
 
-      {maxLength === 0 ? (
-        <NoDataMessage>No data to show at the Month</NoDataMessage>
+      {isLoading ? (
+        <Spinner />
       ) : (
-        <PieContainer>
-          <PieCharts
-            data={ratingReviews.reviews || 0}
-            COLORS={COLORS}
-            totalReviews={ratingReviews.total_reviews}
-          />
+        ((maxLength = Math.min(COLORS.length, reviews.length)),
+        maxLength === 0 ? (
+          <NoDataMessage>No data to show at the Month</NoDataMessage>
+        ) : (
+          <PieContainer>
+            <PieCharts
+              data={ratingReviews.reviews || 0}
+              COLORS={COLORS}
+              totalReviews={ratingReviews.total_reviews}
+            />
 
-          <ReviewRow
-            color={COLORS}
-            rate={rate}
-            reviews={reviews}
-            maxLength={maxLength}
-          />
-        </PieContainer>
+            <ReviewRow
+              color={COLORS}
+              rate={rate}
+              reviews={reviews}
+              maxLength={maxLength}
+            />
+          </PieContainer>
+        ))
       )}
     </>
   );

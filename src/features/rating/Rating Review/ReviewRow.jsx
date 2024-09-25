@@ -28,6 +28,7 @@ const RowRight = styled.div`
 const RowItem = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
 `;
@@ -39,14 +40,14 @@ const Color = styled.div`
   background-color: ${(props) => props.color};
 `;
 
-function ReviewRow({ color, reviews, maxLength }) {
+function ReviewRow({ color, reviews, rate, maxLength }) {
   return (
     <Row>
       <RowLeft>
         {color.slice(0, maxLength).map((element, index) => (
           <RowItem key={index}>
             <Color color={element} />
-            <div>{reviews[index]?.rate || "-"}</div>
+            <div>{`${reviews[index]?.rate} Star` || "-"}</div>
           </RowItem>
         ))}
       </RowLeft>

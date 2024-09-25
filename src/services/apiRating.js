@@ -6,17 +6,36 @@ const date = new Date();
 const month = date.getMonth() + 1; // getMonth() is zero-based, so add 1
 const year = date.getFullYear();
 
-export async function getOverAllRating() {
+export async function getOverAllRatingUser() {
   const token = localStorage.getItem("authToken");
 
   try {
-    const response = await axios.get(`${URL}all`, {
+    const response = await axios.get(`${URL}all?type=User`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
       },
       params: {
         month,
         year,
+      },
+    });
+
+    return response.data.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+        "Fetching Rating failed due to an unexpected error"
+    );
+  }
+}
+
+export async function getOverAllRatingDriver() {
+  const token = localStorage.getItem("authToken");
+
+  try {
+    const response = await axios.get(`${URL}all?type=Driver`, {
+      headers: {
+        ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
       },
     });
 
@@ -51,7 +70,7 @@ export async function getTotalRatings(type, year, month) {
   } catch (error) {
     throw new Error(
       error.response?.data?.message ||
-        "Revenues failed due to an unexpected error"
+        "Total Ratings failed due to an unexpected error"
     );
   }
 }
@@ -99,7 +118,61 @@ export async function getRatingsReview(year, month) {
   } catch (error) {
     throw new Error(
       error.response?.data?.message ||
-        "Revenues failed due to an unexpected error"
+        "Ratings Review failed due to an unexpected error"
+    );
+  }
+}
+
+export async function getTotalReviewDriver(year, month) {
+  try {
+    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+
+    const response = await axios.get(
+      `${URL}all?type=Driver`,
+
+      {
+        headers: {
+          ApiToken: `Bearer ${token}`, // Sending the token in the Authorization header
+          // Add any other headers if needed
+        },
+        params: {
+          month,
+          year,
+        },
+      }
+    );
+    return response.data.data; // Return the response
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+        "Total Review failed due to an unexpected error"
+    );
+  }
+}
+
+export async function getTotalReviewUser(year, month) {
+  try {
+    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+
+    const response = await axios.get(
+      `${URL}all?type=User`,
+
+      {
+        headers: {
+          ApiToken: `Bearer ${token}`, // Sending the token in the Authorization header
+          // Add any other headers if needed
+        },
+        params: {
+          month,
+          year,
+        },
+      }
+    );
+    return response.data.data; // Return the response
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+        "Total Review failed due to an unexpected error"
     );
   }
 }

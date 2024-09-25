@@ -7,7 +7,7 @@ function AddUser() {
   return (
     <div>
       <Modal>
-        <Modal.Open opens="user-form">
+        <Modal.Open opens="add-user-form">
           <Button
             variant="contained"
             startIcon={<AddIcon />}
@@ -22,7 +22,7 @@ function AddUser() {
             Add User
           </Button>
         </Modal.Open>
-        <Modal.Window name="user-form">
+        <Modal.Window name="add-user-form">
           <CreateUserForm />
         </Modal.Window>
       </Modal>

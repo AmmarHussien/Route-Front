@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const StyledFormRow = styled.div`
+const StyledFormRow = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["variation"].includes(prop),
+})`
   display: flex;
   flex-direction: column;
   justify-content: center;

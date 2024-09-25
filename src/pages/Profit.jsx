@@ -1,12 +1,7 @@
-import Heading from "../ui/Heading";
-import Row from "../ui/Row";
+import ProfitLayout from "../features/profit/ProfitLayout";
 
 function Profit() {
-  return (
-    <Row type="horizontal">
-      <Heading variant="h1">Profit</Heading>
-    </Row>
-  );
+  return <ProfitLayout />;
 }
 
 export default Profit;

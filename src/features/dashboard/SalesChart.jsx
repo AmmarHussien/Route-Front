@@ -10,7 +10,7 @@ import {
   YAxis,
   ResponsiveContainer,
 } from "recharts";
-//import { UseDarkMode } from "../../context/DarkModeContext";
+
 import { eachDayOfInterval, endOfMonth, format, startOfMonth } from "date-fns";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -70,8 +70,6 @@ const StyledSalesChartHeaderRight = styled.div`
 `;
 
 function SalesChart() {
-  //const { isDarkMode } = UseDarkMode();
-
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const { revenues } = useRevenues(
@@ -114,8 +112,8 @@ function SalesChart() {
     });
   };
   const monthName = currentMonth.toLocaleString("default", {
-    month: "long",
-    year: "numeric",
+    month: "short",
+    // year: "numeric",
   });
 
   useEffect(() => {}, [currentMonth]);
@@ -135,33 +133,12 @@ function SalesChart() {
               formattedDate
           ) // assuming the year 2024
           .reduce((acc, cur) => acc + cur.total, 0),
-        // extrasSales: bookings
-        //   .filter(
-        //     (booking) =>
-        //       format(new Date(booking.created_at + " 2024"), "MMM dd") ===
-        //       formattedDate
-        //   ) // assuming the year 2024
-        //   .reduce((acc, cur) => acc + cur.extrasPrice, 0),
       };
     });
 
-  // const colors = isDarkMode
-  //   ? {
-  //       totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
-  //       extrasSales: { stroke: "#22c55e", fill: "#22c55e" },
-  //       text: "#e5e7eb",
-  //       background: "#18212f",
-  //     }
-  //   : {
-  //       totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
-  //       extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
-  //       text: "#374151",
-  //       background: "#fff",
-  //     };
-
   const colors = {
     totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
-    //extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
+
     text: "#374151",
     background: "#fff",
   };
@@ -220,15 +197,6 @@ function SalesChart() {
             name="Total Revenues"
             unit="$"
           />
-          {/* <Area
-            dataKey="extrasSales"
-            type="monotone"
-            stroke={colors.extrasSales.stroke}
-            fill={colors.extrasSales.fill}
-            strokeWidth={2}
-            name="Extras Sales"
-            unit="$"
-          /> */}
         </AreaChart>
       </ResponsiveContainer>
     </StyledSalesChart>

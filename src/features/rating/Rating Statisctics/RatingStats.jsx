@@ -1,8 +1,18 @@
+import styled from "styled-components";
 import RatingStat from "./RatingStat";
 
+const StatContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  background: ${(props) => props.color};
+`;
+
 function RatingStats({
-  overAllThisMonthRating,
-  overAllPastMonthRating,
+  overAllThisMonthRatingUser,
+  overAllPastMonthRatingUser,
+  overAllThisMonthRatingDriver,
+  overAllPastMonthRatingDriver,
   feedbackcollectedThisMonth,
   feedbackcollectedPastMonth,
   PendingFeedbackThisMonth,
@@ -11,16 +21,28 @@ function RatingStats({
   FeedbackperDayPastMonth,
 }) {
   return (
-    <>
-      {overAllThisMonthRating !== undefined &&
-      overAllPastMonthRating !== undefined ? (
+    <StatContainer>
+      {overAllThisMonthRatingUser !== undefined &&
+      overAllPastMonthRatingUser !== undefined ? (
         <RatingStat
           backgroundColor="#FFFFFF"
-          title="Overall Ratings"
+          title="Users Overall Ratings"
           colorIconBackground="#6366F1"
-          icon="/OverAllRating.svg"
-          thisMonthvalue={overAllThisMonthRating}
-          pastMonthValue={overAllPastMonthRating}
+          icon="/Usersw.svg"
+          thisMonthvalue={overAllThisMonthRatingUser}
+          pastMonthValue={overAllPastMonthRatingUser}
+        />
+      ) : null}
+
+      {overAllThisMonthRatingDriver !== undefined &&
+      overAllPastMonthRatingDriver !== undefined ? (
+        <RatingStat
+          backgroundColor="#FFFFFF"
+          title="Drivers Overall Ratings"
+          colorIconBackground="#F97316"
+          icon="/Driversw.svg"
+          thisMonthvalue={overAllThisMonthRatingDriver}
+          pastMonthValue={overAllPastMonthRatingDriver}
         />
       ) : null}
 
@@ -41,7 +63,7 @@ function RatingStats({
         <RatingStat
           backgroundColor="#FFFFFF"
           title="Pending Feedback"
-          colorIconBackground="#F97316"
+          colorIconBackground="#A855F7"
           icon="/PendingFeedback.svg"
           thisMonthvalue={PendingFeedbackThisMonth}
           pastMonthValue={PendingFeedbackPastMonth}
@@ -52,14 +74,14 @@ function RatingStats({
       FeedbackperDayPastMonth !== undefined ? (
         <RatingStat
           backgroundColor="#FFFFFF"
-          title="Feedback per Day"
-          colorIconBackground="#10B981"
+          title="Feedback Per Day"
+          colorIconBackground="#EAB308"
           icon="/FeedbackperDay.svg"
           thisMonthvalue={FeedbackperDayThisMonth}
           pastMonthValue={FeedbackperDayPastMonth}
         />
       ) : null}
-    </>
+    </StatContainer>
   );
 }
 

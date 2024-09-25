@@ -8,7 +8,7 @@ function BlockDriver() {
   return (
     <div>
       <Modal>
-        <Modal.Open opens="user-form">
+        <Modal.Open opens="block-driver-form">
           <Button
             variant="contained"
             startIcon={<BlockSharp />}
@@ -29,7 +29,7 @@ function BlockDriver() {
             Block
           </Button>
         </Modal.Open>
-        <Modal.Window name="user-form">
+        <Modal.Window name="block-driver-form">
           <BlockDriverForm />
         </Modal.Window>
       </Modal>

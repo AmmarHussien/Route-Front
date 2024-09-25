@@ -2,7 +2,7 @@ import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
-import { useOutsideClick } from "../hooks/useOutsideClick";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -72,7 +72,7 @@ function Open({ children, opens: opensWindowName }) {
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
-function Window({ children, name }) {
+function Window({ children, name, disableOutsideClick }) {
   const { openName, close } = useContext(ModalContext);
 
   const ref = useOutsideClick(close);
@@ -82,7 +82,7 @@ function Window({ children, name }) {
   return createPortal(
     <Overlay>
       <StyledModal
-        ref={ref}
+        ref={!disableOutsideClick ? ref : null} // Apply ref conditionally
         aria-labelledby={`${name}-title`}
         aria-describedby={`${name}-description`}
       >

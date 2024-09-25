@@ -105,8 +105,7 @@ function MainNav() {
             <span>Rides</span>
           </StyledNavLink>
         </li>
-        {
-          /* <li>
+        {/* <li>
           <StyledNavLink to="/vehicles">
             <HiOutlineCog6Tooth />
             <span>Vehicles</span>
@@ -118,37 +117,51 @@ function MainNav() {
             <span>Logistic</span>
           </StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink to="/profit">
-            <HiOutlineCog6Tooth />
-            <span>Profit</span>
-          </StyledNavLink>
-        </li>
+        
         <li>
           <StyledNavLink to="/documents">
             <HiOutlineCog6Tooth />
             <span>Documents</span>
           </StyledNavLink>
+        </li> */}
+
+        <li>
+          <StyledNavLink to="/adminpanel/rating">
+            <img
+              id="rating-img"
+              src="/Rating.svg"
+              alt="Rating"
+              width="30"
+              height="30"
+            />
+            <span>Rating</span>
+          </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/push-notification">
-            <HiOutlineCog6Tooth />
+          <StyledNavLink to="/adminpanel/profit">
+            <img
+              id="Profit-img"
+              src="/Profit.svg"
+              alt="Profit"
+              width="30"
+              height="30"
+            />
+            <span>Profit</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/adminpanel/push-notification">
+            <img
+              id="Notification-img"
+              src="/Notification.svg"
+              alt="Notification"
+              width="30"
+              height="30"
+            />
             <span>Push Notification</span>
           </StyledNavLink>
-        </li> */
-          <li>
-            <StyledNavLink to="/adminpanel/rating">
-              <img
-                id="rating-img"
-                src="/Rating.svg"
-                alt="Rating"
-                width="30"
-                height="30"
-              />
-              <span>Rating</span>
-            </StyledNavLink>
-          </li>
-          /*<li>
+        </li>
+        {/* <li>
           <StyledNavLink to="/promos">
             <HiOutlineCog6Tooth />
             <span>Promos</span>
@@ -159,8 +172,7 @@ function MainNav() {
             <HiOutlineCog6Tooth />
             <span>Customisation</span>
           </StyledNavLink>
-        </li> */
-        }
+        </li> */}
       </NavList>
     </nav>
   );

@@ -10,7 +10,6 @@ function SortBy({ options }) {
 
     searchParams.set("sortBy", selectedValue);
 
-    console.log("Updated Search Params:", searchParams.toString()); // Debugging line
     setSearchParams(searchParams);
   };
 

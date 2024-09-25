@@ -3,10 +3,7 @@ import { useMoveBack } from "../../../hooks/useMoveBack";
 import ButtonText from "../../../ui/ButtonText";
 import InternalNotes from "../../../ui/internalNotes/InternalNotes";
 import RideInformationItemTable from "./RideInformationItemTable";
-
-const MapData = {
-  src: "/Logo.svg",
-};
+// import MapWithDirections from "./MapWithDirections";
 
 const RideData = {
   rideId: 11411,
@@ -19,27 +16,29 @@ const RideData = {
   review: "n/a",
 };
 
+const Row = styled.div`
+  display: flex;
+
+  ${(props) =>
+    props.type === "horizontal" &&
+    css`
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    `}
+
+  ${(props) =>
+    props.type === "vertical" &&
+    css`
+      flex-direction: column;
+      //gap: 1.6rem;
+      align-items: start;
+    `}
+`;
+
 function RideInformation() {
-  const Row = styled.div`
-    display: flex;
-
-    ${(props) =>
-      props.type === "horizontal" &&
-      css`
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-      `}
-
-    ${(props) =>
-      props.type === "vertical" &&
-      css`
-        flex-direction: column;
-        //gap: 1.6rem;
-        align-items: start;
-      `}
-  `;
   const moveBack = useMoveBack();
+
   //const navigete = useNavigate();
   return (
     <>
@@ -52,10 +51,11 @@ function RideInformation() {
 
       <Row>
         <RideInformationItemTable data={RideData} title="Basic Info" />
-        <RideInformationItemTable data={MapData} />
+        {/* <MapWithDirections /> */}
+        {/* <MapWithPolylineAndMarkers /> */}
       </Row>
 
-      {/* <InternalNotes notes={notes} /> */}
+      <InternalNotes notes={""} />
     </>
   );
 }

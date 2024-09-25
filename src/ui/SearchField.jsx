@@ -53,7 +53,7 @@ const SearchField = ({ searchTerm, setSearchTerm }) => {
         ),
       }}
       sx={{
-        width: 327,
+        width: 300,
         gap: 16,
         borderColor: "#E6E9EF",
         backgroundColor: "#FFFFFF",

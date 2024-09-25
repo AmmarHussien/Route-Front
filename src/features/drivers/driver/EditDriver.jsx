@@ -8,7 +8,7 @@ function EditDriver() {
   return (
     <div>
       <Modal>
-        <Modal.Open opens="user-form">
+        <Modal.Open opens="edit-driver-form">
           <Button
             variant="contained"
             startIcon={<EditSharp />}
@@ -24,7 +24,7 @@ function EditDriver() {
             Edit
           </Button>
         </Modal.Open>
-        <Modal.Window name="user-form">
+        <Modal.Window name="edit-driver-form">
           <EditDriverForm />
         </Modal.Window>
       </Modal>

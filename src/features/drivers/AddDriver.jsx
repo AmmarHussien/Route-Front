@@ -7,7 +7,7 @@ function AddDriver() {
   return (
     <div>
       <Modal>
-        <Modal.Open opens="user-form">
+        <Modal.Open opens="add-driver-form">
           <Button
             variant="contained"
             startIcon={<AddIcon />}
@@ -22,7 +22,7 @@ function AddDriver() {
             Add Driver
           </Button>
         </Modal.Open>
-        <Modal.Window name="user-form">
+        <Modal.Window name="add-driver-form">
           <CreateDriverForm />
         </Modal.Window>
       </Modal>

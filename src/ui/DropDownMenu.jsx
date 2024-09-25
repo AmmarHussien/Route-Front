@@ -1,66 +1,74 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useRef, useState, useEffect } from "react";
 
-function DropDownMenu({ options, title, onSelect, disabled, selectedOption }) {
-  const [isOpen, setIsOpen] = useState(false);
+const DropDownMenu = forwardRef(
+  ({ options, title, onSelect, disabled, selectedOption, ...props }, ref) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
-  const dropdownRef = useRef(null);
-
-  const handleIconClick = () => {
-    if (!disabled) {
-      setIsOpen(!isOpen);
-    }
-  };
-
-  const handleOptionClick = (option) => {
-    if (!disabled) {
-      setIsOpen(false);
-      if (onSelect) {
-        onSelect(option.id); // Notify the parent component
+    const handleIconClick = () => {
+      if (!disabled) {
+        setIsOpen(!isOpen);
       }
-    }
-  };
+    };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleOptionClick = (option) => {
+      if (!disabled) {
         setIsOpen(false);
+        if (onSelect) {
+          onSelect(option.id); // Notify the parent component
+        }
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(event.target)
+        ) {
+          setIsOpen(false);
+        }
+      };
 
-  return (
-    <div
-      style={{ ...styles.container, ...(disabled && styles.disabled) }}
-      ref={dropdownRef}
-    >
-      <label style={styles.label}>
-        {selectedOption ? selectedOption.name || selectedOption.model : title}
-      </label>
-      <span style={styles.icon} onClick={handleIconClick}>
-        {isOpen ? "▲" : "▼"}
-      </span>
-      {isOpen && !disabled && (
-        <ul style={styles.options}>
-          {Array.isArray(options) &&
-            options.map((option) => (
-              <li
-                key={option.id}
-                style={styles.option}
-                onClick={() => handleOptionClick(option)}
-              >
-                {option.name || option.model}
-              </li>
-            ))}
-        </ul>
-      )}
-    </div>
-  );
-}
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
+    return (
+      <div
+        style={{ ...styles.container, ...(disabled && styles.disabled) }}
+        ref={(node) => {
+          dropdownRef.current = node;
+          if (ref) ref.current = node;
+        }}
+        {...props}
+      >
+        <label style={styles.label}>
+          {selectedOption ? selectedOption.name || selectedOption.model : title}
+        </label>
+        <span style={styles.icon} onClick={handleIconClick}>
+          {isOpen ? "▲" : "▼"}
+        </span>
+        {isOpen && !disabled && (
+          <ul style={styles.options}>
+            {Array.isArray(options) &&
+              options.map((option) => (
+                <li
+                  key={option.id || option}
+                  style={styles.option}
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option.name || option.model || option}
+                </li>
+              ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
+);
 
 const styles = {
   container: {

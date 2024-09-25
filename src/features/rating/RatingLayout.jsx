@@ -24,14 +24,12 @@ const ReviewContainer = styled.div`
   flex-direction: column;
   width: 50%;
   height: 100%;
-  background-color: yellow;
   gap: 24px;
 `;
 
 const TotalReviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   height: 100%;
   background-color: white;
   border-radius: 24px;
@@ -47,12 +45,6 @@ const RatingReviewContainer = styled.div`
   border-radius: 24px;
   padding: 16px;
 `;
-
-// const SmallContainer = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   gap: 10px;
-// `;
 
 function RatingLayout() {
   return (

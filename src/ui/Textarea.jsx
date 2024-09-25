@@ -11,9 +11,10 @@ const Textarea = styled.textarea`
   box-shadow: var(--shadow-sm);
   width: 327px;
   min-height: 56px;
+  max-height: calc(15 * 1.2em); /* Adjust 1.2em based on your line height */
   height: auto;
-  resize: vertical;
-  overflow-y: auto;
+  resize: vertical; /* Allow vertical resizing */
+  overflow-y: auto; /* Add scrollbar if content exceeds max-height */
 `;
 
 export default Textarea;

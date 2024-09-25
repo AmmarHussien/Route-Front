@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 const StatContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: start;
   align-items: start;
-  width: 25%;
+  width: 20%;
   padding: 16px;
   border-radius: 33.6px;
   gap: 16px;
@@ -40,7 +40,8 @@ const Title = styled.p`
 const ValuesContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: start;
+  align-items: baseline;
   gap: 4px;
 `;
 
@@ -91,7 +92,6 @@ const MonthOfChange = styled.h5`
 
 function hexToRgba(hex, opacity) {
   if (!hex || (hex.length !== 4 && hex.length !== 7)) {
-    console.error("Invalid hex color:", hex);
     return `rgba(0, 0, 0, ${opacity})`; // Return a default color in case of invalid input
   }
 
@@ -127,8 +127,6 @@ function RatingStat({
       ? 0
       : ((thisMonthvalue - pastMonthValue) / pastMonthValue) * 100;
   const formattedChangeNumber = changeNumber.toFixed(0);
-
-  console.log(changeNumber);
 
   return (
     <StatContainer color={backgroundColor}>

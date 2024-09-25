@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 
 const Status = styled.div`
   ${(props) =>
-    props.$status === "Suspended" &&
+    props.$status === "Ongoing" &&
     css`
       color: #fe9e46;
     `}
@@ -19,9 +19,9 @@ const Status = styled.div`
       color: #fc5555;
     `}
   ${(props) =>
-    props.$status === "Pending" &&
+    props.$status === "Scheduled" &&
     css`
-      color: #fedf46;
+      color: #2405ec;
     `}
 `;
 

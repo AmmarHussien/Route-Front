@@ -7,7 +7,7 @@ function BlockUser() {
   return (
     <div>
       <Modal>
-        <Modal.Open opens="user-form">
+        <Modal.Open opens="block-user-form">
           <Button
             variant="contained"
             startIcon={<BlockSharp />}
@@ -28,7 +28,7 @@ function BlockUser() {
             Block
           </Button>
         </Modal.Open>
-        <Modal.Window name="user-form">
+        <Modal.Window name="block-user-form">
           <BlockUserForm />
         </Modal.Window>
       </Modal>
