@@ -81,11 +81,11 @@ const MapWithDirections = () => {
     // Cleanup timeout if the component unmounts
     return () => clearTimeout(timer);
   }, [initializeMap, calculateAndDisplayRoute]);
-
+  const MapUrl = process.env.GOOGLE_MAPS_API_KEY;
   return (
     <div style={{ height: "500px", width: "100%" }}>
       <LoadScript
-        googleMapsApiKey="AIzaSyDRjZmZOxz5nP-ZIrZZqs1NJlQ2-XeH3R8" // Replace with your actual API key
+        googleMapsApiKey={MapUrl} // Replace with your actual API key
         libraries={["places", "geometry"]}
       >
         <GoogleMap
