@@ -23,7 +23,7 @@ export default function BlockUserForm() {
       {
         onSuccess: () => {
           // Call editStatus or perform any other actions
-          navigate(`/adminpanel/users?status=Blocked`, {
+          navigate(`/adminPanel/users?status=Blocked`, {
             replace: true,
           });
         },
@@ -59,7 +59,7 @@ export default function BlockUserForm() {
 
       <Button
         type="submit"
-        variant="contained"
+        $variant="contained"
         sx={{
           width: 327,
           height: 56,

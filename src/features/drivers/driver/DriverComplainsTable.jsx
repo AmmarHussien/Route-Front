@@ -1,4 +1,3 @@
-import Pagination from "../../../ui/Pagination";
 import Table from "../../../ui/Table";
 import ComplainsRow from "./ComplainsRow";
 

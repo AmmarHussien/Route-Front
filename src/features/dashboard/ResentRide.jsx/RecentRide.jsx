@@ -1,6 +1,6 @@
 import Menus from "../../../ui/Menus";
 import Table from "../../../ui/Table";
-import useStatistics from "../useStatisctics";
+import useStatistics from "../useStatistics";
 import RideRow from "./RecentRideRow";
 
 function RecentRide() {

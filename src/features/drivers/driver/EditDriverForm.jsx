@@ -434,7 +434,7 @@ function EditDriverForm({ onCloseModal }) {
       {checkOrganization === false ? <FormRowVertical></FormRowVertical> : null}
 
       <FormRow>
-        <Button size="xlarge" type="submit">
+        <Button $size="xlarge" type="submit">
           Submit
         </Button>
       </FormRow>

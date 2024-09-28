@@ -8,7 +8,7 @@ function AddRide() {
       <Modal>
         <Modal.Open opens="user-form">
           <Button
-            variant="contained"
+            $variant="contained"
             startIcon={<AddIcon />}
             sx={{
               height: 56,

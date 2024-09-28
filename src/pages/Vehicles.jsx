@@ -10,12 +10,12 @@ function Vehicles() {
   return (
     <>
       <Row type="horizontal">
-        <Heading variant="h1">Vehicles</Heading>
+        <Heading $variant="h1">Vehicles</Heading>
         <Button
           onClick={() => {
-            navigate("/add-vehicle");
+            navigate("/adminPanel/add-vehicle");
           }}
-          variant="contained"
+          $variant="contained"
           startIcon={<AddIcon />}
           sx={{
             height: 56,

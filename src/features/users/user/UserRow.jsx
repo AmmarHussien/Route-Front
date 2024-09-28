@@ -45,7 +45,7 @@ function UserRow({ userInfo }) {
   } = userInfo;
 
   function handleClick() {
-    navigate(`/adminpanel/driver-information/${driverId}`);
+    navigate(`/adminPanel/driver-information/${driverId}`);
     // Add your click handling logic here
   }
 

@@ -11,7 +11,7 @@ function Unblock() {
     // Pass the required parameters to editStatus
     editStatus({ status: "Approved" }); // Adjust reason and status as needed
 
-    navigate(`/adminpanel/drivers?status=Approved`, {
+    navigate(`/adminPanel/drivers?status=Approved`, {
       replace: true,
     });
   }
@@ -20,14 +20,19 @@ function Unblock() {
     <div>
       <Button
         onClick={handleClick}
-        variant="contained"
+        $variant="contained"
         sx={{
           width: 139,
           height: 56,
           borderRadius: 5,
           fontSize: 16,
-          background: "#005379",
+          background: "#FEE2E2",
+          color: "#FC5555",
           shadow: "0 4 60 0 #0038FF26",
+          "&:hover": {
+            background: "#EFF6FF",
+            boxShadow: "0 4px 60px 0 #0038FF26",
+          },
         }}
       >
         Unblock

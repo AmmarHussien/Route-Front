@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 const StatContainer = styled.div`
@@ -6,11 +5,11 @@ const StatContainer = styled.div`
   flex-direction: row;
   justify-content: start;
   align-items: start;
+  width: 20%;
   padding: 16px;
   border-radius: 33.6px;
   gap: 16px;
   background: ${(props) => props.color};
-  width: 25%;
 `;
 const Icon = styled.div`
   width: 56px;
@@ -111,54 +110,13 @@ function hexToRgba(hex, opacity) {
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
 
-const TooltipWrapper = styled.div`
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-`;
-
-const TooltipText = styled.div`
-  visibility: ${({ show }) => (show ? "visible" : "hidden")};
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px;
-  border-radius: 4px;
-
-  /* Positioning */
-  position: absolute;
-  transform: translateX(-30%);
-  transform: translateY(8%);
-  margin-bottom: 5px;
-
-  /* CSS transition for smooth fade */
-  opacity: ${({ show }) => (show ? 1 : 0)};
-  transition: opacity 0.3s ease;
-`;
-
-const Tooltip = ({ text, children }) => {
-  const [show, setShow] = useState(false);
-
-  return (
-    <TooltipWrapper
-      onMouseEnter={() => setShow(true)}
-      onMouseLeave={() => setShow(false)}
-    >
-      {children}
-      <TooltipText show={text ? show : null}>{text}</TooltipText>
-    </TooltipWrapper>
-  );
-};
-
-function ProfitStat({
+function RatingStat({
   icon,
   title,
   pastMonthValue,
   thisMonthValue,
   backgroundColor,
   colorIconBackground,
-  currency,
 }) {
   const changeNumber =
     pastMonthValue === 0
@@ -177,19 +135,7 @@ function ProfitStat({
       <TextContainer>
         <Title>{title}</Title>
         <ValuesContainer>
-          <Tooltip
-            text={
-              thisMonthValue
-                ? `${thisMonthValue.toLocaleString()}K ${currency}`
-                : null
-            }
-          >
-            <Value>
-              {thisMonthValue > 1000
-                ? `${Math.floor(thisMonthValue / 1000)}K ${currency}`
-                : `${thisMonthValue} ${currency}`}
-            </Value>
-          </Tooltip>
+          <Value>{thisMonthValue.toFixed(2)}</Value>
           <ChangeMetric>
             {changeNumber > 0 ? (
               <ChangeNumberContainer>
@@ -215,4 +161,4 @@ function ProfitStat({
   );
 }
 
-export default ProfitStat;
+export default RatingStat;

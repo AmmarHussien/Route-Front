@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Table from "../../ui/Table";
 import styled, { css } from "styled-components";
 
@@ -26,18 +26,22 @@ const Status = styled.div`
 `;
 
 function RidesRow({ RideInfo }) {
-  const navigete = useNavigate();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const params = searchParams.get("status");
+
   const {
     id,
     driver: driverName,
     user: userName,
-    created_at: dateAndTime,
+    created_at: createdDate,
+    scheduled_date,
     price,
     status,
   } = RideInfo;
 
   function handleClick() {
-    navigete(`/adminpanel/rides/ride-information/${id}`);
+    navigate(`/adminPanel/rides/ride-information/${id}`);
 
     // Add your click handling logic here
   }
@@ -45,13 +49,23 @@ function RidesRow({ RideInfo }) {
   return (
     <Table columns="0.4fr 1fr 1fr 1fr 1fr 1fr">
       <Table.Row>
-        <div onClick={handleClick} style={{ cursor: "pointer" }}>
-          {id}
-        </div>
+        {params === "All" || params === null ? (
+          <div>{id}</div>
+        ) : (
+          <div onClick={handleClick} style={{ cursor: "pointer" }}>
+            {id}
+          </div>
+        )}
+
         <div>{driverName}</div>
         <div>{userName}</div>
-        <div>{dateAndTime}</div>
-        <div>{price}</div>
+        <div>{createdDate}</div>
+        {params === "Scheduled" ? (
+          <div>{scheduled_date}</div>
+        ) : (
+          <div>{price}</div>
+        )}
+
         <Status $status={status}>{status}</Status>
       </Table.Row>
     </Table>

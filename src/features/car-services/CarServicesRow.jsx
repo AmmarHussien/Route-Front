@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom/dist";
 import Table from "../../ui/Table";
 
 function CarServicesRow({ carService }) {
-  const navigete = useNavigate();
+  const navigate = useNavigate();
   const { userName, carModel, plateNumber, requestData, phoneNumber, id } =
     carService;
 
   function handleClick() {
-    navigete(`/adminpanel/car-service-information/${id}`);
+    navigate(`/adminPanel/car-service-information/${id}`);
     // Add your click handling logic here
   }
 

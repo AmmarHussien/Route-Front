@@ -41,7 +41,7 @@ const issueData = {
 
 function ServiceInformation() {
   const moveBack = useMoveBack();
-  const navigete = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -53,7 +53,7 @@ function ServiceInformation() {
         <Row type="horizontal">
           <Button
             onClick={() => {
-              navigete("/adminpanel/edit-car-services");
+              navigate("/adminPanel/edit-car-services");
             }}
             variant="contained"
             //startIcon={<AddIcon />}

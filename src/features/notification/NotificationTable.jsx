@@ -16,7 +16,7 @@ function NotificationTable({ notification, isLoading, notificationCount }) {
         <div>Message</div>
         <div>Date</div>
         <div>Platform</div>
-        <div>Resever</div>
+        <div>Reserver</div>
       </Table.Header>
 
       {!notification?.length ? (

@@ -309,7 +309,11 @@ function CreateUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRow>
-        <Button disabled={isAdded || isLoading} size="xlarge">
+        <Button
+          disabled={isAdded || isLoading}
+          $size="xlarge"
+          variation={"primary"}
+        >
           Submit
         </Button>
       </FormRow>

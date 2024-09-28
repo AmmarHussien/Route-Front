@@ -2,14 +2,14 @@ import axios from "axios";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
-export async function addNewNotes(id, note) {
+export async function addNewNotes(id, note, type) {
   const token = localStorage.getItem("authToken");
 
   console.log(note);
 
   try {
     const response = await axios.post(
-      `${URL}notes/${id}/driver`,
+      `${URL}notes/${id}/${type}`,
       {
         description: note,
       },

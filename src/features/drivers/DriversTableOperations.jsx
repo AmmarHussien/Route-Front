@@ -13,7 +13,7 @@ function DriversTableOperations({ searchTerm, setSearchTerm }) {
           { value: "Approved", label: "Approved" },
           { value: "Pending", label: "Pending" },
           { value: "Blocked", label: "Blocked" },
-          // { value: "Suspended", label: "Suspended" },
+          { value: "Suspended", label: "Suspended" },
         ]}
       />
 

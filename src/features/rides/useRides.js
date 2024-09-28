@@ -7,7 +7,7 @@ function useRides() {
   const [searchParams] = useSearchParams();
 
   // Filter Logic
-  const filterValue = searchParams.get("status") || "Completed";
+  const filterValue = searchParams.get("status") || " ";
   const filter =
     filterValue && filterValue !== "All"
       ? { field: "status", value: filterValue }

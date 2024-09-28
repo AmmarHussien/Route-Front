@@ -9,28 +9,29 @@ import DriverInformationWithImage from "./DriverInformationWithImage";
 import AcceptDriver from "./AcceptDriver";
 import RejectDriver from "./RejectDriver";
 
+const Row = styled.div`
+  display: flex;
+
+  ${(props) =>
+    props.type === "horizontal" &&
+    css`
+      //justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    `}
+
+  ${(props) =>
+    props.type === "vertical" &&
+    css`
+      flex-direction: column;
+      //gap: 1.6rem;
+      align-items: start;
+    `}
+`;
+
 function DriverPendingInformation() {
-  const Row = styled.div`
-    display: flex;
-
-    ${(props) =>
-      props.type === "horizontal" &&
-      css`
-        //justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-      `}
-
-    ${(props) =>
-      props.type === "vertical" &&
-      css`
-        flex-direction: column;
-        //gap: 1.6rem;
-        align-items: start;
-      `}
-  `;
   const moveBack = useMoveBack();
-  //const navigete = useNavigate();
+  //const navigate = useNavigate();
 
   const { userId } = useParams(); // Extract userId from the URL
 
@@ -96,9 +97,9 @@ function DriverPendingInformation() {
               ? { carLicenseExpiry: vehicle_license }
               : vehicle_license && { carLicenseExpiry: vehicle_license }),
             ...(tow_truck_registration === " "
-              ? { towTruckRegisterion: tow_truck_registration }
+              ? { towTruckRegistration: tow_truck_registration }
               : tow_truck_registration && {
-                  towTruckRegisterion: tow_truck_registration,
+                  towTruckRegistration: tow_truck_registration,
                 }),
             codeForCostPerKm: "10$" || "",
             ...(car_spec === " "

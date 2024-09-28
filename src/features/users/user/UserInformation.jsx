@@ -68,7 +68,6 @@ function UserInformation() {
       <Row type="horizontal" even={false}>
         <Row type="vertical">
           <ButtonText onClick={moveBack}>&larr; Users</ButtonText>
-          <h1>User Information</h1>
         </Row>
         <Row type="horizontal">
           <EditUser />
@@ -96,7 +95,7 @@ function UserInformation() {
             CarModel: model,
             registrationYear: registration_year,
             TotalRating: rate,
-            WalletBalance: { balance, currency },
+            WalletBalance: [balance, " ", currency],
           }}
           title="Activities Info"
         />

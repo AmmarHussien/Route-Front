@@ -10,13 +10,14 @@ function EditDriver() {
       <Modal>
         <Modal.Open opens="edit-driver-form">
           <Button
-            variant="contained"
+            $variant="contained"
             startIcon={<EditSharp />}
             sx={{
               width: 139,
               height: 56,
               borderRadius: 5,
               fontSize: 16,
+              color: "white",
               background: "#005379",
               shadow: "0 4 60 0 #0038FF26",
             }}

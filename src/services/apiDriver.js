@@ -117,7 +117,7 @@ export async function getDriver(id) {
   } catch (error) {
     throw new Error(
       error.response?.data?.message ||
-        "Fetching driverr failed due to an unexpected error"
+        "Fetching driver failed due to an unexpected error"
     );
   }
 }

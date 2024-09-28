@@ -58,13 +58,7 @@ function InformationItemTable({ title, data }) {
         {Object.entries(data).map(([key, value], index) => (
           <RowItem key={key} $even={index % 2 === 1}>
             <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-            <Value>
-              {typeof value === "object" &&
-              value.hasOwnProperty("balance") &&
-              value.hasOwnProperty("currency")
-                ? `${value.balance} ${value.currency}`
-                : value}
-            </Value>
+            <Value>{value}</Value>
           </RowItem>
         ))}
       </Table>

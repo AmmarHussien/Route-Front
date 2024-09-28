@@ -23,7 +23,7 @@ const RatingHeaderContainerRight = styled.div`
   align-items: center;
 `;
 
-function RatingHeader({ currentMonth, setCurrentMonth, title, suptitle }) {
+function RatingHeader({ currentMonth, setCurrentMonth, title, subtitle }) {
   const handlePrevMonth = () => {
     setCurrentMonth((prevMonth) => {
       const newMonth = new Date(prevMonth);
@@ -59,8 +59,8 @@ function RatingHeader({ currentMonth, setCurrentMonth, title, suptitle }) {
     <>
       <RatingHeaderContainer>
         <RatingHeaderContainerLeft>
-          <Heading variant="h6">{title}</Heading>
-          <Heading variant="h5">{suptitle}</Heading>
+          <Heading $variant="h6">{title}</Heading>
+          <Heading $variant="h5">{subtitle}</Heading>
         </RatingHeaderContainerLeft>
 
         <RatingHeaderContainerRight>

@@ -42,7 +42,7 @@ export async function getAllRides({ filter, page, sortBy, sortType, perPage }) {
   } catch (error) {
     throw new Error(
       error.response?.data?.message ||
-        "Fetching drivers failed due to an unexpected error"
+        "Fetching Rides failed due to an unexpected error"
     );
   }
 }
@@ -92,7 +92,26 @@ export async function getSearch({
   } catch (error) {
     throw new Error(
       error.response?.data?.message ||
-        "Fetching Drivers failed due to an unexpected error"
+        "Fetching Rides failed due to an unexpected error"
+    );
+  }
+}
+
+export async function getRide(id) {
+  const token = localStorage.getItem("authToken");
+  try {
+    const response = await axios.get(`${URL}rides/${id}`, {
+      headers: {
+        ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+      },
+      // Pass the prepared query parameters
+    });
+
+    return response.data.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+        "Fetching Rides failed due to an unexpected error"
     );
   }
 }

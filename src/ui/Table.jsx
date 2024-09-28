@@ -112,8 +112,8 @@ function TableNaView({ title, subtitle }) {
   return (
     <StyledNav>
       <StyledNavDiv>
-        <Heading variant="h6">{title}</Heading>
-        <Heading variant="h5">{subtitle}</Heading>
+        <Heading $variant="h6">{title}</Heading>
+        <Heading $variant="h5">{subtitle}</Heading>
       </StyledNavDiv>
     </StyledNav>
   );
@@ -123,7 +123,7 @@ function TableNav({ title, tableData }) {
   return (
     <StyledNav>
       <StyledNavDiv>
-        <Heading variant="h6">{title}</Heading>
+        <Heading $variant="h6">{title}</Heading>
       </StyledNavDiv>
       <StyledNavDiv>
         <StyledNavIcon>

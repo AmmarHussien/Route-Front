@@ -39,7 +39,7 @@ function ProtectedRoute({ children }) {
       </FullPage>
     );
 
-  // 4. if there is a user , reander the app
+  // 4. if there is a user , render the app
   if (isAuthenticated) return children;
 }
 

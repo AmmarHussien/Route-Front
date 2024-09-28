@@ -91,7 +91,11 @@ function CreateDriverForm({ onCloseModal }) {
     formData.append("criminal_record", criminalRecord);
     formData.append("national_id", nationalId);
     formData.append("tow_truck_registration", towTruckRegistration);
-    formData.append("organization_id", selectedOrganization);
+
+    if (checkOrganization) {
+      formData.append("organization_id", selectedOrganization);
+    }
+
     formData.append("car_type_id", selectCarType);
     formData.append("car_spec", data.car_spec);
 
@@ -365,7 +369,7 @@ function CreateDriverForm({ onCloseModal }) {
       {checkOrganization === false ? <FormRowVertical></FormRowVertical> : null}
 
       <FormRow>
-        <Button size="xlarge" type="submit" disabled={isWorking}>
+        <Button $size="xlarge" type="submit" disabled={isWorking}>
           Submit
         </Button>
       </FormRow>

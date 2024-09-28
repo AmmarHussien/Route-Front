@@ -46,7 +46,7 @@ function RatingsReview() {
     <>
       <RatingHeader
         title={"Ratings Review"}
-        suptitle={"Breakdown of the received reviews"}
+        subtitle={"Breakdown of the received reviews"}
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
       />

@@ -1,39 +1,45 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useUpdateStatus from "./useUpdateStatus";
+import { FaUserClock } from "react-icons/fa";
 
-function AcceptDriver() {
+function SuspendedDriver() {
   const navigate = useNavigate();
 
   const { editStatus } = useUpdateStatus();
 
   function handleClick() {
     // Pass the required parameters to editStatus
-    editStatus({ status: "Approved" }); // Adjust reason and status as needed
+    editStatus({ status: "Suspended" }); // Adjust reason and status as needed
 
-    navigate(`/adminPanel/drivers?status=Approved`, {
+    navigate(`/adminPanel/drivers?status=Suspended`, {
       replace: true,
     });
   }
   return (
     <div>
       <Button
-        onClick={handleClick}
         $variant="contained"
+        startIcon={<FaUserClock />}
         sx={{
-          width: 139,
+          width: 149,
           height: 56,
           borderRadius: 5,
           fontSize: 16,
-          color: "white",
-          background: "#005379",
+          background: "#f8eadc",
+          color: "#fe9e46",
           shadow: "0 4 60 0 #0038FF26",
+          "&:hover": {
+            background: "#EFF6FF",
+            boxShadow: "0 4px 60px 0 #0038FF26",
+          },
         }}
+        onClick={handleClick}
       >
-        Accept
+        Suspended
       </Button>
     </div>
   );
 }
 
-export default AcceptDriver;
+export default SuspendedDriver;

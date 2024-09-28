@@ -3,12 +3,12 @@ import Table from "../../ui/Table";
 import styled, { css } from "styled-components";
 
 function VehiclesRow({ userInfo }) {
-  const navigete = useNavigate();
+  const navigate = useNavigate();
 
   const { id, modal, owner, licenseExpiry, status } = userInfo;
 
   function handleClick() {
-    navigete(`/adminpanel/Vehicle-information/${id}`);
+    navigate(`/adminPanel/Vehicle-information/${id}`);
     // Add your click handling logic here
   }
   const Div = styled.div`

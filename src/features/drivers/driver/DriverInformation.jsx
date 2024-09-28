@@ -12,16 +12,8 @@ import Spinner from "../../../ui/Spinner";
 import DriverInformationWithImage from "./DriverInformationWithImage";
 import RecentRideTable from "./RecentRideTable";
 import Unblock from "./Unblock";
-import { useEffect } from "react";
-import { useNotes } from "./useNotes";
-
-const ActivityData = {
-  CreditBalance: 1500,
-  TotalRating: 5,
-  TotalRides: 150,
-  TotalEarning: 5500,
-  TotalPoints: 100,
-};
+import SuspendedDriver from "./Suspended";
+import UnSuspended from "./Unsuspend";
 
 const Row = styled.div.withConfig({
   shouldForwardProp: (prop) => !["even"].includes(prop),
@@ -49,7 +41,6 @@ const Row = styled.div.withConfig({
 
 function DriverInformation() {
   const moveBack = useMoveBack();
-  //const navigete = useNavigate();
 
   const { userId } = useParams(); // Extract userId from the URL
 
@@ -66,6 +57,10 @@ function DriverInformation() {
     notes,
     rides,
     status,
+    total_rating,
+    total_rides,
+    total_earning,
+    currency,
   } = driverData;
 
   if (isLoading) return <Spinner />;
@@ -75,11 +70,20 @@ function DriverInformation() {
       <Row type="horizontal" even={false}>
         <Row type="vertical">
           <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
-          <h1>Driver Information</h1>
         </Row>
         <Row type="horizontal">
           <EditDriver />
-          {status === "Blocked" ? <Unblock /> : <BlockDriver />}
+
+          {status === "Suspended" ? null : status === "Blocked" ? (
+            <Unblock />
+          ) : (
+            <BlockDriver />
+          )}
+          {status === "Blocked" ? null : status === "Suspended" ? (
+            <UnSuspended />
+          ) : (
+            <SuspendedDriver />
+          )}
         </Row>
       </Row>
 
@@ -97,7 +101,16 @@ function DriverInformation() {
           }}
           title="Drivers's Info"
         />
-        <InformationItemTable data={ActivityData} title="Activities Info" />
+        <InformationItemTable
+          data={{
+            CreditBalance: [0, " ", currency],
+            TotalRating: total_rating,
+            TotalRides: total_rides,
+            TotalEarning: [total_earning, " ", currency],
+            TotalPoints: 0,
+          }}
+          title="Activities Info"
+        />
       </Row>
 
       <RecentRideTable rides={rides} />

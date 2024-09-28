@@ -11,7 +11,7 @@ function AcceptUser() {
     // Pass the required parameters to editStatus
     editStatus({ status: "Approved" }); // Adjust reason and status as needed
 
-    navigate(`/adminpanel/users?status=Approved`, {
+    navigate(`/adminPanel/users?status=Approved`, {
       replace: true,
     });
   }
@@ -20,7 +20,7 @@ function AcceptUser() {
     <div>
       <Button
         onClick={handleClick}
-        variant="contained"
+        $variant="contained"
         sx={{
           width: 139,
           height: 56,

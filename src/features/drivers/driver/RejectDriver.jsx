@@ -6,7 +6,7 @@ function RejectDriver() {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`/adminpanel/drivers?status=Pending`, {
+    navigate(`/adminPanel/drivers?status=Pending`, {
       replace: true,
     });
     // Add your click handling logic here

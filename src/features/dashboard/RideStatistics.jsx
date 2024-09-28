@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
-import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
-import DirectionsCarOutlinedIcon from "@mui/icons-material/DirectionsCarOutlined";
-import CancelPresentationOutlinedIcon from "@mui/icons-material/CancelPresentationOutlined";
-import StatistecsItem from "./StatistecsItem";
-import useStatistics from "./useStatisctics";
+
+import StatisticsItem from "./StatisticsItem";
+import useStatistics from "./useStatistics";
 
 const StyledTextContainer = styled.div`
   top: 16px;
@@ -37,31 +35,31 @@ function RideStatistics() {
   return (
     <>
       <StyledTextContainer>
-        <Heading variant="h6">Rides statistics</Heading>
-        <Heading variant="h5">
+        <Heading $variant="h6">Rides statistics</Heading>
+        <Heading $variant="h5">
           Indication for the total rides over this month
         </Heading>
       </StyledTextContainer>
       <StyledContentContainer>
-        <StatistecsItem
+        <StatisticsItem
           icon="/Complete.svg"
           title={"Complete"}
           color="#20C992"
-          statistecs={statistics.completedRides}
+          statistics={statistics.completedRides}
         />
         <VerticalDivider />
-        <StatistecsItem
+        <StatisticsItem
           icon="/Ongoing.svg"
           title={"Ongoing"}
           color="#EAB308"
-          statistecs={statistics.ongoingRides}
+          statistics={statistics.ongoingRides}
         />
         <VerticalDivider />
-        <StatistecsItem
+        <StatisticsItem
           icon="/Cancelled.svg"
           title={"Cancelled"}
           color="#FC5555"
-          statistecs={statistics.cancelledRides}
+          statistics={statistics.cancelledRides}
         />
       </StyledContentContainer>
     </>

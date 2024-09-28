@@ -67,7 +67,7 @@ const View = styled.div`
   font-weight: 600px;
   color: #1447d4;
 `;
-const Avater = styled.div`
+const Avatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,14 +104,14 @@ function DriverInformationWithImage({ data, title }) {
             <RowItem key={key} $even={index % 2 === 1}>
               {key === "userName" &&
               key !== "nationalId" &&
-              key !== "driverIicense" &&
+              key !== "driverLicense" &&
               key !== "profileImage" &&
               key !== "carLicenseExpiry" &&
-              key !== "towTruckRegisterion" &&
+              key !== "towTruckRegistration" &&
               key !== "criminalRecord" &&
               key !== "carImage" ? (
                 <Row type="horizontal">
-                  <Avater>
+                  <Avatar>
                     <p>
                       {
                         value
@@ -121,7 +121,7 @@ function DriverInformationWithImage({ data, title }) {
                           .join(" ") // Join the letters with a space
                       }
                     </p>
-                  </Avater>
+                  </Avatar>
                   <Row type="vertical">
                     {value}
                     {index < array.length - 1 && (
@@ -133,7 +133,7 @@ function DriverInformationWithImage({ data, title }) {
                 key !== "driverLicense" &&
                 key !== "profileImage" &&
                 key !== "carLicenseExpiry" &&
-                key !== "towTruckRegisterion" &&
+                key !== "towTruckRegistration" &&
                 key !== "criminalRecord" &&
                 key !== "carImage" ? (
                 <>

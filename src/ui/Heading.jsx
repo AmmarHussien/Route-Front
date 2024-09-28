@@ -2,21 +2,21 @@ import styled, { css } from "styled-components";
 
 const Heading = styled.h1`
   ${(props) =>
-    props.variant === "h1" &&
+    props.$variant === "h1" &&
     css`
       font-size: 3rem;
       font-weight: 600;
       //text-align: center;
     `}
   ${(props) =>
-    props.variant === "h2" &&
+    props.$variant === "h2" &&
     css`
       font-size: 2rem;
       font-weight: 600;
       text-align: center;
     `}
   ${(props) =>
-    props.variant === "h3" &&
+    props.$variant === "h3" &&
     css`
       font-size: 2rem;
       font-weight: 500;
@@ -24,14 +24,14 @@ const Heading = styled.h1`
       margin-bottom: 50px;
     `}
   ${(props) =>
-    props.variant === "h4" &&
+    props.$variant === "h4" &&
     css`
       font-size: 1.6rem;
       font-weight: 200;
       text-align: center;
     `}
   ${(props) =>
-    props.variant === "loginPageHeader" &&
+    props.$variant === "loginPageHeader" &&
     css`
       font-size: 33px;
       font-weight: 700;
@@ -40,7 +40,7 @@ const Heading = styled.h1`
       line-height: 30px;
     `}
   ${(props) =>
-    props.variant === "loginPageSlogan" &&
+    props.$variant === "loginPageSlogan" &&
     css`
       font-size: 16px;
       font-weight: 400;
@@ -49,7 +49,7 @@ const Heading = styled.h1`
       line-height: 24px;
     `}
   ${(props) =>
-    props.variant === "h5" &&
+    props.$variant === "h5" &&
     css`
       font-size: 12px;
       font-weight: 400;
@@ -57,7 +57,7 @@ const Heading = styled.h1`
       line-height: 16px;
     `}
   ${(props) =>
-    props.variant === "h6" &&
+    props.$variant === "h6" &&
     css`
       font-size: 15px;
       font-weight: 700;
@@ -65,7 +65,7 @@ const Heading = styled.h1`
       line-height: 21px;
     `}
   ${(props) =>
-    props.variant === "customHeading" &&
+    props.$variant === "customHeading" &&
     css`
       font-family: Noto Sans Display;
       font-size: 20.57px;
@@ -74,7 +74,7 @@ const Heading = styled.h1`
       text-align: right;
     `}
   ${(props) =>
-    props.variant === "statisticsItemText" &&
+    props.$variant === "statisticsItemText" &&
     css`
       font-family: Noto Sans Display;
       font-size: 15px;
@@ -83,7 +83,7 @@ const Heading = styled.h1`
       text-align: center;
     `}
   ${(props) =>
-    props.variant === "statisticsItemNum" &&
+    props.$variant === "statisticsItemNum" &&
     css`
       font-family: Noto Sans Display;
       font-size: 20px;

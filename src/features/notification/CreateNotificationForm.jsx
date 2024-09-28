@@ -14,6 +14,7 @@ import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 import { useEffect } from "react";
+import { useUploader } from "../../hooks/useUploader";
 
 // import toast from "react-hot-toast";
 // import Spinner from "../../ui/Spinner";
@@ -24,17 +25,42 @@ function CreateNotificationForm({ onCloseModal }) {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
       subject: "",
       message: "",
       Platform: [],
-      Resever: [],
+      Reserver: [],
     },
   });
 
   const { addNotification, isAdded } = useAddNotification();
+  const [notificationImage, setNotificationImage] = useState(null);
+  const { upload, isUploaded } = useUploader();
+
+  const handleFileChange = (setFileState) => async (file) => {
+    const uploadData = new FormData();
+    setFileState(file);
+    setValue(file.name, file);
+
+    uploadData.append("file", file);
+    uploadData.append("dir", "users");
+
+    try {
+      const response = await upload(uploadData);
+      setNotificationImage(response);
+    } catch (error) {
+      //console.error("Upload failed:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (notificationImage) {
+      // This runs every time profileImage changes
+    }
+  }, [notificationImage]);
 
   useEffect(() => {
     if (isAdded) {
@@ -42,11 +68,9 @@ function CreateNotificationForm({ onCloseModal }) {
     }
   }, [isAdded]); //
 
-  // const selectedPlatform = watch("Platform"); // Get the current selected values
-  // const selectedResever = watch("Resever"); // Get the current selected values
-
   const onSubmit = async (data) => {
     const formData = new FormData();
+    const imagePath = notificationImage ? notificationImage.path : "";
 
     const formattedDate = dayjs(dateValue).format("YYYY-MM-DD HH:mm");
 
@@ -57,15 +81,17 @@ function CreateNotificationForm({ onCloseModal }) {
       formData.append("platform[]", platformItem); // Note the use of "platform[]" to denote an array
     });
 
-    // Append each Resever item individually
-    data.Resever.forEach((reseverItem) => {
-      formData.append("app_type[]", reseverItem); // Same for "app_type[]"
+    // Append each Reserver item individually
+    data.Reserver.forEach((reserverItem) => {
+      formData.append("app_type[]", reserverItem); // Same for "app_type[]"
     });
     formData.append("date", formattedDate);
 
     formData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     });
+
+    formData.append("photo", imagePath);
 
     try {
       addNotification(formData, {
@@ -139,11 +165,11 @@ function CreateNotificationForm({ onCloseModal }) {
 
       <FormRowVertical>
         <Controller
-          name="Resever"
+          name="Reserver"
           control={control}
           render={({ field: { onChange, value } }) => (
             <MultiSelectDropDownMenu
-              title="Resever"
+              title="Reserver"
               options={["Driver", "User"]}
               onSelect={onChange} // Update the form state
               selectedOptions={value} // Provide current value to the component
@@ -156,12 +182,12 @@ function CreateNotificationForm({ onCloseModal }) {
         <FileInput
           placeholder="Photo "
           id="Photo"
-          //onFileChange={handleFileChange(setProfileImage)}
+          onFileChange={handleFileChange(setNotificationImage)}
         />
       </FormRowVertical>
 
       <FormRow>
-        <Button disabled={isAdded} size="xlarge">
+        <Button disabled={isAdded || isUploaded} $size="xlarge">
           Submit
         </Button>
       </FormRow>

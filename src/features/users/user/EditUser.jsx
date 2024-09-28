@@ -9,12 +9,13 @@ function EditUser() {
       <Modal>
         <Modal.Open opens="edit-user-form">
           <Button
-            variant="contained"
+            $variant="contained"
             startIcon={<EditSharp />}
             sx={{
               width: 139,
               height: 56,
               borderRadius: 5,
+              color: "white",
               fontSize: 16,
               background: "#005379",
               shadow: "0 4 60 0 #0038FF26",

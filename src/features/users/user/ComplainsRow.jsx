@@ -26,7 +26,7 @@ function ComplainsRow({ userInfo }) {
     userInfo;
 
   function handleClick() {
-    //navigete(`/user-information/${id}`);
+    //navigate(`/user-information/${id}`);
     // Add your click handling logic here
   }
 

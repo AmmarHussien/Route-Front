@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TotalRating from "./Total Rating/TotalRating";
 import TotalReviews from "./Total Reviews/TotalReviews";
 import RatingsReview from "./Rating Review/RatingsReview";
-import RatingStatisctics from "./Rating Statisctics/RatingStatisctics";
+import RatingStatistics from "./Rating Statistics/RatingStatistics";
 
 const RatingBody = styled.div`
   display: flex;
@@ -49,7 +49,7 @@ const RatingReviewContainer = styled.div`
 function RatingLayout() {
   return (
     <>
-      <RatingStatisctics />
+      <RatingStatistics />
       <RatingBody>
         <TotalRatingContainer>
           <TotalRating />

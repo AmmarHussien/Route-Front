@@ -9,12 +9,13 @@ function NewNotification() {
       <Modal>
         <Modal.Open opens="add-notification-form">
           <Button
-            variant="contained"
+            $variant="contained"
             startIcon={<AddIcon />}
             sx={{
               height: 56,
               borderRadius: 5,
               fontSize: 16,
+              color: "white",
               background: "#005379",
               boxShadow: "0 4px 60px 0 rgba(0, 56, 255, 0.15)", // Updated shadow property
             }}

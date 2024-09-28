@@ -9,7 +9,7 @@ function BlockUser() {
       <Modal>
         <Modal.Open opens="block-user-form">
           <Button
-            variant="contained"
+            $variant="contained"
             startIcon={<BlockSharp />}
             sx={{
               width: 139,

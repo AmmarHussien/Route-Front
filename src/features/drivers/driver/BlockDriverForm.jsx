@@ -23,7 +23,7 @@ export default function BlockDriverForm() {
       {
         onSuccess: () => {
           // Call editStatus or perform any other actions
-          navigate(`/adminpanel/drivers?status=Blocked`, {
+          navigate(`/adminPanel/drivers?status=Blocked`, {
             replace: true,
           });
         },
@@ -59,7 +59,7 @@ export default function BlockDriverForm() {
 
       <Button
         type="submit"
-        variant="contained"
+        $variant="contained"
         sx={{
           width: 327,
           height: 56,
@@ -67,6 +67,7 @@ export default function BlockDriverForm() {
           gap: 4,
           borderRadius: 16,
           fontSize: 16,
+          color: "white",
           background: "#005379",
           shadow: "0 4 60 0 #0038FF26",
           display: "flex",

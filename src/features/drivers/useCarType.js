@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllCarType } from "../../services/apiCarTypr";
+import { getAllCarType } from "../../services/apiCarType";
 
 function useCarType() {
   const {

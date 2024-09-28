@@ -27,14 +27,14 @@ const StyledNum = styled.p`
   text-align: left;
 `;
 
-function StatistecsItem({ icon, title, statistecs, color }) {
+function StatisticsItem({ icon, title, statistics, color }) {
   return (
     <StyledItem>
       <img id={icon} src={icon} alt={icon} />
       <StyledTitle color={color}>{title}</StyledTitle>
-      <StyledNum>{statistecs}</StyledNum>
+      <StyledNum>{statistics}</StyledNum>
     </StyledItem>
   );
 }
 
-export default StatistecsItem;
+export default StatisticsItem;

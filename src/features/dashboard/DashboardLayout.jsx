@@ -3,7 +3,7 @@ import Spinner from "../../ui/Spinner";
 
 import RidesStatistics from "./Statistics";
 import RecentRide from "./ResentRide.jsx/RecentRide";
-import useStatistics from "./useStatisctics";
+import useStatistics from "./useStatistics";
 import SalesChart from "./SalesChart";
 import Stats from "./Stats";
 

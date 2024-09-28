@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ProfitStatisctics from "./Profit Statisctics/ProfitStatisctics";
 import ProfitTableOperations from "./ProfitTableOperations";
 import ProfitTable from "./Admin Table/AdminProfitTable";
 import useAdminProfit from "./Admin Table/useAdminProfit";
@@ -9,6 +8,7 @@ import useAdminSearchProfit from "./Admin Table/useAdminSearchProfit";
 import DriverProfitTable from "./Driver Table/DriverProfitTable";
 import useDriverSearchProfit from "./Driver Table/useDriverSearchProfit";
 import useDriverProfit from "./Driver Table/useDriverProfit";
+import ProfitStatistics from "./Profit Statistics/Statistics";
 
 const ProfitOperationsContainer = styled.div`
   display: flex;
@@ -49,7 +49,7 @@ function ProfitLayout() {
 
   return (
     <>
-      <ProfitStatisctics />
+      <ProfitStatistics />
       <ProfitOperationsContainer>
         <FilterType
           currentFilter={currentFilter}

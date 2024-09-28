@@ -1,9 +1,9 @@
 import Spinner from "../../../ui/Spinner";
 import RatingStats from "./ProfitStats";
-import useProfitStatisticCurrentMonth from "./useProfitStatiscticsCurrentMonth";
-import useProfitStatisticLastMonth from "./useProfitStatiscticsLastMonth";
+import useProfitStatisticCurrentMonth from "./useProfitStatisticsCurrentMonth";
+import useProfitStatisticLastMonth from "./useProfitStatisticsLastMonth";
 
-function ProfitStatisctics() {
+function ProfitStatistics() {
   const { isLoading: currentMonthLoading, profitStatistics: currentMonth } =
     useProfitStatisticCurrentMonth();
 
@@ -29,4 +29,4 @@ function ProfitStatisctics() {
   );
 }
 
-export default ProfitStatisctics;
+export default ProfitStatistics;

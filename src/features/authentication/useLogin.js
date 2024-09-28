@@ -17,7 +17,7 @@ export function useLogin() {
         return;
       }
       toast.success("Login Successfully");
-      navigate("/adminpanel/dashboard", {
+      navigate("/adminPanel/dashboard", {
         replace: true,
       });
       queryClient.setQueryData(["user"], response);

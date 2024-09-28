@@ -34,9 +34,9 @@ function LoginLogo() {
     <Box>
       <StyledFormRow>
         <Image src="/Logo.svg" alt="" />
-        <Heading variant="loginPageHeader">Welcom To Route</Heading>
-        <Heading variant="loginPageHeader"> Admin Panel</Heading>
-        <Heading variant="h4">
+        <Heading $variant="loginPageHeader">Welcome To Route</Heading>
+        <Heading $variant="loginPageHeader"> Admin Panel</Heading>
+        <Heading $variant="h4">
           Login now to manage your account and check your pending request
         </Heading>
       </StyledFormRow>

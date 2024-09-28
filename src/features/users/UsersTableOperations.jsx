@@ -10,12 +10,9 @@ function UsersTableOperations({ searchTerm, setSearchTerm }) {
         <Filter
           filterField="status"
           options={[
-            // { value: "All", label: "All" },
-
             { value: "Approved", label: "Approved" },
-            // { value: "Pending", label: "Pending" },
+
             { value: "Blocked", label: "Blocked" },
-            // { value: "Suspended", label: "Suspended" },
           ]}
         />
         <SearchField searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -46,14 +43,6 @@ function UsersTableOperations({ searchTerm, setSearchTerm }) {
               value: "phone-desc",
               label: "Sort Phone Numbers (9-1)",
             },
-            // {
-            //   value: "email-desc",
-            //   label: "Sort by Email (recent first)",
-            // },
-            // {
-            //   value: "email-asc",
-            //   label: "Sort by Email (earlier first)",
-            // },
           ]}
         />
       </TableOperations>

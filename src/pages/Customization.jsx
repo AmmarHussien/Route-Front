@@ -1,12 +1,12 @@
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
-function Customisation() {
+function Customization() {
   return (
     <Row type="horizontal">
-      <Heading variant="h1">Customisation</Heading>
+      <Heading variant="h1">Customization</Heading>
     </Row>
   );
 }
 
-export default Customisation;
+export default Customization;

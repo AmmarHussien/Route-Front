@@ -35,10 +35,10 @@ function DriversRow({ driverInfo }) {
     // Navigate based on status
     if (status === "Pending") {
       navigate(
-        `/adminpanel/drivers/driver-pending-information/${driverInfo.id}`
+        `/adminPanel/drivers/driver-pending-information/${driverInfo.id}`
       );
     } else {
-      navigate(`/adminpanel/drivers/driver-information/${driverInfo.id}`);
+      navigate(`/adminPanel/drivers/driver-information/${driverInfo.id}`);
     }
 
     // Update search parameters in the URL

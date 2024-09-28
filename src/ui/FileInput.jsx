@@ -39,6 +39,7 @@ const styles = {
 function FileInput({ placeholder, id, onFileChange, defaultValue }) {
   const [fileName, setFileName] = useState("");
   const [fileUrl, setFileUrl] = useState(null);
+  const [fileInputKey, setFileInputKey] = useState(0);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -54,6 +55,7 @@ function FileInput({ placeholder, id, onFileChange, defaultValue }) {
         onFileChange(file); // Pass the file object to the parent component
       }
     }
+    setFileInputKey((prevKey) => prevKey + 1); // Change the key to force re-render
   };
 
   useEffect(() => {
@@ -73,7 +75,15 @@ function FileInput({ placeholder, id, onFileChange, defaultValue }) {
 
     const fileInput = document.getElementById(id);
     if (fileInput) {
-      fileInput.value = null; // Reset the file input
+      // Reset the file input
+      fileInput.value = null;
+
+      // Trigger a change event to update the state
+      const event = new Event("change", {
+        bubbles: true,
+        cancelable: true,
+      });
+      fileInput.dispatchEvent(event);
     } else {
       //console.warn(`Element with id ${id} not found.`);
     }
@@ -90,6 +100,7 @@ function FileInput({ placeholder, id, onFileChange, defaultValue }) {
         accept=".webp, .jpeg, .png, .jpg, .pdf, .doc, .docx, .mp4"
         style={styles.fileInput}
         onChange={handleFileChange}
+        key={fileInputKey}
       />
       {fileName ? (
         <>

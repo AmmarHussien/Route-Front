@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { useMoveBack } from "../../../hooks/useMoveBack";
 import ButtonText from "../../../ui/ButtonText";
-import InformationItemTable from "../../users/user/InformationItemTable";
+import InformationItemTable from "./InformationItemTable";
 
 import Spinner from "../../../ui/Spinner";
 import UserInformationWithImage from "./UserInformationWithImage";

@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import "./InternalNotes.css"; // Make sure to create this CSS file
 import { useParams } from "react-router-dom";
-import { useNotes } from "../../features/drivers/driver/useNotes";
+import { useDriverNotes } from "../../features/drivers/driver/useDriverNotes";
+import { useRideNotes } from "../../features/rides/ride/useRideNotes";
 
 const InternalNotes = ({ notes: initialNotes }) => {
   const [note, setNote] = useState("");
   const [notes, setNotes] = useState(initialNotes);
 
-  const { userId } = useParams(); // Extract userId from the URL
+  const { userId, Id } = useParams(); // Extract userId from the URL
 
-  const { isAdded, addNote } = useNotes();
+  const { isAdded: DriverLoading, addNote: DriverNotes } = useDriverNotes();
+  const { isAdded: RideLoading, addNote: RiderNotes } = useRideNotes();
 
   const handleAddNote = () => {
     if (note.trim() !== "") {
@@ -19,18 +21,23 @@ const InternalNotes = ({ notes: initialNotes }) => {
         created_at: new Date().toLocaleString(),
       };
 
-      addNote({ userId, note: newNote.description });
+      if (Id === undefined) {
+        DriverNotes({ userId, note: newNote.description });
+      } else {
+        RiderNotes({ Id, note: newNote.description });
+      }
+
       setNotes([...notes, newNote]);
       setNote("");
     }
   };
 
   useEffect(() => {
-    if (isAdded) {
+    if (DriverLoading || RideLoading) {
       // Update the notes state to reflect the addition (already handled above with setNotes)
       //console.log("New note added successfully, updating UI...");
     }
-  }, [isAdded]); // This effect runs when `isAdded` changes
+  }, [DriverLoading, RideLoading]); // This effect runs when `isAdded` changes
 
   return (
     <div className="internal-notes">

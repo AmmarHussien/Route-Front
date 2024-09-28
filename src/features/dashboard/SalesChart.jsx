@@ -147,8 +147,8 @@ function SalesChart() {
     <StyledSalesChart>
       <StyledSalesChartHeader>
         <StyledSalesChartHeaderLeft>
-          <Heading variant="h6">Total Revenues</Heading>
-          <Heading variant="h5">
+          <Heading $variant="h6">Total Revenues</Heading>
+          <Heading $variant="h5">
             Indication for the total revenue over this month
           </Heading>
         </StyledSalesChartHeaderLeft>

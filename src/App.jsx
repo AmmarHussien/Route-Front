@@ -41,7 +41,7 @@ import DriverInformation from "./features/drivers/driver/DriverInformation";
 import DriverPendingInformation from "./features/drivers/driver/DriverPendingInformation";
 import VehicleInformation from "./features/vehicles/vehicle/VehicleInformation";
 import RideInformation from "./features/rides/ride/RideInformation";
-import UserPendingInformation from "./features/users/user/UserPendingInformarion";
+import UserPendingInformation from "./features/users/user/UserPendingInformation";
 import Spinner from "./ui/Spinner";
 
 // Configure QueryClient
@@ -66,55 +66,55 @@ function AdminRoutes() {
       >
         <Route
           index
-          element={<Navigate replace to="/adminpanel/dashboard" />}
+          element={<Navigate replace to="/adminPanel/dashboard" />}
         />
         <Route
-          path="/adminpanel"
-          element={<Navigate replace to="/adminpanel/dashboard" />}
+          path="/adminPanel"
+          element={<Navigate replace to="/adminPanel/dashboard" />}
         />
-        <Route path="/adminpanel/dashboard" element={<Dashboard />} />
-        <Route path="/adminpanel/car-services" element={<CarService />} />
+        <Route path="/adminPanel/dashboard" element={<Dashboard />} />
+        <Route path="/adminPanel/car-services" element={<CarService />} />
         <Route
-          path="/adminpanel/car-services/car-service-information/:Id"
+          path="/adminPanel/car-services/car-service-information/:Id"
           element={<ServiceInformation />}
         />
-        <Route path="/adminpanel/users" element={<Users />} />
+        <Route path="/adminPanel/users" element={<Users />} />
         <Route
-          path="/adminpanel/users/user-information/:Id"
+          path="/adminPanel/users/user-information/:Id"
           element={<UserInformation />}
         />
         <Route
-          path="/adminpanel/users/user-pending-information/:Id"
+          path="/adminPanel/users/user-pending-information/:Id"
           element={<UserPendingInformation />}
         />
-        <Route path="/adminpanel/drivers" element={<Drivers />} />
+        <Route path="/adminPanel/drivers" element={<Drivers />} />
         <Route
-          path="/adminpanel/drivers/driver-information/:userId"
+          path="/adminPanel/drivers/driver-information/:userId"
           element={<DriverInformation />}
         />
         <Route
-          path="/adminpanel/drivers/driver-pending-information/:userId"
+          path="/adminPanel/drivers/driver-pending-information/:userId"
           element={<DriverPendingInformation />}
         />
-        <Route path="/adminpanel/rides" element={<Rides />} />
+        <Route path="/adminPanel/rides" element={<Rides />} />
         <Route
-          path="/adminpanel/rides/ride-information/:Id"
+          path="/adminPanel/rides/ride-information/:Id"
           element={<RideInformation />}
         />
-        <Route path="/adminpanel/vehicles" element={<Vehicles />} />
+        <Route path="/adminPanel/vehicles" element={<Vehicles />} />
         <Route
-          path="/adminpanel/vehicles/vehicle-information/:Id"
+          path="/adminPanel/vehicles/vehicle-information/:Id"
           element={<VehicleInformation />}
         />
-        <Route path="/adminpanel/logistic" element={<Logistic />} />
-        <Route path="/adminpanel/profit" element={<Profit />} />
-        <Route path="/adminpanel/documents" element={<Documents />} />
+        <Route path="/adminPanel/logistic" element={<Logistic />} />
+        <Route path="/adminPanel/profit" element={<Profit />} />
+        <Route path="/adminPanel/documents" element={<Documents />} />
         <Route
-          path="/adminpanel/push-notification"
+          path="/adminPanel/push-notification"
           element={<PushNotification />}
         />
-        <Route path="/adminpanel/rating" element={<Rating />} />
-        <Route path="/adminpanel/promos" element={<Promos />} />
+        <Route path="/adminPanel/rating" element={<Rating />} />
+        <Route path="/adminPanel/promos" element={<Promos />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/*" element={<PageNotFound />} />

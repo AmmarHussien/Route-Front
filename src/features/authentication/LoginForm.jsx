@@ -57,8 +57,8 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Heading variant="h1">Welcom Back!</Heading>
-      <Heading variant="h5">
+      <Heading $variant="h1">Welcome Back!</Heading>
+      <Heading $variant="h5">
         Login to manage and check your pending request
       </Heading>
       <FormRowVertical label="">

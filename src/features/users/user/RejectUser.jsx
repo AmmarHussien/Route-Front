@@ -6,7 +6,7 @@ function RejectUser() {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`/adminpanel/users?status=Pending`, {
+    navigate(`/adminPanel/users?status=Pending`, {
       replace: true,
     });
     // Add your click handling logic here
@@ -16,7 +16,7 @@ function RejectUser() {
     <div>
       <Button
         onClick={handleClick}
-        variant="contained"
+        $variant="contained"
         sx={{
           width: 139,
           height: 56,

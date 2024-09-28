@@ -34,7 +34,7 @@ function TotalRating() {
     <>
       <RatingHeader
         title={"Total Ratings"}
-        suptitle={"Indication for top ratings users and drivers"}
+        subtitle={"Indication for top ratings users and drivers"}
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
       />

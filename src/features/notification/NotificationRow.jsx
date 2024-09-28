@@ -27,7 +27,7 @@ const PlatformWrapper = styled.div`
     `}
 `;
 
-const ReseverSpan = styled.span`
+const ReserverSpan = styled.span`
   ${(props) =>
     props.$platform === "Driver" &&
     css`
@@ -40,7 +40,7 @@ const ReseverSpan = styled.span`
     `}
 `;
 
-const ReseverWrapper = styled.div`
+const ReserverWrapper = styled.div`
   ${({ $multiple }) =>
     $multiple &&
     css`
@@ -74,14 +74,16 @@ function NotificationRow({ notification }) {
             ))}
         </PlatformWrapper>
 
-        <ReseverWrapper $multiple={notification.app_type.split("-").length > 1}>
+        <ReserverWrapper
+          $multiple={notification.app_type.split("-").length > 1}
+        >
           {notification.app_type.split("-").map((appTypeItem, index, array) => (
-            <ReseverSpan key={appTypeItem} $platform={appTypeItem}>
+            <ReserverSpan key={appTypeItem} $platform={appTypeItem}>
               {appTypeItem}
               {index < array.length - 1 && " - "}
-            </ReseverSpan>
+            </ReserverSpan>
           ))}
-        </ReseverWrapper>
+        </ReserverWrapper>
       </Table.Row>
     </Table>
   );

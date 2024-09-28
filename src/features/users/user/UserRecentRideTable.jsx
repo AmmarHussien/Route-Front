@@ -20,7 +20,7 @@ function UsersRecentRideTable({ rides }) {
         render={(item) => <UserRow userInfo={item} key={item.id} />}
       />
 
-      <Table.Footer>{/* <Pagination count={rides.length} /> */}</Table.Footer>
+      <Table.Footer></Table.Footer>
     </Table>
   );
 }

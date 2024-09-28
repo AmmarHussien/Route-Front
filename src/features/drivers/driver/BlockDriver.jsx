@@ -10,7 +10,7 @@ function BlockDriver() {
       <Modal>
         <Modal.Open opens="block-driver-form">
           <Button
-            variant="contained"
+            $variant="contained"
             startIcon={<BlockSharp />}
             sx={{
               width: 139,

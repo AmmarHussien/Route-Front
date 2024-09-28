@@ -4,7 +4,7 @@ import RatingStats from "./RatingStats";
 import useOverallRatingDriver from "./useOverallRatingDriver";
 import useOverallRatingUser from "./useOverallRatingUser";
 
-function RatingStatisctics() {
+function RatingStatistics() {
   const {
     isLoading: userLoading,
     overAllRatingUser,
@@ -38,15 +38,9 @@ function RatingStatisctics() {
         overAllPastMonthRatingUser={pastMonthRatingUser}
         overAllThisMonthRatingDriver={thisMonthRatingDriver}
         overAllPastMonthRatingDriver={pastMonthRatingDriver}
-        feedbackcollectedThisMonth={3}
-        feedbackcollectedPastMonth={2.3}
-        PendingFeedbackThisMonth={2.3}
-        PendingFeedbackPastMonth={3}
-        FeedbackperDayThisMonth={4}
-        FeedbackperDayPastMonth={2}
       />
     </>
   );
 }
 
-export default RatingStatisctics;
+export default RatingStatistics;

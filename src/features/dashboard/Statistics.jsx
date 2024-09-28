@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import RideStatistics from "./RideStatistics";
-import DriverStatistecs from "./DriverStatistecs";
+import DriverStatistics from "./DriverStatistics";
 
 const Container = styled.div`
   gap: 10px;
@@ -28,7 +28,7 @@ function Statistics() {
         <RideStatistics />
       </StyledContainer>
       <StyledContainer>
-        <DriverStatistecs />
+        <DriverStatistics />
       </StyledContainer>
     </Container>
   );

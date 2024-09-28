@@ -26,11 +26,11 @@ const Status = styled.div`
 `;
 
 function UsersRow({ userInfo }) {
-  const navigete = useNavigate();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   function handleClick() {
-    navigete(`/adminpanel/users/user-information/${userInfo.id}`);
+    navigate(`/adminPanel/users/user-information/${userInfo.id}`);
 
     // Add your click handling logic here
   }

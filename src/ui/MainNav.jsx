@@ -52,7 +52,7 @@ function MainNav() {
     <nav>
       <NavList>
         <li>
-          <StyledNavLink to="/adminpanel/dashboard">
+          <StyledNavLink to="/adminPanel/dashboard">
             <img
               id="dashboard-img"
               src="/Dashboard.svg"
@@ -70,7 +70,7 @@ function MainNav() {
           </StyledNavLink>
         </li> */}
         <li>
-          <StyledNavLink to="/adminpanel/users">
+          <StyledNavLink to="/adminPanel/users">
             <img
               id="users-img"
               src="/Users.svg"
@@ -82,7 +82,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/adminpanel/drivers">
+          <StyledNavLink to="/adminPanel/drivers">
             <img
               id="drivers-img"
               src="/Drivers.svg"
@@ -94,7 +94,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/adminpanel/rides">
+          <StyledNavLink to="/adminPanel/rides">
             <img
               id="rides-img"
               src="/Rides.svg"
@@ -126,7 +126,7 @@ function MainNav() {
         </li> */}
 
         <li>
-          <StyledNavLink to="/adminpanel/rating">
+          <StyledNavLink to="/adminPanel/rating">
             <img
               id="rating-img"
               src="/Rating.svg"
@@ -138,7 +138,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/adminpanel/profit">
+          <StyledNavLink to="/adminPanel/profit">
             <img
               id="Profit-img"
               src="/Profit.svg"
@@ -150,7 +150,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/adminpanel/push-notification">
+          <StyledNavLink to="/adminPanel/push-notification">
             <img
               id="Notification-img"
               src="/Notification.svg"
@@ -168,9 +168,9 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/customisation">
+          <StyledNavLink to="/customization">
             <HiOutlineCog6Tooth />
-            <span>Customisation</span>
+            <span>Customization</span>
           </StyledNavLink>
         </li> */}
       </NavList>

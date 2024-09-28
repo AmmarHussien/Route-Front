@@ -11,17 +11,17 @@ function CarService() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <Heading variant="h1">Car service</Heading>
-          <Heading variant="h5">
+          <Heading $variant="h1">Car service</Heading>
+          <Heading $variant="h5">
             Select between the manual requests and live requests which has been
             added from user’s end
           </Heading>
         </Row>
         <Button
           onClick={() => {
-            navigate("/adminpanel/add-car-services");
+            navigate("/adminPanel/add-car-services");
           }}
-          variant="contained"
+          $variant="contained"
           startIcon={<AddIcon />}
           sx={{
             width: 139,

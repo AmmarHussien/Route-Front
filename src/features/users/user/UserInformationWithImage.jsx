@@ -68,7 +68,7 @@ const Value = styled.div`
   color: #272424;
 `;
 
-const Avater = styled.div`
+const Avatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -105,7 +105,7 @@ function UserInformationWithImage({ data, title }) {
             <RowItem key={key} $even={index % 2 === 1}>
               {key === "userName" ? (
                 <Row type="horizontal">
-                  <Avater>
+                  <Avatar>
                     <p>
                       {
                         value
@@ -115,7 +115,7 @@ function UserInformationWithImage({ data, title }) {
                           .join(" ") // Join the letters with a space
                       }
                     </p>
-                  </Avater>
+                  </Avatar>
                   <Row type="vertical">
                     {value}
                     {index < array.length - 1 && (

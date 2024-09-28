@@ -23,7 +23,7 @@ function TotalReviews() {
     <>
       <RatingHeader
         title={"Total Reviews"}
-        suptitle={"Indication for the total Reviews over this month"}
+        subtitle={"Indication for the total Reviews over this month"}
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
       />

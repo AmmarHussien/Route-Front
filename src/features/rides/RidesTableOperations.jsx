@@ -9,8 +9,9 @@ function RidesTableOperations({ searchTerm, setSearchTerm }) {
       <Filter
         filterField="status"
         options={[
+          { value: "All", label: "All Ride" },
           { value: "Completed", label: "Completed" },
-          { value: "Ongoing", label: "Ongoing" },
+          // { value: "Ongoing", label: "Ongoing" },
           { value: "Scheduled", label: "Scheduled" },
           { value: "Cancelled", label: "Cancelled" },
         ]}

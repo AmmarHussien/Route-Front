@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
 import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
@@ -5,6 +6,8 @@ import Table from "../../ui/Table";
 import RidesRow from "./RidesRow";
 
 function RidesTable({ rides, isLoading, ridesCount }) {
+  const [searchParams] = useSearchParams();
+  const params = searchParams.get("status");
   // Show the loading spinner while the data is being fetched
   if (isLoading) return <Spinner />;
 
@@ -18,8 +21,9 @@ function RidesTable({ rides, isLoading, ridesCount }) {
         <div>Ride ID</div>
         <div>Driver Name</div>
         <div>User Name</div>
-        <div>Date and Time</div>
-        <div>Price</div>
+        <div>Created Date</div>
+        {params === "Scheduled" ? <div>Scheduled Date</div> : <div>Price</div>}
+
         <div>Status</div>
       </Table.Header>
 
