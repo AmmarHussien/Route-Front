@@ -1,12 +1,7 @@
-import Heading from "../ui/Heading";
-import Row from "../ui/Row";
+import CustomizationLayout from "../features/customization/CustomizationLayout";
 
 function Customization() {
-  return (
-    <Row type="horizontal">
-      <Heading variant="h1">Customization</Heading>
-    </Row>
-  );
+  return <CustomizationLayout />;
 }
 
 export default Customization;

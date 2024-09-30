@@ -1,13 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-const NavList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  width: 247px;
-  gap: 0.8rem;
-`;
-
 const StyledNavLink = styled(NavLink)`
   &:link,
   &:visited {
@@ -47,6 +40,36 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
+const DropdownContainer = styled.div`
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+
+  padding: 5px;
+
+  &:hover > ul {
+    display: block;
+  }
+`;
+
+const DropdownItem = styled(StyledNavLink)`
+  padding: 12px 16px;
+  display: block;
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #eff6ff;
+  }
+`;
+
+const NavList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  width: 247px;
+  gap: 0.8rem;
+`;
+
 function MainNav() {
   return (
     <nav>
@@ -63,12 +86,7 @@ function MainNav() {
             <span>Dashboard</span>
           </StyledNavLink>
         </li>
-        {/* <li>
-          <StyledNavLink to="/car-services">
-            <HiOutlineCalendarDays />
-            <span>Car Services</span>
-          </StyledNavLink>
-        </li> */}
+
         <li>
           <StyledNavLink to="/adminPanel/users">
             <img
@@ -105,26 +123,6 @@ function MainNav() {
             <span>Rides</span>
           </StyledNavLink>
         </li>
-        {/* <li>
-          <StyledNavLink to="/vehicles">
-            <HiOutlineCog6Tooth />
-            <span>Vehicles</span>
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/logistic">
-            <HiOutlineCog6Tooth />
-            <span>Logistic</span>
-          </StyledNavLink>
-        </li>
-        
-        <li>
-          <StyledNavLink to="/documents">
-            <HiOutlineCog6Tooth />
-            <span>Documents</span>
-          </StyledNavLink>
-        </li> */}
-
         <li>
           <StyledNavLink to="/adminPanel/rating">
             <img
@@ -161,18 +159,34 @@ function MainNav() {
             <span>Push Notification</span>
           </StyledNavLink>
         </li>
-        {/* <li>
-          <StyledNavLink to="/promos">
-            <HiOutlineCog6Tooth />
-            <span>Promos</span>
-          </StyledNavLink>
-        </li>
+
         <li>
-          <StyledNavLink to="/customization">
-            <HiOutlineCog6Tooth />
+          <StyledNavLink to="/adminPanel/customization">
+            <img
+              id="Customization-img"
+              src="/Customization.svg"
+              alt="Customization"
+              width="30"
+              height="30"
+            />
             <span>Customization</span>
           </StyledNavLink>
-        </li> */}
+
+          <DropdownContainer>
+            <DropdownItem to="/adminPanel/customization/services">
+              Services
+            </DropdownItem>
+            <DropdownItem to="/adminPanel/customization/organization">
+              Organization
+            </DropdownItem>
+            <DropdownItem to="/adminPanel/customization/driverCar">
+              Driver Car
+            </DropdownItem>
+            <DropdownItem to="/adminPanel/customization/userCar">
+              User Car
+            </DropdownItem>
+          </DropdownContainer>
+        </li>
       </NavList>
     </nav>
   );

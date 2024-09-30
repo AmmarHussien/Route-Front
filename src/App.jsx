@@ -43,6 +43,10 @@ import VehicleInformation from "./features/vehicles/vehicle/VehicleInformation";
 import RideInformation from "./features/rides/ride/RideInformation";
 import UserPendingInformation from "./features/users/user/UserPendingInformation";
 import Spinner from "./ui/Spinner";
+import Customization from "./pages/Customization";
+import ViewCarBrand from "./features/customization/User Car//Brand/ViewCarBrand";
+import ServicesLayout from "./features/customization/Service/ServicesLayout";
+import CarBrandLayout from "./features/customization/User Car/Brand/CarBrandLayout";
 
 // Configure QueryClient
 const queryClient = new QueryClient({
@@ -115,6 +119,27 @@ function AdminRoutes() {
         />
         <Route path="/adminPanel/rating" element={<Rating />} />
         <Route path="/adminPanel/promos" element={<Promos />} />
+        <Route path="/adminPanel/customization" element={<Customization />} />
+        <Route
+          path="/adminPanel/customization/services"
+          element={<ServicesLayout />}
+        />
+        <Route
+          path="/adminPanel/customization/organization"
+          element={<ViewCarBrand />}
+        />
+        <Route
+          path="/adminPanel/customization/driverCar"
+          element={<ViewCarBrand />}
+        />
+        <Route
+          path="/adminPanel/customization/userCar"
+          element={<CarBrandLayout />}
+        />
+        <Route
+          path="/adminPanel/customization/userCar/:CarBrand/:Id"
+          element={<ViewCarBrand />}
+        />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/*" element={<PageNotFound />} />

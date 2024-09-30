@@ -59,7 +59,7 @@ export default function BlockUserForm() {
 
       <Button
         type="submit"
-        $variant="contained"
+        variant="contained"
         sx={{
           width: 327,
           height: 56,

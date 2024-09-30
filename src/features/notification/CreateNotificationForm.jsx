@@ -135,7 +135,7 @@ function CreateNotificationForm({ onCloseModal }) {
               message: "Message must be at Most 180 characters",
             },
           })}
-          sx={{
+          $sx={{
             backgroundColor: "rgb(247, 248, 250)",
           }}
         />

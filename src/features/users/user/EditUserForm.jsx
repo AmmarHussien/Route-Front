@@ -336,7 +336,7 @@ function EditUserForm({ onCloseModal }) {
       <FormRow>
         <Button
           type="submit"
-          $variant="contained"
+          variant="contained"
           sx={{
             width: 139,
             height: 56,

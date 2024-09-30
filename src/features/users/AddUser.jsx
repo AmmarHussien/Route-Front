@@ -9,7 +9,7 @@ function AddUser() {
       <Modal>
         <Modal.Open opens="add-user-form">
           <Button
-            $variant="contained"
+            variant="contained"
             startIcon={<AddIcon />}
             sx={{
               height: 56,

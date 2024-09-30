@@ -9,7 +9,7 @@ function NewNotification() {
       <Modal>
         <Modal.Open opens="add-notification-form">
           <Button
-            $variant="contained"
+            variant="contained"
             startIcon={<AddIcon />}
             sx={{
               height: 56,
