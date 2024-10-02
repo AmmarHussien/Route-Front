@@ -1,8 +1,17 @@
+import styled from "styled-components";
 import Spinner from "../../../ui/Spinner";
 
 import RatingStats from "./RatingStats";
 import useOverallRatingDriver from "./useOverallRatingDriver";
 import useOverallRatingUser from "./useOverallRatingUser";
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+`;
 
 function RatingStatistics() {
   const {
@@ -21,7 +30,7 @@ function RatingStatistics() {
   }
 
   if (userError || driverError) {
-    return <div>Error loading rating</div>;
+    return <ErrorMessage>Error loading rating</ErrorMessage>;
   }
 
   const thisMonthRatingUser = overAllRatingUser?.over_all_ratings_this_month;

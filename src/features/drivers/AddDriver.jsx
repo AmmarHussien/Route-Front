@@ -9,7 +9,7 @@ function AddDriver() {
       <Modal>
         <Modal.Open opens="add-driver-form">
           <Button
-            $variant="contained"
+            variant="contained"
             startIcon={<AddIcon />}
             sx={{
               height: 56,

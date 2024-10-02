@@ -6,11 +6,12 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import ButtonText from "../../../../ui/ButtonText";
 import { useMoveBack } from "../../../../hooks/useMoveBack";
-import useModel from "../../../users/useModel";
 import { useParams } from "react-router-dom";
 import Row from "../../../../ui/Row";
 import Heading from "../../../../ui/Heading";
-import ViewCarModel from "../ViewCarModel";
+import ViewCarModel from "../Model/ViewCarModel";
+import useModel from "../Model/useModel";
+import AddModel from "../Model/AddModel";
 
 const Box = styled.div`
   width: 50%;
@@ -32,7 +33,7 @@ function ViewCarBrand() {
 
   if (isLoading || modelLoading) return <Spinner />;
 
-  const active = manufactures.is_active === 1 ? "True" : "False";
+  const active = manufactures.is_active === true ? "True" : "False";
 
   return (
     <>
@@ -52,16 +53,18 @@ function ViewCarBrand() {
         <Row type="vertical">
           <Heading $variant="h1">{manufactures.name.en} Models</Heading>
         </Row>
-        {/* <AddBrand /> */}
+        <AddModel />
       </Row>
 
       <Row type="horizontal">
         <BoxModels>
-          {models.map((models, index) => (
-            <>
-              <ViewCarModel id={models.id} />
-            </>
-          ))}
+          {Array.isArray(models) && models.length > 0 ? (
+            models.map((model, index) => (
+              <ViewCarModel id={model.id} key={index} />
+            ))
+          ) : (
+            <p>No models found.</p> // You can add a fallback message or placeholder here
+          )}
         </BoxModels>
       </Row>
     </>

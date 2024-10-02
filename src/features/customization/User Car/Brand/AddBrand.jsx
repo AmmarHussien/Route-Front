@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import AddModel from "./AddBrandModal";
+import AddBrandModal from "./AddBrandModal";
 
 function AddBrand() {
   const [open, setOpen] = useState(false);
@@ -25,8 +25,8 @@ function AddBrand() {
         >
           Add Brand
         </Button>
+        <AddBrandModal open={open} setOpen={setOpen} />
       </div>
-      <AddModel open={open} setOpen={setOpen} />
     </>
   );
 }

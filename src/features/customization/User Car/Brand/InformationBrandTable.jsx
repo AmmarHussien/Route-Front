@@ -66,7 +66,6 @@ function InformationBrandTable({ title, data }) {
   const handleOpen = () => setOpen(true);
 
   const { mutate: deleteManufacture, isLoading } = useDeleteManufactures();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -127,11 +126,7 @@ function InformationBrandTable({ title, data }) {
           {Object.entries(data).map(([key, value], index) => (
             <RowItem key={key} $even={index % 2 === 1}>
               <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-              {value === null ? (
-                <Value> {"0"} </Value>
-              ) : (
-                <Value> {value} </Value>
-              )}
+              <Value> {value} </Value>
             </RowItem>
           ))}
         </Table>

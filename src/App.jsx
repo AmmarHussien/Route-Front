@@ -47,6 +47,8 @@ import Customization from "./pages/Customization";
 import ViewCarBrand from "./features/customization/User Car//Brand/ViewCarBrand";
 import ServicesLayout from "./features/customization/Service/ServicesLayout";
 import CarBrandLayout from "./features/customization/User Car/Brand/CarBrandLayout";
+import ViewServices from "./features/customization/Service/ViewServices";
+import OrganizationLayout from "./features/customization/Organization/OrganizationLayout";
 
 // Configure QueryClient
 const queryClient = new QueryClient({
@@ -125,13 +127,14 @@ function AdminRoutes() {
           element={<ServicesLayout />}
         />
         <Route
-          path="/adminPanel/customization/organization"
-          element={<ViewCarBrand />}
+          path="/adminPanel/customization/services/viewServices/:serviceId"
+          element={<ViewServices />}
         />
         <Route
-          path="/adminPanel/customization/driverCar"
-          element={<ViewCarBrand />}
+          path="/adminPanel/customization/organization"
+          element={<OrganizationLayout />}
         />
+
         <Route
           path="/adminPanel/customization/userCar"
           element={<CarBrandLayout />}

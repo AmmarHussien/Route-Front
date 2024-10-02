@@ -46,7 +46,7 @@ function CreateNotificationForm({ onCloseModal }) {
     setValue(file.name, file);
 
     uploadData.append("file", file);
-    uploadData.append("dir", "users");
+    uploadData.append("dir", "notifications");
 
     try {
       const response = await upload(uploadData);

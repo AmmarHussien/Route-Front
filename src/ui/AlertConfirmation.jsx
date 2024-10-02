@@ -29,10 +29,10 @@ export default function AlertConfirmation({ open, setOpen, deleting }) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Are You Sure For Deleting This Brand?"}</DialogTitle>
+        <DialogTitle>{"Are You Sure For Deleting This?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            "Any users who engage with this brand may be impacted."
+            "Any users who engage with this may be impacted."
           </DialogContentText>
         </DialogContent>
         <DialogActions>

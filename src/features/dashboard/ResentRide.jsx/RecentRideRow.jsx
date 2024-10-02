@@ -27,6 +27,12 @@ const Status = styled.div`
     css`
       color: #1e48a3;
     `}
+
+    ${(props) =>
+    props.$status === "Scheduled" &&
+    css`
+      color: #8b760c;
+    `}
 `;
 
 const TableData = styled.p`

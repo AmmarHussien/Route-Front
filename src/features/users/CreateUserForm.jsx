@@ -14,6 +14,15 @@ import useModel from "./useModel";
 import { useUploader } from "../../hooks/useUploader";
 import toast from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
+import styled from "styled-components";
+
+const StyledLabel = styled.label`
+  font-size: 16px;
+  color: #333; /* Dark gray text */
+  font-weight: bold;
+  margin-right: 10px; /* Add space between label and input */
+  display: inline-block;
+`;
 
 function CreateUserForm({ onCloseModal }) {
   const {
@@ -131,6 +140,7 @@ function CreateUserForm({ onCloseModal }) {
       type={onCloseModal ? "grid" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
+        <StyledLabel htmlFor="firstName">First Name</StyledLabel>
         <Input
           type="text"
           id="firstName"
@@ -142,6 +152,7 @@ function CreateUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.lastName?.message}>
+        <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
         <Input
           placeholder="Last Name"
           type="text"
@@ -157,6 +168,7 @@ function CreateUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.phoneNumber?.message}>
+        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
         <Input
           placeholder="Phone Number"
           type="text"
@@ -172,6 +184,7 @@ function CreateUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
+        <StyledLabel htmlFor="email">Email</StyledLabel>
         <Input
           placeholder="Email"
           type="email"
@@ -188,6 +201,7 @@ function CreateUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
+        <StyledLabel htmlFor="password">Password</StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
             placeholder="Password"
@@ -228,7 +242,7 @@ function CreateUserForm({ onCloseModal }) {
         </div>
       </FormRowVertical>
       <FormRowVertical error={errors?.confirmPassword?.message}>
-        {" "}
+        <StyledLabel htmlFor="ConfirmPassword">Confirm Password</StyledLabel>{" "}
         <div style={{ position: "relative" }}>
           <Input
             placeholder="Confirm Password"
@@ -258,6 +272,8 @@ function CreateUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledLabel htmlFor="UserPhoto">User Photo</StyledLabel>
+
         <FileInput
           placeholder="User Photo (optional)"
           id="UserPhoto"
@@ -266,6 +282,7 @@ function CreateUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledLabel htmlFor="carBrand">Car brands</StyledLabel>
         <DropDownMenu
           title="Car brands"
           options={manufactureOptions}
@@ -278,6 +295,7 @@ function CreateUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledLabel htmlFor="carModels">Car Models</StyledLabel>
         <DropDownMenu
           title="Car Models"
           options={modelOptions}
@@ -290,6 +308,7 @@ function CreateUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical error={errors?.registrationYear?.message}>
+        <StyledLabel htmlFor="registrationYear">Model Year</StyledLabel>
         <Input
           placeholder="Model Year"
           type="text"

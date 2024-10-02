@@ -7,10 +7,19 @@ import TotalRatingFilter from "./TotalRatingFilter";
 import useTotalRating from "./useTotalRating";
 import { format } from "date-fns/format";
 import Spinner from "../../../ui/Spinner";
+import styled from "styled-components";
 
 // const StyledBody = styled.section`
 //   margin: 0.4rem 0;
 // `;
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+`;
 
 function TotalRating() {
   const [currentFilter, setCurrentFilter] = useState("Drivers");
@@ -27,7 +36,7 @@ function TotalRating() {
   }
 
   if (error) {
-    return <div>Error loading rating</div>;
+    return <ErrorMessage>Error loading rating</ErrorMessage>;
   }
 
   return (

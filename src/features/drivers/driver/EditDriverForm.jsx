@@ -15,6 +15,15 @@ import useEditDriver from "./useEditDriver";
 import DropDownMenu from "../../../ui/DropDownMenu";
 import useOrganizations from "../useOrganizations";
 import useCarType from "../useCarType";
+import styled from "styled-components";
+
+const StyledLabel = styled.label`
+  font-size: 16px;
+  color: #333; /* Dark gray text */
+  font-weight: bold;
+  margin-right: 10px; /* Add space between label and input */
+  display: inline-block;
+`;
 
 function EditDriverForm({ onCloseModal }) {
   const { userId } = useParams();
@@ -36,7 +45,7 @@ function EditDriverForm({ onCloseModal }) {
     organization: {
       id: organizationId = null, // Fallback to null if organization or id is undefined
       name: organizationName = "Unknown Organization", // Fallback to a default name
-    } = {}, // Fallback to empty object if organization is undefinedorganization: { id: organizationId, name: organizationName },
+    } = {}, // Fallback to empty object if organization is undefined organization: { id: organizationId, name: organizationName },
     car_type: { id: carTypeId, name: carTypeName },
   } = driverData || {};
   const { register, handleSubmit, setValue, reset, formState } = useForm();
@@ -189,6 +198,7 @@ function EditDriverForm({ onCloseModal }) {
       type={onCloseModal ? "gridx3" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
+        <StyledLabel htmlFor="firstName">First Name</StyledLabel>
         <Input
           type="text"
           id="firstName"
@@ -202,6 +212,7 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.lastName?.message}>
+        <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
         <Input
           placeholder="Last Name"
           type="text"
@@ -219,6 +230,7 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.phoneNumber?.message}>
+        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
         <Input
           placeholder="Phone Number"
           type="text"
@@ -229,6 +241,7 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
+        <StyledLabel htmlFor="email">Email</StyledLabel>
         <Input
           placeholder="Email"
           type="email"
@@ -247,6 +260,7 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
+        <StyledLabel htmlFor="password">Password</StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
             placeholder="Password"
@@ -272,6 +286,7 @@ function EditDriverForm({ onCloseModal }) {
         </div>
       </FormRowVertical>
       <FormRowVertical error={errors?.confirmPassword?.message}>
+        <StyledLabel htmlFor="confirmPassword">Confirm Password</StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
             placeholder="Confirm Password"
@@ -298,6 +313,7 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledLabel htmlFor="carType">Car Type</StyledLabel>
         <DropDownMenu
           title="Car Type"
           options={carTypeOptions}
@@ -336,6 +352,7 @@ function EditDriverForm({ onCloseModal }) {
 
       {organizationName ? (
         <FormRowVertical>
+          <StyledLabel htmlFor="organization">Organization</StyledLabel>
           <Input
             type="text"
             id="organization"
@@ -347,6 +364,7 @@ function EditDriverForm({ onCloseModal }) {
         </FormRowVertical>
       ) : selectedOrganization === null && checkOrganization === true ? (
         <FormRowVertical>
+          <StyledLabel htmlFor="Organizations">Organizations</StyledLabel>
           <DropDownMenu
             title="Organizations"
             options={organizationsOptions}
@@ -359,6 +377,7 @@ function EditDriverForm({ onCloseModal }) {
       ) : null}
 
       <FormRowVertical>
+        <StyledLabel htmlFor="nationalId">National Id</StyledLabel>
         <FileInput
           placeholder="National Id"
           id="nationalId"
@@ -367,6 +386,7 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical>
+        <StyledLabel htmlFor="profileImage">Driver Photo</StyledLabel>
         <FileInput
           placeholder="Driver Photo"
           id="profileImage"
@@ -375,14 +395,16 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical>
+        <StyledLabel htmlFor="driverLicense">Driver License</StyledLabel>
         <FileInput
-          placeholder="Driver License Photo"
+          placeholder="Driver License"
           id="driverLicense"
           onFileChange={handleFileChange(setDriverLicense)}
           defaultValue={driver_license}
         />
       </FormRowVertical>
       <FormRowVertical>
+        <StyledLabel htmlFor="vehicleLicense">Vehicle License</StyledLabel>
         <FileInput
           placeholder="Vehicle License"
           id="vehicleLicense"
@@ -391,6 +413,7 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical>
+        <StyledLabel htmlFor="vehicleImage">Vehicle Image</StyledLabel>
         <FileInput
           placeholder="Vehicle Image"
           id="vehicleImage"
@@ -399,6 +422,7 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical>
+        <StyledLabel htmlFor="criminalRecord">Criminal Record</StyledLabel>
         <FileInput
           placeholder="Criminal Record"
           id="criminalRecord"
@@ -407,6 +431,9 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical>
+        <StyledLabel htmlFor="towTruckRegistration">
+          Tow Truck Registration
+        </StyledLabel>
         <FileInput
           placeholder="Tow Truck Registration"
           id="towTruckRegistration"
@@ -415,6 +442,7 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.carSpec?.message}>
+        <StyledLabel htmlFor="carSpec">Car Spec</StyledLabel>
         <Textarea
           type="text"
           id="carSpec"

@@ -19,7 +19,7 @@ function UnSuspended() {
   return (
     <div>
       <Button
-        $variant="contained"
+        variant="contained"
         sx={{
           width: 159,
           height: 56,

@@ -10,6 +10,7 @@ import useServices from "./useServices";
 import styled from "styled-components";
 import Row from "../../../ui/Row";
 import Heading from "../../../ui/Heading";
+import { useNavigate } from "react-router-dom";
 
 const CardGrid = styled.div`
   display: grid;
@@ -27,7 +28,7 @@ const StyledCardMedia = styled(CardMedia)`
 
 function ServicesLayout() {
   const { isLoading, services } = useServices();
-  console.log(services);
+  const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
 
@@ -51,7 +52,15 @@ function ServicesLayout() {
                 alt={services.name}
                 key={services.name}
                 id={services.id}
-                onClick={() => {}}
+                onClick={
+                  services.is_active
+                    ? () => {
+                        navigate(
+                          `/adminPanel/customization/services/viewServices/${services.id}`
+                        );
+                      }
+                    : null
+                }
               />
               <CardContent>
                 <Typography gutterBottom variant="h4">

@@ -1,14 +1,14 @@
-import Spinner from "../../../ui/Spinner";
+import Spinner from "../../../../ui/Spinner";
 import InformationModelTable from "./InformationModelTable";
-import useModel from "./useViewModel";
+import useViewModel from "./useViewModel";
 
 function ViewCarModel({ id }) {
-  console.log(id);
-  const { models, modelLoading } = useModel(id);
+  const { models, modelLoading } = useViewModel(id);
 
   if (modelLoading) return <Spinner />;
 
-  const active = models.is_active === 1 ? "True" : "False";
+  const active = models.is_active === true ? "True" : "False";
+
   return (
     <InformationModelTable
       data={{

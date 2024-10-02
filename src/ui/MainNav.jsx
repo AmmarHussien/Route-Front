@@ -179,9 +179,6 @@ function MainNav() {
             <DropdownItem to="/adminPanel/customization/organization">
               Organization
             </DropdownItem>
-            <DropdownItem to="/adminPanel/customization/driverCar">
-              Driver Car
-            </DropdownItem>
             <DropdownItem to="/adminPanel/customization/userCar">
               User Car
             </DropdownItem>

@@ -11,8 +11,8 @@ function useCreateManufactures() {
     isError,
     error,
   } = useMutation({
-    mutationFn: ({ englishName, arabicName }) =>
-      createManufacture(englishName, arabicName),
+    mutationFn: ({ englishName, arabicName, logo }) =>
+      createManufacture(englishName, arabicName, logo),
     onSuccess: () => {
       toast.success("Manufactures successfully Edited");
       queryClient.invalidateQueries({

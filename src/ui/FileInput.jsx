@@ -97,7 +97,7 @@ function FileInput({ placeholder, id, onFileChange, defaultValue }) {
       <input
         type="file"
         id={id}
-        accept=".webp, .jpeg, .png, .jpg, .pdf, .doc, .docx, .mp4"
+        accept=".webp, .jpeg, .png, .jpg, .pdf, .doc, .docx, .mp4, .svg"
         style={styles.fileInput}
         onChange={handleFileChange}
         key={fileInputKey}

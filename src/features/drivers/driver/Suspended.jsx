@@ -19,7 +19,7 @@ function SuspendedDriver() {
   return (
     <div>
       <Button
-        $variant="contained"
+        variant="contained"
         startIcon={<FaUserClock />}
         sx={{
           width: 149,

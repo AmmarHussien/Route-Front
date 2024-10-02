@@ -2,15 +2,14 @@ import { Box, Modal } from "@mui/material";
 import FormRowVertical from "../../../ui/FormRowVertical";
 import Input from "../../../ui/Input";
 import Button from "../../../ui/Button";
-import useViewManufactures from "./Brand/useViewManufactures";
 import styled from "styled-components";
-import useEditManufactures from "./Brand/useEditManufactures";
 import { useState } from "react";
+import useCreateOrganization from "./useCreateOrganization";
 
 const style = {
   position: "absolute",
-  top: "34%",
-  left: "70%",
+  top: "50%",
+  left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
@@ -27,23 +26,23 @@ const StyledLabel = styled.label`
   display: inline-block;
 `;
 
-function EditModel({ open, setOpen }) {
+function AddOrganizationModal({ open, setOpen }) {
   const handleClose = () => setOpen(false);
-  const { manufactures } = useViewManufactures();
 
-  const {
-    name: { ar: arabicName, en: englishName },
-    is_active,
-  } = manufactures;
-
-  const [arName, setArName] = useState(arabicName);
-  const [egName, setEgName] = useState(englishName);
-  const [isActive, setIsActive] = useState(is_active);
-
-  const { editManufacture, isLoading, isError, error } = useEditManufactures();
+  const [arName, setArName] = useState();
+  const [egName, setEgName] = useState();
+  const [editError, setEditError] = useState(null);
+  const { createOrganizations, isLoading, isError, error } =
+    useCreateOrganization();
 
   if (isLoading) return <p>Updating...</p>;
   if (isError) return <p>Error: {error.message}</p>;
+
+  const validateArabicName = (name) => {
+    // Check if the string is not empty and contains Arabic characters
+    const arabicRegex = /^[\u0600-\u06FF\s]+$/; // Arabic character range
+    return name.trim() !== "" && arabicRegex.test(name);
+  };
 
   const handleEnglishNameChange = (event) => {
     setEgName(event.target.value);
@@ -53,25 +52,34 @@ function EditModel({ open, setOpen }) {
     setArName(event.target.value);
   };
 
-  const handleIsActiveChange = (event) => {
-    setIsActive(event.target.value);
-  };
-
   const handleClick = () => {
-    console.log(egName, arName, isActive);
+    setEditError(null); // Clear previous error before new submission
 
-    editManufacture(
-      {
-        englishName: egName,
-        arabicName: arName,
-        isActive: isActive,
-      },
-      {
-        onSuccess: () => {
-          handleClose();
+    // Simple validation
+    if (!egName || !arName) {
+      setEditError("Both fields are required.");
+      return;
+    }
+    if (validateArabicName(arName)) {
+      // Proceed with the form submission
+      createOrganizations(
+        {
+          englishName: egName,
+          arabicName: arName,
         },
-      }
-    );
+        {
+          onSuccess: () => {
+            handleClose();
+          },
+          onError: (error) => {
+            setEditError(error.message); // Set the error message and keep the modal open
+          },
+        }
+      );
+    } else {
+      setEditError("Invalid Arabic name. It must contain Arabic characters.");
+      return;
+    }
   };
 
   return (
@@ -83,7 +91,7 @@ function EditModel({ open, setOpen }) {
             type="text"
             id="EnglishName"
             placeholder="English Name"
-            defaultValue={englishName}
+            value={egName}
             onChange={handleEnglishNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
@@ -94,30 +102,23 @@ function EditModel({ open, setOpen }) {
             type="text"
             id="ArabicName"
             placeholder="Arabic Name"
-            defaultValue={arabicName}
+            value={arName}
             onChange={handleArabicNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
-        <FormRowVertical>
-          <StyledLabel htmlFor="isActive">Is Active</StyledLabel>
-          <Input
-            type="text"
-            id="isActive"
-            placeholder="Is Active"
-            defaultValue={is_active}
-            onChange={handleIsActiveChange}
-            $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
-          />
-        </FormRowVertical>
+
         <FormRowVertical>
           <Button type="submit" onClick={handleClick}>
-            Edit
+            Add New Organization
           </Button>
         </FormRowVertical>
+        {editError && (
+          <p style={{ color: "red", marginTop: "10px" }}>Error: {editError}</p>
+        )}
       </Box>
     </Modal>
   );
 }
 
-export default EditModel;
+export default AddOrganizationModal;

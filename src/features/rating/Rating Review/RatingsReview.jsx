@@ -15,11 +15,19 @@ const PieContainer = styled.div`
   padding: 10px;
 `;
 
-const NoDataMessage = styled.div`
-  color: #090909; /* Optional: Styling for the no data message */
-  font-size: 24px; /* Optional: Adjust font size */
+const Empty = styled.p`
+  font-size: 1.6rem;
+  font-weight: 500;
   text-align: center;
-  width: 100%;
+  margin: 2.4rem;
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
 `;
 
 function RatingsReview() {
@@ -31,7 +39,7 @@ function RatingsReview() {
   );
 
   if (error) {
-    return <div>Error loading Ratings Review</div>;
+    return <ErrorMessage>Error loading Ratings Review</ErrorMessage>;
   }
 
   const { reviews } = ratingReviews;
@@ -56,7 +64,7 @@ function RatingsReview() {
       ) : (
         ((maxLength = Math.min(COLORS.length, reviews.length)),
         maxLength === 0 ? (
-          <NoDataMessage>No data to show at the Month</NoDataMessage>
+          <Empty>No data to show at this Moment</Empty>
         ) : (
           <PieContainer>
             <PieCharts

@@ -5,6 +5,14 @@ import FormRow from "../../../ui/FormRow";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useUpdateStatus from "./useUpdateStatus";
+import styled from "styled-components";
+
+const StyledLabel = styled.label`
+  font-size: 16px;
+  color: #333; /* Dark gray text */
+  font-weight: bold;
+  margin-right: 10px; /* Add space between label and input */
+`;
 
 export default function BlockDriverForm() {
   const navigate = useNavigate();
@@ -34,6 +42,7 @@ export default function BlockDriverForm() {
   return (
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
       <FormRow label="Description">
+        <StyledLabel htmlFor="reason">Reason</StyledLabel>
         <Input
           placeholder="Reason"
           type="text"

@@ -20,7 +20,7 @@ function AcceptUser() {
     <div>
       <Button
         onClick={handleClick}
-        $variant="contained"
+        variant="contained"
         sx={{
           width: 139,
           height: 56,

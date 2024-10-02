@@ -40,7 +40,7 @@ export async function getManufacture(id) {
   }
 }
 
-export async function createManufacture(englishName, arabicName) {
+export async function createManufacture(englishName, arabicName, logo) {
   const token = localStorage.getItem("authToken");
 
   try {
@@ -51,6 +51,7 @@ export async function createManufacture(englishName, arabicName) {
           en: englishName,
           ar: arabicName,
         },
+        logo: logo,
       },
       {
         headers: {

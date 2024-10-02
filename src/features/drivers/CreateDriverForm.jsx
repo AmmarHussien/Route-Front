@@ -13,6 +13,15 @@ import useOrganizations from "./useOrganizations";
 import Textarea from "../../ui/Textarea";
 import useCarType from "./useCarType";
 import Spinner from "../../ui/Spinner";
+import styled from "styled-components";
+
+const StyledLabel = styled.label`
+  font-size: 16px;
+  color: #333; /* Dark gray text */
+  font-weight: bold;
+  margin-right: 10px; /* Add space between label and input */
+  display: inline-block;
+`;
 
 function CreateDriverForm({ onCloseModal }) {
   const { register, handleSubmit, setValue, reset, formState, watch } =
@@ -127,6 +136,7 @@ function CreateDriverForm({ onCloseModal }) {
       type={onCloseModal ? "gridx3" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
+        <StyledLabel htmlFor="firstName">First Name</StyledLabel>
         <Input
           type="text"
           id="firstName"
@@ -142,6 +152,7 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.lastName?.message}>
+        <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
         <Input
           placeholder="Last Name"
           type="text"
@@ -157,6 +168,7 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.phoneNumber?.message}>
+        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
         <Input
           placeholder="Phone Number"
           type="text"
@@ -172,6 +184,7 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
+        <StyledLabel htmlFor="email">Email</StyledLabel>
         <Input
           placeholder="Email"
           type="email"
@@ -188,6 +201,7 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
+        <StyledLabel htmlFor="password">Password</StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
             placeholder="Password"
@@ -228,6 +242,7 @@ function CreateDriverForm({ onCloseModal }) {
         </div>
       </FormRowVertical>
       <FormRowVertical error={errors?.confirmPassword?.message}>
+        <StyledLabel htmlFor="confirmPassword">Confirm Password</StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
             placeholder="Confirm Password"
@@ -257,6 +272,7 @@ function CreateDriverForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledLabel htmlFor="car-type">Car Type</StyledLabel>
         <DropDownMenu
           title="Car-Type"
           options={carTypeOptions}
@@ -290,6 +306,7 @@ function CreateDriverForm({ onCloseModal }) {
 
       {checkOrganization === true ? (
         <FormRowVertical>
+          <StyledLabel htmlFor="organizations">Organizations</StyledLabel>
           <DropDownMenu
             title="Organizations"
             options={organizationsOptions}
@@ -303,6 +320,7 @@ function CreateDriverForm({ onCloseModal }) {
       ) : null}
 
       <FormRowVertical error={errors?.nationalId?.message}>
+        <StyledLabel htmlFor="nationalId">National Id</StyledLabel>
         <FileInput
           placeholder="National Id"
           id="nationalId"
@@ -310,6 +328,7 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.profileImage?.message}>
+        <StyledLabel htmlFor="profileImage">Profile Image</StyledLabel>
         <FileInput
           placeholder="Driver Photo"
           id="profileImage"
@@ -317,13 +336,15 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.driverLicense?.message}>
+        <StyledLabel htmlFor="driverLicense">Driver License</StyledLabel>
         <FileInput
-          placeholder="Driver License Photo"
+          placeholder="Driver License"
           id="driverLicense"
           onFileChange={handleFileChange(setDriverLicense)}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.vehicleLicense?.message}>
+        <StyledLabel htmlFor="vehicleLicense">Vehicle License</StyledLabel>
         <FileInput
           placeholder="Vehicle License"
           id="vehicleLicense"
@@ -331,6 +352,7 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.vehicleImage?.message}>
+        <StyledLabel htmlFor="vehicleImage">Vehicle Image</StyledLabel>
         <FileInput
           placeholder="Vehicle Image"
           id="vehicleImage"
@@ -338,6 +360,7 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.criminalRecord?.message}>
+        <StyledLabel htmlFor="criminalRecord">Criminal Record</StyledLabel>
         <FileInput
           placeholder="Criminal Record"
           id="criminalRecord"
@@ -345,6 +368,9 @@ function CreateDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.towTruckRegistration?.message}>
+        <StyledLabel htmlFor="towTruckRegistration">
+          Tow Truck Registration
+        </StyledLabel>
         <FileInput
           placeholder="Tow Truck Registration"
           id="towTruckRegistration"
@@ -353,6 +379,7 @@ function CreateDriverForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical error={errors?.carSpec?.message}>
+        <StyledLabel htmlFor="carSpec">Car Spec</StyledLabel>
         <Textarea
           type="text"
           id="carSpec"

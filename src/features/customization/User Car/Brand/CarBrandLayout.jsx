@@ -46,7 +46,7 @@ function CarBrandLayout() {
               <CardMedia
                 component="img"
                 height="300"
-                image="/Cars.svg"
+                image={manufacture.logo}
                 alt={manufacture.name}
                 key={manufacture.name}
                 id={manufacture.id}
