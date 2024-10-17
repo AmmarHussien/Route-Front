@@ -51,7 +51,6 @@ import ViewServices from "./features/customization/Service/ViewServices";
 import OrganizationLayout from "./features/customization/Organization/OrganizationLayout";
 import { useTranslation } from "react-i18next";
 import "../i18n"; // Import the i18n configuration
-import { ErrorBoundary } from "react-error-boundary";
 
 // Configure QueryClient
 const queryClient = new QueryClient({
