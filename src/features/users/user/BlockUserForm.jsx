@@ -5,6 +5,7 @@ import FormRow from "../../../ui/FormRow";
 import { Button } from "@mui/material";
 import useUpdateStatus from "./useUpdateStatus";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function BlockUserForm() {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ export default function BlockUserForm() {
     register,
     formState: { errors },
   } = useForm();
+
+  const { t } = useTranslation();
 
   function handleFormSubmit(data) {
     editStatus(
@@ -35,13 +38,16 @@ export default function BlockUserForm() {
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
       <FormRow label="Description">
         <Input
-          placeholder="Reason"
+          placeholder={t("Reason")}
           type="text"
           {...register("reason", {
-            required: "This field is required",
+            required: {
+              value: true,
+              message: t("ReasonValidation.required"),
+            },
             minLength: {
-              value: 1,
-              message: "Reason should be at least 1 character",
+              value: 3,
+              message: t("ReasonValidation.minLength"),
             },
           })}
           $error={!!errors.reason}
@@ -72,7 +78,7 @@ export default function BlockUserForm() {
           display: "flex",
         }}
       >
-        Submit
+        {t("Submit")}
       </Button>
     </Form>
   );

@@ -1,10 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getSearch } from "../../services/apiRides";
+import { useTranslation } from "react-i18next";
 
 function useSearchRides(searchKey) {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   // Filter Logic
   const filterValue = searchParams.get("status");
@@ -43,9 +46,10 @@ function useSearchRides(searchKey) {
       sortBy,
       sortType,
       perPage,
+      isRTL,
     ],
     queryFn: () =>
-      getSearch({ filter, page, searchKey, sortBy, sortType, perPage }),
+      getSearch({ filter, page, searchKey, sortBy, sortType, perPage, isRTL }),
     keepPreviousData: true,
   });
 
@@ -64,6 +68,7 @@ function useSearchRides(searchKey) {
         sortBy,
         sortType,
         perPage,
+        isRTL,
       ],
       queryFn: () =>
         getSearch({
@@ -73,6 +78,7 @@ function useSearchRides(searchKey) {
           sortBy,
           sortType,
           perPage,
+          isRTL,
         }),
     });
   }
@@ -88,6 +94,7 @@ function useSearchRides(searchKey) {
         sortBy,
         sortType,
         perPage,
+        isRTL,
       ],
       queryFn: () =>
         getSearch({
@@ -97,6 +104,7 @@ function useSearchRides(searchKey) {
           sortBy,
           sortType,
           perPage,
+          isRTL,
         }),
     });
   }

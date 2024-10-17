@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useUpdateStatus from "./useUpdateStatus";
+import { useTranslation } from "react-i18next";
 
 function Unblock() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { editStatus } = useUpdateStatus();
 
@@ -31,7 +33,7 @@ function Unblock() {
           shadow: "0 4 60 0 #0038FF26",
         }}
       >
-        Unblock
+        {t("UnBlock")}
       </Button>
     </div>
   );

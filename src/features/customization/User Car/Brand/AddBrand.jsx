@@ -2,8 +2,11 @@ import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import AddBrandModal from "./AddBrandModal";
+import { useTranslation } from "react-i18next";
 
 function AddBrand() {
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   return (
@@ -11,7 +14,8 @@ function AddBrand() {
       <div>
         <Button
           variant="contained"
-          startIcon={<AddIcon />}
+          endIcon={isRTL ? <AddIcon sx={{ marginRight: 1 }} /> : null}
+          startIcon={isRTL ? null : <AddIcon />}
           onClick={handleOpen}
           sx={{
             height: 56,
@@ -23,7 +27,7 @@ function AddBrand() {
             boxShadow: "0 4px 60px 0 rgba(0, 56, 255, 0.15)", // Updated shadow property
           }}
         >
-          Add Brand
+          {t("AddBrand")}
         </Button>
         <AddBrandModal open={open} setOpen={setOpen} />
       </div>

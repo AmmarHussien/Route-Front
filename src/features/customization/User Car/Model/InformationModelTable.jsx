@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Row from "../../../../ui/Row";
 import { IconButton } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -9,6 +9,7 @@ import EditModel from "./EditModel";
 import AlertConfirmation from "../../../../ui/AlertConfirmation";
 import useDeleteModel from "./useDeleteModel";
 import Spinner from "../../../../ui/Spinner";
+import { useTranslation } from "react-i18next";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -46,7 +47,17 @@ const Label = styled.div`
 
 const Value = styled.div`
   flex: 1;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
   font-weight: 600px;
   color: #272424;
 `;
@@ -58,13 +69,15 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
-function InformationModelTable({ title, data }) {
+function InformationModelTable({ title, data, id }) {
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const [openAlert, setOpenAlert] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
 
-  const { mutate: deleteModel, isLoading } = useDeleteModel(data.id);
+  const { mutate: deleteModel, isLoading } = useDeleteModel(id);
 
   // Check for null or undefined data before rendering the table
 
@@ -78,7 +91,6 @@ function InformationModelTable({ title, data }) {
           setIsDelete(false); // Reset delete state after success
         },
         onError: (error) => {
-          console.error("Error deleting manufacture:", error);
           setIsDelete(false); // Reset delete state even after an error
         },
       });
@@ -89,7 +101,7 @@ function InformationModelTable({ title, data }) {
     setOpenAlert(true);
   };
 
-  if (!data) return <Empty>No data to show at the moment</Empty>;
+  if (!data) return <Empty>{t("NoData")}</Empty>;
 
   return (
     <>
@@ -121,7 +133,7 @@ function InformationModelTable({ title, data }) {
         )}
 
         {/* Ensure that data is valid before passing it to EditModel */}
-        {data && <EditModel open={open} setOpen={setOpen} data={data} />}
+        {data && <EditModel open={open} setOpen={setOpen} data={id} />}
 
         <Table>
           {Object.entries(data).map(([key, value], index) => (

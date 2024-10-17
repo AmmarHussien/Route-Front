@@ -16,6 +16,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { useEffect, useState } from "react";
 import useRevenues from "./useRevenues";
+import { useTranslation } from "react-i18next";
+import { ar } from "date-fns/locale"; // Import the Arabic locale
 
 const StyledSalesChart = styled(DashboardBox)`
   padding: 3.2rem;
@@ -72,6 +74,10 @@ const StyledSalesChartHeaderRight = styled.div`
 function SalesChart() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
+
   const { revenues } = useRevenues(
     format(currentMonth, "yyyy"),
     format(currentMonth, "MM")
@@ -111,10 +117,13 @@ function SalesChart() {
       return newMonth;
     });
   };
-  const monthName = currentMonth.toLocaleString("default", {
-    month: "short",
-    // year: "numeric",
+  const monthName = format(currentMonth, "MMM", {
+    locale: isRTL ? ar : undefined,
   });
+
+  const formattedDate = new Intl.DateTimeFormat("ar", {
+    month: "short",
+  }).format(currentMonth);
 
   useEffect(() => {}, [currentMonth]);
 
@@ -128,8 +137,8 @@ function SalesChart() {
         label: formattedDate,
         totalRevenues: revenues
           .filter(
-            (booking) =>
-              format(new Date(booking.drop_off_date), "MMM dd") ===
+            (revenue) =>
+              format(new Date(revenue.drop_off_date), "MMM dd") ===
               formattedDate
           ) // assuming the year 2024
           .reduce((acc, cur) => acc + cur.total, 0),
@@ -147,40 +156,72 @@ function SalesChart() {
     <StyledSalesChart>
       <StyledSalesChartHeader>
         <StyledSalesChartHeaderLeft>
-          <Heading $variant="h6">Total Revenues</Heading>
-          <Heading $variant="h5">
-            Indication for the total revenue over this month
-          </Heading>
+          <Heading $variant="h6">{t("TotalRevenue")}</Heading>
+          <Heading $variant="h5">{t("TotalRevenueSlogan")} </Heading>
         </StyledSalesChartHeaderLeft>
 
         <StyledSalesChartHeaderRight>
-          <KeyboardArrowLeftIcon
-            cursor="pointer"
-            onClick={handlePrevMonth}
-            sx={{
-              fontSize: "50px",
-            }}
-          />
-          <Heading as="h2"> {monthName} </Heading>
-          <ChevronRightIcon
-            cursor="pointer"
-            onClick={handleNextMonth}
-            sx={{
-              fontSize: "50px",
-            }}
-          />
+          {isRTL ? (
+            <ChevronRightIcon
+              cursor="pointer"
+              onClick={handleNextMonth}
+              sx={{
+                fontSize: "50px",
+              }}
+            />
+          ) : (
+            <KeyboardArrowLeftIcon
+              cursor="pointer"
+              onClick={handlePrevMonth}
+              sx={{
+                fontSize: "50px",
+              }}
+            />
+          )}
+
+          <Heading as="h2"> {isRTL ? formattedDate : monthName} </Heading>
+          {i18n.language === "ar-EG" ? (
+            <KeyboardArrowLeftIcon
+              cursor="pointer"
+              onClick={handlePrevMonth}
+              sx={{
+                fontSize: "50px",
+              }}
+            />
+          ) : (
+            <ChevronRightIcon
+              cursor="pointer"
+              onClick={handleNextMonth}
+              sx={{
+                fontSize: "50px",
+              }}
+            />
+          )}
         </StyledSalesChartHeaderRight>
       </StyledSalesChartHeader>
       <ResponsiveContainer height={400} width="100%">
-        <AreaChart data={data}>
+        <AreaChart
+          data={data}
+          margin={{
+            top: 20,
+            bottom: 20,
+            right: isRTL ? 50 : 0, // Add right margin for RTL
+          }}
+        >
           <XAxis
             dataKey="label"
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
+            //mirror={isRTL} // Conditionally flip based on language
+            reversed={isRTL} // Reverse direction for RTL
           />
           <YAxis
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
+            orientation={isRTL ? "right" : "left"} // Move Y-axis to right in RTL mode
+            mirror={isRTL} // Conditionally flip based on language
+            tickMargin={isRTL ? -10 : 0} // Add margin between the axis and the text in RTL mode
+            width={50} // Ensure there's enough space for the text
           />
           <CartesianGrid strokeDasharray="4" />
           <Tooltip
@@ -194,7 +235,7 @@ function SalesChart() {
             stroke={colors.totalSales.stroke}
             fill={colors.totalSales.fill}
             strokeWidth={2}
-            name="Total Revenues"
+            name={t("TotalRevenue")}
             unit="$"
           />
         </AreaChart>

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import Button from "../../../ui/Button";
 import useEditCarService from "./useEditCarService";
 import Spinner from "../../../ui/Spinner";
+import useViewCarService from "./useViewCarService";
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute",
@@ -30,10 +32,13 @@ const StyledLabel = styled.label`
   display: inline-block;
 `;
 
-function EditCarService({ open, setOpen, data }) {
-  const handleClose = () => setOpen(false);
+function EditCarService({ open, setOpen, data, isLoading: loading }) {
+  const { carService } = useViewCarService(data);
 
-  // Initialize state with undefined or empty strings
+  const handleClose = () => setOpen(false);
+  const { t } = useTranslation();
+
+  // Initialize state
   const [arName, setArName] = useState("");
   const [egName, setEgName] = useState("");
   const [driverCommission, setDriverCommission] = useState("");
@@ -42,39 +47,40 @@ function EditCarService({ open, setOpen, data }) {
   const [beforeSeparationPrice, setBeforeSeparationPrice] = useState("");
   const [afterSeparationPrice, setAfterSeparationPrice] = useState("");
   const [inOutSeparationKm, setInOutSeparationKm] = useState("");
+  const { editCarService, isLoading } = useEditCarService(data);
 
   const [editError, setEditError] = useState(null); // Error state
-
   useEffect(() => {
     if (open && data) {
+      // Extract data from the passed `data` object
       const {
-        englishName = "",
-        arabicName = "",
-        driverCommission = 0, // Default to 0 if undefined
-        openingPrice = 0, // Default to 0 if undefined
-        separationKm = 0, // Default to 0 if undefined
-        beforeSeparationPrice = 0, // Default to 0 if undefined
-        afterSeparationPrice = 0, // Default to 0 if undefined
-        inOutSeparationKm = 0, // Default to 0 if undefined
-      } = data;
+        name: { en = "", ar = "" },
+        driver_commission = 0, // Default to 0 if undefined
+        opening_price = 0, // Default to 0 if undefined
+        separation_km = 0, // Default to 0 if undefined
+        before_separation_price = 0, // Default to 0 if undefined
+        after_separation_price = 0, // Default to 0 if undefined
+        in_out_separation_km = 0, // Default to 0 if undefined
+      } = carService;
 
-      // Set the values correctly
-      setArName(arabicName);
-      setEgName(englishName);
-      setDriverCommission(driverCommission); // Ensure these are strings for input
-      setOpeningPrice(openingPrice);
-      setSeparationKm(separationKm);
-      setBeforeSeparationPrice(beforeSeparationPrice);
-      setAfterSeparationPrice(afterSeparationPrice);
-      setInOutSeparationKm(inOutSeparationKm);
+      // Update state with values from the data prop
+      setArName(ar);
+      setEgName(en);
+      setDriverCommission(driver_commission.toString());
+      setOpeningPrice(opening_price.toString());
+      setSeparationKm(separation_km.toString());
+      setBeforeSeparationPrice(before_separation_price.toString());
+      setAfterSeparationPrice(after_separation_price.toString());
+      setInOutSeparationKm(in_out_separation_km.toString());
     }
-  }, [open, data]); // Reset when modal opens or data changes
+  }, [open, carService, data]);
+
+  if (loading) return <Spinner />;
 
   const handleEnglishNameChange = (event) => setEgName(event.target.value);
   const handleArabicNameChange = (event) => setArName(event.target.value);
   const handleDriverCommissionChange = (event) =>
     setDriverCommission(event.target.value);
-
   const handleOpeningPriceChange = (event) =>
     setOpeningPrice(event.target.value);
   const handleSeparationKmChange = (event) =>
@@ -86,10 +92,7 @@ function EditCarService({ open, setOpen, data }) {
   const handleInOutSeparationKmChange = (event) =>
     setInOutSeparationKm(event.target.value);
 
-  const { editCarService, isLoading } = useEditCarService(data.id);
-
   const validateArabicName = (name) => {
-    // Check if the string is not empty and contains Arabic characters
     const arabicRegex = /^[\u0600-\u06FF\s]+$/; // Arabic character range
     return name.trim() !== "" && arabicRegex.test(name);
   };
@@ -98,7 +101,6 @@ function EditCarService({ open, setOpen, data }) {
     // Clear previous error before new submission
     setEditError(null);
 
-    // Optional: Validate inputs before making the service call
     if (
       !arName ||
       !egName ||
@@ -109,7 +111,7 @@ function EditCarService({ open, setOpen, data }) {
       afterSeparationPrice < 0 ||
       inOutSeparationKm < 0
     ) {
-      setEditError("Please fill in all required fields correctly.");
+      setEditError(t("CarServiceValidation.allRequired"));
       return;
     }
 
@@ -128,16 +130,14 @@ function EditCarService({ open, setOpen, data }) {
         {
           onSuccess: () => {
             setOpen(false); // Close the modal only if successful
-            // Optional: Show success notification
           },
           onError: (error) => {
-            setEditError(error.message); // Set the error message and keep the modal open
-            // Optional: Show error notification
+            setEditError(error.message);
           },
         }
       );
     } else {
-      setEditError("Invalid Arabic name. It must contain Arabic characters.");
+      setEditError(t("CarServiceValidation.arabicName"));
       return;
     }
   };
@@ -148,106 +148,108 @@ function EditCarService({ open, setOpen, data }) {
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <FormRowVertical>
-            <StyledLabel htmlFor="EnglishName">English Name</StyledLabel>
+            <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
             <Input
               type="text"
               id="EnglishName"
-              placeholder="English Name"
+              placeholder={t("englishName")}
               value={egName || ""} // Controlled input with fallback
               onChange={handleEnglishNameChange}
             />
           </FormRowVertical>
           <FormRowVertical>
-            <StyledLabel htmlFor="ArabicName">Arabic Name</StyledLabel>
+            <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
             <Input
               type="text"
-              id="ArabicName"
+              id={t("arabicName")}
               placeholder="Arabic Name"
-              value={arName || ""} // Controlled input with fallback
+              value={arName} // Controlled input with fallback
               onChange={handleArabicNameChange}
             />
           </FormRowVertical>
           <FormRowVertical>
             <StyledLabel htmlFor="driverCommission">
-              Driver Commission
+              {t("driverCommission")}
             </StyledLabel>
             <Input
               type="number"
               id="driverCommission"
-              placeholder="Driver Commission"
+              placeholder={t("driverCommission")}
               value={driverCommission || ""} // Controlled input with fallback
               onChange={handleDriverCommissionChange}
             />
           </FormRowVertical>
           <FormRowVertical>
-            <StyledLabel htmlFor="openingPrice">Opening Price</StyledLabel>
+            <StyledLabel htmlFor="openingPrice">
+              {t("openingPrice")}
+            </StyledLabel>
             <Input
               type="number"
               id="openingPrice"
-              placeholder="Opening Price"
+              placeholder={t("openingPrice")}
               value={openingPrice || ""} // Controlled input with fallback
               onChange={handleOpeningPriceChange}
             />
           </FormRowVertical>
           <FormRowVertical>
-            <StyledLabel htmlFor="separationKm">Separation Km</StyledLabel>
+            <StyledLabel htmlFor="separationKm">
+              {t("separationKm")}
+            </StyledLabel>
             <Input
               type="number"
               id="separationKm"
-              placeholder="Separation Km"
+              placeholder={t("separationKm")}
               value={separationKm || ""} // Controlled input with fallback
               onChange={handleSeparationKmChange}
             />
           </FormRowVertical>
           <FormRowVertical>
             <StyledLabel htmlFor="beforeSeparationPrice">
-              Before Separation Price
+              {t("beforeSeparationPrice")}
             </StyledLabel>
             <Input
               type="number"
               id="beforeSeparationPrice"
-              placeholder="Before Separation Price"
+              placeholder={t("beforeSeparationPrice")}
               value={beforeSeparationPrice || ""} // Controlled input with fallback
               onChange={handleBeforeSeparationPriceChange}
             />
           </FormRowVertical>
           <FormRowVertical>
             <StyledLabel htmlFor="afterSeparationPrice">
-              After Separation Price
+              {t("afterSeparationPrice")}
             </StyledLabel>
             <Input
               type="number"
               id="afterSeparationPrice"
-              placeholder="After Separation Price"
+              placeholder={t("afterSeparationPrice")}
               value={afterSeparationPrice || ""} // Controlled input with fallback
               onChange={handleAfterSeparationPriceChange}
             />
           </FormRowVertical>
           <FormRowVertical>
             <StyledLabel htmlFor="InOutSeparationKm">
-              In Out Separation Km
+              {t("inOutSeparationKm")}
             </StyledLabel>
             <Input
               type="number"
               id="InOutSeparationKm"
-              placeholder="In Out Separation Km"
+              placeholder={t("inOutSeparationKm")}
               value={inOutSeparationKm || ""} // Controlled input with fallback
               onChange={handleInOutSeparationKmChange}
             />
           </FormRowVertical>
+
+          {/* Error message display */}
           <FormRowVertical>
             {editError && (
-              <p style={{ color: "red", marginTop: "10px" }}>
-                Error: {editError}
-              </p>
-            )}{" "}
-            {/* Display error message */}
+              <div style={{ color: "red", gridColumn: "span 2" }}>
+                {editError}
+              </div>
+            )}
           </FormRowVertical>
-          <FormRowVertical>
-            <Button type="submit" onClick={handleClick} disabled={isLoading}>
-              {isLoading ? "Updating..." : "Edit"}
-            </Button>
-          </FormRowVertical>
+
+          <Button onClick={handleClick}>{t("Submit")}</Button>
         </Box>
       </Modal>
     </>

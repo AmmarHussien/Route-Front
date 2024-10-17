@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 const StatContainer = styled.div`
@@ -118,6 +119,8 @@ function RatingStat({
   backgroundColor,
   colorIconBackground,
 }) {
+  const { t } = useTranslation();
+
   const changeNumber =
     pastMonthValue === 0
       ? thisMonthValue
@@ -153,7 +156,7 @@ function RatingStat({
               </ChangeNumberContainer>
             )}
 
-            <MonthOfChange>This Month</MonthOfChange>
+            <MonthOfChange>{t("ThisMonth")}</MonthOfChange>
           </ChangeMetric>
         </ValuesContainer>
       </TextContainer>

@@ -4,6 +4,7 @@ import Spinner from "../../../ui/Spinner";
 import RatingStats from "./RatingStats";
 import useOverallRatingDriver from "./useOverallRatingDriver";
 import useOverallRatingUser from "./useOverallRatingUser";
+import { useTranslation } from "react-i18next";
 
 const ErrorMessage = styled.div`
   color: red;
@@ -14,6 +15,8 @@ const ErrorMessage = styled.div`
 `;
 
 function RatingStatistics() {
+  const { t } = useTranslation();
+
   const {
     isLoading: userLoading,
     overAllRatingUser,
@@ -30,7 +33,7 @@ function RatingStatistics() {
   }
 
   if (userError || driverError) {
-    return <ErrorMessage>Error loading rating</ErrorMessage>;
+    return <ErrorMessage>{t("ErrorLoading")}</ErrorMessage>;
   }
 
   const thisMonthRatingUser = overAllRatingUser?.over_all_ratings_this_month;

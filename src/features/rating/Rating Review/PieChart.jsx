@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import { PieChart, Pie, Cell, Label } from "recharts";
 
 function PieCharts({ data, COLORS, totalReviews }) {
+  const { t } = useTranslation();
   return (
     <PieChart width={316} height={250}>
       <Pie
@@ -24,7 +26,7 @@ function PieCharts({ data, COLORS, totalReviews }) {
         />
 
         <Label
-          value="Total Reviews" // Customize this text
+          value={t("TotalReviews")} // Customize this text
           position="center"
           fill="#99A5BE" // Change text color if needed
           style={{ fontSize: "14px", fontWeight: "400" }} // Customize the font size and weight

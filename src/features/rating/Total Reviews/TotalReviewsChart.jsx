@@ -8,8 +8,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { eachDayOfInterval, endOfMonth, format, startOfMonth } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 function TotalReviewsChart({ currentMonth, users = [], drivers = [] }) {
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const current = new Date();
   // Calculate the start and end dates for the current month
   // Calculate the start date as the beginning of the current month
@@ -66,15 +69,27 @@ function TotalReviewsChart({ currentMonth, users = [], drivers = [] }) {
 
   return (
     <ResponsiveContainer height={250}>
-      <AreaChart data={data}>
+      <AreaChart
+        data={data}
+        margin={{
+          top: 20,
+          bottom: 20,
+          right: isRTL ? 40 : 0, // Add right margin for RTL
+        }}
+      >
         <XAxis
           dataKey="label"
           tick={{ fill: colors.text }}
           tickLine={{ stroke: colors.text }}
+          reversed={isRTL}
         />
         <YAxis
           tick={{ fill: colors.text }}
           tickLine={{ stroke: colors.text }}
+          orientation={isRTL ? "right" : "left"} // Move Y-axis to right in RTL mode
+          mirror={isRTL} // Conditionally flip based on language
+          tickMargin={isRTL ? -10 : 0} // Add margin between the axis and the text in RTL mode
+          //width={80} // Ensure there's enough space for the text
         />
         <CartesianGrid strokeDasharray="4" />
         <Tooltip
@@ -87,7 +102,7 @@ function TotalReviewsChart({ currentMonth, users = [], drivers = [] }) {
           stroke={colors.totalReviewsDriver.stroke}
           fill={colors.totalReviewsDriver.fill}
           strokeWidth={2}
-          name="Total Reviews Drivers"
+          name={t("TotalReviewsDrivers")}
         />
         <Area
           dataKey="totalReviewsUser"
@@ -95,7 +110,7 @@ function TotalReviewsChart({ currentMonth, users = [], drivers = [] }) {
           stroke={colors.totalReviewsUser.stroke}
           fill={colors.totalReviewsUser.fill}
           strokeWidth={2}
-          name="Total Reviews User"
+          name={t("TotalReviewsUser")}
         />
       </AreaChart>
     </ResponsiveContainer>

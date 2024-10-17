@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Spinner from "../../../ui/Spinner";
 import useEditOrganization from "./useEditOrganization";
+import useViewOrganization from "./useViewOrganization";
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute",
@@ -29,27 +31,30 @@ const StyledLabel = styled.label`
 
 function EditOrganization({ open, setOpen, data }) {
   const handleClose = () => setOpen(false);
+  const { t } = useTranslation();
 
   const [arName, setArName] = useState(""); // Arabic name state
   const [egName, setEgName] = useState(""); // English name state
   const [isActive, setIsActive] = useState(""); // IsActive state
   const [editError, setEditError] = useState(null); // Error state
-
-  const { mutate: editOrganization, isLoading } = useEditOrganization(data.id);
+  const { viewOrganizations, isLoading: viewLoading } =
+    useViewOrganization(data);
+  const { mutate: editOrganization, isLoading } = useEditOrganization(data);
 
   useEffect(() => {
     if (open && data) {
-      const { arabicName, englishName, isActive: active } = data;
+      const {
+        name: { ar, en },
+        is_active,
+      } = viewOrganizations;
 
-      const check = active === "True" ? true : false;
-
-      setArName(arabicName); // Reset Arabic name field
-      setEgName(englishName); // Reset English name field
-      setIsActive(check); // Reset is_active field
+      setArName(ar); // Reset Arabic name field
+      setEgName(en); // Reset English name field
+      setIsActive(is_active); // Reset is_active field
     }
-  }, [open, data]);
+  }, [open, data, viewOrganizations]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || viewLoading) return <Spinner />;
 
   const handleEnglishNameChange = (event) => {
     setEgName(event.target.value);
@@ -73,7 +78,7 @@ function EditOrganization({ open, setOpen, data }) {
     setEditError(null); // Clear previous error before new submission
 
     if (!egName || !arName) {
-      setEditError("Both fields are required.");
+      setEditError(t("OrganizationValidation.allRequired"));
       return;
     }
 
@@ -95,7 +100,7 @@ function EditOrganization({ open, setOpen, data }) {
         }
       );
     } else {
-      setEditError("Invalid Arabic name. It must contain Arabic characters.");
+      setEditError(t("OrganizationValidation.arabicName"));
       return;
     }
   };
@@ -104,29 +109,29 @@ function EditOrganization({ open, setOpen, data }) {
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <FormRowVertical>
-          <StyledLabel htmlFor="EnglishName">English Name</StyledLabel>
+          <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
           <Input
             type="text"
             id="EnglishName"
-            placeholder="English Name"
+            placeholder={t("englishName")}
             value={egName}
             onChange={handleEnglishNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
         <FormRowVertical>
-          <StyledLabel htmlFor="ArabicName">Arabic Name</StyledLabel>
+          <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
           <Input
             type="text"
             id="ArabicName"
-            placeholder="Arabic Name"
+            placeholder={t("arabicName")}
             value={arName}
             onChange={handleArabicNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
 
-        <StyledLabel htmlFor="isActive">Is Active</StyledLabel>
+        <StyledLabel htmlFor="isActive">{t("isActive")}</StyledLabel>
         <Switch
           checked={Boolean(isActive)}
           onChange={handleSwitchChange}
@@ -135,11 +140,11 @@ function EditOrganization({ open, setOpen, data }) {
 
         <FormRowVertical>
           <Button type="submit" onClick={handleClick}>
-            Edit
+            {t("Submit")}
           </Button>
         </FormRowVertical>
         {editError && (
-          <p style={{ color: "red", marginTop: "10px" }}>Error: {editError}</p>
+          <p style={{ color: "red", marginTop: "10px" }}>{editError}</p>
         )}
       </Box>
     </Modal>

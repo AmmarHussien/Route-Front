@@ -2,7 +2,7 @@ import axios from "axios";
 
 const URL = "https://route-service.app/";
 
-export async function getModels(brandId) {
+export async function getModels(brandId, isRTL) {
   const token = localStorage.getItem("authToken");
 
   try {
@@ -11,6 +11,7 @@ export async function getModels(brandId) {
       {
         headers: {
           ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+          "Accept-Language": isRTL ? "ar" : "en", // Use quotes for header
         },
       }
     );

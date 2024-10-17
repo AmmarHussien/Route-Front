@@ -1,19 +1,22 @@
+import { useTranslation } from "react-i18next";
 import Filter from "../../ui/Filter";
 import SearchField from "../../ui/SearchField";
 import SortBy from "../../ui/SortBy";
 import TableOperations from "../../ui/TableOperations";
 
 function RidesTableOperations({ searchTerm, setSearchTerm }) {
+  const { t } = useTranslation();
+
   return (
     <TableOperations>
       <Filter
         filterField="status"
         options={[
-          { value: "All", label: "All Ride" },
-          { value: "Completed", label: "Completed" },
+          { value: "All", label: t("AllRide") },
+          { value: "Completed", label: t("Completed") },
           // { value: "Ongoing", label: "Ongoing" },
-          { value: "Scheduled", label: "Scheduled" },
-          { value: "Cancelled", label: "Cancelled" },
+          { value: "Scheduled", label: t("Scheduled") },
+          { value: "Cancelled", label: t("Cancelled") },
         ]}
       />
 
@@ -23,11 +26,11 @@ function RidesTableOperations({ searchTerm, setSearchTerm }) {
         options={[
           {
             value: "id-desc",
-            label: "Sort by ID (recent first)",
+            label: t("id-desc"),
           },
           {
             value: "id-asc",
-            label: "Sort by ID (earlier first)",
+            label: t("id-asc"),
           },
           // {
           //   value: "driver-asc",

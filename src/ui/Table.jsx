@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import styled from "styled-components";
 import Heading from "./Heading";
 import DownloadTable from "../utils/DownLoadTable";
+import { useTranslation } from "react-i18next";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -78,6 +79,7 @@ const StyledNavDiv = styled.div`
   height: 37 px;
   top: 9px;
   left: 16px;
+  margin-right: 20px;
   padding: 8px 0px 8px 0px;
   gap: 8px;
   opacity: 0px;
@@ -157,7 +159,8 @@ function Row({ children }) {
 }
 
 function Body({ data, render }) {
-  if (!data?.length) return <Empty>No data to show at this moment</Empty>;
+  const { t } = useTranslation();
+  if (!data?.length) return <Empty>{t("NoData")}</Empty>;
 
   return <StyledBody>{data.map(render)}</StyledBody>;
 }

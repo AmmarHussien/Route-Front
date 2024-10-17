@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Menus from "../../../ui/Menus";
 import Table from "../../../ui/Table";
 import useStatistics from "../useStatistics";
@@ -5,19 +6,20 @@ import RideRow from "./RecentRideRow";
 
 function RecentRide() {
   const { statistics } = useStatistics();
+  const { t } = useTranslation();
 
   return (
     <Menus>
       <Table columns="0.4fr 1fr 1.6fr 1.6fr 1.2fr 0.8fr 0.5fr">
-        <Table.TableNaView title="Recent Rides" />
+        <Table.TableNaView title={t("RecentRides")} />
         <Table.Header>
-          <div>ID</div>
-          <div>Rider Name</div>
-          <div>Destination A</div>
-          <div>Destination B</div>
-          <div>Date</div>
-          <div>Price</div>
-          <div>Status</div>
+          <div>{t("ID")}</div>
+          <div>{t("RiderName")}</div>
+          <div>{t("DestinationA")}</div>
+          <div>{t("DestinationB")}</div>
+          <div>{t("Date")}</div>
+          <div>{t("Price")}</div>
+          <div>{t("Status")}</div>
         </Table.Header>
 
         <Table.Body
@@ -26,7 +28,7 @@ function RecentRide() {
         />
 
         <Table.Footer>
-          <p>Summary of Last 10 Rides</p>
+          <p>{t("Summary")}</p>
           {/* <Pagination count={statistics.rides.length} /> */}
         </Table.Footer>
       </Table>

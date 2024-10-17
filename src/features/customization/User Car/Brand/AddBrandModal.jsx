@@ -8,6 +8,8 @@ import useCreateManufactures from "./useCreateManufactures";
 import FileInput from "../../../../ui/FileInput";
 import { useUploader } from "../../../../hooks/useUploader";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import Spinner from "../../../../ui/Spinner";
 
 const style = {
   position: "absolute",
@@ -31,6 +33,7 @@ const StyledLabel = styled.label`
 
 function AddBrandModal({ open, setOpen }) {
   const handleClose = () => setOpen(false);
+  const { t } = useTranslation();
 
   const { setValue } = useForm();
 
@@ -84,7 +87,7 @@ function AddBrandModal({ open, setOpen }) {
 
     // Simple validation
     if (!egName || !arName || !logo) {
-      setEditError("Both fields are required.");
+      setEditError(t("BrandValidations.allRequired"));
       return;
     }
     if (validateArabicName(arName)) {
@@ -105,43 +108,43 @@ function AddBrandModal({ open, setOpen }) {
         }
       );
     } else {
-      setEditError("Invalid Arabic name. It must contain Arabic characters.");
+      setEditError(t("BrandValidations.arabicName"));
       return;
     }
   };
 
-  if (isLoading) return <p>Updating...</p>;
+  if (isLoading) return <Spinner />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <FormRowVertical>
-          <StyledLabel htmlFor="EnglishName">English Name</StyledLabel>
+          <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
           <Input
             type="text"
             id="EnglishName"
-            placeholder="English Name"
+            placeholder={t("englishName")}
             value={egName}
             onChange={handleEnglishNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
         <FormRowVertical>
-          <StyledLabel htmlFor="ArabicName">Arabic Name</StyledLabel>
+          <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
           <Input
             type="text"
             id="ArabicName"
-            placeholder="Arabic Name"
+            placeholder={t("arabicName")}
             value={arName}
             onChange={handleArabicNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
         <FormRowVertical>
-          <StyledLabel htmlFor="logo">Logo</StyledLabel>
+          <StyledLabel htmlFor="logo">{t("Logo")}</StyledLabel>
           <FileInput
-            placeholder="Logo"
+            placeholder={t("Logo")}
             id="logo"
             onFileChange={handleFileChange(setLogo)}
           />
@@ -149,11 +152,11 @@ function AddBrandModal({ open, setOpen }) {
 
         <FormRowVertical>
           <Button type="submit" onClick={handleClick}>
-            Add New Brand
+            {t("AddBrand")}
           </Button>
         </FormRowVertical>
         {editError && (
-          <p style={{ color: "red", marginTop: "10px" }}>Error: {editError}</p>
+          <p style={{ color: "red", marginTop: "10px" }}> {editError}</p>
         )}
       </Box>
     </Modal>

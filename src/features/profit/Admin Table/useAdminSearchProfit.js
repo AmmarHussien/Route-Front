@@ -1,10 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getAdminProfitSearch } from "../../../services/apiProfit";
+import { useTranslation } from "react-i18next";
 
 function useAdminSearchProfit(searchKey) {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   // Filter Logic
   const filterValue = searchParams.get("status");
@@ -43,6 +46,7 @@ function useAdminSearchProfit(searchKey) {
       sortBy,
       sortType,
       perPage,
+      isRTL,
     ],
     queryFn: () =>
       getAdminProfitSearch({
@@ -52,6 +56,7 @@ function useAdminSearchProfit(searchKey) {
         sortBy,
         sortType,
         perPage,
+        isRTL,
       }),
     keepPreviousData: true,
   });
@@ -71,6 +76,7 @@ function useAdminSearchProfit(searchKey) {
         sortBy,
         sortType,
         perPage,
+        isRTL,
       ],
       queryFn: () =>
         getAdminProfitSearch({
@@ -80,6 +86,7 @@ function useAdminSearchProfit(searchKey) {
           sortBy,
           sortType,
           perPage,
+          isRTL,
         }),
     });
   }
@@ -95,6 +102,7 @@ function useAdminSearchProfit(searchKey) {
         sortBy,
         sortType,
         perPage,
+        isRTL,
       ],
       queryFn: () =>
         getAdminProfitSearch({
@@ -104,6 +112,7 @@ function useAdminSearchProfit(searchKey) {
           sortBy,
           sortType,
           perPage,
+          isRTL,
         }),
     });
   }

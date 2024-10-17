@@ -3,6 +3,7 @@ import Heading from "../../ui/Heading";
 
 import StatisticsItem from "./StatisticsItem";
 import useStatistics from "./useStatistics";
+import { useTranslation } from "react-i18next";
 
 const StyledTextContainer = styled.div`
   top: 16px;
@@ -32,32 +33,32 @@ const VerticalDivider = styled.div`
 `;
 function RideStatistics() {
   const { statistics } = useStatistics();
+  const { t } = useTranslation();
+
   return (
     <>
       <StyledTextContainer>
-        <Heading $variant="h6">Rides statistics</Heading>
-        <Heading $variant="h5">
-          Indication for the total rides over this month
-        </Heading>
+        <Heading $variant="h6">{t("RidesStatistics")}</Heading>
+        <Heading $variant="h5">{t("RidesStatisticsSlogan")} </Heading>
       </StyledTextContainer>
       <StyledContentContainer>
         <StatisticsItem
           icon="/Complete.svg"
-          title={"Complete"}
+          title={t("Complete")}
           color="#20C992"
           statistics={statistics.completedRides}
         />
         <VerticalDivider />
         <StatisticsItem
           icon="/Ongoing.svg"
-          title={"Ongoing"}
+          title={t("Ongoing")}
           color="#EAB308"
           statistics={statistics.ongoingRides}
         />
         <VerticalDivider />
         <StatisticsItem
           icon="/Cancelled.svg"
-          title={"Cancelled"}
+          title={t("Cancelled")}
           color="#FC5555"
           statistics={statistics.cancelledRides}
         />

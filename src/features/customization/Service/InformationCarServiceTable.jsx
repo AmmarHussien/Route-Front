@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { IconButton } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useEffect, useState } from "react";
@@ -9,6 +9,8 @@ import EditCarService from "./EditCarService";
 import AlertConfirmation from "../../../ui/AlertConfirmation";
 import useDeleteCar from "./useDeleteCar";
 import Spinner from "../../../ui/Spinner";
+import { useTranslation } from "react-i18next";
+import useViewCarService from "./useViewCarService";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -46,7 +48,17 @@ const Label = styled.div`
 
 const Value = styled.div`
   flex: 1;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
   font-weight: 600px;
   color: #272424;
 `;
@@ -58,13 +70,33 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
-function InformationCarServiceTable({ title, data }) {
+function InformationCarServiceTable({
+  title,
+  data: id,
+  isLoading: EditLoading,
+}) {
+  const { carService } = useViewCarService(id);
+
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const handleOpen = () => setOpen(true);
 
-  const { mutate: deleteCar, isLoading } = useDeleteCar(data.id);
+  const dataRow = {
+    [t("serviceId")]: carService.id,
+    [t("englishName")]: carService.name.en,
+    [t("arabicName")]: carService.name.ar,
+    [t("driverCommission")]: carService.driver_commission,
+    [t("openingPrice")]: carService.opening_price,
+    [t("separationKm")]: carService.separation_km,
+    [t("beforeSeparationPrice")]: carService.before_separation_price,
+    [t("afterSeparationPrice")]: carService.after_separation_price,
+    [t("inOutSeparationKm")]: carService.in_out_separation_km,
+  };
+
+  const { mutate: deleteCar, isLoading } = useDeleteCar(id);
 
   useEffect(() => {
     if (isDelete) {
@@ -74,7 +106,6 @@ function InformationCarServiceTable({ title, data }) {
           setIsDelete(false); // Reset delete state after success
         },
         onError: (error) => {
-          //console.error("Error deleting manufacture:", error);
           setIsDelete(false); // Reset delete state even after an error
         },
       });
@@ -85,7 +116,7 @@ function InformationCarServiceTable({ title, data }) {
     setOpenAlert(true);
   };
 
-  if (!data === null) return <Empty>No data to show at the moment</Empty>;
+  if (!dataRow === null) return <Empty>{t("NoData")}</Empty>;
 
   return (
     <>
@@ -118,13 +149,20 @@ function InformationCarServiceTable({ title, data }) {
           />
         )}
 
-        {data && <EditCarService open={open} setOpen={setOpen} data={data} />}
+        {dataRow && (
+          <EditCarService
+            open={open}
+            setOpen={setOpen}
+            data={id}
+            isLoading={EditLoading}
+          />
+        )}
 
         <Table>
-          {Object.entries(data).map(([key, value], index) => (
+          {Object.entries(dataRow).map(([key, value], index) => (
             <RowItem key={key} $even={index % 2 === 1}>
               <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-              <Value> {value} </Value>
+              <Value lang={isRTL ? "ar-Eg" : "en-US"}> {value} </Value>
             </RowItem>
           ))}
         </Table>

@@ -1,5 +1,6 @@
 import Heading from "../../ui/Heading";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 const RatingHeaderContainer = styled.div`
@@ -24,6 +25,8 @@ const RatingHeaderContainerRight = styled.div`
 `;
 
 function RatingHeader({ currentMonth, setCurrentMonth, title, subtitle }) {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const handlePrevMonth = () => {
     setCurrentMonth((prevMonth) => {
       const newMonth = new Date(prevMonth);
@@ -48,10 +51,9 @@ function RatingHeader({ currentMonth, setCurrentMonth, title, subtitle }) {
       return newMonth;
     });
   };
-  const monthName = currentMonth?.toLocaleString("default", {
+  const monthName = new Intl.DateTimeFormat(isRTL ? "ar" : "en", {
     month: "short",
-    // year: "numeric",
-  });
+  }).format(currentMonth);
 
   useEffect(() => {}, [currentMonth]);
 
@@ -66,7 +68,7 @@ function RatingHeader({ currentMonth, setCurrentMonth, title, subtitle }) {
         <RatingHeaderContainerRight>
           <img
             id="ArrowLeft"
-            src="/ArrowLeft.svg"
+            src={isRTL ? "/ArrowRight.svg" : "/ArrowLeft.svg"}
             alt="ArrowLeft"
             style={{ cursor: "pointer" }}
             onClick={handlePrevMonth}
@@ -76,7 +78,7 @@ function RatingHeader({ currentMonth, setCurrentMonth, title, subtitle }) {
 
           <img
             id="ArrowRight"
-            src="/ArrowRight.svg"
+            src={isRTL ? "/ArrowLeft.svg" : "/ArrowRight.svg"}
             alt="ArrowRight"
             style={{ cursor: "pointer" }}
             onClick={handleNextMonth}

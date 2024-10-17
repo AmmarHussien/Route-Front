@@ -3,8 +3,11 @@ import "./InternalNotes.css"; // Make sure to create this CSS file
 import { useParams } from "react-router-dom";
 import { useDriverNotes } from "../../features/drivers/driver/useDriverNotes";
 import { useRideNotes } from "../../features/rides/ride/useRideNotes";
+import { useTranslation } from "react-i18next";
 
 const InternalNotes = ({ notes: initialNotes }) => {
+  const { t } = useTranslation();
+
   const [note, setNote] = useState("");
   const [notes, setNotes] = useState(initialNotes);
 
@@ -41,7 +44,7 @@ const InternalNotes = ({ notes: initialNotes }) => {
 
   return (
     <div className="internal-notes">
-      <h2>Internal Notes</h2>
+      <h2>{t("InternalNotes")}</h2>
       <div className="notes-display">
         {notes.length === 0 ? (
           <div className="no-note">There is no note</div>
@@ -56,9 +59,9 @@ const InternalNotes = ({ notes: initialNotes }) => {
       <textarea
         value={note}
         onChange={(e) => setNote(e.target.value)}
-        placeholder="Write your note here"
+        placeholder={t("InternalNotesHolder")}
       />
-      <button onClick={handleAddNote}>Add Note</button>
+      <button onClick={handleAddNote}>{t("AddNote")}</button>
     </div>
   );
 };

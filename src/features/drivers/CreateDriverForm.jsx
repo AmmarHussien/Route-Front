@@ -14,6 +14,7 @@ import Textarea from "../../ui/Textarea";
 import useCarType from "./useCarType";
 import Spinner from "../../ui/Spinner";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -27,6 +28,10 @@ function CreateDriverForm({ onCloseModal }) {
   const { register, handleSubmit, setValue, reset, formState, watch } =
     useForm();
   const { errors } = formState;
+
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   const [profileImage, setProfileImage] = useState(null);
   const [driverLicense, setDriverLicense] = useState(null);
@@ -122,9 +127,6 @@ function CreateDriverForm({ onCloseModal }) {
 
   useEffect(() => {
     if (isAdded) {
-      // This will run when the driver is successfully added
-      //console.log("Driver successfully added.");
-      // You can trigger additional UI updates here if needed
     }
   }, [isAdded]); // Dependency array includes `isAdded`
 
@@ -136,93 +138,109 @@ function CreateDriverForm({ onCloseModal }) {
       type={onCloseModal ? "gridx3" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
-        <StyledLabel htmlFor="firstName">First Name</StyledLabel>
+        <StyledLabel htmlFor="firstName"> {t("DriverFirstName")} </StyledLabel>
         <Input
           type="text"
           id="firstName"
-          placeholder="First Name"
+          placeholder={t("DriverFirstName")}
           {...register("firstName", {
-            required: "First Name is required",
+            required: {
+              value: true,
+              message: t("FirstNameValidation.required"),
+            },
             minLength: {
               value: 3,
-              message: "First Name must be at least 3 characters",
+              message: t("FirstNameValidation.minLength"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.lastName?.message}>
-        <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
+        <StyledLabel htmlFor="lastName">{t("DriverLastName")}</StyledLabel>
         <Input
-          placeholder="Last Name"
+          placeholder={t("DriverLastName")}
           type="text"
           id="lastName"
           {...register("lastName", {
-            required: "Last Name is required",
+            required: {
+              value: true,
+              message: t("LastNameValidation.required"),
+            },
             minLength: {
               value: 3,
-              message: "Last Name must be at least 3 characters",
+              message: t("LastNameValidation.minLength"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.phoneNumber?.message}>
-        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
+        <StyledLabel htmlFor="phoneNumber">
+          {t("DriverPhoneNumber")}
+        </StyledLabel>
         <Input
-          placeholder="Phone Number"
+          placeholder={t("DriverPhoneNumber")}
           type="text"
           id="phoneNumber"
           {...register("phoneNumber", {
-            required: "Phone Number is required",
+            required: {
+              value: true,
+              message: t("PhoneNumberValidation.required"),
+            },
             pattern: {
               value: /^[0-9]+$/,
-              message: "Phone Number must be numeric",
+              message: t("PhoneNumberValidation.pattern"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
-        <StyledLabel htmlFor="email">Email</StyledLabel>
+        <StyledLabel htmlFor="email">{t("DriverEmail")}</StyledLabel>
         <Input
-          placeholder="Email"
+          placeholder={t("DriverEmail")}
           type="email"
           id="email"
           autoComplete="username"
           {...register("email", {
-            required: "Email is required",
+            required: {
+              value: true,
+              message: t("EmailValidation.required"),
+            },
             pattern: {
               value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-              message: "Please enter a valid email address",
+              message: t("EmailValidation.pattern"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
-        <StyledLabel htmlFor="password">Password</StyledLabel>
+        <StyledLabel htmlFor="password">{t("DriverPassword")}</StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
-            placeholder="Password"
+            placeholder={t("DriverPassword")}
             type={showPassword ? "text" : "password"}
             id="password"
             autoComplete="new-password"
             {...register("password", {
-              required: "Password is required",
+              required: {
+                value: true,
+                message: t("PasswordValidation.required"),
+              },
               minLength: {
                 value: 8,
-                message: "Password must be at least 8 characters",
+                message: t("PasswordValidation.minLength"),
               },
               maxLength: {
                 value: 20,
-                message: "Password must be at most 20 characters",
+                message: t("PasswordValidation.maxLength"),
               },
               pattern: {
                 value:
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_])[A-Za-z\d@$!%*?&#_]{6,}$/,
-                message:
-                  "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+                message: t("PasswordValidation.pattern"),
               },
             })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -231,7 +249,7 @@ function CreateDriverForm({ onCloseModal }) {
             onClick={handleTogglePassword}
             style={{
               position: "absolute",
-              right: "35px",
+              right: isRTL ? "300px" : "35px",
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer",
@@ -242,17 +260,22 @@ function CreateDriverForm({ onCloseModal }) {
         </div>
       </FormRowVertical>
       <FormRowVertical error={errors?.confirmPassword?.message}>
-        <StyledLabel htmlFor="confirmPassword">Confirm Password</StyledLabel>
+        <StyledLabel htmlFor="confirmPassword">
+          {t("DriverConfirmPassword")}
+        </StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
-            placeholder="Confirm Password"
+            placeholder={t("DriverConfirmPassword")}
             type={showConfirmPassword ? "text" : "password"}
             id="confirmPassword"
             autoComplete="new-password"
             {...register("confirmPassword", {
-              required: "Please confirm your password",
+              required: {
+                value: true,
+                message: t("PasswordValidation.required"),
+              },
               validate: (value) =>
-                value === password || "Passwords do not match",
+                value === password || t("PasswordValidation.notMatch"),
             })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
@@ -260,7 +283,7 @@ function CreateDriverForm({ onCloseModal }) {
             onClick={handleToggleConfirmPassword}
             style={{
               position: "absolute",
-              right: "35px",
+              right: isRTL ? "300px" : "35px",
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer",
@@ -272,9 +295,9 @@ function CreateDriverForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="car-type">Car Type</StyledLabel>
+        <StyledLabel htmlFor="car-type">{t("DriverCarType")}</StyledLabel>
         <DropDownMenu
-          title="Car-Type"
+          title={t("DriverCarType")}
           options={carTypeOptions}
           onSelect={handleCarTypeSelect}
           selectedOption={carTypeOptions.find(
@@ -299,16 +322,18 @@ function CreateDriverForm({ onCloseModal }) {
             }}
           />
           <span style={{ marginLeft: "8px", fontSize: "14px" }}>
-            Registration with Organization
+            {t("DriverRegistrationOrganization")}
           </span>
         </label>
       </FormRowVertical>
 
       {checkOrganization === true ? (
         <FormRowVertical>
-          <StyledLabel htmlFor="organizations">Organizations</StyledLabel>
+          <StyledLabel htmlFor="organizations">
+            {t("DriverOrganization")}
+          </StyledLabel>
           <DropDownMenu
-            title="Organizations"
+            title={t("DriverOrganization")}
             options={organizationsOptions}
             disabled={!checkOrganization}
             onSelect={handleOrganizationSelect}
@@ -320,74 +345,83 @@ function CreateDriverForm({ onCloseModal }) {
       ) : null}
 
       <FormRowVertical error={errors?.nationalId?.message}>
-        <StyledLabel htmlFor="nationalId">National Id</StyledLabel>
+        <StyledLabel htmlFor="nationalId">{t("DriverNationalId")}</StyledLabel>
         <FileInput
-          placeholder="National Id"
+          placeholder={t("DriverNationalId")}
           id="nationalId"
           onFileChange={handleFileChange(setNationalId)}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.profileImage?.message}>
-        <StyledLabel htmlFor="profileImage">Profile Image</StyledLabel>
+        <StyledLabel htmlFor="profileImage">
+          {t("DriverProfileImage")}
+        </StyledLabel>
         <FileInput
-          placeholder="Driver Photo"
+          placeholder={t("DriverProfileImage")}
           id="profileImage"
           onFileChange={handleFileChange(setProfileImage)}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.driverLicense?.message}>
-        <StyledLabel htmlFor="driverLicense">Driver License</StyledLabel>
+        <StyledLabel htmlFor="driverLicense">{t("DriverLicense")}</StyledLabel>
         <FileInput
-          placeholder="Driver License"
+          placeholder={t("DriverLicense")}
           id="driverLicense"
           onFileChange={handleFileChange(setDriverLicense)}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.vehicleLicense?.message}>
-        <StyledLabel htmlFor="vehicleLicense">Vehicle License</StyledLabel>
+        <StyledLabel htmlFor="vehicleLicense">
+          {t("DriverVehicleLicense")}
+        </StyledLabel>
         <FileInput
-          placeholder="Vehicle License"
+          placeholder={t("DriverVehicleLicense")}
           id="vehicleLicense"
           onFileChange={handleFileChange(setVehicleLicense)}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.vehicleImage?.message}>
-        <StyledLabel htmlFor="vehicleImage">Vehicle Image</StyledLabel>
+        <StyledLabel htmlFor="vehicleImage">
+          {t("DriverVehicleImage")}
+        </StyledLabel>
         <FileInput
-          placeholder="Vehicle Image"
+          placeholder={t("DriverVehicleImage")}
           id="vehicleImage"
           onFileChange={handleFileChange(setVehicleImage)}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.criminalRecord?.message}>
-        <StyledLabel htmlFor="criminalRecord">Criminal Record</StyledLabel>
+        <StyledLabel htmlFor="criminalRecord">
+          {" "}
+          {t("DriverCriminalRecord")}
+        </StyledLabel>
         <FileInput
-          placeholder="Criminal Record"
+          placeholder={t("DriverCriminalRecord")}
           id="criminalRecord"
           onFileChange={handleFileChange(setCriminalRecord)}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.towTruckRegistration?.message}>
         <StyledLabel htmlFor="towTruckRegistration">
-          Tow Truck Registration
+          {t("DriverTowTruckRegistration")}
         </StyledLabel>
         <FileInput
-          placeholder="Tow Truck Registration"
+          placeholder={t("DriverTowTruckRegistration")}
           id="towTruckRegistration"
           onFileChange={handleFileChange(setTowTruckRegistration)}
         />
       </FormRowVertical>
 
       <FormRowVertical error={errors?.carSpec?.message}>
-        <StyledLabel htmlFor="carSpec">Car Spec</StyledLabel>
+        <StyledLabel htmlFor="carSpec">{t("DriverCarSpec")}</StyledLabel>
         <Textarea
           type="text"
           id="carSpec"
-          placeholder="Car Spec"
-          {...register("car_spec", {
+          placeholder={t("DriverCarSpec")}
+          {...register("carSpec", {
             maxLength: {
               value: 180,
-              message: "Car Spec must be at Most 180 characters",
+              message: t("CarSpecValidation.maxLength"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -397,7 +431,7 @@ function CreateDriverForm({ onCloseModal }) {
 
       <FormRow>
         <Button $size="xlarge" type="submit" disabled={isWorking}>
-          Submit
+          {t("Submit")}
         </Button>
       </FormRow>
     </Form>

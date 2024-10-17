@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Table from "../../ui/Table";
 import styled, { css } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const Status = styled.div`
   ${(props) =>
@@ -26,6 +27,8 @@ const Status = styled.div`
 `;
 
 function UsersRow({ userInfo }) {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -63,7 +66,9 @@ function UsersRow({ userInfo }) {
 
         <div>{userInfo.num_rides}</div>
         <div>{userInfo.rate}</div>
-        <Status $status={userInfo.status}>{userInfo.status}</Status>
+        <Status $status={userInfo.status}>
+          {t(`Stat.${userInfo.status}`)}
+        </Status>
       </Table.Row>
     </Table>
   );

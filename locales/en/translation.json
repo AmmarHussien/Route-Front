@@ -1,0 +1,445 @@
+{
+  "Search": "Search",
+  "Previous": "Previous",
+  "Next": "Next",
+  "Showing": "Showing",
+  "to": "to",
+  "of": "of",
+  "results": "Results",
+  "PageSize": "Page Size",
+  "Submit": "Submit",
+  "NoData": "No data to show at this moment",
+  "ActivitiesInfo": "Activities Info",
+  "View": "View",
+
+  "_LOGIN PAGE": "login page",
+
+  "WelcomeBack": "Welcome Back!",
+  "Slogan": "Login now to manage and check your pending request",
+  "Email": "Email",
+  "Password": "Password",
+  "Login": "Login",
+  "WelcomeToRoute": "Welcome to Route",
+  "AdminPanel": "Admin Panel",
+
+  "_DASHBOARD PAGE": "DASH BOAR",
+
+  "TotalUsers": "Total Users",
+  "TotalDrivers": "TotalDrivers",
+  "TotalVehicles": "Total Vehicles",
+  "TotalRides": "Total Rides",
+  "TotalRevenue": "Total Revenues",
+  "TotalRevenueSlogan": "Indication for the total revenue over this month",
+  "RidesStatistics": "Rides Statistics",
+  "RidesStatisticsSlogan": "Indication for the total rides over this month",
+  "Complete": "Complete",
+  "Ongoing": "Ongoing",
+  "Cancelled": "Cancelled",
+  "DriverStatistics": "Driver Statistics",
+  "DriverStatisticsSlogan": "Indication for the total rides over this month",
+  "Approved": "Approved",
+  "Pending": "Pending",
+  "Blocked": "Blocked",
+  "Suspended": "Suspended",
+  "RecentRides": "Recent Rides",
+  "ID": "ID",
+  "RiderName": "Rider Name",
+  "DestinationA": "Destination A",
+  "DestinationB": "Destination B",
+  "Date": "Date",
+  "Price": "Price",
+  "Status": "Status",
+  "PhoneNumber": "Phone Number",
+  "Summary": "Summary of Last 10 Rides",
+
+  "_USER PAGE": "Users page",
+
+  "id-desc": "Sort by ID (recent first)",
+  "id-asc": "Sort by ID (earlier first)",
+  "first_name-asc": "Sort Names A-Z",
+  "first_name-desc": "Sort Name Z-A",
+  "phone-asc": "Sort Phone Numbers (1-9)",
+  "phone-desc": "Sort Phone Numbers (9-1)",
+  "AddUser": "Add User",
+
+  "UsersTables": "Users Tables",
+  "UserID": "ID",
+  "UserName": "User Name",
+  "UserBlockedReason": "Blocked Reason",
+  "UserPhoneNumber": "Phone Number",
+  "UserEmail": "Email",
+  "UserNumberOfRides": "Number Of Rides",
+  "UserRate": "Rates",
+  "UserStatus": "Status",
+  "UserFirstName": "First Name",
+  "UserLastName": "Last Name",
+  "UserPassword": "Password",
+  "UserConfirmPassword": "Confirm Password",
+  "UserPhoto": "User Photo (optional)",
+  "UserCarBrands": "Car Brands",
+  "UserCarModels": "Car Models",
+  "UserModelYear": "Models Year",
+
+  "_VIEW User": "view User",
+
+  "Users": "Users",
+  "Edit": "Edit",
+  "Block": "Block",
+  "User'sInfo": "User's Info",
+  "JoiningDate": "JoiningDate",
+  "WalletBalance": "Wallet Balance",
+  "DriverName": "Driver Name",
+  "profileImage": "profile Image",
+
+  "Block-reason": "block",
+  "Reason": "Reason",
+  "UnBlock": "Unblock",
+  "UnSuspended": "UnSuspended",
+
+  "_DRIVER PAGE": "_DRIVER page",
+  "DriverTable": "Driver Table",
+  "DriverReason": "Reason",
+  "DriverEmail": "Email",
+  "DriverPhoneNumber": "Phone Number",
+  "DriverOrganization": "Organization",
+  "DriverCarType": "Car Type",
+  "DriverStatus": "Status",
+  "AddDriver": "Add Driver",
+  "CarInfo": "Car Info",
+
+  "DriverFirstName": "First Name",
+  "DriverLastName": "Last Name",
+  "DriverPassword": "Password",
+  "DriverConfirmPassword": "Confirm Password",
+  "DriverRegistrationOrganization": "Registration with Organization",
+  "DriverNationalId": "National Id",
+  "DriverProfileImage": "Profile Image",
+  "DriverLicense": "Driver License",
+  "DriverVehicleLicense": "Vehicle License",
+  "DriverVehicleImage": "Vehicle Image",
+  "DriverCriminalRecord": "Criminal Record",
+  "DriverTowTruckRegistration": "Tow Truck Registration",
+  "DriverCarSpec": "Car Spec",
+  "EditDriver": "Edit",
+  "CreditBalance": "Credit Balance",
+  "TotalRating": "Total Rating",
+  "TotalEarning": "Total Earning",
+  "TotalPoints": "Total Points",
+  "Drivers'sInfo": "Drivers's Info",
+  "InternalNotes": "Internal Notes",
+  "codeForCostPerKm": "Code For Cost Per Km",
+  "InternalNotesHolder": "Write your note here",
+  "AddNote": "Add Note",
+  "Back": "Back",
+  "Accept": "Accept",
+  "Reject": "Reject",
+
+  "NAVDashboard": "Dashboard",
+  "NAVUsers": "Users",
+  "NAVDrivers": "Drivers",
+  "NAVRides": "Rides",
+  "NAVRating": "Rating",
+  "NAVProfit": "Profit",
+  "NAVPushNotification": "Push Notification",
+  "NAVCustomization": {
+    "Customization": "Customization",
+    "Services": "Services",
+    "Organization": "Organization",
+    "UserCar": "Users Car"
+  },
+
+  "RideID": "Ride ID",
+  "ALLRides": "All Rides",
+  "CreatedDate": "Created Date",
+  "RideId": "Ride ID",
+  "PickUpDate": "Pick Up Date",
+  "DropOffDate": "Drop Off Date",
+  "Rate": "Rate",
+  "Review": "Review",
+  "Service": "Service",
+  "CarType": "Car Type",
+  "PickUpAddress": "Pick Up Address",
+  "DropOffAddress": "Drop Off Address",
+  "Distance": "Distance",
+  "BasicInformation": "Basics Information",
+  "RideInformation": "Ride Information",
+  "MapRoute": "Map Route",
+  "Stat": {
+    "Scheduled": "Scheduled",
+    "Completed": "Completed",
+    "Cancelled": "Cancelled",
+    "Approved": "Approved",
+    "Pending": "Pending",
+    "Blocked": "Blocked",
+    "Suspended": "Suspended"
+  },
+
+  "_Rating Page": "Rating Page",
+  "ErrorLoading": "Error Loading",
+  "UsersOverallRatings": "Users Overall Ratings",
+  "DriversOverallRatings": "Drivers Overall Ratings",
+  "ThisMonth": "This Month",
+  "TotalRatings": "Total Ratings",
+  "TotalRatingSlogan": "Indication for top ratings users and drivers",
+  "DriversRatings": " Drivers Ratings",
+  "UsersRatings": "Users Ratings",
+  "TotalReviews": "Total Reviews",
+  "TotalReviewsSlogan": "Indication for the total Reviews over this month",
+  "TotalReviewsDrivers": "Total Reviews Drivers",
+  "TotalReviewsUser": "Total Reviews User",
+  "RatingsReview": "Ratings Review",
+  "RatingsReviewSlogan": "Breakdown of the received reviews",
+  "Star": "Star",
+
+  "_ProfitPage": "Profit Page",
+  "PaymentToSite": "Payment To Site",
+  "PaymentToDrivers": "Payment To Drivers",
+  "TotalRidesAmount": "Total Rides Amount",
+  "AdminPaymentReport": "Admin Payment Report",
+  "DriverPaymentReport": "Driver Payment Report",
+  "created_at-desc": "Sort by New Date",
+  "created_at-asc": "Sort by Old Date",
+  "total-desc": "Total (High to Low)",
+  "total-asc": "Total (Low to High)",
+  "AdminProfit": "Admin Report",
+  "DriverID": "Driver ID",
+  "BankAccount": "Bank Account",
+  "TotalRidesPayment": "Total Rides Amount",
+  "SiteCommission": "Site Commission",
+  "Driver’sShare": "Driver’s Share",
+  "PaymentMethod": "Payment Method",
+  "TotalAmount": "Total Amount",
+
+  "__NotificationPage": "NotificationPage",
+  "Sent": "Send",
+  "ScheduledNotification": "Scheduled",
+  "All": "All",
+  "Drivers": "Drivers",
+  "Android": "Android",
+  "IOS": "IOS",
+  "SMS": "SMS",
+  "date-desc": "Sort by Date (recent first)",
+  "date-asc": "Sort by Date (earlier first)",
+  "NewNotification": "New Notification",
+  "NotificationTables": "Notification Tables",
+  "Subject": "Subject",
+  "Message": "Message",
+  "Platform": "Platform",
+  "Receiver": "Receiver",
+  "Photo": "Photo",
+  "appTypeItem": {
+    "Driver": "Drivers",
+    "User": "Users"
+  },
+  "platformItem": {
+    "Android": "Android",
+    "Ios": "IOS",
+    "Sms": "SMS"
+  },
+
+  "_CarServiceModel": "CarServiceModel",
+  "AddCarService": "Add Car",
+  "serviceId": "Service Id",
+  "englishName": "English Name",
+  "arabicName": "Arabic Name",
+  "driverCommission": "Driver Commission",
+  "openingPrice": "Opening Price",
+  "separationKm": "Separation KM",
+  "beforeSeparationPrice": "Before Separation Price",
+  "afterSeparationPrice": "After Separation Price",
+  "inOutSeparationKm": "In Out Separation KM",
+  "DialogTitle": "Are You Sure For Deleting This?",
+  "DialogContentText": "Any users who engage with this may be impacted.",
+  "Disagree": "Disagree",
+  "Agree": "Agree",
+
+  "carService": "Car Service",
+  "Organizations": "Organizations",
+  "organizationId": "Organization Id",
+  "isActive": "Is Active",
+  "AddOrganization": "Add Organization",
+
+  "Models": "Models",
+  "CarBrands": "Car Brands",
+  "AddBrand": "Add Brand",
+  "Logo": "Brand Logo",
+  "modelId": "Model Id",
+  "AddModel": "Add Model",
+  "brandId": "Brand Id",
+
+  "__Validations Messages": "Validations",
+  "FirstNameValidation": {
+    "required": "First Name is required",
+    "minLength": "First Name must be at least 3 characters"
+  },
+  "LastNameValidation": {
+    "required": "Last Name is required",
+    "minLength": "Last Name must be at least 3 characters"
+  },
+  "EmailValidation": {
+    "required": "Email is required",
+    "pattern": "Please enter a valid email address"
+  },
+  "PhoneNumberValidation": {
+    "required": "Phone Number is required",
+    "pattern": "Phone Number must be 10 numeric"
+  },
+  "PasswordValidation": {
+    "required": "password is required",
+    "pattern": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "minLength": "Password must be at least 8 characters",
+    "maxLength": "Password must be at most 20 characters",
+    "notMatch": "Password Not Match"
+  },
+  "ModelYearValidation": {
+    "required": "Model Year is required",
+    "pattern": "Model Year must be a number",
+    "checkYear": "This year is in the future"
+  },
+  "ReasonValidation": {
+    "required": "Reason field is required",
+    "minLength": "Reason should be at least 3 character"
+  },
+
+  "CarSpecValidation": {
+    "maxLength": "Car Spec must be at Most 180 characters"
+  },
+
+  "SubjectValidation": {
+    "required": "Subject is required",
+    "minLength": "Subject must be at least 3 characters"
+  },
+  "MessageValidation": {
+    "required": "Message is required",
+    "minLength": "Message must be at least 3 characters",
+    "maxLength": "Message must be at Most 180 characters"
+  },
+  "CarServiceValidation": {
+    "allRequired": "Please fill in all required fields correctly.",
+    "arabicName": "Invalid Arabic name. It must contain Arabic characters.",
+    "Error": "Error"
+  },
+
+  "OrganizationValidation": {
+    "allRequired": "Please fill in all required fields correctly.",
+    "arabicName": "Invalid Arabic name. It must contain Arabic characters.",
+    "Error": "Error"
+  },
+  "BrandValidations": {
+    "allRequired": "Please fill in all required fields correctly.",
+    "arabicName": "Invalid Arabic name. It must contain Arabic characters.",
+    "Error": "Error"
+  },
+  "ModelValidations": {
+    "allRequired": "Please fill in all required fields correctly.",
+    "arabicName": "Invalid Arabic name. It must contain Arabic characters.",
+    "Error": "Error"
+  },
+
+  "UseLoginValidations": {
+    "undefined": "Login response is undefined",
+    "Successfully": "Login Successfully",
+    "Error": "Provided email or password are incorrect"
+  },
+
+  "UseLogoutValidations": {
+    "undefined": "Logout response is undefined",
+    "Successfully": "Logout Successfully"
+  },
+
+  "useCreateOrganizationValidations": {
+    "Successfully": "Organization successfully Created",
+    "Error": "Error Editing Organization"
+  },
+
+  "useDeleteOrganizationValidations": {
+    "Successfully": "Organization deleted successfully",
+    "Error": "Error deleting Organization"
+  },
+  "useEditOrganizationValidations": {
+    "Successfully": "Organization successfully edited",
+    "Error": "Error editing Organization"
+  },
+
+  "useCreateCarServiceValidations": {
+    "Successfully": "Car Services successfully Created",
+    "Error": "Error Created Car Services "
+  },
+
+  "useDeleteCarServiceValidations": {
+    "Successfully": "Car Services successfully Deleted",
+    "Error": "Error Deleting Car Services "
+  },
+
+  "useEditCarServiceValidations": {
+    "Successfully": "Car Services successfully Edited",
+    "Error": "Error Editing Car Services "
+  },
+
+  "useCreateManufacturesValidations": {
+    "Successfully": "Manufactures successfully Created",
+    "Error": "Error Created Manufactures"
+  },
+
+  "useDeleteManufacturesValidations": {
+    "Successfully": "Manufactures successfully Deleted",
+    "Error": "Error Deleting Manufactures"
+  },
+
+  "useEditManufacturesValidations": {
+    "Successfully": "Manufactures successfully Edited",
+    "Error": "Error Editing Manufactures"
+  },
+
+  "useCreateModelValidations": {
+    "Successfully": "Model successfully Created",
+    "Error": "Error Creating Model"
+  },
+  "useDeleteModelValidations": {
+    "Successfully": "Model successfully Deleted",
+    "Error": "Error Deleting Model"
+  },
+  "useEditModelValidations": {
+    "Successfully": "Model successfully Edited",
+    "Error": "Error Editing Model"
+  },
+
+  "useAddDriveValidations": {
+    "Successfully": "Driver successfully Created",
+    "Error": "Error Creating Driver"
+  },
+
+  "useEditDriverValidations": {
+    "Successfully": "Driver successfully Edited",
+    "Error": "Error Editing Driver"
+  },
+
+  "useDriverNotesValidations": {
+    "Successfully": "Note successfully created",
+    "Error": "Error Creating Note"
+  },
+
+  "useUpdateStatus": {
+    "Successfully": "Status successfully Edited",
+    "Error": "Error Edited Status"
+  },
+  "useAddNotificationValidations": {
+    "Successfully": "New Notification Successfully Created",
+    "Error": "Error Creating New Notification"
+  },
+
+  "useRideNotesValidations": {
+    "Successfully": "Note successfully created",
+    "Error": "Error Creating Note"
+  },
+
+  "useAddUserValidations": {
+    "Successfully": "New User successfully created",
+    "Error": "Error Creating New User"
+  },
+
+  "useEditUserValidations": {
+    "Successfully": "User successfully Edited",
+    "Error": "Error Editing User"
+  }
+}

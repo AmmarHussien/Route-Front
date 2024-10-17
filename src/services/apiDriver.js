@@ -8,6 +8,7 @@ export async function getAllDrivers({
   sortBy,
   sortType,
   perPage,
+  isRTL,
 }) {
   const token = localStorage.getItem("authToken");
   try {
@@ -37,6 +38,7 @@ export async function getAllDrivers({
     const response = await axios.get(`${URL}drivers`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       params, // Pass the prepared query parameters
     });
@@ -60,6 +62,7 @@ export async function getSearch({
   sortBy,
   sortType,
   perPage,
+  isRTL,
 }) {
   const token = localStorage.getItem("authToken");
   try {
@@ -87,6 +90,7 @@ export async function getSearch({
     const response = await axios.get(`${URL}drivers?search_key=${searchKey}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       params, // Pass the prepared query parameters
     });
@@ -103,12 +107,13 @@ export async function getSearch({
   }
 }
 
-export async function getDriver(id) {
+export async function getDriver(id, isRTL) {
   const token = localStorage.getItem("authToken");
   try {
     const response = await axios.get(`${URL}drivers/${id}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       // Pass the prepared query parameters
     });

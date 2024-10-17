@@ -1,10 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getAllRides } from "../../services/apiRides";
+import { useTranslation } from "react-i18next";
 
 function useRides() {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   // Filter Logic
   const filterValue = searchParams.get("status") || " ";
@@ -35,8 +38,9 @@ function useRides() {
     data: ridesData = {}, // Ensure default object
     error,
   } = useQuery({
-    queryKey: ["Rides", filter, page, sortBy, sortType, perPage],
-    queryFn: () => getAllRides({ filter, page, sortBy, sortType, perPage }),
+    queryKey: ["Rides", filter, page, sortBy, sortType, perPage, isRTL],
+    queryFn: () =>
+      getAllRides({ filter, page, sortBy, sortType, perPage, isRTL }),
     keepPreviousData: true,
   });
 
@@ -47,18 +51,32 @@ function useRides() {
   // Prefetch Next Page
   if (page < pageCount) {
     queryClient.prefetchQuery({
-      queryKey: ["Rides", filter, page + 1, sortBy, sortType, perPage],
+      queryKey: ["Rides", filter, page + 1, sortBy, sortType, perPage, isRTL],
       queryFn: () =>
-        getAllRides({ filter, page: page + 1, sortBy, sortType, perPage }),
+        getAllRides({
+          filter,
+          page: page + 1,
+          sortBy,
+          sortType,
+          perPage,
+          isRTL,
+        }),
     });
   }
 
   // Prefetch Previous Page
   if (page > 1) {
     queryClient.prefetchQuery({
-      queryKey: ["Rides", filter, page - 1, sortBy, sortType, perPage],
+      queryKey: ["Rides", filter, page - 1, sortBy, sortType, perPage, isRTL],
       queryFn: () =>
-        getAllRides({ filter, page: page - 1, sortBy, sortType, perPage }),
+        getAllRides({
+          filter,
+          page: page - 1,
+          sortBy,
+          sortType,
+          perPage,
+          isRTL,
+        }),
     });
   }
 

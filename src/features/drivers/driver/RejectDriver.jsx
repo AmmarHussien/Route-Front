@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import { useNavigate } from "react-router-dom";
 
 function RejectDriver() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   function handleClick() {
     navigate(`/adminPanel/drivers?status=Pending`, {
@@ -30,7 +32,7 @@ function RejectDriver() {
           },
         }}
       >
-        Reject
+        {t("Reject")}
       </Button>
     </div>
   );

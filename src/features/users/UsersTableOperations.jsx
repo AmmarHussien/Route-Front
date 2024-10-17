@@ -1,18 +1,21 @@
+import { useTranslation } from "react-i18next";
 import Filter from "../../ui/Filter";
 import SearchField from "../../ui/SearchField";
 import SortBy from "../../ui/SortBy";
 import TableOperations from "../../ui/TableOperations";
 
 function UsersTableOperations({ searchTerm, setSearchTerm }) {
+  const { t } = useTranslation();
+
   return (
     <>
       <TableOperations>
         <Filter
           filterField="status"
           options={[
-            { value: "Approved", label: "Approved" },
+            { value: "Approved", label: t("Approved") },
 
-            { value: "Blocked", label: "Blocked" },
+            { value: "Blocked", label: t("Blocked") },
           ]}
         />
         <SearchField searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -21,27 +24,27 @@ function UsersTableOperations({ searchTerm, setSearchTerm }) {
           options={[
             {
               value: "id-desc",
-              label: "Sort by ID (recent first)",
+              label: t("id-desc"),
             },
             {
               value: "id-asc",
-              label: "Sort by ID (earlier first)",
+              label: t("id-asc"),
             },
             {
               value: "first_name-asc",
-              label: "Sort Names A-Z",
+              label: t("first_name-asc"),
             },
             {
               value: "first_name-desc",
-              label: "Sort Name Z-A",
+              label: t("first_name-desc"),
             },
             {
               value: "phone-asc",
-              label: "Sort Phone Numbers (1-9)",
+              label: t("phone-asc"),
             },
             {
               value: "phone-desc",
-              label: "Sort Phone Numbers (9-1)",
+              label: t("phone-desc"),
             },
           ]}
         />

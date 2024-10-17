@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import styled, { css } from "styled-components";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -36,7 +37,19 @@ const Label = styled.div`
 
 const Value = styled.div`
   flex: 1;
-  text-align: left;
+
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
+
   font-weight: 600px;
   color: #272424;
 `;
@@ -49,7 +62,11 @@ const Empty = styled.p`
 `;
 
 function InformationItemTable({ title, data }) {
-  if (!data === null) return <Empty>No data to show at the moment</Empty>;
+  const { t } = useTranslation();
+
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
+  if (!data === null) return <Empty>{t("NoData")}</Empty>;
 
   return (
     <TableContainer>
@@ -58,7 +75,7 @@ function InformationItemTable({ title, data }) {
         {Object.entries(data).map(([key, value], index) => (
           <RowItem key={key} $even={index % 2 === 1}>
             <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-            <Value>{value}</Value>
+            <Value lang={isRTL ? "ar-Eg" : "en-US"}>{value}</Value>
           </RowItem>
         ))}
       </Table>

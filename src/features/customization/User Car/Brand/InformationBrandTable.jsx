@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Row from "../../../../ui/Row";
 import { IconButton } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -10,6 +10,7 @@ import useDeleteManufactures from "./useDeleteManufactures";
 import Spinner from "../../../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 import AlertConfirmation from "../../../../ui/AlertConfirmation";
+import { useTranslation } from "react-i18next";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -47,7 +48,17 @@ const Label = styled.div`
 
 const Value = styled.div`
   flex: 1;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
   font-weight: 600px;
   color: #272424;
 `;
@@ -60,6 +71,8 @@ const Empty = styled.p`
 `;
 
 function InformationBrandTable({ title, data }) {
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -78,7 +91,6 @@ function InformationBrandTable({ title, data }) {
           setIsDelete(false); // Reset delete state after success
         },
         onError: (error) => {
-          console.error("Error deleting manufacture:", error);
           setIsDelete(false); // Reset delete state even after an error
         },
       });
@@ -126,7 +138,7 @@ function InformationBrandTable({ title, data }) {
           {Object.entries(data).map(([key, value], index) => (
             <RowItem key={key} $even={index % 2 === 1}>
               <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-              <Value> {value} </Value>
+              <Value lang={isRTL ? "ar-Eg" : "en-US"}> {value} </Value>
             </RowItem>
           ))}
         </Table>

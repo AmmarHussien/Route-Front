@@ -49,6 +49,9 @@ import ServicesLayout from "./features/customization/Service/ServicesLayout";
 import CarBrandLayout from "./features/customization/User Car/Brand/CarBrandLayout";
 import ViewServices from "./features/customization/Service/ViewServices";
 import OrganizationLayout from "./features/customization/Organization/OrganizationLayout";
+import { useTranslation } from "react-i18next";
+import "../i18n"; // Import the i18n configuration
+import { ErrorBoundary } from "react-error-boundary";
 
 // Configure QueryClient
 const queryClient = new QueryClient({
@@ -144,44 +147,48 @@ function AdminRoutes() {
           element={<ViewCarBrand />}
         />
       </Route>
-      <Route path="/login" element={<Login />} />
-      <Route path="/*" element={<PageNotFound />} />
+      <Route path="/adminPanel/login" element={<Login />} />
+      <Route path="/adminPanel/*" element={<PageNotFound />} />
     </Routes>
   );
 }
 
 // Main App Component
 function App() {
+  const { i18n } = useTranslation();
+  const direction = i18n.language === "ar-EG" ? "rtl" : "ltr";
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <GlobalStyles />
-      <Router>
-        <Suspense fallback={<Spinner />}>
-          <AdminRoutes />
-        </Suspense>
-      </Router>
-      <Toaster
-        position="top-center"
-        gutter={12}
-        containerStyle={{ margin: "8px" }}
-        toastOptions={{
-          success: {
-            duration: 3000,
-          },
-          error: {
-            duration: 5000,
-          },
-          style: {
-            fontSize: "16px",
-            maxWidth: "500px",
-            padding: "16px 24px",
-            backgroundColor: "var(--color-gray-0)",
-            color: "var(--color-gray-700)",
-          },
-        }}
-      />
-    </QueryClientProvider>
+    <div style={{ direction }}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <GlobalStyles />
+        <Router>
+          <Suspense fallback={<Spinner />}>
+            <AdminRoutes />
+          </Suspense>
+        </Router>
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ margin: "8px" }}
+          toastOptions={{
+            success: {
+              duration: 3000,
+            },
+            error: {
+              duration: 5000,
+            },
+            style: {
+              fontSize: "16px",
+              maxWidth: "500px",
+              padding: "16px 24px",
+              backgroundColor: "var(--color-gray-0)",
+              color: "var(--color-gray-700)",
+            },
+          }}
+        />
+      </QueryClientProvider>
+    </div>
   );
 }
 

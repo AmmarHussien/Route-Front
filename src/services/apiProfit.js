@@ -7,13 +7,14 @@ const month = date.getMonth() + 1; // getMonth() is zero-based, so add 1
 const year = date.getFullYear();
 const lastMonth = date.getMonth();
 
-export async function getProfitStatisticCurrentMonth() {
+export async function getProfitStatisticCurrentMonth(isRTL) {
   try {
     const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
 
     const response = await axios.get(`${URL}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Sending the token in the Authorization header
+        "Accept-Language": isRTL ? "ar" : "en",
         // Add any other headers if needed
       },
       params: {
@@ -31,13 +32,14 @@ export async function getProfitStatisticCurrentMonth() {
   }
 }
 
-export async function getProfitStatisticLastMonth() {
+export async function getProfitStatisticLastMonth(isRTL) {
   try {
     const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
 
     const response = await axios.get(`${URL}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Sending the token in the Authorization header
+        "Accept-Language": isRTL ? "ar" : "en",
         // Add any other headers if needed
       },
       params: {
@@ -84,6 +86,7 @@ export async function getAdminProfit({
   sortBy,
   sortType,
   perPage,
+  isRTL,
 }) {
   const token = localStorage.getItem("authToken");
   try {
@@ -115,6 +118,7 @@ export async function getAdminProfit({
     const response = await axios.get(`${URL}/admin`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       params, // Pass the prepared query parameters
     });
@@ -138,6 +142,7 @@ export async function getAdminProfitSearch({
   sortBy,
   sortType,
   perPage,
+  isRTL,
 }) {
   const token = localStorage.getItem("authToken");
   try {
@@ -165,6 +170,7 @@ export async function getAdminProfitSearch({
     const response = await axios.get(`${URL}/admin?search_key=${searchKey}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       params, // Pass the prepared query parameters
     });
@@ -187,6 +193,7 @@ export async function getDriverProfit({
   sortBy,
   sortType,
   perPage,
+  isRTL,
 }) {
   const token = localStorage.getItem("authToken");
   try {
@@ -218,6 +225,7 @@ export async function getDriverProfit({
     const response = await axios.get(`${URL}/drivers`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       params, // Pass the prepared query parameters
     });
@@ -241,6 +249,7 @@ export async function getDriverProfitSearch({
   sortBy,
   sortType,
   perPage,
+  isRTL,
 }) {
   const token = localStorage.getItem("authToken");
   try {
@@ -268,6 +277,7 @@ export async function getDriverProfitSearch({
     const response = await axios.get(`${URL}/drivers?search_key=${searchKey}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       params, // Pass the prepared query parameters
     });

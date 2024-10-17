@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import RatingStat from "./RatingStat";
+import { useTranslation } from "react-i18next";
 
 const StatContainer = styled.div`
   display: flex;
@@ -14,13 +15,15 @@ function RatingStats({
   overAllThisMonthRatingDriver,
   overAllPastMonthRatingDriver,
 }) {
+  const { t } = useTranslation();
+
   return (
     <StatContainer>
       {overAllThisMonthRatingUser !== undefined &&
       overAllPastMonthRatingUser !== undefined ? (
         <RatingStat
           backgroundColor="#FFFFFF"
-          title="Users Overall Ratings"
+          title={t("UsersOverallRatings")}
           colorIconBackground="#6366F1"
           icon="/Usersw.svg"
           thisMonthValue={overAllThisMonthRatingUser}
@@ -32,7 +35,7 @@ function RatingStats({
       overAllPastMonthRatingDriver !== undefined ? (
         <RatingStat
           backgroundColor="#FFFFFF"
-          title="Drivers Overall Ratings"
+          title={t("DriversOverallRatings")}
           colorIconBackground="#F97316"
           icon="/Driversw.svg"
           thisMonthValue={overAllThisMonthRatingDriver}

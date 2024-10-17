@@ -4,9 +4,11 @@ import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import UsersRow from "./UsersRow";
+import { useTranslation } from "react-i18next";
 
 function UsersTable({ users, isLoading, userCount }) {
   const [searchParams] = useSearchParams();
+  const { t } = useTranslation();
 
   if (isLoading) return <Spinner />;
 
@@ -20,16 +22,16 @@ function UsersTable({ users, isLoading, userCount }) {
 
   return (
     <Table columns={columns}>
-      <Table.TableNav title="Users Tables" tableData={users} />
+      <Table.TableNav title={t("UsersTables")} tableData={users} />
       <Table.Header>
-        <div>Id</div>
-        <div>Name</div>
-        {isBlocked && <div>Reason</div>}
-        <div>Phone Number</div>
-        <div>Email</div>
-        <div>Number Of Rides</div>
-        <div>Rate</div>
-        <div>Status</div>
+        <div>{t("UserID")}</div>
+        <div>{t("UserName")}</div>
+        {isBlocked && <div>{t("UserBlockedReason")}</div>}
+        <div>{t("UserPhoneNumber")}</div>
+        <div>{t("UserEmail")}</div>
+        <div>{t("UserNumberOfRides")}</div>
+        <div>{t("UserRate")}</div>
+        <div>{t("UserStatus")}</div>
       </Table.Header>
 
       <Table.Body

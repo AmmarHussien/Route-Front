@@ -1,4 +1,3 @@
-import Heading from "../../../ui/Heading";
 import Row from "../../../ui/Row";
 import useCarService from "./useCarService";
 import Spinner from "../../../ui/Spinner";
@@ -7,6 +6,8 @@ import styled from "styled-components";
 import ButtonText from "../../../ui/ButtonText";
 import { useMoveBack } from "../../../hooks/useMoveBack";
 import AddCarService from "./AddCarService";
+import { useTranslation } from "react-i18next";
+import Empty from "../../../ui/Empty";
 
 const BoxModels = styled.div`
   display: grid;
@@ -16,6 +17,8 @@ const BoxModels = styled.div`
 `;
 
 function ViewServices() {
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const { carService, isLoading } = useCarService();
   const moveBack = useMoveBack();
 
@@ -25,8 +28,9 @@ function ViewServices() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>&larr; Users Cars</ButtonText>
-          <Heading $variant="h1">Service Cars</Heading>
+          <ButtonText onClick={moveBack}>
+            {isRTL ? "→" : "←"} {t("Back")}
+          </ButtonText>
         </Row>
         <AddCarService />
       </Row>
@@ -37,7 +41,7 @@ function ViewServices() {
             <ViewCarServiceModal id={model.id} key={index} />
           ))
         ) : (
-          <p>No Car Service found.</p> // You can add a fallback message or placeholder here
+          <Empty> {t("NoData")}</Empty> // You can add a fallback message or placeholder here
         )}
       </BoxModels>
     </>

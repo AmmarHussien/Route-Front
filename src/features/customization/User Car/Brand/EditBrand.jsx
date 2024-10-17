@@ -6,6 +6,7 @@ import useViewManufactures from "./useViewManufactures";
 import styled from "styled-components";
 import useEditManufactures from "./useEditManufactures";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute",
@@ -30,7 +31,7 @@ const StyledLabel = styled.label`
 function EditBrand({ open, setOpen }) {
   const handleClose = () => setOpen(false);
   const { manufactures } = useViewManufactures();
-
+  const { t } = useTranslation();
   const [arName, setArName] = useState(""); // Arabic name state
   const [egName, setEgName] = useState(""); // English name state
   const [isActive, setIsActive] = useState(""); // IsActive state
@@ -44,7 +45,6 @@ function EditBrand({ open, setOpen }) {
         name: { ar: arabicName, en: englishName },
         is_active,
       } = manufactures;
-      console.log(is_active);
 
       setArName(arabicName); // Reset Arabic name field
       setEgName(englishName); // Reset English name field
@@ -74,7 +74,7 @@ function EditBrand({ open, setOpen }) {
     setEditError(null); // Clear previous error before new submission
 
     if (!arName || !egName) {
-      setEditError("Please fill in all required fields correctly.");
+      setEditError(t("BrandValidations.allRequired"));
       return;
     }
 
@@ -95,7 +95,7 @@ function EditBrand({ open, setOpen }) {
         }
       );
     } else {
-      setEditError("Invalid Arabic name. It must contain Arabic characters.");
+      setEditError(t("BrandValidations.arabicName"));
       return;
     }
   };
@@ -104,7 +104,7 @@ function EditBrand({ open, setOpen }) {
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <FormRowVertical>
-          <StyledLabel htmlFor="EnglishName">English Name</StyledLabel>
+          <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
           <Input
             type="text"
             id="EnglishName"
@@ -115,7 +115,7 @@ function EditBrand({ open, setOpen }) {
           />
         </FormRowVertical>
         <FormRowVertical>
-          <StyledLabel htmlFor="ArabicName">Arabic Name</StyledLabel>
+          <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
           <Input
             type="text"
             id="ArabicName"
@@ -125,7 +125,7 @@ function EditBrand({ open, setOpen }) {
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
-        <StyledLabel htmlFor="isActive">Is Active</StyledLabel>
+        <StyledLabel htmlFor="isActive">{t("isActive")}</StyledLabel>
         <Switch
           checked={Boolean(isActive)}
           onChange={handleSwitchChange}
@@ -133,11 +133,11 @@ function EditBrand({ open, setOpen }) {
         />
         <FormRowVertical>
           <Button type="submit" onClick={handleClick} disabled={isLoading}>
-            {isLoading ? "Updating..." : "Edit"}
+            {isLoading ? "Updating..." : t("Submit")}
           </Button>
         </FormRowVertical>
         {editError && (
-          <p style={{ color: "red", marginTop: "10px" }}>Error: {editError}</p>
+          <p style={{ color: "red", marginTop: "10px" }}> {editError}</p>
         )}{" "}
         {/* Display error message */}
       </Box>

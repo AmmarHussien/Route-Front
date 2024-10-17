@@ -5,6 +5,7 @@ import Button from "../../../ui/Button";
 import styled from "styled-components";
 import { useState } from "react";
 import useCreateCarService from "./useCreateCarService";
+import { useTranslation } from "react-i18next";
 // import useCreateOrganization from "./useCreateOrganization";
 
 const style = {
@@ -32,6 +33,7 @@ const StyledLabel = styled.label`
 
 function AddCarServiceModal({ open, setOpen }) {
   const handleClose = () => setOpen(false);
+  const { t } = useTranslation();
 
   const [arName, setArName] = useState();
   const [egName, setEgName] = useState();
@@ -85,7 +87,7 @@ function AddCarServiceModal({ open, setOpen }) {
       afterSeparationPrice <= 0 ||
       inOutSeparationKm <= 0
     ) {
-      setEditError("Please fill in all required fields correctly.");
+      setEditError(t("CarServiceValidation.allRequired"));
       return;
     }
     if (validateArabicName(arName)) {
@@ -111,7 +113,7 @@ function AddCarServiceModal({ open, setOpen }) {
         }
       );
     } else {
-      setEditError("Invalid Arabic name. It must contain Arabic characters.");
+      setEditError(t("CarServiceValidation.arabicName"));
       return;
     }
   };
@@ -120,22 +122,22 @@ function AddCarServiceModal({ open, setOpen }) {
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <FormRowVertical>
-          <StyledLabel htmlFor="EnglishName">English Name</StyledLabel>
+          <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
           <Input
             type="text"
             id="EnglishName"
-            placeholder="English Name"
+            placeholder={t("englishName")}
             value={egName}
             onChange={handleEnglishNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
         <FormRowVertical>
-          <StyledLabel htmlFor="ArabicName">Arabic Name</StyledLabel>
+          <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
           <Input
             type="text"
             id="ArabicName"
-            placeholder="Arabic Name"
+            placeholder={t("arabicName")}
             value={arName}
             onChange={handleArabicNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -143,34 +145,34 @@ function AddCarServiceModal({ open, setOpen }) {
         </FormRowVertical>
         <FormRowVertical>
           <StyledLabel htmlFor="driverCommission">
-            Driver Commission
+            {t("driverCommission")}
           </StyledLabel>
           <Input
             type="number"
             id="driverCommission"
-            placeholder="Driver Commission"
+            placeholder={t("driverCommission")}
             value={driverCommission} // Controlled input with fallback
             onChange={handleDriverCommissionChange}
             min={0}
           />
         </FormRowVertical>
         <FormRowVertical>
-          <StyledLabel htmlFor="openingPrice">Opening Price</StyledLabel>
+          <StyledLabel htmlFor="openingPrice">{t("openingPrice")}</StyledLabel>
           <Input
             type="number"
             id="openingPrice"
-            placeholder="Opening Price"
+            placeholder={t("openingPrice")}
             value={openingPrice} // Controlled input with fallback
             onChange={handleOpeningPriceChange}
             min={0}
           />
         </FormRowVertical>
         <FormRowVertical>
-          <StyledLabel htmlFor="separationKm">Separation Km</StyledLabel>
+          <StyledLabel htmlFor="separationKm">{t("separationKm")}</StyledLabel>
           <Input
             type="number"
             id="separationKm"
-            placeholder="Separation Km"
+            placeholder={t("separationKm")}
             value={separationKm} // Controlled input with fallback
             onChange={handleSeparationKmChange}
             min={0}
@@ -178,12 +180,12 @@ function AddCarServiceModal({ open, setOpen }) {
         </FormRowVertical>
         <FormRowVertical>
           <StyledLabel htmlFor="beforeSeparationPrice">
-            Before Separation Price
+            {t("beforeSeparationPrice")}
           </StyledLabel>
           <Input
             type="number"
             id="beforeSeparationPrice"
-            placeholder="Before Separation Price"
+            placeholder={t("beforeSeparationPrice")}
             value={beforeSeparationPrice} // Controlled input with fallback
             onChange={handleBeforeSeparationPriceChange}
             min={0}
@@ -191,12 +193,12 @@ function AddCarServiceModal({ open, setOpen }) {
         </FormRowVertical>
         <FormRowVertical>
           <StyledLabel htmlFor="afterSeparationPrice">
-            After Separation Price
+            {t("afterSeparationPrice")}
           </StyledLabel>
           <Input
             type="number"
             id="afterSeparationPrice"
-            placeholder="After Separation Price"
+            placeholder={t("afterSeparationPrice")}
             value={afterSeparationPrice} // Controlled input with fallback
             onChange={handleAfterSeparationPriceChange}
             min={0}
@@ -204,7 +206,7 @@ function AddCarServiceModal({ open, setOpen }) {
         </FormRowVertical>
         <FormRowVertical>
           <StyledLabel htmlFor="InOutSeparationKm">
-            In Out Separation Km
+            {t("inOutSeparationKm")}
           </StyledLabel>
           <Input
             type="number"
@@ -219,14 +221,14 @@ function AddCarServiceModal({ open, setOpen }) {
         <FormRowVertical>
           {editError && (
             <p style={{ color: "red", marginTop: "10px" }}>
-              Error: {editError}
+              {t("CarServiceValidation.Error")} : {editError}
             </p>
           )}
         </FormRowVertical>
 
         <FormRowVertical>
           <Button type="submit" onClick={handleClick}>
-            Add Car Service
+            {t("Submit")}
           </Button>
         </FormRowVertical>
       </Box>

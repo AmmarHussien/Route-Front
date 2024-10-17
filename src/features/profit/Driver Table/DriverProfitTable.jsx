@@ -3,22 +3,25 @@ import Pagination from "../../../ui/Pagination";
 import Empty from "../../../ui/Empty";
 import Spinner from "../../../ui/Spinner";
 import DriverProfitRow from "./DriverProfitRow";
+import { useTranslation } from "react-i18next";
 
 function DriverProfitTable({ profit, isLoading, profitCount }) {
+  const { t } = useTranslation();
+
   if (isLoading) return <Spinner />;
 
   return (
     <Table columns={"0.6fr 1fr 1fr 1fr 1fr 1fr 1fr"}>
-      <Table.TableNav title="Admin Profit" tableData={profit} />
+      <Table.TableNav title={t("AdminProfit")} tableData={profit} />
       <Table.Header>
-        <div>Driver ID</div>
-        <div>Driver Name</div>
+        <div>{t("DriverID")}</div>
+        <div>{t("DriverName")}</div>
 
-        <div>Bank Account</div>
-        <div>Total Rides Payment</div>
-        <div>Site Commission</div>
-        <div>Driver’s Share</div>
-        <div>Payment Method</div>
+        <div>{t("BankAccount")}</div>
+        <div>{t("TotalRidesPayment")}</div>
+        <div>{t("SiteCommission")}</div>
+        <div>{t("Driver’sShare")}</div>
+        <div>{t("PaymentMethod")}</div>
       </Table.Header>
 
       <Table.Body

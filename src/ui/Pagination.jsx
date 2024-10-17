@@ -2,6 +2,7 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -61,6 +62,9 @@ const PaginationButton = styled.button`
 
 function Pagination({ count }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   const initialPageSize = Number(searchParams.get("per_page")) || 10;
   const [pageSize, setPageSize] = useState(() => initialPageSize);
@@ -106,14 +110,14 @@ function Pagination({ count }) {
   return (
     <StyledPagination>
       <P>
-        Showing <span>{(currentPage - 1) * pageSize + 1}</span> to{" "}
+        {t("Showing")} <span>{(currentPage - 1) * pageSize + 1}</span> {t("to")}{" "}
         <span>
           {currentPage === pageCount ? count : currentPage * pageSize}
         </span>{" "}
-        of <span>{count}</span> results
+        {t("of")} <span>{count}</span> {t("results")}
         <span>
           {" "}
-          <label htmlFor="pageSize">Page Size: </label>{" "}
+          <label htmlFor="pageSize">{t("PageSize")}: </label>{" "}
           <input
             id="pageSize"
             type="number"
@@ -136,13 +140,15 @@ function Pagination({ count }) {
       {pageCount > 1 ? (
         <Buttons>
           <PaginationButton onClick={prevPage} disabled={currentPage === 1}>
-            <HiChevronLeft /> <span> Previous </span>
+            {isRTL ? <HiChevronRight /> : <HiChevronLeft />}
+            <span> {t("Previous")} </span>
           </PaginationButton>
           <PaginationButton
             onClick={nextPage}
             disabled={currentPage === pageCount}
           >
-            <span> Next </span> <HiChevronRight />
+            <span> {t("Next")} </span>
+            {isRTL ? <HiChevronLeft /> : <HiChevronRight />}
           </PaginationButton>
         </Buttons>
       ) : null}

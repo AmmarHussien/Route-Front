@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import styled, { css } from "styled-components";
 
 const StyledStat = styled.div`
   display: grid;
@@ -80,7 +81,17 @@ const Value = styled.h5`
   font-size: 33px;
   font-weight: 700;
   line-height: 40px;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
   color: white;
 `;
 
@@ -90,7 +101,17 @@ const Title = styled.p`
   font-size: 27px;
   font-weight: 400;
   line-height: 33px;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
   color: white;
 `;
 
@@ -101,6 +122,8 @@ function RatingStat({
   backgroundColor,
   colorIconBackground,
 }) {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   return (
     <StyledStat color={backgroundColor}>
       <StyledContent>
@@ -108,8 +131,8 @@ function RatingStat({
           <img id={icon} src={icon} alt={icon} width={40} height={40} />
         </Icon>
         <StyledText>
-          <Value>{value}</Value>
-          <Title>{title}</Title>
+          <Value lang={isRTL ? "ar-Eg" : "en-US"}>{value}</Value>
+          <Title lang={isRTL ? "ar-Eg" : "en-US"}>{title}</Title>
         </StyledText>
       </StyledContent>
     </StyledStat>

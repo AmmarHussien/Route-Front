@@ -11,6 +11,7 @@ import styled from "styled-components";
 import Row from "../../../ui/Row";
 import Heading from "../../../ui/Heading";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const CardGrid = styled.div`
   display: grid;
@@ -29,6 +30,7 @@ const StyledCardMedia = styled(CardMedia)`
 function ServicesLayout() {
   const { isLoading, services } = useServices();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   if (isLoading) return <Spinner />;
 
@@ -36,7 +38,7 @@ function ServicesLayout() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <Heading $variant="h1">Car service</Heading>
+          <Heading $variant="h1">{t("carService")}</Heading>
         </Row>
       </Row>
 

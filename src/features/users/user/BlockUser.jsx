@@ -2,15 +2,20 @@ import { Button } from "@mui/material";
 import { BlockSharp } from "@mui/icons-material";
 import Modal from "../../../ui/Modal";
 import BlockUserForm from "./BlockUserForm";
+import { useTranslation } from "react-i18next";
 
 function BlockUser() {
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   return (
     <div>
       <Modal>
         <Modal.Open opens="block-user-form">
           <Button
             variant="contained"
-            startIcon={<BlockSharp />}
+            endIcon={isRTL ? <BlockSharp sx={{ marginRight: 4 }} /> : null}
+            startIcon={isRTL ? null : <BlockSharp />}
             sx={{
               width: 139,
               height: 56,
@@ -25,7 +30,7 @@ function BlockUser() {
               },
             }}
           >
-            Block
+            {t("Block")}
           </Button>
         </Modal.Open>
         <Modal.Window name="block-user-form">

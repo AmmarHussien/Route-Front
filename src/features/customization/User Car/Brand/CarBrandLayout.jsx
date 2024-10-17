@@ -11,6 +11,7 @@ import Heading from "../../../../ui/Heading";
 import AddBrand from "./AddBrand";
 import useGetManufactures from "./useGetManufactures";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const CardGrid = styled.div`
   display: grid;
@@ -22,6 +23,8 @@ const CardGrid = styled.div`
 function CarBrandLayout() {
   const { isLoading, manufactures } = useGetManufactures();
   const navigation = useNavigate();
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   const handleCardClick = (id, name) => {
     navigation(`/adminPanel/customization/userCar/${name}/${id}`);
@@ -35,7 +38,7 @@ function CarBrandLayout() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <Heading $variant="h1">Car Brands</Heading>
+          <Heading $variant="h1">{t("CarBrands")}</Heading>
         </Row>
         <AddBrand />
       </Row>

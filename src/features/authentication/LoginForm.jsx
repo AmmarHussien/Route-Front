@@ -9,6 +9,7 @@ import { IconButton, InputAdornment } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const StyledFormRow = styled.div`
   display: flex;
@@ -29,6 +30,8 @@ const Button = styled.button`
 `;
 
 function LoginForm() {
+  const { t } = useTranslation();
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
@@ -57,17 +60,15 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Heading $variant="h1">Welcome Back!</Heading>
-      <Heading $variant="h5">
-        Login to manage and check your pending request
-      </Heading>
+      <Heading $variant="h1"> {t("WelcomeBack")}</Heading>
+      <Heading $variant="h5">{t("Slogan")}</Heading>
       <FormRowVertical label="">
         <TextField
           type="email"
           id="email"
           // This makes this form better for password managers
           autoComplete="email"
-          placeholder="email"
+          placeholder={t("Email")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
@@ -79,7 +80,7 @@ function LoginForm() {
 
       <FormRowVertical label="">
         <TextField
-          placeholder="Password"
+          placeholder={t("Password")}
           type={showPassword ? "text" : "password"}
           id="password"
           autoComplete="current-password"
@@ -89,7 +90,13 @@ function LoginForm() {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={handleClick} edge="start">
+                <IconButton
+                  onClick={handleClick}
+                  sx={{
+                    marginLeft: "0px",
+                  }}
+                  edge="start"
+                >
                   {showPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
                 </IconButton>
               </InputAdornment>
@@ -113,7 +120,7 @@ function LoginForm() {
 
       <StyledFormRow>
         <Button disabled={isLoading}>
-          {!isLoading ? "log in" : <SpinnerMini />}
+          {!isLoading ? `${t("Login")}` : <SpinnerMini />}
         </Button>
       </StyledFormRow>
     </Form>

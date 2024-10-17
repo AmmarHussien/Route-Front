@@ -2,8 +2,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login as loginApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 export function useLogin() {
+  const { t } = useTranslation();
+
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
@@ -13,10 +16,10 @@ export function useLogin() {
 
     onSuccess: (response) => {
       if (!response) {
-        console.error("Login response is undefined");
+        toast.error(t("UseLoginValidations.undefined"));
         return;
       }
-      toast.success("Login Successfully");
+      toast.success(t("UseLoginValidations.Successfully"));
       navigate("/adminPanel/dashboard", {
         replace: true,
       });
@@ -24,8 +27,7 @@ export function useLogin() {
     },
 
     onError: (err) => {
-      toast.error("Provided email or password are incorrect");
-      console.error("Login failed:", err);
+      toast.error(t("UseLoginValidations.Error"));
     },
   });
 

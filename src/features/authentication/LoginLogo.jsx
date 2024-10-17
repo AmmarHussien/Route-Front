@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
+import { useTranslation } from "react-i18next";
 
 const Box = styled.div`
   display: flex;
@@ -30,15 +31,15 @@ const Image = styled.img`
 `;
 
 function LoginLogo() {
+  const { t } = useTranslation();
+
   return (
     <Box>
       <StyledFormRow>
         <Image src="/Logo.svg" alt="" />
-        <Heading $variant="loginPageHeader">Welcome To Route</Heading>
-        <Heading $variant="loginPageHeader"> Admin Panel</Heading>
-        <Heading $variant="h4">
-          Login now to manage your account and check your pending request
-        </Heading>
+        <Heading $variant="loginPageHeader">{t("WelcomeToRoute")}</Heading>
+        <Heading $variant="loginPageHeader">{t("AdminPanel")}</Heading>
+        <Heading $variant="h4">{t("Slogan")} </Heading>
       </StyledFormRow>
     </Box>
   );

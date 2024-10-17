@@ -12,6 +12,8 @@ import Heading from "../../../../ui/Heading";
 import ViewCarModel from "../Model/ViewCarModel";
 import useModel from "../Model/useModel";
 import AddModel from "../Model/AddModel";
+import { useTranslation } from "react-i18next";
+import Empty from "../../../../ui/Empty";
 
 const Box = styled.div`
   width: 50%;
@@ -24,6 +26,8 @@ const BoxModels = styled.div`
 `;
 
 function ViewCarBrand() {
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const { Id } = useParams();
   const { isLoading, manufactures } = useViewManufactures();
   const { models, modelLoading } = useModel(Id);
@@ -33,25 +37,39 @@ function ViewCarBrand() {
 
   if (isLoading || modelLoading) return <Spinner />;
 
-  const active = manufactures.is_active === true ? "True" : "False";
+  const active = manufactures.is_active
+    ? isRTL
+      ? "نعم" // Yes in Arabic
+      : "True" // True in English
+    : isRTL
+    ? "لا" // No in Arabic
+    : "False"; // False in English
 
   return (
     <>
       <Box>
-        <ButtonText onClick={moveBack}>&larr; Users Cars</ButtonText>
+        <ButtonText onClick={moveBack}>
+          {isRTL ? "→" : "←"} {t("Back")}
+        </ButtonText>
         <InformationBrandTable
           data={{
-            id: manufactures.id,
-            englishName: manufactures.name.en,
-            arabicName: manufactures.name.ar,
-            isActive: active,
+            [t("brandId")]: manufactures.id,
+            [t("englishName")]: manufactures.name.en,
+            [t("arabicName")]: manufactures.name.ar,
+            [t("isActive")]: active,
           }}
-          title={`${manufactures.name.en} `}
+          title={
+            isRTL ? `${manufactures.name.ar} ` : `${manufactures.name.en} `
+          }
         />
       </Box>
       <Row type="horizontal">
         <Row type="vertical">
-          <Heading $variant="h1">{manufactures.name.en} Models</Heading>
+          <Heading $variant="h1">
+            {isRTL
+              ? ` ${t("Models")} ${manufactures.name.ar} ` // Arabic name followed by the translation for "Models"
+              : `${manufactures.name.en} ${t("Models")}`}{" "}
+          </Heading>
         </Row>
         <AddModel />
       </Row>
@@ -63,7 +81,7 @@ function ViewCarBrand() {
               <ViewCarModel id={model.id} key={index} />
             ))
           ) : (
-            <p>No models found.</p> // You can add a fallback message or placeholder here
+            <Empty>{t("NoData")}</Empty> // You can add a fallback message or placeholder here
           )}
         </BoxModels>
       </Row>

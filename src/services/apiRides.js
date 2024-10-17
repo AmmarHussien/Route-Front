@@ -2,7 +2,14 @@ import axios from "axios";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
-export async function getAllRides({ filter, page, sortBy, sortType, perPage }) {
+export async function getAllRides({
+  filter,
+  page,
+  sortBy,
+  sortType,
+  perPage,
+  isRTL,
+}) {
   const token = localStorage.getItem("authToken");
   try {
     // Prepare query parameters
@@ -31,6 +38,7 @@ export async function getAllRides({ filter, page, sortBy, sortType, perPage }) {
     const response = await axios.get(`${URL}rides`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       params, // Pass the prepared query parameters
     });
@@ -54,6 +62,7 @@ export async function getSearch({
   sortBy,
   sortType,
   perPage,
+  isRTL,
 }) {
   const token = localStorage.getItem("authToken");
   try {
@@ -81,6 +90,7 @@ export async function getSearch({
     const response = await axios.get(`${URL}rides?search_key=${searchKey}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       params, // Pass the prepared query parameters
     });
@@ -97,12 +107,13 @@ export async function getSearch({
   }
 }
 
-export async function getRide(id) {
+export async function getRide(id, isRTL) {
   const token = localStorage.getItem("authToken");
   try {
     const response = await axios.get(`${URL}rides/${id}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       // Pass the prepared query parameters
     });

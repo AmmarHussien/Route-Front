@@ -1,0 +1,448 @@
+{
+  "Search": "البحث",
+  "Previous": "سابق",
+  "Next": "التالي",
+  "Showing": "إظهار",
+  "to": "إلى",
+  "of": "من",
+  "results": "النتائج",
+  "PageSize": "حجم الصفحة",
+  "Submit": "احفظ وأرسال",
+  "NoData": "لا توجد بيانات لعرضها في هذه اللحظة",
+  "ActivitiesInfo": "معلومات إضافية",
+  "View": "عرض",
+
+  "_LOGIN PAGE": "login page",
+
+  "WelcomeBack": "مرحبا بعودتك!",
+  "Slogan": "تسجيل الدخول لإدارة طلباتك المعلقة والتحقق منها",
+  "Email": "البريد الإلكتروني",
+  "Password": "كلمة المرور",
+  "Login": "تسجيل الدخول",
+  "WelcomeToRoute": "مرحبًا بك في Route",
+  "AdminPanel": " لوحة القيادة",
+
+  "_DASHBOARD PAGE": "DASH BOAR",
+
+  "TotalUsers": "إجمالي المستخدمين",
+  "TotalDrivers": "إجمالي السائقين",
+  "TotalVehicles": "إجمالي المركبات",
+  "TotalRides": "إجمالي الرحلات",
+  "TotalRevenue": "إجمالي الإيرادات",
+  "TotalRevenueSlogan": " مؤشر لإجمالي الإيرادات خلال هذا الشهر",
+  "RidesStatistics": "إحصائيات الرحلات",
+  "RidesStatisticsSlogan": "مؤشر لإجمالي الرحلات خلال هذا الشهر",
+  "Complete": "مكتمل",
+  "Ongoing": "جاري",
+  "Cancelled": "تم إلغاؤها",
+  "DriverStatistics": "إحصائيات السائق",
+  "DriverStatisticsSlogan": "مؤشر لإجمالي عدد الرحلات خلال هذا الشهر",
+  "Approved": "تمت الموافقة",
+  "Pending": "معلق",
+  "Blocked": "محظور",
+  "Suspended": "تعلق مؤقت",
+  "Scheduled": "رحلات محجوزة",
+  "Completed": "مكتملة",
+  "AllRide": "جميع الرحلات",
+
+  "RecentRides": "الرحلات الأخيرة",
+  "ID": "ID",
+
+  "RiderName": "اسم الراكب",
+  "DestinationA": "الوجهة أ",
+  "DestinationB": "الوجهة ب",
+  "Date": "التاريخ",
+  "Price": "السعر",
+  "Status": "الحالة",
+  "PhoneNumber": "رقم الهاتف",
+  "Summary": "ملخص آخر 10 رحلات",
+
+  "_USERS PAGE": "Users page",
+
+  "id-desc": "فرز حسب Id (الأحدث أولاً)",
+  "id-asc": "فرز حسب Id (الأقدم أولاً)",
+  "first_name-asc": "فرز الأسماء من أ إلى ي",
+  "first_name-desc": "فرز الأسماء من ي إلى أ",
+  "phone-asc": "فرز أرقام الهاتف (1-9)",
+  "phone-desc": "فرز أرقام الهاتف (9-1)",
+  "AddUser": "إضافة",
+
+  "UsersTables": "جدول المستخدمين",
+  "UserID": "ID",
+  "UserName": "اسم المستخدم",
+  "UserBlockedReason": "سبب الحظر",
+  "UserPhoneNumber": "رقم الهاتف",
+  "UserEmail": "البريد الإلكتروني",
+  "UserNumberOfRides": "عدد الرحلات",
+  "UserRate": "التقييم",
+  "UserStatus": "الحالة",
+  "UserFirstName": "الاسم الأول",
+  "UserLastName": "الاسم الأخير",
+  "UserPassword": "كلمة المرور",
+  "UserConfirmPassword": "تأكيد كلمة المرور",
+  "UserPhoto": "(اختياري) صورة المستخدم",
+  "UserCarBrands": "ماركات السيارات",
+  "UserCarModels": "طراز السيارات",
+  "UserModelYear": "سنة الطراز",
+
+  "_VIEW User": "view User",
+
+  "Users": "المستخدمون",
+  "Edit": "تعديل",
+  "Block": "حظر",
+  "User'sInfo": "معلومات المستخدم",
+  "JoiningDate": "تاريخ الانضمام",
+  "WalletBalance": "رصيد المحفظة",
+  "DriverName": "اسم السائق",
+  "profileImage": "الصورة الشخصية",
+
+  "Block-reason": "block",
+  "Reason": "السبب",
+  "UnBlock": "فك الحظر",
+  "UnSuspended": "إلغاء التعليق المؤقت",
+
+  "_DRIVER PAGE": "_DRIVER page",
+  "DriverTable": "جدول السائقين",
+  "DriverReason": "السبب",
+  "DriverEmail": "البريد الالكتروني",
+  "DriverPhoneNumber": "رقم الهاتف",
+  "DriverOrganization": "المنظمة",
+  "DriverCarType": "نوع السيارة",
+  "DriverStatus": "الحاله",
+  "AddDriver": "إضافه",
+  "CarInfo": "معلومات السيارة",
+
+  "DriverFirstName": "الاسم الأول",
+  "DriverLastName": "الاسم الأخير",
+  "DriverPassword": "كلمة المرور",
+  "DriverConfirmPassword": "تأكيد كلمة المرور",
+  "DriverRegistrationOrganization": "التسجيل لدى المنظمة",
+  "DriverNationalId": "الرقم الوطني",
+  "DriverProfileImage": "صورة الملف الشخصي",
+  "DriverLicense": "رخصة القيادة",
+  "DriverVehicleLicense": "رخصة السيارة",
+  "DriverVehicleImage": "صورة السيارة",
+  "DriverCriminalRecord": "السجل الجنائي",
+  "DriverTowTruckRegistration": "تسجيل شاحنة السحب",
+  "DriverCarSpec": "مواصفات السيارة",
+  "EditDriver": "تعديل",
+  "CreditBalance": "رصيد الائتمان",
+  "TotalRating": "إجمالي التقييم",
+  "TotalEarning": "إجمالي الأرباح",
+  "TotalPoints": "إجمالي النقاط",
+  "Drivers'sInfo": "معلومات السائق",
+  "InternalNotes": "ملاحظات داخلية",
+  "InternalNotesHolder": "اكتب ملاحظتك هنا",
+  "AddNote": "اضف ملاحظه",
+  "Back": "العودة",
+  "Accept": "قبول",
+  "Reject": "رفض",
+
+  "NAVDashboard": "لوحة التحكم",
+  "NAVUsers": "المستخدمون",
+  "NAVDrivers": "السائقون",
+  "NAVRides": "الرحلات",
+  "NAVRating": "التقييم",
+  "NAVProfit": "الربح",
+  "NAVPushNotification": "إرسال إشعارات",
+  "NAVCustomization": {
+    "Customization": "التخصيص",
+    "Services": "الخدمات",
+    "Organization": "المنظمة",
+    "UserCar": "سيارات المستخدمين"
+  },
+
+  "RideID": "رقم الرحلة",
+  "ALLRides": "الرحلات",
+  "CreatedDate": "تاريخ الطلب",
+  "RideId": "معرف الرحلة",
+  "PickUpDate": "تاريخ الاستلام",
+  "DropOffDate": "تاريخ الاستلام",
+  "Rate": "تقييم",
+  "Review": "مراجعة",
+  "Service": "الخدمة",
+  "CarType": "نوع السيارة",
+  "PickUpAddress": "عنوان الاستلام",
+  "DropOffAddress": "عنوان التسليم",
+  "Distance": "المسافة",
+  "BasicInformation": "المعلومات الأساسية",
+  "RideInformation": "معلومات الرحلة",
+  "MapRoute": "خريطة الطريق",
+
+  "Stat": {
+    "Scheduled": "محجوزة",
+    "Completed": "مكتملة",
+    "Cancelled": "ملغاة",
+    "Approved": "تمت الموافقة",
+    "Pending": "معلقة",
+    "Blocked": "محظور",
+    "Suspended": "تعلق مؤقت",
+    "Ongoing": "جارية",
+    "Confirmed": "مؤكدة"
+  },
+
+  "_Rating Page": "Rating Page",
+  "ErrorLoading": "خطأ في التحميل",
+  "UsersOverallRatings": "التقييمات الشاملة للمستخدمين",
+  "DriversOverallRatings": "التقيمات الشاملة للسائقين",
+  "ThisMonth": "هذا الشهر",
+  "TotalRatings": "مجموع التقييمات",
+  "TotalRatingSlogan": "إشارة إلى المستخدمين والسائقين الحاصلين على أعلى التقييمات",
+  "DriversRatings": "التقييمات السائقيين",
+  "UsersRatings": "التقييمات المستخدمين",
+  "TotalReviews": "إجمالي المراجعات",
+  "TotalReviewsSlogan": "إشارة إلى إجمالي المراجعات خلال هذا الشهر",
+  "TotalReviewsDrivers": "إجمالي مراجعات السائقين",
+  "TotalReviewsUser": "إجمالي مراجعات المستخدمين",
+  "RatingsReview": "مراجعة التقييمات",
+  "RatingsReviewSlogan": "تفاصيل التقييمات التي تم تلقيها",
+  "Star": "نجمة",
+
+  "_ProfitPage": "Profit Page",
+  "PaymentToSite": "الدفع للموقع",
+  "PaymentToDrivers": "الدفع للسائقين",
+  "TotalRidesAmount": "إجمالي مبلغ الرحلات",
+  "AdminPaymentReport": "تقرير مدفوعات المشرف",
+  "DriverPaymentReport": "تقرير مدفوعات السائق",
+  "created_at-desc": "فرز حسب التاريخ الجديد",
+  "created_at-asc": "فرز حسب التاريخ القديم",
+  "total-desc": "الإجمالي (من الأعلى إلى الأدنى)",
+  "total-asc": "الإجمالي (من الأدنى إلى الأعلى)",
+  "AdminProfit": "تقرير المشرف",
+  "DriverID": "معرف السائق",
+  "BankAccount": "حساب مصرفي",
+  "TotalRidesPayment": "إجمالي مبلغ الرحلات",
+  "SiteCommission": "عمولة الموقع",
+  "Driver’sShare": "حصة السائق",
+  "PaymentMethod": "طريقة الدفع",
+  "TotalAmount": "المبلغ الإجمالي",
+
+  "__NotificationPage": "NotificationPage",
+  "Sent": "تم الإرسال",
+  "ScheduledNotification": "لم ترسل بعد",
+  "All": "الجميع",
+  "Drivers": "السائقين",
+  "Android": "أندرويد",
+  "IOS": "اي او اس",
+  "SMS": "الرسائل القصيرة",
+  "date-desc": "فرز حسب التاريخ (الأحدث أولاً)",
+  "date-asc": "فرز حسب التاريخ (الأقدم أولاً)",
+  "NewNotification": "إشعار جديد",
+  "NotificationTables": "جدول الإشعارات",
+  "Subject": "الموضوع",
+  "Message": "الرسالة",
+  "Platform": "المنصة",
+  "Receiver": "المستقبل",
+  "Photo": "صورة",
+  "appTypeItem": {
+    "Driver": "السائقين",
+    "User": "المستخدمين"
+  },
+
+  "platformItem": {
+    "Android": "أندرويد",
+    "Ios": "اي او اس",
+    "Sms": "الرسائل القصيرة"
+  },
+
+  "_CarServiceModel": "CarServiceModel",
+
+  "AddCarService": "أضف سيارة",
+  "serviceId": "رقم الخدمة",
+  "englishName": "الاسم الإنجليزي",
+  "arabicName": "الاسم العربي",
+  "driverCommission": "عمولة السائق",
+  "openingPrice": "سعر الافتتاح",
+  "separationKm": "ك.م الفصل",
+  "beforeSeparationPrice": "سعر قبل الفصل",
+  "afterSeparationPrice": "سعر بعد الفصل",
+  "inOutSeparationKm": "ك.م الفصل الداخل والخارج",
+  "DialogTitle": "هل أنت متأكد من حذف هذا؟",
+  "DialogContentText": "قد يتأثر أي مستخدمين يتفاعلون مع هذا الأمر.",
+  "Disagree": "غير موافق",
+  "Agree": "موافق",
+
+  "carService": "خدمات السيارة",
+  "Organizations": "المنظمات",
+  "organizationId": "رقم المنظمة",
+  "isActive": "مغعل",
+  "AddOrganization": "إضافة منظمه",
+
+  "Models": "موديلات السيارات",
+  "CarBrands": "أنواع السيارات",
+  "AddBrand": "اضف نوع جديد",
+  "Logo": "العلامة التجارية",
+  "modelId": "رقم الموديل",
+  "AddModel": "اضف موديل",
+  "brandId": "رقم النوع",
+
+  "__Validations Messages": "Validations",
+  "FirstNameValidation": {
+    "required": "الاسم الأول مطلوب",
+    "minLength": "يجب أن يتكون الاسم الأول من 3 أحرف على الأقل"
+  },
+  "LastNameValidation": {
+    "required": "الاسم الأخير مطلوب",
+    "minLength": "يجب أن يتكون الاسم الأخير من 3 أحرف على الأقل"
+  },
+  "EmailValidation": {
+    "required": "البريد الإلكتروني مطلوب",
+    "pattern": "الرجاء إدخال عنوان بريد إلكتروني صالح"
+  },
+  "PhoneNumberValidation": {
+    "required": "رقم الهاتف مطلوب",
+    "pattern": "يجب أن يتكون رقم الهاتف من 10 أرقام"
+  },
+  "PasswordValidation": {
+    "required": "كلمة المرور مطلوبة",
+    "pattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير واحد، ورقم واحد، وحرف خاص واحد",
+    "minLength": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+    "maxLength": "يجب أن تتكون كلمة المرور من 20 حرفًا على الأكثر",
+    "notMatch": "كلمة المرور غير متطابقة"
+  },
+  "ModelYearValidation": {
+    "required": "يجب إدخال سنة الطراز",
+    "pattern": "يجب أن تكون سنة الطراز رقمًا",
+    "checkYear": "هذه السنة في المستقبل"
+  },
+
+  "ReasonValidation": {
+    "required": "يجب إدخال سبب الحظر",
+    "minLength": "يجب أن يتكون السبب من 8 أحرف على الأقل"
+  },
+
+  "CarSpecValidation": {
+    "maxLength": "يجب أن تحتوي مواصفات السيارة على 180 حرفًا على الأكثر"
+  },
+
+  "CarServiceValidation": {
+    "allRequired": "يرجى ملء جميع الحقول المطلوبة بشكل صحيح.",
+    "arabicName": "الإسم العربي غير صالح. يجب أن يحتوي على أحرف عربية.",
+    "Error": "الخطأ"
+  },
+
+  "OrganizationValidation": {
+    "allRequired": "يرجى ملء جميع الحقول المطلوبة بشكل صحيح.",
+    "arabicName": "الإسم العربي غير صالح. يجب أن يحتوي على أحرف عربية.",
+    "Error": "الخطأ"
+  },
+
+  "BrandValidations": {
+    "allRequired": "يرجى ملء جميع الحقول المطلوبة بشكل صحيح.",
+    "arabicName": "الإسم العربي غير صالح. يجب أن يحتوي على أحرف عربية.",
+    "Error": "الخطأ"
+  },
+  "ModelValidations": {
+    "allRequired": "يرجى ملء جميع الحقول المطلوبة بشكل صحيح.",
+    "arabicName": "الإسم العربي غير صالح. يجب أن يحتوي على أحرف عربية.",
+    "Error": "الخطأ"
+  },
+
+  "UseLoginValidations": {
+    "undefined": "استجابة تسجيل الدخول غير محددة",
+    "Successfully": "تسجيل الدخول بنجاح",
+    "Error": "البريد الإلكتروني أو كلمة المرور المقدمة غير صحيحة"
+  },
+
+  "UseLogoutValidations": {
+    "undefined": "استجابة تسجيل الخروج غير محددة",
+    "Successfully": "تسجيل الخروج بنجاح"
+  },
+
+  "useCreateOrganizationValidations": {
+    "Successfully": "تم إنشاء المؤسسة بنجاح",
+    "Error": "خطأ في إنشاء المؤسسة"
+  },
+
+  "useDeleteOrganizationValidations": {
+    "Successfully": "تم حذف المؤسسة بنجاح",
+    "Error": "خطأ في حذف المؤسسة"
+  },
+
+  "useEditOrganizationValidations": {
+    "Successfully": "تم تعديل المؤسسة بنجاح",
+    "Error": "خطأ في تعديل المؤسسه"
+  },
+
+  "useCreateCarServiceValidations": {
+    "Successfully": "سيارة تم إنشاء الخدمات بنجاح",
+    "Error": "خطأ في إنشاء خدمات السيارات "
+  },
+
+  "useDeleteCarServiceValidations": {
+    "Successfully": "تم حذف خدمات السيارات بنجاح",
+    "Error": "خطأ في حذف خدمات السيارات "
+  },
+
+  "useEditCarServiceValidations": {
+    "Successfully": "تم تعديل خدمات السيارات بنجاح",
+    "Error": "خطأ في تعديل خدمات السيارات "
+  },
+
+  "useCreateManufacturesValidations": {
+    "Successfully": "تم إنشاء نوع السيارة بنجاح",
+    "Error": "خطأ في إنشاء نوع السيارة"
+  },
+
+  "useDeleteManufacturesValidations": {
+    "Successfully": "تم حذف نوع السياره بنجاح",
+    "Error": "خطأ في حذف نوع السيارة"
+  },
+
+  "useEditManufacturesValidations": {
+    "Successfully": "تم تعديل نوع السيارة بنجاح",
+    "Error": "خطأ في تعديل نوع السيارة"
+  },
+
+  "useCreateModelValidations": {
+    "Successfully": "تم إنشاء الموديل بنجاح",
+    "Error": "خطأ في إنشاء الموديل"
+  },
+  "useDeleteModelValidations": {
+    "Successfully": "تم حذف الموديل بنجاح",
+    "Error": "خطأ في حذف الموديل"
+  },
+  "useEditModelValidations": {
+    "Successfully": "تم تعديل الموديل بنجاح",
+    "Error": "خطأ في تعديل الموديل"
+  },
+
+  "useAddDriveValidations": {
+    "Successfully": "تم إنشاء السائق  بنجاح",
+    "Error": "خطأ في تعديل السائق "
+  },
+
+  "useEditDriverValidations": {
+    "Successfully": "Driver successfully Edited",
+    "Error": "Error Editing Driver"
+  },
+
+  "useDriverNotesValidations": {
+    "Successfully": "تم إنشاء الملاحظة بنجاح",
+    "Error": "خطأ في إنشاء الملاحظة"
+  },
+
+  "useUpdateStatus": {
+    "Successfully": "تم تعديل الحالة بنجاح",
+    "Error": "خطأ في تعديل الحالة"
+  },
+  "useAddNotificationValidations": {
+    "Successfully": "تم إنشاء إشعار جديد بنجاح",
+    "Error": "خطأ في إنشاء إشعار جديد"
+  },
+
+  "useRideNotesValidations": {
+    "Successfully": "تم إنشاء الملاحظة بنجاح",
+    "Error": "خطأ في إنشاء الملاحظة"
+  },
+
+  "useAddUserValidations": {
+    "Successfully": "تم إنشاء المستخدم الجديد بنجاح ",
+    "Error": "خطأ في إنشاء مستخدم جديد"
+  },
+
+  "useEditUserValidations": {
+    "Successfully": "تم التعديل بنجاح",
+    "Error": "خطأ في تعديل المستخدم"
+  }
+}

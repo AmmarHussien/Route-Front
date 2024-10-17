@@ -4,9 +4,11 @@ import IconButton from "@mui/material/IconButton";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const SearchField = ({ searchTerm, setSearchTerm }) => {
   const [inputValue, setInputValue] = useState("");
+  const { t } = useTranslation();
 
   const handleOnChange = (event) => {
     setInputValue(event.target.value);
@@ -31,7 +33,7 @@ const SearchField = ({ searchTerm, setSearchTerm }) => {
 
   return (
     <TextField
-      placeholder="Search"
+      placeholder={t("Search")}
       type="text"
       id="search"
       autoComplete="search"

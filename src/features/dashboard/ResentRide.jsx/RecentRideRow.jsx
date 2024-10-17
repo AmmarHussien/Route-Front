@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Table from "../../../ui/Table";
 import styled, { css } from "styled-components";
 
@@ -31,7 +32,7 @@ const Status = styled.div`
     ${(props) =>
     props.$status === "Scheduled" &&
     css`
-      color: #8b760c;
+      color: #5c5223;
     `}
 `;
 
@@ -46,6 +47,8 @@ const TableData = styled.p`
 `;
 
 function RideRow({ ride }) {
+  const { t } = useTranslation();
+
   return (
     <Table columns="0.4fr 1fr 1.6fr 1.6fr 1.2fr 0.8fr 0.5fr">
       <Table.Row>
@@ -56,8 +59,10 @@ function RideRow({ ride }) {
 
         <TableData>{ride.destination_address}</TableData>
         <p>{ride.created_at}</p>
-        <p>{ride.price}</p>
-        <Status $status={ride.status}>{ride.status}</Status>
+        <p>
+          {ride.price} {ride.currency}
+        </p>
+        <Status $status={ride.status}>{t(`Stat.${ride.status}`)}</Status>
       </Table.Row>
     </Table>
   );

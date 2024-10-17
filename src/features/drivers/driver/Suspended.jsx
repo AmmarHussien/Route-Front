@@ -1,9 +1,13 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useUpdateStatus from "./useUpdateStatus";
-import { FaUserClock } from "react-icons/fa";
+// import { FaUserClock } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 function SuspendedDriver() {
+  const { t } = useTranslation();
+  //const { i18n } = useTranslation();
+  // const isRTL = i18n.language === "ar-EG";
   const navigate = useNavigate();
 
   const { editStatus } = useUpdateStatus();
@@ -20,7 +24,8 @@ function SuspendedDriver() {
     <div>
       <Button
         variant="contained"
-        startIcon={<FaUserClock />}
+        // endIcon={isRTL ? <FaUserClock sx={{ marginRight: 10 }} /> : null}
+        // startIcon={isRTL ? null : <FaUserClock />}
         sx={{
           width: 149,
           height: 56,
@@ -36,7 +41,7 @@ function SuspendedDriver() {
         }}
         onClick={handleClick}
       >
-        Suspended
+        {t("Suspended")}
       </Button>
     </div>
   );

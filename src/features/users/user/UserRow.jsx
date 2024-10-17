@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Table from "../../../ui/Table";
 import styled, { css } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const Status = styled.div`
   ${(props) =>
@@ -18,6 +19,12 @@ const Status = styled.div`
     css`
       color: #fc5555;
     `}
+    
+    ${(props) =>
+    props.$status === "Scheduled" &&
+    css`
+      color: #5c5223;
+    `}
 ${(props) =>
     props.$status === "Pending" &&
     css`
@@ -31,6 +38,8 @@ ${(props) =>
 `;
 
 function UserRow({ userInfo }) {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
 
   const {
@@ -61,7 +70,7 @@ function UserRow({ userInfo }) {
         <div>
           {price} {currency}
         </div>
-        <Status $status={status}>{status}</Status>
+        <Status $status={status}>{t(`Stat.${userInfo.status}`)}</Status>
         <div>{rate}</div>
       </Table.Row>
     </Table>

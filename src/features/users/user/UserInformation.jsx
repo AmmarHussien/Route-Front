@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import ButtonText from "../../../ui/ButtonText";
 import { useMoveBack } from "../../../hooks/useMoveBack";
 import UsersRecentRideTable from "./UserRecentRideTable";
-import UserComplainsTable from "./UserComplainsTable";
 import InformationItemTable from "./InformationItemTable";
 import EditUser from "./EditUser";
 import useUser from "../useUserInfo";
@@ -11,6 +10,7 @@ import Empty from "../../../ui/Empty";
 import UserInformationWithImage from "./UserInformationWithImage";
 import BlockUser from "./BlockUser";
 import Unblock from "./Unblock";
+import { useTranslation } from "react-i18next";
 
 const Row = styled.div.withConfig({
   shouldForwardProp: (prop) => !["even"].includes(prop),
@@ -41,6 +41,10 @@ function UserInformation() {
 
   const moveBack = useMoveBack();
 
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
+
   if (userInfoLoading) return <Spinner />;
 
   if (!userInfo) return <Empty resource="users" />;
@@ -67,7 +71,9 @@ function UserInformation() {
     <>
       <Row type="horizontal" even={false}>
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>&larr; Users</ButtonText>
+          <ButtonText onClick={moveBack}>
+            {isRTL ? "→" : "←"} {t("Back")}
+          </ButtonText>
         </Row>
         <Row type="horizontal">
           <EditUser />
@@ -79,31 +85,31 @@ function UserInformation() {
         <UserInformationWithImage
           even={true}
           data={{
-            userName: full_name,
-            email: email,
-            MobileNumber: phone,
-            JoiningDate: created_at,
+            [t("UserName")]: full_name,
+            [t("UserEmail")]: email,
+            [t("UserPhoneNumber")]: phone,
+            [t("JoiningDate")]: created_at,
             ...(profile_image === " "
-              ? { profileImage: profile_image }
-              : profile_image && { profileImage: profile_image }),
+              ? { [t("profileImage")]: profile_image }
+              : profile_image && { [t("profileImage")]: profile_image }),
           }}
-          title="User's Info"
+          title={t("User'sInfo")}
         />
         <InformationItemTable
           data={{
-            CarMake: manufacture,
-            CarModel: model,
-            registrationYear: registration_year,
-            TotalRating: rate,
-            WalletBalance: [balance, " ", currency],
+            [t("UserCarBrands")]: manufacture,
+            [t("UserCarModels")]: model,
+            [t("UserModelYear")]: registration_year,
+            [t("UserRate")]: rate,
+            [t("WalletBalance")]: [balance, " ", currency],
           }}
-          title="Activities Info"
+          title={t("ActivitiesInfo")}
         />
       </Row>
 
       <UsersRecentRideTable rides={rides} />
 
-      <UserComplainsTable />
+      {/* <UserComplainsTable /> */}
     </>
   );
 }

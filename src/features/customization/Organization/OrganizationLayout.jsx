@@ -5,6 +5,8 @@ import useGetOrganizations from "./useGetOrganizations";
 import ViewOrganizationModel from "./ViewOrganizationModel";
 import Heading from "../../../ui/Heading";
 import AddOrganization from "./AddOrganization";
+import { useTranslation } from "react-i18next";
+import Empty from "../../../ui/Empty";
 
 const BoxModels = styled.div`
   display: grid;
@@ -15,15 +17,15 @@ const BoxModels = styled.div`
 
 function OrganizationLayout() {
   const { getOrganizations, isLoading } = useGetOrganizations();
+  const { t } = useTranslation();
 
   if (isLoading) return <Spinner />;
 
-  console.log(getOrganizations);
   return (
     <div>
       <Row type="horizontal">
         <Row type="vertical">
-          <Heading $variant="h1">Organizations</Heading>
+          <Heading $variant="h1">{t("Organizations")}</Heading>
         </Row>
         <AddOrganization />
       </Row>
@@ -34,7 +36,7 @@ function OrganizationLayout() {
               <ViewOrganizationModel id={getOrganizations.id} key={index} />
             ))
           ) : (
-            <p>No models found.</p> // You can add a fallback message or placeholder here
+            <Empty>{"NoData"}</Empty> // You can add a fallback message or placeholder here
           )}
         </BoxModels>
       </Row>

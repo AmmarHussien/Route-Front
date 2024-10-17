@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next";
 import SearchField from "../../ui/SearchField";
 import SortBy from "../../ui/SortBy";
 import TableOperations from "../../ui/TableOperations";
 
 function ProfitTableOperations({ searchTerm, setSearchTerm }) {
+  const { t } = useTranslation();
+
   return (
     <>
       <TableOperations>
@@ -12,27 +15,27 @@ function ProfitTableOperations({ searchTerm, setSearchTerm }) {
           options={[
             {
               value: "id-desc",
-              label: "New ID",
+              label: t("id-desc"),
             },
             {
               value: "id-asc",
-              label: "Old ID",
+              label: t("id-asc"),
             },
             {
               value: "created_at-desc",
-              label: "New Date",
+              label: t("created_at-desc"),
             },
             {
               value: "created_at-asc",
-              label: "Old Date ",
+              label: t("created_at-asc"),
             },
             {
               value: "total-desc",
-              label: "Total (High to Low)",
+              label: t("total-desc"),
             },
             {
               value: "total-asc",
-              label: "Total (Low to High)",
+              label: t("total-asc"),
             },
           ]}
         />

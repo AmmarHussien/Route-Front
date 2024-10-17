@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
@@ -56,14 +57,37 @@ const Label = styled.div`
 
 const Value = styled.div`
   flex: 1;
-  text-align: left;
+
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
+
   font-weight: 600px;
   color: #272424;
 `;
 
 const View = styled.div`
   flex: 1;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
+ 
   font-weight: 600px;
   color: #1447d4;
 `;
@@ -74,7 +98,18 @@ const Avatar = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50px;
-  margin-right: 20px;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      margin-left: 20px;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      margin-right: 20px;
+    `}
+  
   background: #6366f1;
   color: white;
 `;
@@ -92,17 +127,20 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 function DriverInformationWithImage({ data, title }) {
-  if (!data === null) return <Empty>No data to show at the moment</Empty>;
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
+  if (!data === null) return <Empty>{t("NoData")}</Empty>;
 
   return (
     <TableContainer>
       <Title>{title}</Title>
       <Table>
         {Object.entries(data).map(([key, value], index, array) => {
-          if (key === "email") return null;
+          console.log(key);
+          if (key === "Email" || key === "البريد الإلكتروني") return null;
           return (
             <RowItem key={key} $even={index % 2 === 1}>
-              {key === "userName" &&
+              {(key === "User Name" || key === "اسم المستخدم") &&
               key !== "nationalId" &&
               key !== "driverLicense" &&
               key !== "profileImage" &&
@@ -111,7 +149,7 @@ function DriverInformationWithImage({ data, title }) {
               key !== "criminalRecord" &&
               key !== "carImage" ? (
                 <Row type="horizontal">
-                  <Avatar>
+                  <Avatar lang={isRTL ? "ar-Eg" : "en-US"}>
                     <p>
                       {
                         value
@@ -129,25 +167,32 @@ function DriverInformationWithImage({ data, title }) {
                     )}
                   </Row>
                 </Row>
-              ) : key !== "nationalId" &&
-                key !== "driverLicense" &&
-                key !== "profileImage" &&
-                key !== "carLicenseExpiry" &&
-                key !== "towTruckRegistration" &&
-                key !== "criminalRecord" &&
-                key !== "carImage" ? (
-                <>
-                  <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-                  <Value>{value}</Value>
-                </>
-              ) : (
+              ) : key === "National Id" ||
+                key === "الرقم الوطني" ||
+                key === "profile Image" ||
+                key === "الصورة الشخصية" ||
+                key === "Driver License" ||
+                key === "رخصة القيادة" ||
+                key === "Criminal Record" ||
+                key === "السجل الجنائي" ||
+                key === "Vehicle Image" ||
+                key === "صورة السيارة" ||
+                key === "Vehicle License" ||
+                key === "رخصة السيارة" ||
+                key === "Tow Truck Registration" ||
+                key === "تسجيل شاحنة السحب" ? (
                 <>
                   <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
                   <View>
                     <Link to={value} target="_blank">
-                      View
+                      {t("View")}
                     </Link>
                   </View>
+                </>
+              ) : (
+                <>
+                  <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
+                  <Value>{value}</Value>
                 </>
               )}
             </RowItem>

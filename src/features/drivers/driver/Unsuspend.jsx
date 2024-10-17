@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useUpdateStatus from "./useUpdateStatus";
+import { useTranslation } from "react-i18next";
 
 function UnSuspended() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { editStatus } = useUpdateStatus();
 
@@ -35,7 +37,7 @@ function UnSuspended() {
         }}
         onClick={handleClick}
       >
-        UnSuspended
+        {t("UnSuspended")}
       </Button>
     </div>
   );

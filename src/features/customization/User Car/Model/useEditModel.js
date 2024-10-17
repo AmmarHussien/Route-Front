@@ -2,10 +2,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { updateModel } from "../../../../services/Customization/apiModels";
+import { useTranslation } from "react-i18next";
 
 function useEditModel(modelId) {
   const queryClient = useQueryClient();
   const { Id } = useParams();
+  const { t } = useTranslation();
 
   const {
     mutate: editModels,
@@ -16,12 +18,12 @@ function useEditModel(modelId) {
     mutationFn: ({ englishName, arabicName, isActive }) =>
       updateModel(Id, modelId, englishName, arabicName, isActive),
     onSuccess: () => {
-      toast.success("Model successfully Edited");
+      toast.success(t("useEditModelValidations.Successfully"));
       queryClient.invalidateQueries({
         queryKey: ["Customization-Models", modelId],
       });
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(t("useEditModelValidations.Error")),
   });
 
   return { editModels, isLoading, isError, error };

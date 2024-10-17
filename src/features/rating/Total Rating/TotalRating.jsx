@@ -8,6 +8,7 @@ import useTotalRating from "./useTotalRating";
 import { format } from "date-fns/format";
 import Spinner from "../../../ui/Spinner";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 // const StyledBody = styled.section`
 //   margin: 0.4rem 0;
@@ -22,6 +23,8 @@ const ErrorMessage = styled.div`
 `;
 
 function TotalRating() {
+  const { t } = useTranslation();
+
   const [currentFilter, setCurrentFilter] = useState("Drivers");
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
@@ -36,14 +39,14 @@ function TotalRating() {
   }
 
   if (error) {
-    return <ErrorMessage>Error loading rating</ErrorMessage>;
+    return <ErrorMessage>{t("ErrorLoading")}</ErrorMessage>;
   }
 
   return (
     <>
       <RatingHeader
-        title={"Total Ratings"}
-        subtitle={"Indication for top ratings users and drivers"}
+        title={t("TotalRatings")}
+        subtitle={t("TotalRatingSlogan")}
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
       />

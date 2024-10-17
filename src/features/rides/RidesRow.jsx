@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Table from "../../ui/Table";
 import styled, { css } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const Status = styled.div`
   ${(props) =>
@@ -26,6 +27,8 @@ const Status = styled.div`
 `;
 
 function RidesRow({ RideInfo }) {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const params = searchParams.get("status");
@@ -38,6 +41,7 @@ function RidesRow({ RideInfo }) {
     scheduled_date,
     price,
     status,
+    currency,
   } = RideInfo;
 
   function handleClick() {
@@ -63,10 +67,12 @@ function RidesRow({ RideInfo }) {
         {params === "Scheduled" ? (
           <div>{scheduled_date}</div>
         ) : (
-          <div>{price}</div>
+          <div>
+            {price} {currency}
+          </div>
         )}
 
-        <Status $status={status}>{status}</Status>
+        <Status $status={status}>{t(`Stat.${status}`)}</Status>
       </Table.Row>
     </Table>
   );

@@ -15,11 +15,22 @@ import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 import { useEffect } from "react";
 import { useUploader } from "../../hooks/useUploader";
+import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 // import toast from "react-hot-toast";
 // import Spinner from "../../ui/Spinner";
 
+const StyledLabel = styled.label`
+  font-size: 16px;
+  color: #333; /* Dark gray text */
+  font-weight: bold;
+  margin-right: 10px; /* Add space between label and input */
+  display: inline-block;
+`;
+
 function CreateNotificationForm({ onCloseModal }) {
+  const { t } = useTranslation();
   const [dateValue, setDateValue] = useState(dayjs());
   const {
     register,
@@ -111,28 +122,46 @@ function CreateNotificationForm({ onCloseModal }) {
       type={onCloseModal ? "regular" : "regular"}
     >
       <FormRowVertical $error={errors?.subject?.message}>
+        <StyledLabel htmlFor="Subject"> {t("Subject")} </StyledLabel>
+
         <Input
           type="text"
           id="Subject"
-          placeholder="Subject"
+          placeholder={t("Subject")}
           {...register("subject", {
-            required: "Subject is required",
+            required: {
+              value: true,
+              message: t("SubjectValidation.required"),
+            },
+            minLength: {
+              value: 3,
+              message: t("SubjectValidation.minLength"),
+            },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
 
       <FormRowVertical error={errors?.message?.message}>
+        <StyledLabel htmlFor="Message"> {t("Message")} </StyledLabel>
+
         <Textarea
           type="text"
           id="Message"
-          placeholder="Message"
+          placeholder={t("Message")}
           rows={5}
           {...register("message", {
-            required: "Message is required",
+            required: {
+              value: true,
+              message: t("MessageValidation.required"),
+            },
+            minLength: {
+              value: 3,
+              message: t("MessageValidation.minLength"),
+            },
             maxLength: {
               value: 180,
-              message: "Message must be at Most 180 characters",
+              message: t("MessageValidation.maxLength"),
             },
           })}
           $sx={{
@@ -142,6 +171,8 @@ function CreateNotificationForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical error={errors?.DateTime?.message}>
+        <StyledLabel htmlFor="Date"> {t("Date")} </StyledLabel>
+
         <DateExplicitDateTimePicker
           value={dateValue}
           onValueChange={setDateValue}
@@ -149,13 +180,15 @@ function CreateNotificationForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledLabel htmlFor="Platform"> {t("Platform")} </StyledLabel>
+
         <Controller
           name="Platform"
           control={control}
           render={({ field: { onChange, value } }) => (
             <MultiSelectDropDownMenu
-              title="Platform"
-              options={["Android", "Sms", "Ios"]}
+              title={t("Platform")}
+              options={[t("Android"), t("Sms"), t("Ios")]}
               onSelect={onChange} // Update the form state
               selectedOptions={value} // Provide current value to the component
             />
@@ -164,13 +197,15 @@ function CreateNotificationForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledLabel htmlFor="Reserver"> {t("Reserver")} </StyledLabel>
+
         <Controller
           name="Reserver"
           control={control}
           render={({ field: { onChange, value } }) => (
             <MultiSelectDropDownMenu
-              title="Reserver"
-              options={["Driver", "User"]}
+              title={t("Reserver")}
+              options={[t("Driver"), t("User")]}
               onSelect={onChange} // Update the form state
               selectedOptions={value} // Provide current value to the component
             />
@@ -179,8 +214,10 @@ function CreateNotificationForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledLabel htmlFor="Photo"> {t("Photo")} </StyledLabel>
+
         <FileInput
-          placeholder="Photo "
+          placeholder={t("Photo")}
           id="Photo"
           onFileChange={handleFileChange(setNotificationImage)}
         />
@@ -188,7 +225,7 @@ function CreateNotificationForm({ onCloseModal }) {
 
       <FormRow>
         <Button disabled={isAdded || isUploaded} $size="xlarge">
-          Submit
+          {t("Submit")}
         </Button>
       </FormRow>
     </Form>

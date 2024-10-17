@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useUpdateStatus from "./useUpdateStatus";
+import { useTranslation } from "react-i18next";
 
 function AcceptDriver() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { editStatus } = useUpdateStatus();
 
@@ -30,7 +32,7 @@ function AcceptDriver() {
           shadow: "0 4 60 0 #0038FF26",
         }}
       >
-        Accept
+        {t("Accept")}
       </Button>
     </div>
   );

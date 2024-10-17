@@ -6,6 +6,7 @@ import RideInformationItemTable from "./RideInformationItemTable";
 import useRideInfo from "./useRideInfo";
 import Spinner from "../../../ui/Spinner";
 import MapRide from "./MapRide";
+import { useTranslation } from "react-i18next";
 
 const Row = styled.div.withConfig({
   shouldForwardProp: (prop) => !["even"].includes(prop),
@@ -33,6 +34,9 @@ const Row = styled.div.withConfig({
 
 function RideInformation() {
   const moveBack = useMoveBack();
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   const { isLoading, rideInfo } = useRideInfo();
 
@@ -68,35 +72,42 @@ function RideInformation() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>&larr; Rides</ButtonText>
+          <ButtonText onClick={moveBack}>
+            {" "}
+            {isRTL ? "→" : "←"} {t("Back")}
+          </ButtonText>
         </Row>
       </Row>
       <Row>
         <RideInformationItemTable
           data={{
-            rideId: id || "N/A", // Fallback to 'N/A' if id is missing
-            userName: user_name || "Unknown User", // Fallback to 'Unknown User'
-            driverName: driver_name || "Unknown Driver", // Fallback to 'Unknown Driver'
-            pickUpDate: pickup_date || "Not Available", // Fallback to 'Not Available'
-            dropOffDate: drop_off_date || "Not Available", // Fallback to 'Not Available'
-            price: amount_to_pay
+            [t("RideId")]: id || "N/A", // Fallback to 'N/A' if id is missing
+            [t("UserName")]: user_name || "Unknown User", // Fallback to 'Unknown User'
+            [t("DriverName")]: driver_name || "Unknown Driver", // Fallback to 'Unknown Driver'
+            [t("PickUpDate")]: pickup_date || "Not Available", // Fallback to 'Not Available'
+            [t("DropOffDate")]: drop_off_date || "Not Available", // Fallback to 'Not Available'
+            [t("Price")]: amount_to_pay
               ? [amount_to_pay, " ", currency ?? ""]
               : ["Price not available"], // Fallback for missing price or currency
-            rate: rate ?? "No rating", // Fallback to 'No rating'
-            review: reviewText ?? "No review", // Fallback to 'No review'
+            [t("Rate")]: rate ?? "No rating", // Fallback to 'No rating'
+            [t("Review")]: reviewText ?? "No review", // Fallback to 'No review'
           }}
-          title="Basic Information"
+          title={t("BasicInformation")}
         />
 
         <RideInformationItemTable
           data={{
-            service: serviceName,
-            carType: carTypeName,
-            pickUpAddress: pickup_address,
-            dropOffAddress: destination_address,
-            distance: [distance_between_points, " ", "Km"],
+            [t("Service")]: serviceName,
+            [t("CarType")]: carTypeName,
+            [t("PickUpAddress")]: pickup_address,
+            [t("DropOffAddress")]: destination_address,
+            [t("Distance")]: [
+              distance_between_points,
+              " ",
+              isRTL ? "ك.م" : "Km",
+            ],
           }}
-          title="Ride Information"
+          title={t("RideInformation")}
         />
       </Row>
       <MapRide
@@ -108,7 +119,7 @@ function RideInformation() {
             destination_longitude,
           ],
         }}
-        title="Map Route"
+        title={t("MapRoute")}
         isLoading={isLoading}
       />
 

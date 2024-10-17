@@ -1,5 +1,6 @@
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledNavLink = styled(NavLink)`
   &:link,
@@ -41,7 +42,19 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 const DropdownContainer = styled.div`
-  margin-left: 20px;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      margin-right: 20px;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      margin-left: 20px;
+    `}
+  
+  /* margin-right: 20px; */
   display: flex;
   flex-direction: column;
 
@@ -71,6 +84,9 @@ const NavList = styled.ul`
 `;
 
 function MainNav() {
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
+
   return (
     <nav>
       <NavList>
@@ -83,7 +99,7 @@ function MainNav() {
               width="30"
               height="30"
             />
-            <span>Dashboard</span>
+            <span>{t("NAVDashboard")}</span>
           </StyledNavLink>
         </li>
 
@@ -96,7 +112,7 @@ function MainNav() {
               width="30"
               height="30"
             />
-            <span>Users</span>
+            <span>{t("NAVUsers")}</span>
           </StyledNavLink>
         </li>
         <li>
@@ -108,7 +124,7 @@ function MainNav() {
               width="30"
               height="30"
             />
-            <span>Drivers</span>
+            <span>{t("NAVDrivers")}</span>
           </StyledNavLink>
         </li>
         <li>
@@ -120,7 +136,7 @@ function MainNav() {
               width="30"
               height="30"
             />
-            <span>Rides</span>
+            <span>{t("NAVRides")}</span>
           </StyledNavLink>
         </li>
         <li>
@@ -132,7 +148,7 @@ function MainNav() {
               width="30"
               height="30"
             />
-            <span>Rating</span>
+            <span>{t("NAVRating")}</span>
           </StyledNavLink>
         </li>
         <li>
@@ -144,7 +160,7 @@ function MainNav() {
               width="30"
               height="30"
             />
-            <span>Profit</span>
+            <span>{t("NAVProfit")}</span>
           </StyledNavLink>
         </li>
         <li>
@@ -156,7 +172,7 @@ function MainNav() {
               width="30"
               height="30"
             />
-            <span>Push Notification</span>
+            <span>{t("NAVPushNotification")}</span>
           </StyledNavLink>
         </li>
 
@@ -169,18 +185,18 @@ function MainNav() {
               width="30"
               height="30"
             />
-            <span>Customization</span>
+            <span>{t("NAVCustomization.Customization")}</span>
           </StyledNavLink>
 
-          <DropdownContainer>
+          <DropdownContainer lang={isRTL ? "ar-Eg" : "en-US"}>
             <DropdownItem to="/adminPanel/customization/services">
-              Services
+              {t("NAVCustomization.Services")}
             </DropdownItem>
             <DropdownItem to="/adminPanel/customization/organization">
-              Organization
+              {t("NAVCustomization.Organization")}
             </DropdownItem>
             <DropdownItem to="/adminPanel/customization/userCar">
-              User Car
+              {t("NAVCustomization.UserCar")}
             </DropdownItem>
           </DropdownContainer>
         </li>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Row from "../../../ui/Row";
 import { IconButton } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -9,6 +9,8 @@ import AlertConfirmation from "../../../ui/AlertConfirmation";
 import Spinner from "../../../ui/Spinner";
 import useDeleteOrganization from "./useDeleteOrganization";
 import EditOrganization from "./EditOrganization";
+import useViewOrganization from "./useViewOrganization";
+import { useTranslation } from "react-i18next";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -46,7 +48,17 @@ const Label = styled.div`
 
 const Value = styled.div`
   flex: 1;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
   font-weight: 600px;
   color: #272424;
 `;
@@ -59,16 +71,15 @@ const Empty = styled.p`
 `;
 
 function InformationOrganizationTable({ title, data }) {
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const [openAlert, setOpenAlert] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
-
-  const { mutate: deleteOrganization, isLoading } = useDeleteOrganization(
-    data.id
-  );
-
-  // Check for null or undefined data before rendering the table
+  const { viewOrganizations, isLoading: viewLoading } =
+    useViewOrganization(data);
+  const { mutate: deleteOrganization, isLoading } = useDeleteOrganization(data);
 
   useEffect(() => {
     if (isDelete) {
@@ -80,22 +91,40 @@ function InformationOrganizationTable({ title, data }) {
           setIsDelete(false); // Reset delete state after success
         },
         onError: (error) => {
-          console.error("Error deleting manufacture:", error);
           setIsDelete(false); // Reset delete state even after an error
         },
       });
     }
-  }, [isDelete, deleteOrganization, data.id]);
+  }, [isDelete, deleteOrganization, data]);
+
+  if (viewLoading) return <Spinner />;
+
+  const active = viewOrganizations.is_active
+    ? isRTL
+      ? "نعم" // Yes in Arabic
+      : "True" // True in English
+    : isRTL
+    ? "لا" // No in Arabic
+    : "False"; // False in English
+
+  const dataOrganization = {
+    [t("organizationId")]: viewOrganizations.id,
+    [t("englishName")]: viewOrganizations.name.en,
+    [t("arabicName")]: viewOrganizations.name.ar,
+    [t("isActive")]: active,
+  };
+
+  // Check for null or undefined data before rendering the table
 
   const handleClick = () => {
     setOpenAlert(true);
   };
 
-  if (!data) return <Empty>No data to show at the moment</Empty>;
+  if (!data) return <Empty>{t("NoData")}</Empty>;
 
   return (
     <>
-      {isLoading && <Spinner />} {/*Show the Spinner while deleting*/}
+      {isLoading && <Spinner />}
       <TableContainer>
         <Row type={"horizontal"}>
           <Title>{title}</Title>
@@ -126,10 +155,10 @@ function InformationOrganizationTable({ title, data }) {
         {data && <EditOrganization open={open} setOpen={setOpen} data={data} />}
 
         <Table>
-          {Object.entries(data).map(([key, value], index) => (
+          {Object.entries(dataOrganization).map(([key, value], index) => (
             <RowItem key={key} $even={index % 2 === 1}>
               <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-              <Value> {value} </Value>
+              <Value lang={isRTL ? "ar-Eg" : "en-US"}> {value} </Value>
             </RowItem>
           ))}
         </Table>

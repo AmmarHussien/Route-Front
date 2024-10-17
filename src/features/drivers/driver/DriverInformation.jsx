@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { useMoveBack } from "../../../hooks/useMoveBack";
 import ButtonText from "../../../ui/ButtonText";
 import EditDriver from "./EditDriver";
-import DriverComplainsTable from "./DriverComplainsTable";
 import BlockDriver from "./BlockDriver";
 import InformationItemTable from "./InformationItemTable";
 import InternalNotes from "../../../ui/internalNotes/InternalNotes";
@@ -14,6 +13,7 @@ import RecentRideTable from "./RecentRideTable";
 import Unblock from "./Unblock";
 import SuspendedDriver from "./Suspended";
 import UnSuspended from "./Unsuspend";
+import { useTranslation } from "react-i18next";
 
 const Row = styled.div.withConfig({
   shouldForwardProp: (prop) => !["even"].includes(prop),
@@ -46,6 +46,10 @@ function DriverInformation() {
 
   const { isLoading, driverData } = useDriver(userId);
 
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
+
   const {
     full_name,
     email,
@@ -69,7 +73,10 @@ function DriverInformation() {
     <>
       <Row type="horizontal" even={false}>
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
+          <ButtonText onClick={moveBack}>
+            {" "}
+            {isRTL ? "→" : "←"} {t("Back")}
+          </ButtonText>
         </Row>
         <Row type="horizontal">
           <EditDriver />
@@ -91,31 +98,31 @@ function DriverInformation() {
         <DriverInformationWithImage
           even={false}
           data={{
-            userName: full_name,
-            email: email,
-            mobileNumber: phone,
-            profileImage: profile_image,
-            nationalId: national_id,
-            driverLicense: driver_license,
-            joiningDate: created_at,
+            [t("UserName")]: full_name,
+            [t("UserEmail")]: email,
+            [t("UserPhoneNumber")]: phone,
+            [t("profileImage")]: profile_image,
+            [t("DriverNationalId")]: national_id,
+            [t("DriverLicense")]: driver_license,
+            [t("JoiningDate")]: created_at,
           }}
-          title="Drivers's Info"
+          title={t("Drivers'sInfo")}
         />
         <InformationItemTable
           data={{
-            CreditBalance: [0, " ", currency],
-            TotalRating: total_rating,
-            TotalRides: total_rides,
-            TotalEarning: [total_earning, " ", currency],
-            TotalPoints: 0,
+            [t("CreditBalance")]: [0, " ", currency],
+            [t("TotalRating")]: total_rating,
+            [t("TotalRides")]: total_rides,
+            [t("TotalEarning")]: [total_earning, " ", currency],
+            [t("TotalPoints")]: 0,
           }}
-          title="Activities Info"
+          title={t("ActivitiesInfo")}
         />
       </Row>
 
       <RecentRideTable rides={rides} />
 
-      <DriverComplainsTable />
+      {/* <DriverComplainsTable /> */}
 
       <InternalNotes notes={notes} />
     </>

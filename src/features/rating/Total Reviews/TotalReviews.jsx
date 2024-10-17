@@ -4,9 +4,12 @@ import useTotalReviewDriver from "./useTotalReviewDriver";
 import useTotalReviewUser from "./useTotalRatingUser";
 import { format } from "date-fns";
 import TotalReviewsChart from "./TotalReviewsChart";
+import { useTranslation } from "react-i18next";
 
 function TotalReviews() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const { t } = useTranslation();
+
   const { totalReviewsDriver, isLoading: isLoadingDriver } =
     useTotalReviewDriver(
       format(currentMonth, "yyyy"),
@@ -22,8 +25,8 @@ function TotalReviews() {
   return (
     <>
       <RatingHeader
-        title={"Total Reviews"}
-        subtitle={"Indication for the total Reviews over this month"}
+        title={t("TotalReviews")}
+        subtitle={t("TotalReviewsSlogan")}
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
       />

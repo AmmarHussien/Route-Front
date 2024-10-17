@@ -16,6 +16,7 @@ import DropDownMenu from "../../../ui/DropDownMenu";
 import useOrganizations from "../useOrganizations";
 import useCarType from "../useCarType";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -29,6 +30,9 @@ function EditDriverForm({ onCloseModal }) {
   const { userId } = useParams();
   const { driverData } = useDriver(userId);
   const { isEditing, editDrivers } = useEditDriver();
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   const {
     full_name,
@@ -198,41 +202,54 @@ function EditDriverForm({ onCloseModal }) {
       type={onCloseModal ? "gridx3" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
-        <StyledLabel htmlFor="firstName">First Name</StyledLabel>
+        <StyledLabel htmlFor="firstName">{t("DriverFirstName")}</StyledLabel>
         <Input
           type="text"
           id="firstName"
-          placeholder="First Name"
+          placeholder={t("DriverFirstName")}
           defaultValue={firstNames}
           onChange={handleChange("first_name")}
-          {...register("first_name", {
-            required: "First Name is required",
+          {...register("firstName", {
+            required: {
+              value: true,
+              message: t("FirstNameValidation.required"),
+            },
+            minLength: {
+              value: 3,
+              message: t("FirstNameValidation.minLength"),
+            },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.lastName?.message}>
-        <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
+        <StyledLabel htmlFor="lastName">{t("DriverLastName")}</StyledLabel>
         <Input
-          placeholder="Last Name"
+          placeholder={t("DriverLastName")}
           type="text"
           id="lastName"
           defaultValue={lastNames}
           onChange={handleChange("last_name")}
-          {...register("last_name", {
-            required: "Last Name is required",
+          {...register("lastName", {
+            required: {
+              value: true,
+              message: t("LastNameValidation.required"),
+            },
             minLength: {
               value: 3,
-              message: "Last Name must be at least 3 characters",
+              message: t("LastNameValidation.minLength"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.phoneNumber?.message}>
-        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
+        <StyledLabel htmlFor="phoneNumber">
+          {" "}
+          {t("DriverPhoneNumber")}
+        </StyledLabel>
         <Input
-          placeholder="Phone Number"
+          placeholder={t("DriverPhoneNumber")}
           type="text"
           id="phoneNumber"
           defaultValue={phoneNumber}
@@ -241,26 +258,29 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
-        <StyledLabel htmlFor="email">Email</StyledLabel>
+        <StyledLabel htmlFor="email">{t("DriverEmail")}</StyledLabel>
         <Input
-          placeholder="Email"
+          placeholder={t("DriverEmail")}
           type="email"
           id="email"
           defaultValue={email}
           onChange={handleChange("email")}
           autoComplete="username"
           {...register("email", {
-            required: "Email is required",
+            required: {
+              value: true,
+              message: t("EmailValidation.required"),
+            },
             pattern: {
               value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-              message: "Please enter a valid email address",
+              message: t("EmailValidation.pattern"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
-        <StyledLabel htmlFor="password">Password</StyledLabel>
+        <StyledLabel htmlFor="password">{t("DriverPassword")}</StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
             placeholder="Password"
@@ -286,10 +306,12 @@ function EditDriverForm({ onCloseModal }) {
         </div>
       </FormRowVertical>
       <FormRowVertical error={errors?.confirmPassword?.message}>
-        <StyledLabel htmlFor="confirmPassword">Confirm Password</StyledLabel>
+        <StyledLabel htmlFor="confirmPassword">
+          {t("DriverConfirmPassword")}
+        </StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
-            placeholder="Confirm Password"
+            placeholder={t("DriverConfirmPassword")}
             type={showConfirmPassword ? "text" : "password"}
             id="confirmPassword"
             autoComplete="new-password"
@@ -313,9 +335,9 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="carType">Car Type</StyledLabel>
+        <StyledLabel htmlFor="carType">{t("DriverCarType")}</StyledLabel>
         <DropDownMenu
-          title="Car Type"
+          title={t("DriverCarType")}
           options={carTypeOptions}
           onSelect={handleCarTypeSelect}
           selectedOption={carTypeOptions.find(
@@ -345,18 +367,20 @@ function EditDriverForm({ onCloseModal }) {
             }}
           />
           <span style={{ marginLeft: "8px", fontSize: "14px" }}>
-            Registration with Organization
+            {t("DriverRegistrationOrganization")}
           </span>
         </label>
       </FormRowVertical>
 
       {organizationName ? (
         <FormRowVertical>
-          <StyledLabel htmlFor="organization">Organization</StyledLabel>
+          <StyledLabel htmlFor="organization">
+            {t("DriverOrganization")}
+          </StyledLabel>
           <Input
             type="text"
             id="organization"
-            placeholder="Organization"
+            placeholder={t("DriverOrganization")}
             defaultValue={organizationName}
             disabled={true}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -364,9 +388,12 @@ function EditDriverForm({ onCloseModal }) {
         </FormRowVertical>
       ) : selectedOrganization === null && checkOrganization === true ? (
         <FormRowVertical>
-          <StyledLabel htmlFor="Organizations">Organizations</StyledLabel>
+          <StyledLabel htmlFor="Organizations">
+            {" "}
+            {t("DriverOrganization")}
+          </StyledLabel>
           <DropDownMenu
-            title="Organizations"
+            title={t("DriverOrganization")}
             options={organizationsOptions}
             onSelect={handleOrganizationSelect}
             selectedOption={organizationsOptions.find(
@@ -377,54 +404,63 @@ function EditDriverForm({ onCloseModal }) {
       ) : null}
 
       <FormRowVertical>
-        <StyledLabel htmlFor="nationalId">National Id</StyledLabel>
+        <StyledLabel htmlFor="nationalId">{t("DriverNationalId")}</StyledLabel>
         <FileInput
-          placeholder="National Id"
+          placeholder={t("DriverNationalId")}
           id="nationalId"
           onFileChange={handleFileChange(setNationalId)}
           defaultValue={national_id}
         />
       </FormRowVertical>
       <FormRowVertical>
-        <StyledLabel htmlFor="profileImage">Driver Photo</StyledLabel>
+        <StyledLabel htmlFor="profileImage">
+          {t("DriverProfileImage")}
+        </StyledLabel>
         <FileInput
-          placeholder="Driver Photo"
+          placeholder={t("DriverProfileImage")}
           id="profileImage"
           onFileChange={handleFileChange(setProfileImage)}
           defaultValue={profile_image}
         />
       </FormRowVertical>
       <FormRowVertical>
-        <StyledLabel htmlFor="driverLicense">Driver License</StyledLabel>
+        <StyledLabel htmlFor="driverLicense">{t("DriverLicense")}</StyledLabel>
         <FileInput
-          placeholder="Driver License"
+          placeholder={t("DriverLicense")}
           id="driverLicense"
           onFileChange={handleFileChange(setDriverLicense)}
           defaultValue={driver_license}
         />
       </FormRowVertical>
       <FormRowVertical>
-        <StyledLabel htmlFor="vehicleLicense">Vehicle License</StyledLabel>
+        <StyledLabel htmlFor="vehicleLicense">
+          {t("DriverVehicleLicense")}
+        </StyledLabel>
         <FileInput
-          placeholder="Vehicle License"
+          placeholder={t("DriverVehicleLicense")}
           id="vehicleLicense"
           onFileChange={handleFileChange(setVehicleLicense)}
           defaultValue={vehicle_license}
         />
       </FormRowVertical>
       <FormRowVertical>
-        <StyledLabel htmlFor="vehicleImage">Vehicle Image</StyledLabel>
+        <StyledLabel htmlFor="vehicleImage">
+          {t("DriverVehicleImage")}
+        </StyledLabel>
         <FileInput
-          placeholder="Vehicle Image"
+          placeholder={t("DriverVehicleImage")}
           id="vehicleImage"
           onFileChange={handleFileChange(setVehicleImage)}
           defaultValue={vehicle_image}
         />
       </FormRowVertical>
       <FormRowVertical>
-        <StyledLabel htmlFor="criminalRecord">Criminal Record</StyledLabel>
+        <StyledLabel htmlFor="criminalRecord">
+          {" "}
+          {t("DriverCriminalRecord")}
+        </StyledLabel>
         <FileInput
-          placeholder="Criminal Record"
+          placeholder={t("DriverCriminalRecord")}
           id="criminalRecord"
           onFileChange={handleFileChange(setCriminalRecord)}
           defaultValue={criminal_record}
@@ -432,27 +468,27 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
       <FormRowVertical>
         <StyledLabel htmlFor="towTruckRegistration">
-          Tow Truck Registration
+          {t("DriverTowTruckRegistration")}
         </StyledLabel>
         <FileInput
-          placeholder="Tow Truck Registration"
+          placeholder={t("DriverTowTruckRegistration")}
           id="towTruckRegistration"
           onFileChange={handleFileChange(setTowTruckRegistration)}
           defaultValue={tow_truck_registration}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.carSpec?.message}>
-        <StyledLabel htmlFor="carSpec">Car Spec</StyledLabel>
+        <StyledLabel htmlFor="carSpec">{t("DriverCarSpec")}</StyledLabel>
         <Textarea
           type="text"
-          id="carSpec"
+          id={t("DriverCarSpec")}
           placeholder="Car Spec"
           defaultValue={car_spec}
           onChange={handleChange("car_spec")}
           {...register("car_spec", {
             maxLength: {
               value: 180,
-              message: "Car Spec must be at Most 180 characters",
+              message: t("CarSpecValidation.maxLength"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}

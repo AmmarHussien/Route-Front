@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import DriverInformationWithImage from "./DriverInformationWithImage";
 import AcceptDriver from "./AcceptDriver";
 import RejectDriver from "./RejectDriver";
+import { useTranslation } from "react-i18next";
 
 const Row = styled.div`
   display: flex;
@@ -31,6 +32,9 @@ const Row = styled.div`
 
 function DriverPendingInformation() {
   const moveBack = useMoveBack();
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   //const navigate = useNavigate();
 
   const { userId } = useParams(); // Extract userId from the URL
@@ -59,54 +63,63 @@ function DriverPendingInformation() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>&larr; Drivers</ButtonText>
-          <h1>Driver Information</h1>
+          <ButtonText onClick={moveBack}>
+            {" "}
+            {isRTL ? "→" : "←"} {t("Back")}
+          </ButtonText>
         </Row>
       </Row>
 
       <Row>
         <DriverInformationWithImage
           data={{
-            userName: full_name || "",
-            email: email || "",
-            mobileNumber: phone || "",
+            [t("UserName")]: full_name || "",
+            [t("UserEmail")]: email || "",
+            [t("UserPhoneNumber")]: phone || "",
             ...(organization != null
-              ? { organization: organization.name }
-              : organization && { organization: organization }),
+              ? { [t("DriverOrganization")]: organization.name }
+              : organization && { [t("DriverOrganization")]: organization }),
             ...(profile_image === " "
-              ? { profileImage: profile_image }
-              : profile_image && { profileImage: profile_image }),
+              ? { [t("profileImage")]: profile_image }
+              : profile_image && { [t("profileImage")]: profile_image }),
             ...(national_id === " "
-              ? { nationalId: national_id }
-              : national_id && { nationalId: national_id }),
+              ? { [t("DriverNationalId")]: national_id }
+              : national_id && { [t("DriverNationalId")]: national_id }),
             ...(driver_license === " "
-              ? { driverLicense: driver_license }
-              : driver_license && { driverLicense: driver_license }),
+              ? { [t("DriverLicense")]: driver_license }
+              : driver_license && {
+                  [t("DriverLicense")]: driver_license,
+                }),
             ...(criminal_record === " "
-              ? { criminalRecord: criminal_record }
-              : criminal_record && { criminalRecord: criminal_record }),
+              ? { [t("DriverCriminalRecord")]: criminal_record }
+              : criminal_record && {
+                  [t("DriverCriminalRecord")]: criminal_record,
+                }),
           }}
-          title="Drivers's Info"
+          title={t("Drivers'sInfo")}
         />
         <DriverInformationWithImage
           data={{
             ...(vehicle_image === " "
-              ? { carImage: vehicle_image }
-              : vehicle_image && { carImage: vehicle_image }),
+              ? { [t("DriverVehicleImage")]: vehicle_image }
+              : vehicle_image && { [t("DriverVehicleImage")]: vehicle_image }),
             ...(vehicle_license === " "
-              ? { carLicenseExpiry: vehicle_license }
-              : vehicle_license && { carLicenseExpiry: vehicle_license }),
-            ...(tow_truck_registration === " "
-              ? { towTruckRegistration: tow_truck_registration }
-              : tow_truck_registration && {
-                  towTruckRegistration: tow_truck_registration,
+              ? { [t("DriverVehicleLicense")]: vehicle_license }
+              : vehicle_license && {
+                  [t("DriverVehicleLicense")]: vehicle_license,
                 }),
-            codeForCostPerKm: "10$" || "",
+            ...(tow_truck_registration === " "
+              ? { [t("DriverTowTruckRegistration")]: tow_truck_registration }
+              : tow_truck_registration && {
+                  [t("DriverTowTruckRegistration")]: tow_truck_registration,
+                }),
+
+            [t("codeForCostPerKm")]: "10$" || "",
             ...(car_spec === " "
-              ? { vehicleSpec: car_spec }
-              : car_spec && { vehicleSpec: car_spec }),
+              ? { [t("DriverCarSpec")]: car_spec }
+              : car_spec && { [t("DriverCarSpec")]: car_spec }),
           }}
-          title="Car Info"
+          title={t("CarInfo")}
         />
       </Row>
 

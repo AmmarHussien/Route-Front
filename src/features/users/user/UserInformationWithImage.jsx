@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
@@ -21,7 +22,18 @@ const Row = styled.div`
 
 const View = styled.div`
   flex: 1;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
+ 
   font-weight: 600px;
   color: #1447d4;
 `;
@@ -63,7 +75,19 @@ const Label = styled.div`
 
 const Value = styled.div`
   flex: 1;
-  text-align: left;
+
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
+
   font-weight: 600px;
   color: #272424;
 `;
@@ -75,7 +99,18 @@ const Avatar = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50px;
-  margin-right: 20px;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      margin-left: 20px;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      margin-right: 20px;
+    `}
+  
   background: #6366f1;
   color: white;
 `;
@@ -93,19 +128,23 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 function UserInformationWithImage({ data, title }) {
-  if (!data === null) return <Empty>No data to show at the moment</Empty>;
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
+
+  if (!data === null) return <Empty>{t("NoData")}</Empty>;
 
   return (
     <TableContainer>
       <Title>{title}</Title>
       <Table>
         {Object.entries(data).map(([key, value], index, array) => {
-          if (key === "email") return null;
+          console.log(key);
+          if (key === "User Email" || key === "البريد الإلكتروني") return null;
           return (
             <RowItem key={key} $even={index % 2 === 1}>
-              {key === "userName" ? (
+              {key === "User Name" || key === "اسم المستخدم" ? (
                 <Row type="horizontal">
-                  <Avatar>
+                  <Avatar lang={isRTL ? "ar-Eg" : "en-US"}>
                     <p>
                       {
                         value
@@ -123,19 +162,20 @@ function UserInformationWithImage({ data, title }) {
                     )}
                   </Row>
                 </Row>
-              ) : key !== "profileImage" ? (
+              ) : key === "profile Image" || key === "الصورة الشخصية" ? (
                 <>
                   <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-                  <Value>{value}</Value>
+                  <View lang={isRTL ? "ar-Eg" : "en-US"}>
+                    <Link to={value} target="_blank">
+                      {t("View")}
+                    </Link>
+                  </View>
                 </>
               ) : (
                 <>
                   <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-                  <View>
-                    <Link to={value} target="_blank">
-                      View
-                    </Link>
-                  </View>
+
+                  <Value lang={isRTL ? "ar-Eg" : "en-US"}>{value}</Value>
                 </>
               )}
             </RowItem>

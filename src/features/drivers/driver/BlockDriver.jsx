@@ -3,15 +3,20 @@ import { Button } from "@mui/material";
 import Modal from "../../../ui/Modal";
 import BlockDriverForm from "./BlockDriverForm";
 import { BlockSharp } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 function BlockDriver() {
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   return (
     <div>
       <Modal>
         <Modal.Open opens="block-driver-form">
           <Button
             variant="contained"
-            startIcon={<BlockSharp />}
+            endIcon={isRTL ? <BlockSharp sx={{ marginRight: 4 }} /> : null}
+            startIcon={isRTL ? null : <BlockSharp />}
             sx={{
               width: 139,
               height: 56,
@@ -26,7 +31,7 @@ function BlockDriver() {
               },
             }}
           >
-            Block
+            {t("Block")}
           </Button>
         </Modal.Open>
         <Modal.Window name="block-driver-form">

@@ -6,12 +6,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import { useTranslation } from "react-i18next";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function AlertConfirmation({ open, setOpen, deleting }) {
+  const { t } = useTranslation();
   const handleClose = () => {
     setOpen(false);
   };
@@ -29,16 +31,16 @@ export default function AlertConfirmation({ open, setOpen, deleting }) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Are You Sure For Deleting This?"}</DialogTitle>
+        <DialogTitle>{t("DialogTitle")}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            "Any users who engage with this may be impacted."
+            {t("DialogContentText")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>{t("Disagree")}</Button>
           <Button color="warning" onClick={handleAgree}>
-            Agree
+            {t("Agree")}
           </Button>
         </DialogActions>
       </Dialog>

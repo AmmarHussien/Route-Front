@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import styled, { css } from "styled-components";
 
 const FilterButton = styled.button`
@@ -33,6 +34,8 @@ function FilterType({ currentFilter, setCurrentFilter }) {
   function handleClick(value) {
     setCurrentFilter(value);
   }
+  const { t } = useTranslation();
+
   return (
     <Filter>
       <FilterButton
@@ -40,14 +43,14 @@ function FilterType({ currentFilter, setCurrentFilter }) {
         $active={"Admin" === currentFilter}
         disabled={"Admin" === currentFilter}
       >
-        Admin Payment Report
+        {t("AdminPaymentReport")}
       </FilterButton>
       <FilterButton
         onClick={() => handleClick("Driver")}
         $active={"Driver" === currentFilter}
         disabled={"Driver" === currentFilter}
       >
-        Driver Payment Report
+        {t("DriverPaymentReport")}
       </FilterButton>
     </Filter>
   );

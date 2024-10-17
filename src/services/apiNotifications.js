@@ -29,6 +29,7 @@ export async function getAllNotification({
   sortBy,
   sortType,
   perPage,
+  isRTL,
 }) {
   const token = localStorage.getItem("authToken");
   try {
@@ -89,6 +90,7 @@ export async function getSearchNotification({
   sortBy,
   sortType,
   perPage,
+  isRTL,
 }) {
   const token = localStorage.getItem("authToken");
   try {

@@ -1,10 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getAdminProfit } from "../../../services/apiProfit";
+import { useTranslation } from "react-i18next";
 
 function useAdminProfit() {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   // Filter Logic
   const filterValue = searchParams.get("status") || "Approved";
@@ -35,8 +38,9 @@ function useAdminProfit() {
     data: adminProfitData = {}, // Ensure default object
     error,
   } = useQuery({
-    queryKey: ["Admin Profit", filter, page, sortBy, sortType, perPage],
-    queryFn: () => getAdminProfit({ filter, page, sortBy, sortType, perPage }),
+    queryKey: ["Admin Profit", filter, page, sortBy, sortType, perPage, isRTL],
+    queryFn: () =>
+      getAdminProfit({ filter, page, sortBy, sortType, perPage, isRTL }),
     keepPreviousData: true,
   });
 
@@ -47,18 +51,48 @@ function useAdminProfit() {
   // Prefetch Next Page
   if (page < pageCount) {
     queryClient.prefetchQuery({
-      queryKey: ["Admin Profit", filter, page + 1, sortBy, sortType, perPage],
+      queryKey: [
+        "Admin Profit",
+        filter,
+        page + 1,
+        sortBy,
+        sortType,
+        perPage,
+        isRTL,
+      ],
       queryFn: () =>
-        getAdminProfit({ filter, page: page + 1, sortBy, sortType, perPage }),
+        getAdminProfit({
+          filter,
+          page: page + 1,
+          sortBy,
+          sortType,
+          perPage,
+          isRTL,
+        }),
     });
   }
 
   // Prefetch Previous Page
   if (page > 1) {
     queryClient.prefetchQuery({
-      queryKey: ["Admin Profit", filter, page - 1, sortBy, sortType, perPage],
+      queryKey: [
+        "Admin Profit",
+        filter,
+        page - 1,
+        sortBy,
+        sortType,
+        perPage,
+        isRTL,
+      ],
       queryFn: () =>
-        getAdminProfit({ filter, page: page - 1, sortBy, sortType, perPage }),
+        getAdminProfit({
+          filter,
+          page: page - 1,
+          sortBy,
+          sortType,
+          perPage,
+          isRTL,
+        }),
     });
   }
 

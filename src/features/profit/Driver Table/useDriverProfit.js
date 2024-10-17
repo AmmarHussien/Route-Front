@@ -1,10 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getDriverProfit } from "../../../services/apiProfit";
+import { useTranslation } from "react-i18next";
 
 function useDriverProfit() {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   // Filter Logic
   const filterValue = searchParams.get("status") || "Approved";
@@ -35,8 +38,9 @@ function useDriverProfit() {
     data: adminProfitData = {}, // Ensure default object
     error,
   } = useQuery({
-    queryKey: ["Driver Profit", filter, page, sortBy, sortType, perPage],
-    queryFn: () => getDriverProfit({ filter, page, sortBy, sortType, perPage }),
+    queryKey: ["Driver Profit", filter, page, sortBy, sortType, perPage, isRTL],
+    queryFn: () =>
+      getDriverProfit({ filter, page, sortBy, sortType, perPage, isRTL }),
     keepPreviousData: true,
   });
 
@@ -47,18 +51,48 @@ function useDriverProfit() {
   // Prefetch Next Page
   if (page < pageCount) {
     queryClient.prefetchQuery({
-      queryKey: ["Driver Profit", filter, page + 1, sortBy, sortType, perPage],
+      queryKey: [
+        "Driver Profit",
+        filter,
+        page + 1,
+        sortBy,
+        sortType,
+        perPage,
+        isRTL,
+      ],
       queryFn: () =>
-        getDriverProfit({ filter, page: page + 1, sortBy, sortType, perPage }),
+        getDriverProfit({
+          filter,
+          page: page + 1,
+          sortBy,
+          sortType,
+          perPage,
+          isRTL,
+        }),
     });
   }
 
   // Prefetch Previous Page
   if (page > 1) {
     queryClient.prefetchQuery({
-      queryKey: ["Driver Profit", filter, page - 1, sortBy, sortType, perPage],
+      queryKey: [
+        "Driver Profit",
+        filter,
+        page - 1,
+        sortBy,
+        sortType,
+        perPage,
+        isRTL,
+      ],
       queryFn: () =>
-        getDriverProfit({ filter, page: page - 1, sortBy, sortType, perPage }),
+        getDriverProfit({
+          filter,
+          page: page - 1,
+          sortBy,
+          sortType,
+          perPage,
+          isRTL,
+        }),
     });
   }
 

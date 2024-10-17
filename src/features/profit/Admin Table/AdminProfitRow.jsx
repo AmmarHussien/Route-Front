@@ -4,17 +4,20 @@ import styled, { css } from "styled-components";
 
 const PaymentMethod = styled.div`
   ${(props) =>
-    props.$payment_method === "Cash" &&
+    (props.$payment_method === "Cash" || props.$payment_method === "نقدا") &&
     css`
       color: #f97316;
     `}
+
   ${(props) =>
-    props.$payment_method === "Online" &&
+    (props.$payment_method === "Online" ||
+      props.$payment_method === "أونلاين") &&
     css`
       color: #ec4899;
     `}
   ${(props) =>
-    props.$payment_method === "Wallet" &&
+    (props.$payment_method === "Wallet" ||
+      props.$payment_method === "المحفظة") &&
     css`
       color: #a855f7;
     `}

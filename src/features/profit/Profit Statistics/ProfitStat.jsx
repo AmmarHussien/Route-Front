@@ -1,5 +1,6 @@
 import { useState } from "react";
-import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import styled, { css } from "styled-components";
 
 const StatContainer = styled.div`
   display: flex;
@@ -34,7 +35,18 @@ const Title = styled.p`
   font-size: 15px;
   font-weight: 400;
   line-height: 21px;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
+  
   color: #72788e;
 `;
 
@@ -91,26 +103,6 @@ const MonthOfChange = styled.h5`
   text-align: left;
 `;
 
-function hexToRgba(hex, opacity) {
-  if (!hex || (hex.length !== 4 && hex.length !== 7)) {
-    return `rgba(0, 0, 0, ${opacity})`; // Return a default color in case of invalid input
-  }
-
-  let r = 0,
-    g = 0,
-    b = 0;
-  if (hex.length === 4) {
-    r = parseInt(hex[1] + hex[1], 16);
-    g = parseInt(hex[2] + hex[2], 16);
-    b = parseInt(hex[3] + hex[3], 16);
-  } else if (hex.length === 7) {
-    r = parseInt(hex[1] + hex[2], 16);
-    g = parseInt(hex[3] + hex[4], 16);
-    b = parseInt(hex[5] + hex[6], 16);
-  }
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-}
-
 const TooltipWrapper = styled.div`
   position: relative;
   display: inline-block;
@@ -137,6 +129,26 @@ const TooltipText = styled.div`
   transition: opacity 0.3s ease;
 `;
 
+function hexToRgba(hex, opacity) {
+  if (!hex || (hex.length !== 4 && hex.length !== 7)) {
+    return `rgba(0, 0, 0, ${opacity})`; // Return a default color in case of invalid input
+  }
+
+  let r = 0,
+    g = 0,
+    b = 0;
+  if (hex.length === 4) {
+    r = parseInt(hex[1] + hex[1], 16);
+    g = parseInt(hex[2] + hex[2], 16);
+    b = parseInt(hex[3] + hex[3], 16);
+  } else if (hex.length === 7) {
+    r = parseInt(hex[1] + hex[2], 16);
+    g = parseInt(hex[3] + hex[4], 16);
+    b = parseInt(hex[5] + hex[6], 16);
+  }
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}
+
 const Tooltip = ({ text, children }) => {
   const [show, setShow] = useState(false);
 
@@ -160,6 +172,9 @@ function ProfitStat({
   colorIconBackground,
   currency,
 }) {
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const changeNumber =
     pastMonthValue === 0
       ? thisMonthValue
@@ -175,7 +190,7 @@ function ProfitStat({
       </Icon>
 
       <TextContainer>
-        <Title>{title}</Title>
+        <Title lang={isRTL ? "ar-Eg" : "en-US"}>{title}</Title>
         <ValuesContainer>
           <Tooltip
             text={
@@ -207,7 +222,7 @@ function ProfitStat({
               </ChangeNumberContainer>
             )}
 
-            <MonthOfChange>This Month</MonthOfChange>
+            <MonthOfChange>{t("ThisMonth")}</MonthOfChange>
           </ChangeMetric>
         </ValuesContainer>
       </TextContainer>

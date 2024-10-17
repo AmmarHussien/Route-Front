@@ -1,10 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllDrivers } from "../../services/apiDriver";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function useDrivers() {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   // Filter Logic
   const filterValue = searchParams.get("status") || "Approved";
@@ -35,8 +38,9 @@ function useDrivers() {
     data: driversData = {}, // Ensure default object
     error,
   } = useQuery({
-    queryKey: ["drivers", filter, page, sortBy, sortType, perPage],
-    queryFn: () => getAllDrivers({ filter, page, sortBy, sortType, perPage }),
+    queryKey: ["drivers", filter, page, sortBy, sortType, perPage, isRTL],
+    queryFn: () =>
+      getAllDrivers({ filter, page, sortBy, sortType, perPage, isRTL }),
     keepPreviousData: true,
   });
 
@@ -47,18 +51,32 @@ function useDrivers() {
   // Prefetch Next Page
   if (page < pageCount) {
     queryClient.prefetchQuery({
-      queryKey: ["drivers", filter, page + 1, sortBy, sortType, perPage],
+      queryKey: ["drivers", filter, page + 1, sortBy, sortType, perPage, isRTL],
       queryFn: () =>
-        getAllDrivers({ filter, page: page + 1, sortBy, sortType, perPage }),
+        getAllDrivers({
+          filter,
+          page: page + 1,
+          sortBy,
+          sortType,
+          perPage,
+          isRTL,
+        }),
     });
   }
 
   // Prefetch Previous Page
   if (page > 1) {
     queryClient.prefetchQuery({
-      queryKey: ["drivers", filter, page - 1, sortBy, sortType, perPage],
+      queryKey: ["drivers", filter, page - 1, sortBy, sortType, perPage, isRTL],
       queryFn: () =>
-        getAllDrivers({ filter, page: page - 1, sortBy, sortType, perPage }),
+        getAllDrivers({
+          filter,
+          page: page - 1,
+          sortBy,
+          sortType,
+          perPage,
+          isRTL,
+        }),
     });
   }
 

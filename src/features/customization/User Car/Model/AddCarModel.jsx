@@ -5,6 +5,7 @@ import Button from "../../../../ui/Button";
 import styled from "styled-components";
 import { useState } from "react";
 import useCreateModel from "./useCreateModel";
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute",
@@ -27,6 +28,8 @@ const StyledLabel = styled.label`
 `;
 
 function AddCarModel({ open, setOpen }) {
+  const { t } = useTranslation();
+
   const handleClose = () => setOpen(false);
 
   const [arName, setArName] = useState("");
@@ -53,7 +56,7 @@ function AddCarModel({ open, setOpen }) {
 
     // Simple validation
     if (!egName || !arName) {
-      setEditError("Both fields are required.");
+      setEditError(t("ModelValidations.allRequired"));
       return;
     }
     if (validateArabicName(arName)) {
@@ -73,7 +76,7 @@ function AddCarModel({ open, setOpen }) {
         }
       );
     } else {
-      setEditError("Invalid Arabic name. It must contain Arabic characters.");
+      setEditError(t("ModelValidations.arabicName"));
       return;
     }
   };
@@ -86,22 +89,24 @@ function AddCarModel({ open, setOpen }) {
         ) : (
           <>
             <FormRowVertical>
-              <StyledLabel htmlFor="EnglishName">English Name</StyledLabel>
+              <StyledLabel htmlFor="EnglishName">
+                {t("englishName")}
+              </StyledLabel>
               <Input
                 type="text"
                 id="EnglishName"
-                placeholder="English Name"
+                placeholder={t("englishName")}
                 value={egName}
                 onChange={handleEnglishNameChange}
                 $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
               />
             </FormRowVertical>
             <FormRowVertical>
-              <StyledLabel htmlFor="ArabicName">Arabic Name</StyledLabel>
+              <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
               <Input
                 type="text"
                 id="ArabicName"
-                placeholder="Arabic Name"
+                placeholder={t("arabicName")}
                 value={arName}
                 onChange={handleArabicNameChange}
                 $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -109,13 +114,11 @@ function AddCarModel({ open, setOpen }) {
             </FormRowVertical>
             <FormRowVertical>
               <Button type="submit" onClick={handleClick}>
-                Add New Model
+                {t("AddModel")}
               </Button>
             </FormRowVertical>
             {editError && (
-              <p style={{ color: "red", marginTop: "10px" }}>
-                Error: {editError}
-              </p>
+              <p style={{ color: "red", marginTop: "10px" }}>{editError}</p>
             )}
           </>
         )}

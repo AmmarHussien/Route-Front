@@ -15,6 +15,7 @@ import { useUploader } from "../../hooks/useUploader";
 import toast from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -47,6 +48,10 @@ function CreateUserForm({ onCloseModal }) {
   const { models } = useModel(selectedBrand);
 
   const password = watch("password");
+
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   const handleBrandSelect = (id) => {
     setSelectedBrand(id);
@@ -140,89 +145,107 @@ function CreateUserForm({ onCloseModal }) {
       type={onCloseModal ? "grid" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
-        <StyledLabel htmlFor="firstName">First Name</StyledLabel>
+        <StyledLabel htmlFor="firstName">{t("UserFirstName")}</StyledLabel>
         <Input
           type="text"
           id="firstName"
-          placeholder="First Name"
+          placeholder={t("UserFirstName")}
           {...register("firstName", {
-            required: "First Name is required",
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("FirstNameValidation.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 3,
+              message: t("FirstNameValidation.minLength"),
+            },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.lastName?.message}>
-        <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
+        <StyledLabel htmlFor="lastName">{t("UserLastName")}</StyledLabel>
         <Input
-          placeholder="Last Name"
+          placeholder={t("UserLastName")}
           type="text"
           id="lastName"
           {...register("lastName", {
-            required: "Last Name is required",
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("LastNameValidation.required"), // Correctly translating the message
+            },
             minLength: {
               value: 3,
-              message: "Last Name must be at least 3 characters",
+              message: t("LastNameValidation.minLength"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.phoneNumber?.message}>
-        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
+        <StyledLabel htmlFor="phoneNumber">{t("UserPhoneNumber")}</StyledLabel>
         <Input
-          placeholder="Phone Number"
+          placeholder={t("UserPhoneNumber")}
           type="text"
           id="phoneNumber"
           {...register("phoneNumber", {
-            required: "Phone Number is required",
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("PhoneNumberValidation.required"), // Correctly translating the message
+            },
             pattern: {
               value: /^[0-9]{10}$/,
-              message: "Phone Number must be 10 numeric",
+              message: t("PhoneNumberValidation.pattern"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
-        <StyledLabel htmlFor="email">Email</StyledLabel>
+        <StyledLabel htmlFor="email">{t("UserEmail")}</StyledLabel>
         <Input
-          placeholder="Email"
+          placeholder={t("UserEmail")}
           type="email"
           id="email"
           autoComplete="username"
           {...register("email", {
-            required: "Email is required",
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("EmailValidation.required"), // Correctly translating the message
+            },
             pattern: {
               value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-              message: "Please enter a valid email address",
+              message: t("EmailValidation.pattern"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
-        <StyledLabel htmlFor="password">Password</StyledLabel>
+        <StyledLabel htmlFor="password">{t("UserPassword")}</StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
-            placeholder="Password"
+            placeholder={t("UserPassword")}
             type={showPassword ? "text" : "password"} // Toggle input type based on state
             id="password"
             autoComplete="new-password"
             {...register("password", {
-              required: "Password is required",
+              required: {
+                value: true, // This specifies that the field is required
+                message: t("PasswordValidation.required"), // Correctly translating the message
+              },
               minLength: {
                 value: 8,
-                message: "Password must be at least 8 characters",
+                message: t("PasswordValidation.minLength"),
               },
               maxLength: {
                 value: 20,
-                message: "Password must be at most 20 characters",
+                message: t("PasswordValidation.maxLength"),
               },
               pattern: {
                 value:
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_])[A-Za-z\d@$!%*?&#_]{6,}$/,
-                message:
-                  "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+                message: t("PasswordValidation.pattern"),
               },
             })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -231,7 +254,7 @@ function CreateUserForm({ onCloseModal }) {
             onClick={handleTogglePassword}
             style={{
               position: "absolute",
-              right: "35px",
+              right: isRTL ? "300px" : "35px",
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer",
@@ -242,17 +265,22 @@ function CreateUserForm({ onCloseModal }) {
         </div>
       </FormRowVertical>
       <FormRowVertical error={errors?.confirmPassword?.message}>
-        <StyledLabel htmlFor="ConfirmPassword">Confirm Password</StyledLabel>{" "}
+        <StyledLabel htmlFor="ConfirmPassword">
+          {t("UserConfirmPassword")}
+        </StyledLabel>{" "}
         <div style={{ position: "relative" }}>
           <Input
-            placeholder="Confirm Password"
+            placeholder={t("UserConfirmPassword")}
             type={showConfirmPassword ? "text" : "password"}
             id="ConfirmPassword"
             autoComplete="new-password"
             {...register("confirmPassword", {
-              required: "Please confirm your password",
+              required: {
+                value: true, // This specifies that the field is required
+                message: t("PasswordValidation.required"), // Correctly translating the message
+              },
               validate: (value) =>
-                value === password || "Passwords do not match",
+                value === password || t("PasswordValidation.notMatch"),
             })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
@@ -260,7 +288,7 @@ function CreateUserForm({ onCloseModal }) {
             onClick={handleToggleConfirmPassword}
             style={{
               position: "absolute",
-              right: "35px",
+              right: isRTL ? "300px" : "35px",
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer",
@@ -272,19 +300,19 @@ function CreateUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="UserPhoto">User Photo</StyledLabel>
+        <StyledLabel htmlFor="UserPhoto">{t("UserPhoto")}</StyledLabel>
 
         <FileInput
-          placeholder="User Photo (optional)"
+          placeholder={t("UserPhoto")}
           id="UserPhoto"
           onFileChange={handleFileChange(setProfileImage)}
         />
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="carBrand">Car brands</StyledLabel>
+        <StyledLabel htmlFor="carBrand">{t("UserCarBrands")}</StyledLabel>
         <DropDownMenu
-          title="Car brands"
+          title={t("UserCarBrands")}
           options={manufactureOptions}
           onSelect={handleBrandSelect}
           disabled={isLoading}
@@ -295,9 +323,9 @@ function CreateUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="carModels">Car Models</StyledLabel>
+        <StyledLabel htmlFor="carModels">{t("UserCarModels")}</StyledLabel>
         <DropDownMenu
-          title="Car Models"
+          title={t("UserCarModels")}
           options={modelOptions}
           onSelect={handleModelSelect}
           disabled={isLoading || !selectedBrand}
@@ -308,20 +336,38 @@ function CreateUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical error={errors?.registrationYear?.message}>
-        <StyledLabel htmlFor="registrationYear">Model Year</StyledLabel>
+        <StyledLabel htmlFor="registrationYear">
+          {t("UserModelYear")}
+        </StyledLabel>
         <Input
-          placeholder="Model Year"
+          placeholder={t("UserModelYear")}
           type="text"
           id="registrationYear"
           {...register("registrationYear", {
-            required: "Model year is required",
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("ModelYearValidation.required"), // Correctly translating the message
+            },
             pattern: {
               value: /^[0-9]+$/,
-              message: " Model year must be numeric",
+              message: t("ModelYearValidation.pattern"),
             },
             valueAsNumber: true, // Converts input value to a number
-            validate: (value) =>
-              Number.isInteger(value) || "Registration year must be an integer",
+            validate: (value) => {
+              const currentYear = new Date().getFullYear(); // Get the current year
+
+              // Check if the value is an integer
+              if (!Number.isInteger(value)) {
+                return t("ModelYearValidation.pattern"); // Error message for non-integer values
+              }
+
+              // Check if the year is not in the future
+              if (value > currentYear) {
+                return t("ModelYearValidation.checkYear"); // Error message for future years
+              }
+
+              return true; // Return true if the validation passes
+            },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
@@ -333,7 +379,7 @@ function CreateUserForm({ onCloseModal }) {
           $size="xlarge"
           variation={"primary"}
         >
-          Submit
+          {t("Submit")}
         </Button>
       </FormRow>
     </Form>

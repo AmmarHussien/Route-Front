@@ -1,11 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getAllNotification } from "../../services/apiNotifications";
+import { useTranslation } from "react-i18next";
 
 function useNotification() {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
-
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   // Filter Logic
   const filterSent = searchParams.get("is_sent") || "1";
   const filterType = searchParams.get("app_type") || "All";
@@ -57,6 +59,7 @@ function useNotification() {
       sortBy,
       sortType,
       perPage,
+      isRTL,
     ],
     queryFn: () =>
       getAllNotification({
@@ -67,6 +70,7 @@ function useNotification() {
         sortBy,
         sortType,
         perPage,
+        isRTL,
       }),
     keepPreviousData: true,
   });
@@ -87,6 +91,7 @@ function useNotification() {
         sortBy,
         sortType,
         perPage,
+        isRTL,
       ],
       queryFn: () =>
         getAllNotification({
@@ -97,6 +102,7 @@ function useNotification() {
           sortBy,
           sortType,
           perPage,
+          isRTL,
         }),
     });
   }
@@ -113,6 +119,7 @@ function useNotification() {
         sortBy,
         sortType,
         perPage,
+        isRTL,
       ],
       queryFn: () =>
         getAllNotification({
@@ -123,6 +130,7 @@ function useNotification() {
           sortBy,
           sortType,
           perPage,
+          isRTL,
         }),
     });
   }

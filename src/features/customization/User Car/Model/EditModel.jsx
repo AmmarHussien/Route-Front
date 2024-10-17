@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useEditModel from "./useEditModel";
 import Spinner from "../../../../ui/Spinner";
+import useViewModel from "./useViewModel";
 
 const style = {
   position: "absolute",
@@ -34,20 +35,22 @@ function EditModel({ open, setOpen, data }) {
   const [egName, setEgName] = useState(""); // English name state
   const [isActive, setIsActive] = useState(""); // IsActive state
   const [editError, setEditError] = useState(null); // Error state
+  const { models } = useViewModel(data);
 
-  const { editModels, isLoading } = useEditModel(data.id);
+  const { editModels, isLoading } = useEditModel(data);
 
   useEffect(() => {
     if (open && data) {
-      const { arabicName, englishName, isActive: active } = data;
-
-      const check = active === "True" ? true : false;
+      const {
+        name: { ar: arabicName, en: englishName },
+        is_active,
+      } = models;
 
       setArName(arabicName); // Reset Arabic name field
       setEgName(englishName); // Reset English name field
-      setIsActive(check); // Reset is_active field
+      setIsActive(is_active); // Reset is_active field
     }
-  }, [open, data]);
+  }, [open, data, models]);
 
   if (isLoading) return <Spinner />;
 

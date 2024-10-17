@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 const CommonRow = styled.div`
@@ -41,13 +42,15 @@ const Color = styled.div`
 `;
 
 function ReviewRow({ color, reviews, rate, maxLength }) {
+  const { t } = useTranslation();
+
   return (
     <Row>
       <RowLeft>
         {color.slice(0, maxLength).map((element, index) => (
           <RowItem key={index}>
             <Color color={element} />
-            <div>{`${reviews[index]?.rate} Star` || "-"}</div>
+            <div>{`${reviews[index]?.rate} ${t("Star")}` || "-"}</div>
           </RowItem>
         ))}
       </RowLeft>

@@ -5,17 +5,11 @@ import FormRow from "../../../ui/FormRow";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useUpdateStatus from "./useUpdateStatus";
-import styled from "styled-components";
-
-const StyledLabel = styled.label`
-  font-size: 16px;
-  color: #333; /* Dark gray text */
-  font-weight: bold;
-  margin-right: 10px; /* Add space between label and input */
-`;
+import { useTranslation } from "react-i18next";
 
 export default function BlockDriverForm() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { editStatus } = useUpdateStatus();
 
@@ -42,15 +36,17 @@ export default function BlockDriverForm() {
   return (
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
       <FormRow label="Description">
-        <StyledLabel htmlFor="reason">Reason</StyledLabel>
         <Input
-          placeholder="Reason"
+          placeholder={t("Reason")}
           type="text"
           {...register("reason", {
-            required: "This field is required",
+            required: {
+              value: true,
+              message: t("ReasonValidation.required"),
+            },
             minLength: {
-              value: 1,
-              message: "Reason should be at least 1 character",
+              value: 3,
+              message: t("ReasonValidation.minLength"),
             },
           })}
           $error={!!errors.reason}
@@ -68,7 +64,7 @@ export default function BlockDriverForm() {
 
       <Button
         type="submit"
-        $variant="contained"
+        variant="contained"
         sx={{
           width: 327,
           height: 56,
@@ -82,7 +78,7 @@ export default function BlockDriverForm() {
           display: "flex",
         }}
       >
-        Submit
+        {t("Submit")}
       </Button>
     </Form>
   );

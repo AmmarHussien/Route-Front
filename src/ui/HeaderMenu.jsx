@@ -4,6 +4,7 @@ import Logout from "../features/authentication/Logout";
 import { IoMdNotificationsOutline } from "react-icons/io";
 
 import ButtonIcon from "./ButtonIcon";
+import LanguageToggle from "./LanguageToggle";
 
 const StyledHeaderMenu = styled.ul`
   display: flex;
@@ -17,11 +18,11 @@ function HeaderMenu() {
         <ButtonIcon onClick={() => navigate("")}>
           <HiOutlineUser />
         </ButtonIcon>
-      </li>
+      </li> */}
 
       <li>
-        <DarkModeToggle />
-      </li> */}
+        <LanguageToggle />
+      </li>
 
       <li>
         <ButtonIcon>

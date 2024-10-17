@@ -1,23 +1,27 @@
+import { useTranslation } from "react-i18next";
 import Spinner from "../../../ui/Spinner";
 import InformationOrganizationTable from "./InformationOrganizationTable";
 import useViewOrganization from "./useViewOrganization";
 
 function ViewOrganizationModel({ id }) {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const { viewOrganizations, isLoading } = useViewOrganization(id);
 
   if (isLoading) return <Spinner />;
 
-  const active = viewOrganizations.is_active === true ? "True" : "False";
+  const { id: viewId } = viewOrganizations;
+
+  // const { id: viewId } = viewOrganizations;
 
   return (
     <InformationOrganizationTable
-      data={{
-        id: viewOrganizations.id,
-        englishName: viewOrganizations.name.en,
-        arabicName: viewOrganizations.name.ar,
-        isActive: active,
-      }}
-      title={`${viewOrganizations.name.en} `}
+      data={viewId}
+      title={
+        isRTL
+          ? `${viewOrganizations.name.ar} `
+          : `${viewOrganizations.name.en} `
+      }
     />
   );
 }

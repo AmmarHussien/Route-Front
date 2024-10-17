@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ProfitStat from "./ProfitStat";
+import { useTranslation } from "react-i18next";
 
 const StatContainer = styled.div`
   display: flex;
@@ -20,30 +21,32 @@ function ProfitStats({
   containerColor,
   currency,
 }) {
+  const { t } = useTranslation();
+
   const stats = [
     {
-      title: "Total Earning",
+      title: t("TotalEarning"),
       colorIconBackground: "#6366F1",
       icon: "/TotalE.svg",
       thisMonthValue: totalEarningThisMonth,
       pastMonthValue: totalEarningPastMonth,
     },
     {
-      title: "Payment To Site",
+      title: t("PaymentToSite"),
       colorIconBackground: "#A855F7",
       icon: "/Money.svg",
       thisMonthValue: paymentToSiteThisMonth,
       pastMonthValue: paymentToSitePastMonth,
     },
     {
-      title: "Payment To Drivers",
+      title: t("PaymentToDrivers"),
       colorIconBackground: "#F43F5E",
       icon: "/Driversw.svg",
       thisMonthValue: paymentToDriversThisMonth,
       pastMonthValue: paymentToDriversPastMonth,
     },
     {
-      title: "Total Rides Amount",
+      title: t("TotalRidesAmount"),
       colorIconBackground: "#F97316",
       icon: "/Money.svg",
       thisMonthValue: totalRidesAmountThisMonth,

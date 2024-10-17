@@ -15,6 +15,7 @@ import useManufactures from "../useManufactures";
 import { useUploader } from "../../../hooks/useUploader";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -39,6 +40,10 @@ function EditUserForm({ onCloseModal }) {
     },
     profile_image,
   } = userInfo;
+
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   const {
     register,
@@ -182,44 +187,54 @@ function EditUserForm({ onCloseModal }) {
       type={onCloseModal ? "grid" : "regular"}
     >
       <FormRowVertical error={errors?.first_name?.message}>
-        <StyledLabel htmlFor="firstName">First Name</StyledLabel>
+        <StyledLabel htmlFor="firstName">{t("UserFirstName")}</StyledLabel>
 
         <Input
           type="text"
           id="firstName"
-          placeholder="First Name"
+          placeholder={t("UserFirstName")}
           defaultValue={firstNames}
           onChange={handleFirstNameChange}
           {...register("first_name", {
-            required: "First Name is required",
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("FirstNameValidation.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 3,
+              message: t("FirstNameValidation.minLength"),
+            },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.last_name?.message}>
-        <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
+        <StyledLabel htmlFor="lastName">{t("UserLastName")}</StyledLabel>
 
         <Input
-          placeholder="Last Name"
+          placeholder={t("UserLastName")}
           type="text"
           id="lastName"
           defaultValue={lastNames}
           onChange={handleLastNameChange}
           {...register("last_name", {
-            required: "Last Name is required",
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("LastNameValidation.required"), // Correctly translating the message
+            },
             minLength: {
               value: 3,
-              message: "Last Name must be at least 3 characters",
+              message: t("LastNameValidation.minLength"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.phoneNumber?.message}>
-        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
+        <StyledLabel htmlFor="phoneNumber">{t("UserPhoneNumber")}</StyledLabel>
 
         <Input
-          placeholder="Phone Number"
+          placeholder={t("UserPhoneNumber")}
           type="text"
           id="phoneNumber"
           defaultValue={phoneNumber}
@@ -228,31 +243,34 @@ function EditUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
-        <StyledLabel htmlFor="email">Email</StyledLabel>
+        <StyledLabel htmlFor="email">{t("UserEmail")}</StyledLabel>
 
         <Input
-          placeholder="Email"
+          placeholder={t("UserEmail")}
           type="email"
           id="email"
           autoComplete="email"
           defaultValue={email}
           onChange={handleEmailChange}
           {...register("email", {
-            required: "Email is required",
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("EmailValidation.required"), // Correctly translating the message
+            },
             pattern: {
               value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-              message: "Please enter a valid email address",
+              message: t("EmailValidation.pattern"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
-        <StyledLabel htmlFor="password">Password</StyledLabel>
+        <StyledLabel htmlFor="password">{t("UserPassword")}</StyledLabel>
 
         <div style={{ position: "relative" }}>
           <Input
-            placeholder="Password"
+            placeholder={t("UserPassword")}
             type={showPassword ? "text" : "password"} // Toggle input type based on state
             id="password"
             autoComplete="new-password"
@@ -264,7 +282,7 @@ function EditUserForm({ onCloseModal }) {
             onClick={handleTogglePassword}
             style={{
               position: "absolute",
-              right: "35px",
+              right: isRTL ? "300px" : "35px",
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer",
@@ -275,11 +293,13 @@ function EditUserForm({ onCloseModal }) {
         </div>
       </FormRowVertical>
       <FormRowVertical error={errors?.confirmPassword?.message}>
-        <StyledLabel htmlFor="ConfirmPassword">Confirm Password</StyledLabel>
+        <StyledLabel htmlFor="ConfirmPassword">
+          {t("UserConfirmPassword")}
+        </StyledLabel>
 
         <div style={{ position: "relative" }}>
           <Input
-            placeholder="Confirm Password"
+            placeholder={t("UserConfirmPassword")}
             type={showConfirmPassword ? "text" : "password"}
             id="ConfirmPassword"
             autoComplete="new-password"
@@ -291,7 +311,7 @@ function EditUserForm({ onCloseModal }) {
             onClick={handleToggleConfirmPassword}
             style={{
               position: "absolute",
-              right: "35px",
+              right: isRTL ? "300px" : "35px",
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer",
@@ -303,10 +323,10 @@ function EditUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="UserPhoto">User Photo</StyledLabel>
+        <StyledLabel htmlFor="UserPhoto">{t("UserPhoto")}</StyledLabel>
 
         <FileInput
-          placeholder="User Photo (optional)"
+          placeholder={t("UserPhoto")}
           id="UserPhoto"
           onFileChange={handleFileChange(setProfileImage)}
           defaultValue={profile_image}
@@ -314,10 +334,10 @@ function EditUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="carBrand">Car brands</StyledLabel>
+        <StyledLabel htmlFor="carBrand">{t("UserCarBrands")}</StyledLabel>
 
         <DropDownMenu
-          title="Car brands"
+          title={t("UserCarBrands")}
           options={manufactureOptions}
           onSelect={handleBrandSelect}
           selectedOption={manufactureOptions.find(
@@ -327,10 +347,10 @@ function EditUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="carModels">Car Models</StyledLabel>
+        <StyledLabel htmlFor="carModels">{t("UserCarModels")}</StyledLabel>
 
         <DropDownMenu
-          title="Car Models"
+          title={t("UserCarModels")}
           options={modelOptions}
           onSelect={handleModelSelect}
           disabled={!selectedBrand}
@@ -340,23 +360,41 @@ function EditUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.registration_year?.message}>
-        <StyledLabel htmlFor="registrationYear">Model Year</StyledLabel>
+        <StyledLabel htmlFor="registrationYear">
+          {t("UserModelYear")}
+        </StyledLabel>
 
         <Input
-          placeholder="Model Year"
+          placeholder={t("UserModelYear")}
           type="text"
           id="registrationYear"
           defaultValue={registration_year}
           onChange={handleRegistrationYearChange}
           {...register("registration_year", {
-            required: "Model year is required",
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("ModelYearValidation.required"), // Correctly translating the message
+            },
             pattern: {
               value: /^[0-9]+$/,
-              message: " Model year must be numeric",
+              message: t("ModelYearValidation.pattern"),
             },
             valueAsNumber: true, // Converts input value to a number
-            validate: (value) =>
-              Number.isInteger(value) || "Registration year must be an integer",
+            validate: (value) => {
+              const currentYear = new Date().getFullYear(); // Get the current year
+
+              // Check if the value is an integer
+              if (!Number.isInteger(value)) {
+                return t("ModelYearValidation.pattern"); // Error message for non-integer values
+              }
+
+              // Check if the year is not in the future
+              if (value > currentYear) {
+                return t("ModelYearValidation.checkYear"); // Error message for future years
+              }
+
+              return true; // Return true if the validation passes
+            },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
@@ -375,7 +413,7 @@ function EditUserForm({ onCloseModal }) {
             boxShadow: "0 4px 60px 0 rgba(0, 56, 255, 0.15)", // Updated shadow property
           }}
         >
-          Submit
+          {t("Submit")}
         </Button>
       </FormRow>
     </Form>

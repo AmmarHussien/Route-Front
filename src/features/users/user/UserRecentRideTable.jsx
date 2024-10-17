@@ -1,18 +1,20 @@
+import { useTranslation } from "react-i18next";
 import Table from "../../../ui/Table";
 import UserRow from "./UserRow";
 
 function UsersRecentRideTable({ rides }) {
+  const { t } = useTranslation();
   return (
     <Table columns="1fr 1fr 1fr 1fr 1fr 1fr 1fr">
-      <Table.TableNaView title="Recent Rides" />
+      <Table.TableNaView title={t("RecentRides")} />
       <Table.Header>
-        <div>Driver Name</div>
-        <div>Destination A</div>
-        <div>Destination B</div>
-        <div>Date</div>
-        <div>Price</div>
-        <div>Status</div>
-        <div>Rate</div>
+        <div>{t("DriverName")}</div>
+        <div>{t("DestinationA")}</div>
+        <div>{t("DestinationB")}</div>
+        <div>{t("Date")}</div>
+        <div>{t("Price")}</div>
+        <div>{t("Status")}</div>
+        <div>{t("UserRate")}</div>
       </Table.Header>
 
       <Table.Body

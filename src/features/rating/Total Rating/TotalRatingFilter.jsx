@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import styled, { css } from "styled-components";
 
 const FilterButton = styled.button`
@@ -29,6 +30,8 @@ const Filter = styled.div`
   height: 5rem;
 `;
 function TotalRatingFilter({ currentFilter, setCurrentFilter }) {
+  const { t } = useTranslation();
+
   function handleClick(value) {
     setCurrentFilter(value);
   }
@@ -39,14 +42,14 @@ function TotalRatingFilter({ currentFilter, setCurrentFilter }) {
         $active={"Drivers" === currentFilter}
         disabled={"Drivers" === currentFilter}
       >
-        Drivers Ratings
+        {t("DriversRatings")}
       </FilterButton>
       <FilterButton
         onClick={() => handleClick("Users")}
         $active={"Users" === currentFilter}
         disabled={"Users" === currentFilter}
       >
-        Users Ratings
+        {t("UsersRatings")}
       </FilterButton>
     </Filter>
   );

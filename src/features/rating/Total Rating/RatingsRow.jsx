@@ -56,7 +56,7 @@ function RatingsRow({ RowItem }) {
           <div>{RowItem.full_name}</div>
         </RowLeft>
         <RowRight>
-          <div>{RowItem.total_rate}</div>
+          <div>{RowItem.total_rate.toFixed(2)}</div>
           <div>
             <img id={RowItem.id} src="/Star.svg" alt={`star${RowItem.id}`} />
           </div>

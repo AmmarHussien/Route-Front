@@ -5,6 +5,8 @@ import Button from "../../../ui/Button";
 import styled from "styled-components";
 import { useState } from "react";
 import useCreateOrganization from "./useCreateOrganization";
+import { useTranslation } from "react-i18next";
+import Spinner from "../../../ui/Spinner";
 
 const style = {
   position: "absolute",
@@ -28,6 +30,7 @@ const StyledLabel = styled.label`
 
 function AddOrganizationModal({ open, setOpen }) {
   const handleClose = () => setOpen(false);
+  const { t } = useTranslation();
 
   const [arName, setArName] = useState();
   const [egName, setEgName] = useState();
@@ -35,7 +38,7 @@ function AddOrganizationModal({ open, setOpen }) {
   const { createOrganizations, isLoading, isError, error } =
     useCreateOrganization();
 
-  if (isLoading) return <p>Updating...</p>;
+  if (isLoading) return <Spinner />;
   if (isError) return <p>Error: {error.message}</p>;
 
   const validateArabicName = (name) => {
@@ -57,7 +60,7 @@ function AddOrganizationModal({ open, setOpen }) {
 
     // Simple validation
     if (!egName || !arName) {
-      setEditError("Both fields are required.");
+      setEditError(t("OrganizationValidation.allRequired"));
       return;
     }
     if (validateArabicName(arName)) {
@@ -77,7 +80,7 @@ function AddOrganizationModal({ open, setOpen }) {
         }
       );
     } else {
-      setEditError("Invalid Arabic name. It must contain Arabic characters.");
+      setEditError(t("OrganizationValidation.arabicName"));
       return;
     }
   };
@@ -86,22 +89,22 @@ function AddOrganizationModal({ open, setOpen }) {
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <FormRowVertical>
-          <StyledLabel htmlFor="EnglishName">English Name</StyledLabel>
+          <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
           <Input
             type="text"
             id="EnglishName"
-            placeholder="English Name"
+            placeholder={t("englishName")}
             value={egName}
             onChange={handleEnglishNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
         <FormRowVertical>
-          <StyledLabel htmlFor="ArabicName">Arabic Name</StyledLabel>
+          <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
           <Input
             type="text"
             id="ArabicName"
-            placeholder="Arabic Name"
+            placeholder={t("arabicName")}
             value={arName}
             onChange={handleArabicNameChange}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -110,11 +113,11 @@ function AddOrganizationModal({ open, setOpen }) {
 
         <FormRowVertical>
           <Button type="submit" onClick={handleClick}>
-            Add New Organization
+            {t("AddOrganization")}
           </Button>
         </FormRowVertical>
         {editError && (
-          <p style={{ color: "red", marginTop: "10px" }}>Error: {editError}</p>
+          <p style={{ color: "red", marginTop: "10px" }}>{editError}</p>
         )}
       </Box>
     </Modal>

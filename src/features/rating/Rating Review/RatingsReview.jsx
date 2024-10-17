@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import ReviewRow from "./ReviewRow";
 import styled from "styled-components";
 import Spinner from "../../../ui/Spinner";
+import { useTranslation } from "react-i18next";
 
 const PieContainer = styled.div`
   display: flex;
@@ -33,6 +34,8 @@ const ErrorMessage = styled.div`
 function RatingsReview() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
+  const { t } = useTranslation();
+
   const { isLoading, error, ratingReviews } = useRatingReview(
     format(currentMonth, "yyyy"),
     format(currentMonth, "M")
@@ -53,8 +56,8 @@ function RatingsReview() {
   return (
     <>
       <RatingHeader
-        title={"Ratings Review"}
-        subtitle={"Breakdown of the received reviews"}
+        title={t("RatingsReview")}
+        subtitle={t("RatingsReviewSlogan")}
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
       />
@@ -64,7 +67,7 @@ function RatingsReview() {
       ) : (
         ((maxLength = Math.min(COLORS.length, reviews.length)),
         maxLength === 0 ? (
-          <Empty>No data to show at this Moment</Empty>
+          <Empty>{t("NoData")}</Empty>
         ) : (
           <PieContainer>
             <PieCharts

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Table from "../../ui/Table";
 import styled, { css } from "styled-components";
 
@@ -20,6 +21,7 @@ const PlatformSpan = styled.span`
 `;
 
 const PlatformWrapper = styled.div`
+  width: 160px;
   ${({ $multiple }) =>
     $multiple &&
     css`
@@ -49,6 +51,9 @@ const ReserverWrapper = styled.div`
 `;
 
 function NotificationRow({ notification }) {
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   return (
     <Table columns={"0.4fr 1fr 1.2fr 1.2fr 0.8fr 0.6fr "}>
       <Table.Row>
@@ -68,7 +73,7 @@ function NotificationRow({ notification }) {
             .split("-")
             .map((platformItem, index, array) => (
               <PlatformSpan key={platformItem} $platform={platformItem}>
-                {platformItem}
+                {isRTL ? t(`platformItem.${platformItem}`) : platformItem}
                 {index < array.length - 1 && " - "}
               </PlatformSpan>
             ))}
@@ -79,7 +84,8 @@ function NotificationRow({ notification }) {
         >
           {notification.app_type.split("-").map((appTypeItem, index, array) => (
             <ReserverSpan key={appTypeItem} $platform={appTypeItem}>
-              {appTypeItem}
+              {isRTL ? t(`appTypeItem.${appTypeItem}`) : appTypeItem}
+
               {index < array.length - 1 && " - "}
             </ReserverSpan>
           ))}

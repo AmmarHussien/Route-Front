@@ -1,26 +1,19 @@
+import { useTranslation } from "react-i18next";
 import Spinner from "../../../ui/Spinner";
 import InformationCarServiceTable from "./InformationCarServiceTable";
 import useViewCarService from "./useViewCarService";
 
 function ViewCarServiceModal({ id }) {
   const { carService, isLoading } = useViewCarService(id);
-
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   if (isLoading) return <Spinner />;
 
   return (
     <InformationCarServiceTable
-      data={{
-        id: carService.id,
-        englishName: carService.name.en,
-        arabicName: carService.name.ar,
-        driverCommission: carService.driver_commission,
-        openingPrice: carService.opening_price,
-        separationKm: carService.separation_km,
-        beforeSeparationPrice: carService.before_separation_price,
-        afterSeparationPrice: carService.after_separation_price,
-        inOutSeparationKm: carService.in_out_separation_km,
-      }}
-      title={`${carService.name.en} `}
+      data={carService.id}
+      title={isRTL ? `${carService.name.ar}` : `${carService.name.en} `}
+      isLoading={isLoading}
     />
   );
 }

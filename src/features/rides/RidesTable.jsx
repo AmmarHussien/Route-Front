@@ -4,10 +4,13 @@ import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import RidesRow from "./RidesRow";
+import { useTranslation } from "react-i18next";
 
 function RidesTable({ rides, isLoading, ridesCount }) {
   const [searchParams] = useSearchParams();
   const params = searchParams.get("status");
+  const { t } = useTranslation();
+
   // Show the loading spinner while the data is being fetched
   if (isLoading) return <Spinner />;
 
@@ -16,15 +19,19 @@ function RidesTable({ rides, isLoading, ridesCount }) {
 
   return (
     <Table columns="0.4fr 1fr 1fr 1fr 1fr 1fr">
-      <Table.TableNav title="ALL Rides" tableData={rides} />
+      <Table.TableNav title={t("ALLRides")} tableData={rides} />
       <Table.Header>
-        <div>Ride ID</div>
-        <div>Driver Name</div>
-        <div>User Name</div>
-        <div>Created Date</div>
-        {params === "Scheduled" ? <div>Scheduled Date</div> : <div>Price</div>}
+        <div>{t("RideID")}</div>
+        <div>{t("DriverName")}</div>
+        <div>{t("UserName")}</div>
+        <div>{t("CreatedDate")}</div>
+        {params === "Scheduled" ? (
+          <div>{"ScheduledDate"}</div>
+        ) : (
+          <div>{t("Price")}</div>
+        )}
 
-        <div>Status</div>
+        <div>{t("Status")}</div>
       </Table.Header>
 
       <Table.Body

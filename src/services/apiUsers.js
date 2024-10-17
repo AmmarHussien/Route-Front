@@ -99,12 +99,13 @@ export async function getSearch({
   }
 }
 
-export async function getUser(id) {
+export async function getUser(id, isRTL) {
   const token = localStorage.getItem("authToken");
   try {
     const response = await axios.get(`${URL}users/${id}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       // Pass the prepared query parameters
     });
