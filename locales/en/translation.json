@@ -171,7 +171,9 @@
     "Approved": "Approved",
     "Pending": "Pending",
     "Blocked": "Blocked",
-    "Suspended": "Suspended"
+    "Suspended": "Suspended",
+    "Ongoing": "Ongoing",
+    "Confirmed": "Confirmed"
   },
 
   "_Rating Page": "Rating Page",

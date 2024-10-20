@@ -295,7 +295,7 @@ function EditDriverForm({ onCloseModal }) {
             onClick={handleTogglePassword}
             style={{
               position: "absolute",
-              right: "35px",
+              right: isRTL ? "300px" : "35px",
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer",
@@ -323,7 +323,7 @@ function EditDriverForm({ onCloseModal }) {
             onClick={handleToggleConfirmPassword}
             style={{
               position: "absolute",
-              right: "35px",
+              right: isRTL ? "300px" : "35px",
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer",

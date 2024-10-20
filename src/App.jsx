@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import {
   Navigate,
   Route,
@@ -72,6 +72,7 @@ function AdminRoutes() {
           </ProtectedRoute>
         }
       >
+        {/* Default route */}
         <Route
           index
           element={<Navigate replace to="/adminPanel/dashboard" />}
@@ -80,6 +81,8 @@ function AdminRoutes() {
           path="/adminPanel"
           element={<Navigate replace to="/adminPanel/dashboard" />}
         />
+
+        {/* Admin routes */}
         <Route path="/adminPanel/dashboard" element={<Dashboard />} />
         <Route path="/adminPanel/car-services" element={<CarService />} />
         <Route
@@ -136,7 +139,6 @@ function AdminRoutes() {
           path="/adminPanel/customization/organization"
           element={<OrganizationLayout />}
         />
-
         <Route
           path="/adminPanel/customization/userCar"
           element={<CarBrandLayout />}
@@ -146,6 +148,8 @@ function AdminRoutes() {
           element={<ViewCarBrand />}
         />
       </Route>
+
+      {/* Login and catch-all route */}
       <Route path="/adminPanel/login" element={<Login />} />
       <Route path="/adminPanel/*" element={<PageNotFound />} />
     </Routes>
@@ -156,6 +160,13 @@ function AdminRoutes() {
 function App() {
   const { i18n } = useTranslation();
   const direction = i18n.language === "ar-EG" ? "rtl" : "ltr";
+
+  const isRTL = i18n.language === "ar-EG";
+
+  useEffect(() => {
+    document.body.dir = isRTL ? "rtl" : "ltr"; // Set direction on the body
+    document.body.style.fontFamily = "Tajawal"; // Apply font-family
+  }, [isRTL]);
   return (
     <div style={{ direction }}>
       <QueryClientProvider client={queryClient}>

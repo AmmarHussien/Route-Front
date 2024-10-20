@@ -31,7 +31,6 @@ const TextContainer = styled.div`
 
 const Title = styled.p`
   //styleName: Hero/H1 Regular;
-  font-family: Noto Sans Display;
   font-size: 15px;
   font-weight: 400;
   line-height: 21px;
@@ -60,7 +59,6 @@ const ValuesContainer = styled.div`
 
 const Value = styled.h5`
   //styleName: Hero/H0 Bold;
-  font-family: Noto Sans Display;
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
@@ -88,7 +86,6 @@ const Arrow = styled.img`
 
 const NumberOfChange = styled.h5`
   //styleName: footnote and caption/Footnote Semibold;
-  font-family: Noto Sans Display;
   font-size: 12px;
   font-weight: 600;
   text-align: left;
@@ -97,7 +94,6 @@ const NumberOfChange = styled.h5`
 
 const MonthOfChange = styled.h5`
   //styleName: footnote and caption/Caption Regular;
-  font-family: Noto Sans Display;
   font-size: 11px;
   font-weight: 400;
   text-align: left;

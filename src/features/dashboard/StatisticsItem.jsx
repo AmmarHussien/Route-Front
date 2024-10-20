@@ -10,7 +10,7 @@ const StyledItem = styled.div`
 
 const StyledTitle = styled.p`
   //styleName: subhead/Subhead Regular;
-  font-family: Noto Sans Display;
+
   font-size: 14px;
   font-weight: 400;
   line-height: 19px;
@@ -20,7 +20,7 @@ const StyledTitle = styled.p`
 
 const StyledNum = styled.p`
   //styleName: Hero/H4 Bold;
-  font-family: Noto Sans Display;
+
   font-size: 20px;
   font-weight: 700;
   line-height: 24px;

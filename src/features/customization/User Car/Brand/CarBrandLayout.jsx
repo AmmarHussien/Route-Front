@@ -23,8 +23,7 @@ const CardGrid = styled.div`
 function CarBrandLayout() {
   const { isLoading, manufactures } = useGetManufactures();
   const navigation = useNavigate();
-  const { i18n, t } = useTranslation();
-  const isRTL = i18n.language === "ar-EG";
+  const { t } = useTranslation();
 
   const handleCardClick = (id, name) => {
     navigation(`/adminPanel/customization/userCar/${name}/${id}`);

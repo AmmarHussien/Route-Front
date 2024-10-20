@@ -1,4 +1,6 @@
 import { createGlobalStyle } from "styled-components";
+// import "@fontsource/tajawal"; // Defaults to weight 400
+import "@fontsource/tajawal/700.css"; // Specify weight
 
 const GlobalStyles = createGlobalStyle`
 :root {
@@ -117,14 +119,13 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  color: var(--color-grey-700);
-
-  transition: color 0.3s, background-color 0.3s;
-  min-height: 100vh;
-  line-height: 1.5;
-  font-size: 1.6rem;
-}
+    font-family: "Tajawal", sans-serif;
+    color: var(--color-grey-700);
+    transition: color 0.3s, background-color 0.3s;
+    min-height: 100vh;
+    line-height: 1.5;
+    font-size: 1.6rem;
+  }
 
 input,
 button,
