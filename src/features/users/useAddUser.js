@@ -13,7 +13,7 @@ export function useAddUser() {
       toast.success(t("useAddUserValidations.Successfully"));
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
-    onError: (err) => toast.error(t("useAddUserValidations.Successfully")),
+    onError: (err) => toast.error(t("useAddUserValidations.Error")),
   });
 
   return { isAdded, addUser };

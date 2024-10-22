@@ -6,6 +6,15 @@ import { Button } from "@mui/material";
 import useUpdateStatus from "./useUpdateStatus";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
+
+const StyledLabel = styled.label`
+  font-size: 16px;
+  color: #333; /* Dark gray text */
+  font-weight: bold;
+  margin-right: 10px; /* Add space between label and input */
+  display: inline-block;
+`;
 
 export default function BlockUserForm() {
   const navigate = useNavigate();
@@ -37,6 +46,12 @@ export default function BlockUserForm() {
   return (
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
       <FormRow label="Description">
+        <StyledLabel htmlFor="registrationYear">
+          {t("Reason")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
         <Input
           placeholder={t("Reason")}
           type="text"

@@ -58,7 +58,6 @@ function EditUserForm({ onCloseModal }) {
   const [setFirstName] = useState(""); // Fixed typo here
   const [setLastName] = useState(""); // Fixed typo here
   const [setEmail] = useState(""); // Fixed typo here
-  const [setRegistrationYear] = useState(""); // Fixed typo here
 
   const [profileImage, setProfileImage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +65,20 @@ function EditUserForm({ onCloseModal }) {
   const { manufactures = [] } = useManufactures();
   const [selectedBrand, setSelectedBrand] = useState(manufactureId);
   const [selectedModel, setSelectedModel] = useState(modelId);
+  const [selectedYearModel, setSelectedYearModel] = useState(registration_year);
+
   const { models } = useModel(selectedBrand);
+
+  const currentYear = new Date().getFullYear();
+  const years = Array.from(
+    { length: currentYear - 1999 },
+    (_, index) => 2000 + index
+  );
+
+  const yearOptions = years.map((year) => ({
+    id: year,
+    name: year.toString(),
+  }));
 
   useEffect(() => {
     //console.log("Fetched models:", models); // Log fetched models
@@ -86,7 +98,10 @@ function EditUserForm({ onCloseModal }) {
     setSelectedModel(id);
     setValue("model_id", id); // Ensure the form state is updated
   };
-
+  const handleModelYearSelect = (id) => {
+    setSelectedYearModel(id);
+    setValue("registration_year", id); // Ensure the form state is updated
+  };
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -176,18 +191,18 @@ function EditUserForm({ onCloseModal }) {
     setValue("email", event.target.value); // Update react-hook-form state
   };
 
-  const handleRegistrationYearChange = (event) => {
-    setRegistrationYear(event.target.value);
-    setValue("registration_year", event.target.value); // Update react-hook-form state
-  };
-
   return (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
       type={onCloseModal ? "grid" : "regular"}
     >
       <FormRowVertical error={errors?.first_name?.message}>
-        <StyledLabel htmlFor="firstName">{t("UserFirstName")}</StyledLabel>
+        <StyledLabel htmlFor="firstName">
+          {t("UserFirstName")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
 
         <Input
           type="text"
@@ -209,7 +224,12 @@ function EditUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.last_name?.message}>
-        <StyledLabel htmlFor="lastName">{t("UserLastName")}</StyledLabel>
+        <StyledLabel htmlFor="lastName">
+          {t("UserLastName")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
 
         <Input
           placeholder={t("UserLastName")}
@@ -231,7 +251,12 @@ function EditUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.phoneNumber?.message}>
-        <StyledLabel htmlFor="phoneNumber">{t("UserPhoneNumber")}</StyledLabel>
+        <StyledLabel htmlFor="phoneNumber">
+          {t("UserPhoneNumber")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
 
         <Input
           placeholder={t("UserPhoneNumber")}
@@ -243,7 +268,12 @@ function EditUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
-        <StyledLabel htmlFor="email">{t("UserEmail")}</StyledLabel>
+        <StyledLabel htmlFor="email">
+          {t("UserEmail")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
 
         <Input
           placeholder={t("UserEmail")}
@@ -266,7 +296,12 @@ function EditUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
-        <StyledLabel htmlFor="password">{t("UserPassword")}</StyledLabel>
+        <StyledLabel htmlFor="password">
+          {t("UserPassword")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
 
         <div style={{ position: "relative" }}>
           <Input
@@ -294,7 +329,10 @@ function EditUserForm({ onCloseModal }) {
       </FormRowVertical>
       <FormRowVertical error={errors?.confirmPassword?.message}>
         <StyledLabel htmlFor="ConfirmPassword">
-          {t("UserConfirmPassword")}
+          {t("UserConfirmPassword")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
         </StyledLabel>
 
         <div style={{ position: "relative" }}>
@@ -334,7 +372,12 @@ function EditUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="carBrand">{t("UserCarBrands")}</StyledLabel>
+        <StyledLabel htmlFor="carBrand">
+          {t("UserCarBrands")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
 
         <DropDownMenu
           title={t("UserCarBrands")}
@@ -347,7 +390,12 @@ function EditUserForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="carModels">{t("UserCarModels")}</StyledLabel>
+        <StyledLabel htmlFor="carModels">
+          {t("UserCarModels")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
 
         <DropDownMenu
           title={t("UserCarModels")}
@@ -361,42 +409,18 @@ function EditUserForm({ onCloseModal }) {
       </FormRowVertical>
       <FormRowVertical error={errors?.registration_year?.message}>
         <StyledLabel htmlFor="registrationYear">
-          {t("UserModelYear")}
+          {t("UserModelYear")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
         </StyledLabel>
-
-        <Input
-          placeholder={t("UserModelYear")}
-          type="text"
-          id="registrationYear"
-          defaultValue={registration_year}
-          onChange={handleRegistrationYearChange}
-          {...register("registration_year", {
-            required: {
-              value: true, // This specifies that the field is required
-              message: t("ModelYearValidation.required"), // Correctly translating the message
-            },
-            pattern: {
-              value: /^[0-9]+$/,
-              message: t("ModelYearValidation.pattern"),
-            },
-            valueAsNumber: true, // Converts input value to a number
-            validate: (value) => {
-              const currentYear = new Date().getFullYear(); // Get the current year
-
-              // Check if the value is an integer
-              if (!Number.isInteger(value)) {
-                return t("ModelYearValidation.pattern"); // Error message for non-integer values
-              }
-
-              // Check if the year is not in the future
-              if (value > currentYear) {
-                return t("ModelYearValidation.checkYear"); // Error message for future years
-              }
-
-              return true; // Return true if the validation passes
-            },
-          })}
-          $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+        <DropDownMenu
+          title={t("UserCarModels")}
+          options={yearOptions}
+          onSelect={handleModelYearSelect}
+          selectedOption={yearOptions?.find(
+            (option) => option.id === selectedYearModel
+          )}
         />
       </FormRowVertical>
 

@@ -80,7 +80,7 @@
   "UserLastName": "الاسم الأخير",
   "UserPassword": "كلمة المرور",
   "UserConfirmPassword": "تأكيد كلمة المرور",
-  "UserPhoto": "(اختياري) صورة المستخدم",
+  "UserPhoto": "صورة المستخدم",
   "UserCarBrands": "ماركات السيارات",
   "UserCarModels": "طراز السيارات",
   "UserModelYear": "سنة الطراز",
@@ -312,6 +312,7 @@
   },
 
   "CarSpecValidation": {
+    "minLength": "يجب أن  تحتوي مواصفات السيار من 10 أحرف على الأقل",
     "maxLength": "يجب أن تحتوي مواصفات السيارة على 180 حرفًا على الأكثر"
   },
 
@@ -444,5 +445,7 @@
   "useEditUserValidations": {
     "Successfully": "تم التعديل بنجاح",
     "Error": "خطأ في تعديل المستخدم"
-  }
+  },
+
+  "hint": "هذا الحقل إجباري"
 }

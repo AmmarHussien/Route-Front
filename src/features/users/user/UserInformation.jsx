@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import ButtonText from "../../../ui/ButtonText";
 import { useMoveBack } from "../../../hooks/useMoveBack";
 import UsersRecentRideTable from "./UserRecentRideTable";
 import InformationItemTable from "./InformationItemTable";
@@ -11,6 +10,9 @@ import UserInformationWithImage from "./UserInformationWithImage";
 import BlockUser from "./BlockUser";
 import Unblock from "./Unblock";
 import { useTranslation } from "react-i18next";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Button from "../../../ui/Button";
 
 const Row = styled.div.withConfig({
   shouldForwardProp: (prop) => !["even"].includes(prop),
@@ -71,9 +73,14 @@ function UserInformation() {
     <>
       <Row type="horizontal" even={false}>
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>
-            {isRTL ? "→" : "←"} {t("Back")}
-          </ButtonText>
+          <Button onClick={moveBack}>
+            {" "}
+            {isRTL ? (
+              <ArrowForwardIcon fontSize="large" />
+            ) : (
+              <ArrowBackIcon fontSize="large" />
+            )}
+          </Button>
         </Row>
         <Row type="horizontal">
           <EditUser />

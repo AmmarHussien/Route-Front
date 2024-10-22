@@ -1,11 +1,12 @@
 import axios from "axios";
+import getAuthToken from "../getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/manufactures";
 
 export async function getAllManufactures(isRTL) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -23,9 +24,9 @@ export async function getAllManufactures(isRTL) {
 }
 
 export async function getManufacture(id) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}/${id}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -42,9 +43,9 @@ export async function getManufacture(id) {
 }
 
 export async function createManufacture(englishName, arabicName, logo) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.post(
       `${URL}`,
       {
@@ -71,9 +72,9 @@ export async function createManufacture(englishName, arabicName, logo) {
 }
 
 export async function updateManufacture(id, englishName, arabicName, isActive) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.put(
       `${URL}/${id}`,
       {
@@ -100,9 +101,9 @@ export async function updateManufacture(id, englishName, arabicName, isActive) {
 }
 
 export async function deleteManufacture(id) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.delete(`${URL}/${id}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization

@@ -28,9 +28,13 @@ function Unblock() {
           height: 56,
           borderRadius: 5,
           fontSize: 16,
-          color: "white",
-          background: "#005379",
+          background: "#FEE2E2",
+          color: "#FC5555",
           shadow: "0 4 60 0 #0038FF26",
+          "&:hover": {
+            background: "#EFF6FF",
+            boxShadow: "0 4px 60px 0 #0038FF26",
+          },
         }}
       >
         {t("UnBlock")}

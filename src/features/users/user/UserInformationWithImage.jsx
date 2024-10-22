@@ -138,8 +138,7 @@ function UserInformationWithImage({ data, title }) {
       <Title>{title}</Title>
       <Table>
         {Object.entries(data).map(([key, value], index, array) => {
-          console.log(key);
-          if (key === "User Email" || key === "البريد الإلكتروني") return null;
+          if (key === "Email" || key === "البريد الإلكتروني") return null;
           return (
             <RowItem key={key} $even={index % 2 === 1}>
               {key === "User Name" || key === "اسم المستخدم" ? (

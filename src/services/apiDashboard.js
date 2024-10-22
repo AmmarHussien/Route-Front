@@ -1,10 +1,11 @@
 import axios from "axios";
+import getAuthToken from "./getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
 export async function getStatistic(isRTL) {
   try {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+    const token = await getAuthToken();
 
     const response = await axios.get(`${URL}statistics`, {
       headers: {
@@ -25,7 +26,7 @@ export async function getStatistic(isRTL) {
 
 export async function getRevenues(year, month) {
   try {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+    const token = await getAuthToken();
 
     const response = await axios.get(`${URL}revenues/${year}/${month}`, {
       headers: {

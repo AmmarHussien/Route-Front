@@ -75,7 +75,7 @@
   "UserLastName": "Last Name",
   "UserPassword": "Password",
   "UserConfirmPassword": "Confirm Password",
-  "UserPhoto": "User Photo (optional)",
+  "UserPhoto": "User Photo",
   "UserCarBrands": "Car Brands",
   "UserCarModels": "Car Models",
   "UserModelYear": "Models Year",
@@ -287,7 +287,7 @@
     "pattern": "Phone Number must be 10 numeric"
   },
   "PasswordValidation": {
-    "required": "password is required",
+    "required": "Password is required",
     "pattern": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
     "minLength": "Password must be at least 8 characters",
     "maxLength": "Password must be at most 20 characters",
@@ -304,6 +304,7 @@
   },
 
   "CarSpecValidation": {
+    "minLength": "Car Spec must be at least 10 characters",
     "maxLength": "Car Spec must be at Most 180 characters"
   },
 
@@ -443,5 +444,7 @@
   "useEditUserValidations": {
     "Successfully": "User successfully Edited",
     "Error": "Error Editing User"
-  }
+  },
+
+  "hint": "This field is required"
 }

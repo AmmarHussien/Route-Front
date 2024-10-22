@@ -1,10 +1,12 @@
 import axios from "axios";
+import getAuthToken from "./getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
 export async function getAllUsers({ filter, page, sortBy, sortType, perPage }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",
@@ -57,8 +59,9 @@ export async function getSearch({
   sortType,
   perPage,
 }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",
@@ -100,8 +103,9 @@ export async function getSearch({
 }
 
 export async function getUser(id, isRTL) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}users/${id}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -120,9 +124,9 @@ export async function getUser(id, isRTL) {
 }
 
 export async function addNewUser(formData) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.post(`${URL}users`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -140,9 +144,9 @@ export async function addNewUser(formData) {
 }
 
 export async function editUser(id, formData) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.put(`${URL}users/${id}`, formData, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -160,8 +164,9 @@ export async function editUser(id, formData) {
 }
 
 export async function updateUserStatus(id, reason, status) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     const response = await axios.put(
       `${URL}users/${id}/status/update`,
       {

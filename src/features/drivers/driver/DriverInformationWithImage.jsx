@@ -136,7 +136,6 @@ function DriverInformationWithImage({ data, title }) {
       <Title>{title}</Title>
       <Table>
         {Object.entries(data).map(([key, value], index, array) => {
-          console.log(key);
           if (key === "Email" || key === "البريد الإلكتروني") return null;
           return (
             <RowItem key={key} $even={index % 2 === 1}>

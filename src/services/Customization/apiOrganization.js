@@ -1,10 +1,12 @@
 import axios from "axios";
+import getAuthToken from "../getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/organizations";
-const token = localStorage.getItem("authToken");
 
 export async function getAllOrganizations() {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -22,6 +24,8 @@ export async function getAllOrganizations() {
 
 export async function getOrganization(id) {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}/${id}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -39,6 +43,8 @@ export async function getOrganization(id) {
 
 export async function createOrganization(englishName, arabicName) {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.post(
       `${URL}`,
       {
@@ -70,6 +76,8 @@ export async function updateOrganization(
   isActive
 ) {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.put(
       `${URL}/${id}`,
       {
@@ -97,6 +105,8 @@ export async function updateOrganization(
 
 export async function deleteOrganization(id) {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.delete(`${URL}/${id}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization

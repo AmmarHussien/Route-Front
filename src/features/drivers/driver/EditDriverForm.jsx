@@ -202,7 +202,12 @@ function EditDriverForm({ onCloseModal }) {
       type={onCloseModal ? "gridx3" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
-        <StyledLabel htmlFor="firstName">{t("DriverFirstName")}</StyledLabel>
+        <StyledLabel htmlFor="firstName">
+          {t("DriverFirstName")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
         <Input
           type="text"
           id="firstName"
@@ -223,7 +228,12 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.lastName?.message}>
-        <StyledLabel htmlFor="lastName">{t("DriverLastName")}</StyledLabel>
+        <StyledLabel htmlFor="lastName">
+          {t("DriverLastName")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
         <Input
           placeholder={t("DriverLastName")}
           type="text"
@@ -246,7 +256,10 @@ function EditDriverForm({ onCloseModal }) {
       <FormRowVertical error={errors?.phoneNumber?.message}>
         <StyledLabel htmlFor="phoneNumber">
           {" "}
-          {t("DriverPhoneNumber")}
+          {t("DriverPhoneNumber")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
         </StyledLabel>
         <Input
           placeholder={t("DriverPhoneNumber")}
@@ -258,7 +271,12 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.email?.message}>
-        <StyledLabel htmlFor="email">{t("DriverEmail")}</StyledLabel>
+        <StyledLabel htmlFor="email">
+          {t("DriverEmail")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
         <Input
           placeholder={t("DriverEmail")}
           type="email"
@@ -280,7 +298,12 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.password?.message}>
-        <StyledLabel htmlFor="password">{t("DriverPassword")}</StyledLabel>
+        <StyledLabel htmlFor="password">
+          {t("DriverPassword")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
             placeholder="Password"
@@ -307,7 +330,10 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
       <FormRowVertical error={errors?.confirmPassword?.message}>
         <StyledLabel htmlFor="confirmPassword">
-          {t("DriverConfirmPassword")}
+          {t("DriverConfirmPassword")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
         </StyledLabel>
         <div style={{ position: "relative" }}>
           <Input
@@ -335,7 +361,12 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="carType">{t("DriverCarType")}</StyledLabel>
+        <StyledLabel htmlFor="carType">
+          {t("DriverCarType")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
         <DropDownMenu
           title={t("DriverCarType")}
           options={carTypeOptions}
@@ -367,7 +398,10 @@ function EditDriverForm({ onCloseModal }) {
             }}
           />
           <span style={{ marginLeft: "8px", fontSize: "14px" }}>
-            {t("DriverRegistrationOrganization")}
+            {t("DriverRegistrationOrganization")}{" "}
+            <span style={{ color: "red" }} title={t("hint")}>
+              *
+            </span>
           </span>
         </label>
       </FormRowVertical>
@@ -375,7 +409,10 @@ function EditDriverForm({ onCloseModal }) {
       {organizationName ? (
         <FormRowVertical>
           <StyledLabel htmlFor="organization">
-            {t("DriverOrganization")}
+            {t("DriverOrganization")}{" "}
+            <span style={{ color: "red" }} title={t("hint")}>
+              *
+            </span>
           </StyledLabel>
           <Input
             type="text"
@@ -390,7 +427,10 @@ function EditDriverForm({ onCloseModal }) {
         <FormRowVertical>
           <StyledLabel htmlFor="Organizations">
             {" "}
-            {t("DriverOrganization")}
+            {t("DriverOrganization")}{" "}
+            <span style={{ color: "red" }} title={t("hint")}>
+              *
+            </span>
           </StyledLabel>
           <DropDownMenu
             title={t("DriverOrganization")}
@@ -404,7 +444,12 @@ function EditDriverForm({ onCloseModal }) {
       ) : null}
 
       <FormRowVertical>
-        <StyledLabel htmlFor="nationalId">{t("DriverNationalId")}</StyledLabel>
+        <StyledLabel htmlFor="nationalId">
+          {t("DriverNationalId")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
         <FileInput
           placeholder={t("DriverNationalId")}
           id="nationalId"
@@ -414,7 +459,10 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
       <FormRowVertical>
         <StyledLabel htmlFor="profileImage">
-          {t("DriverProfileImage")}
+          {t("DriverProfileImage")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
         </StyledLabel>
         <FileInput
           placeholder={t("DriverProfileImage")}
@@ -424,7 +472,12 @@ function EditDriverForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical>
-        <StyledLabel htmlFor="driverLicense">{t("DriverLicense")}</StyledLabel>
+        <StyledLabel htmlFor="driverLicense">
+          {t("DriverLicense")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
+        </StyledLabel>
         <FileInput
           placeholder={t("DriverLicense")}
           id="driverLicense"
@@ -434,7 +487,10 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
       <FormRowVertical>
         <StyledLabel htmlFor="vehicleLicense">
-          {t("DriverVehicleLicense")}
+          {t("DriverVehicleLicense")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
         </StyledLabel>
         <FileInput
           placeholder={t("DriverVehicleLicense")}
@@ -445,7 +501,10 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
       <FormRowVertical>
         <StyledLabel htmlFor="vehicleImage">
-          {t("DriverVehicleImage")}
+          {t("DriverVehicleImage")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
         </StyledLabel>
         <FileInput
           placeholder={t("DriverVehicleImage")}
@@ -457,7 +516,10 @@ function EditDriverForm({ onCloseModal }) {
       <FormRowVertical>
         <StyledLabel htmlFor="criminalRecord">
           {" "}
-          {t("DriverCriminalRecord")}
+          {t("DriverCriminalRecord")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
         </StyledLabel>
         <FileInput
           placeholder={t("DriverCriminalRecord")}
@@ -468,7 +530,10 @@ function EditDriverForm({ onCloseModal }) {
       </FormRowVertical>
       <FormRowVertical>
         <StyledLabel htmlFor="towTruckRegistration">
-          {t("DriverTowTruckRegistration")}
+          {t("DriverTowTruckRegistration")}{" "}
+          <span style={{ color: "red" }} title={t("hint")}>
+            *
+          </span>
         </StyledLabel>
         <FileInput
           placeholder={t("DriverTowTruckRegistration")}

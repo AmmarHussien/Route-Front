@@ -1,11 +1,12 @@
 import axios from "axios";
+import getAuthToken from "../getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/services";
 
 export async function getAllServices(isRTL) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization

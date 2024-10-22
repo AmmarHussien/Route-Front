@@ -1,4 +1,5 @@
 import axios from "axios";
+import getAuthToken from "./getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/profits";
 
@@ -9,7 +10,7 @@ const lastMonth = date.getMonth();
 
 export async function getProfitStatisticCurrentMonth(isRTL) {
   try {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+    const token = await getAuthToken();
 
     const response = await axios.get(`${URL}`, {
       headers: {
@@ -34,7 +35,7 @@ export async function getProfitStatisticCurrentMonth(isRTL) {
 
 export async function getProfitStatisticLastMonth(isRTL) {
   try {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+    const token = await getAuthToken();
 
     const response = await axios.get(`${URL}`, {
       headers: {
@@ -59,7 +60,7 @@ export async function getProfitStatisticLastMonth(isRTL) {
 
 export async function getProfits() {
   try {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+    const token = await getAuthToken();
 
     const response = await axios.get(`${URL}/admin`, {
       headers: {
@@ -88,8 +89,9 @@ export async function getAdminProfit({
   perPage,
   isRTL,
 }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",
@@ -144,8 +146,9 @@ export async function getAdminProfitSearch({
   perPage,
   isRTL,
 }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",
@@ -195,8 +198,9 @@ export async function getDriverProfit({
   perPage,
   isRTL,
 }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",
@@ -251,8 +255,9 @@ export async function getDriverProfitSearch({
   perPage,
   isRTL,
 }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",

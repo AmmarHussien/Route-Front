@@ -1,11 +1,12 @@
 import axios from "axios";
+import getAuthToken from "./getAuthToken";
 
 const URL = "https://route-service.app/";
 
 export async function getModels(brandId, isRTL) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(
       `${URL}api/manufactures/${brandId}/models`,
       {

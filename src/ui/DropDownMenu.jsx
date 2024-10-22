@@ -110,7 +110,7 @@ const styles = {
     listStyleType: "none",
     padding: 0,
     margin: 0,
-    maxHeight: "200px",
+    maxHeight: "180px", // Dynamic height based on viewport
     overflowY: "auto",
   },
   option: {

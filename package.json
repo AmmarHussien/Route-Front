@@ -1,6 +1,6 @@
 {
-  "name": "routefront",
-  "homepage": "https://route-service.app/adminpanel",
+  "name": "route_front",
+  "homepage": "https://route-service.app/adminPanel/",
   "private": true,
   "version": "0.0.2",
   "type": "module",

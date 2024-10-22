@@ -1,10 +1,12 @@
 import axios from "axios";
+import getAuthToken from "../getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/manufactures/";
-const token = localStorage.getItem("authToken");
 
 export async function getAllModels(brandId) {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}${brandId}/models`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -21,6 +23,8 @@ export async function getAllModels(brandId) {
 
 export async function getModel(brandId, modelId) {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}${brandId}/models/${modelId}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -44,6 +48,8 @@ export async function updateModel(
   isActive
 ) {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.put(
       `${URL}${brandId}/models/${modelId}`,
       {
@@ -71,6 +77,8 @@ export async function updateModel(
 
 export async function createModels(brandId, englishName, arabicName) {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.post(
       `${URL}${brandId}/models`,
       {
@@ -97,6 +105,8 @@ export async function createModels(brandId, englishName, arabicName) {
 
 export async function deleteModel(brandId, modelId) {
   try {
+    const token = await getAuthToken();
+
     const response = await axios.delete(
       `${URL}${brandId}/models/${modelId}`,
 

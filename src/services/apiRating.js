@@ -1,4 +1,5 @@
 import axios from "axios";
+import getAuthToken from "./getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/ratings/";
 
@@ -7,9 +8,9 @@ const month = date.getMonth() + 1; // getMonth() is zero-based, so add 1
 const year = date.getFullYear();
 
 export async function getOverAllRatingUser() {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}all?type=User`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -30,9 +31,9 @@ export async function getOverAllRatingUser() {
 }
 
 export async function getOverAllRatingDriver() {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}all?type=Driver`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -50,7 +51,7 @@ export async function getOverAllRatingDriver() {
 
 export async function getTotalRatings(type, year, month) {
   try {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+    const token = await getAuthToken();
 
     const response = await axios.get(
       `${URL}${type}`,
@@ -77,7 +78,7 @@ export async function getTotalRatings(type, year, month) {
 
 export async function getRatingsReview(year, month) {
   try {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+    const token = await getAuthToken();
 
     const response = await axios.get(
       `${URL}reviews`,
@@ -125,7 +126,7 @@ export async function getRatingsReview(year, month) {
 
 export async function getTotalReviewDriver(year, month) {
   try {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+    const token = await getAuthToken();
 
     const response = await axios.get(
       `${URL}all?type=Driver`,
@@ -152,7 +153,7 @@ export async function getTotalReviewDriver(year, month) {
 
 export async function getTotalReviewUser(year, month) {
   try {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+    const token = await getAuthToken();
 
     const response = await axios.get(
       `${URL}all?type=User`,

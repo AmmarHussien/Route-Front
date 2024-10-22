@@ -1,11 +1,12 @@
 import axios from "axios";
+import getAuthToken from "./getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/notifications";
 
 export async function createNewNotification(formData) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.post(`${URL}`, formData, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -31,8 +32,9 @@ export async function getAllNotification({
   perPage,
   isRTL,
 }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",
@@ -92,8 +94,9 @@ export async function getSearchNotification({
   perPage,
   isRTL,
 }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",

@@ -1,12 +1,14 @@
 import styled, { css } from "styled-components";
 import { useMoveBack } from "../../../hooks/useMoveBack";
-import ButtonText from "../../../ui/ButtonText";
 import InternalNotes from "../../../ui/internalNotes/InternalNotes";
 import RideInformationItemTable from "./RideInformationItemTable";
 import useRideInfo from "./useRideInfo";
 import Spinner from "../../../ui/Spinner";
 import MapRide from "./MapRide";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useTranslation } from "react-i18next";
+import Button from "../../../ui/Button";
 
 const Row = styled.div.withConfig({
   shouldForwardProp: (prop) => !["even"].includes(prop),
@@ -49,7 +51,7 @@ function RideInformation() {
     pickup_date = "Not Available",
     drop_off_date = "Not Available",
     amount_to_pay = 0,
-    review = {}, // Destructure review but check manually below
+    review = {}, // Destructure review, manual checks for review content if needed
     location: {
       pickup_latitude = null,
       pickup_longitude = null,
@@ -57,13 +59,17 @@ function RideInformation() {
       destination_latitude = null,
       destination_longitude = null,
       destination_address = "Unknown Destination Location",
-    } = {}, // Default to empty object to avoid destructuring errors
+    } = {}, // Default location to an empty object to avoid destructuring errors
     distance_between_points = 0,
     currency = "",
-    service: { name: serviceName = "Unknown Service" } = {}, // Default to empty object
-    car_type: { name: carTypeName = "Unknown Car Type" } = {}, // Default to empty object
+    service = {}, // Default service to an empty object
+    car_type = {}, // Default car_type to an empty object
     notes,
   } = rideInfo || {}; // Default to an empty object if rideInfo is undefined or null
+
+  // Safely get the names from service and car_type objects
+  const serviceName = service?.name || "Unknown Service";
+  const carTypeName = car_type?.name || "Unknown Car Type";
 
   // Manually assign defaults if 'review' is null or doesn't have rate/review properties
   const { rate = "No rating", review: reviewText = "No review" } = review || {};
@@ -72,10 +78,14 @@ function RideInformation() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>
+          <Button onClick={moveBack}>
             {" "}
-            {isRTL ? "→" : "←"} {t("Back")}
-          </ButtonText>
+            {isRTL ? (
+              <ArrowForwardIcon fontSize="large" />
+            ) : (
+              <ArrowBackIcon fontSize="large" />
+            )}
+          </Button>
         </Row>
       </Row>
       <Row>

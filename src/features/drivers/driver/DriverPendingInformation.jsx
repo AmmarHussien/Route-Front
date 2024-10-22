@@ -39,8 +39,6 @@ function DriverPendingInformation() {
 
   const { userId } = useParams(); // Extract userId from the URL
 
-  //console.log("Driver ID:", userId); // Logs the userId
-
   const { isLoading, driverData } = useDriver(userId);
 
   if (isLoading) return <Spinner />;

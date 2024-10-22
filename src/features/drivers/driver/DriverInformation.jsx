@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { useMoveBack } from "../../../hooks/useMoveBack";
-import ButtonText from "../../../ui/ButtonText";
 import EditDriver from "./EditDriver";
 import BlockDriver from "./BlockDriver";
 import InformationItemTable from "./InformationItemTable";
@@ -13,7 +12,10 @@ import RecentRideTable from "./RecentRideTable";
 import Unblock from "./Unblock";
 import SuspendedDriver from "./Suspended";
 import UnSuspended from "./Unsuspend";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useTranslation } from "react-i18next";
+import Button from "../../../ui/Button";
 
 const Row = styled.div.withConfig({
   shouldForwardProp: (prop) => !["even"].includes(prop),
@@ -73,10 +75,14 @@ function DriverInformation() {
     <>
       <Row type="horizontal" even={false}>
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>
+          <Button onClick={moveBack}>
             {" "}
-            {isRTL ? "→" : "←"} {t("Back")}
-          </ButtonText>
+            {isRTL ? (
+              <ArrowForwardIcon fontSize="large" />
+            ) : (
+              <ArrowBackIcon fontSize="large" />
+            )}
+          </Button>
         </Row>
         <Row type="horizontal">
           <EditDriver />

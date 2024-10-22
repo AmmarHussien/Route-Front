@@ -167,6 +167,7 @@ function App() {
     document.body.dir = isRTL ? "rtl" : "ltr"; // Set direction on the body
     document.body.style.fontFamily = "Tajawal"; // Apply font-family
   }, [isRTL]);
+
   return (
     <div style={{ direction }}>
       <QueryClientProvider client={queryClient}>

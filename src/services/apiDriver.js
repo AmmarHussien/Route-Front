@@ -1,4 +1,5 @@
 import axios from "axios";
+import getAuthToken from "./getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
@@ -10,8 +11,9 @@ export async function getAllDrivers({
   perPage,
   isRTL,
 }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",
@@ -64,8 +66,9 @@ export async function getSearch({
   perPage,
   isRTL,
 }) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     // Prepare query parameters
     const params = {
       select: "*",
@@ -108,8 +111,9 @@ export async function getSearch({
 }
 
 export async function getDriver(id, isRTL) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     const response = await axios.get(`${URL}drivers/${id}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
@@ -128,9 +132,9 @@ export async function getDriver(id, isRTL) {
 }
 
 export async function addNewDriver(formData) {
-  const token = localStorage.getItem("authToken");
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.post(`${URL}drivers`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -148,11 +152,9 @@ export async function addNewDriver(formData) {
 }
 
 export async function editDriver(id, formData) {
-  const token = localStorage.getItem("authToken");
-
-  console.log(formData);
-
   try {
+    const token = await getAuthToken();
+
     const response = await axios.post(`${URL}drivers/${id}`, formData, {
       params: {
         _method: "put", // Method override
@@ -174,8 +176,9 @@ export async function editDriver(id, formData) {
 }
 
 export async function updateDriverStatus(id, reason, status) {
-  const token = localStorage.getItem("authToken");
   try {
+    const token = await getAuthToken();
+
     const response = await axios.put(
       `${URL}drivers/${id}/status/update`,
       {

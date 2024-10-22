@@ -2,6 +2,12 @@ import { createGlobalStyle } from "styled-components";
 // import "@fontsource/tajawal"; // Defaults to weight 400
 import "@fontsource/tajawal/700.css"; // Specify weight
 
+const sizes = {
+  tablet: "768px",
+  laptop: "1024px",
+  largeLaptop: "1440px",
+};
+
 const GlobalStyles = createGlobalStyle`
 :root {
   
@@ -125,6 +131,30 @@ body {
     min-height: 100vh;
     line-height: 1.5;
     font-size: 1.6rem;
+  }
+
+   /* Media query for tablets and larger screens */
+   @media (min-width: ${sizes.tablet}) {
+    body {
+      /* font-size: 2.1rem; */
+     
+    }
+  }
+
+  /* Media query for laptops and larger screens */
+  @media (min-width: ${sizes.laptop}) {
+    body {
+      /* font-size: 2.2rem; */
+     
+    }
+  }
+
+  /* Media query for large laptops or desktops */
+  @media (min-width: ${sizes.largeLaptop}) {
+    body {
+      /* font-size: 2.3rem; */
+      
+    }
   }
 
 input,
