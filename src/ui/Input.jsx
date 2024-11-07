@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 const Input = styled.input`
-  display: flex;
+  display: ${(props) => (props.hidden ? "none" : "flex")};
   justify-content: center;
   align-items: center;
   width: 327px;

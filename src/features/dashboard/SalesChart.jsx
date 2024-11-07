@@ -66,6 +66,7 @@ const StyledSalesChartHeaderLeft = styled.div`
 
 const StyledSalesChartHeaderRight = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: end;
   align-items: center;
   gap: 8px;

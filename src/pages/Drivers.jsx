@@ -4,15 +4,15 @@ import DriversTable from "../features/drivers/DriversTable";
 import DriversTableOperations from "../features/drivers/DriversTableOperations";
 import Row from "../ui/Row";
 import useDrivers from "../features/drivers/useDrivers";
-import useSearchDriver from "../features/drivers/useSearchDriver";
 
 function Drivers() {
   const [searchTerm, setSearchTerm] = useState("");
-  const { searchList, count: searchCount } = useSearchDriver(searchTerm);
-  const { drivers: allDrivers, isLoading, count: driverCount } = useDrivers();
+  const {
+    drivers: allDrivers,
+    isLoading,
+    count: driverCount,
+  } = useDrivers(searchTerm);
 
-  const driverToDisplay = searchTerm ? searchList : allDrivers;
-  const countToDisplay = searchTerm ? searchCount : driverCount;
   return (
     <>
       <Row type="horizontal">
@@ -26,9 +26,9 @@ function Drivers() {
       </Row>
 
       <DriversTable
-        drivers={driverToDisplay}
+        drivers={allDrivers}
         isLoading={isLoading}
-        driverCount={countToDisplay}
+        driverCount={driverCount}
       />
     </>
   );

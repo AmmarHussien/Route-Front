@@ -26,7 +26,7 @@ function RidesTable({ rides, isLoading, ridesCount }) {
         <div>{t("UserName")}</div>
         <div>{t("CreatedDate")}</div>
         {params === "Scheduled" ? (
-          <div>{"ScheduledDate"}</div>
+          <div>{t("ScheduledDate")}</div>
         ) : (
           <div>{t("Price")}</div>
         )}

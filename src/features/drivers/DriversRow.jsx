@@ -54,31 +54,27 @@ function DriversRow({ driverInfo }) {
 
   return (
     <Table columns={columns}>
-      <Table.Row>
-        <>
-          <div onClick={handleClick} style={{ cursor: "pointer" }}>
-            {driverInfo.id}
-          </div>
-          <div onClick={handleClick} style={{ cursor: "pointer" }}>
-            {driverInfo.full_name}
-          </div>
-        </>
+      <div onClick={handleClick} style={{ cursor: "pointer" }}>
+        <Table.Row>
+          <div>{driverInfo.id}</div>
+          <div>{driverInfo.full_name}</div>
 
-        {searchParams.get("status") === "Blocked" && (
-          <div>
-            {driverInfo.blocked_reason === ""
-              ? "N/A"
-              : driverInfo.blocked_reason}
-          </div>
-        )}
-        <div>{driverInfo.email}</div>
-        <div>{driverInfo.phone}</div>
-        <div>{driverInfo.organization}</div>
-        <div>{driverInfo.car_type}</div>
-        <Status $status={driverInfo.status}>
-          {t(`Stat.${driverInfo.status}`)}
-        </Status>
-      </Table.Row>
+          {searchParams.get("status") === "Blocked" && (
+            <div>
+              {driverInfo.blocked_reason === ""
+                ? "N/A"
+                : driverInfo.blocked_reason}
+            </div>
+          )}
+          <div>{driverInfo.email}</div>
+          <div>{driverInfo.phone}</div>
+          <div>{driverInfo.organization}</div>
+          <div>{driverInfo.car_type}</div>
+          <Status $status={driverInfo.status}>
+            {t(`Stat.${driverInfo.status}`)}
+          </Status>
+        </Table.Row>
+      </div>
     </Table>
   );
 }

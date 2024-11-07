@@ -111,7 +111,9 @@ function CreateDriverForm({ onCloseModal }) {
     }
 
     formData.append("car_type_id", selectCarType);
-    formData.append("car_spec", data.car_spec);
+
+    console.log(data.car_spec);
+    formData.append("car_spec", data.carSpec);
 
     addDriver(formData, {
       onSuccess: () => {
@@ -151,12 +153,20 @@ function CreateDriverForm({ onCloseModal }) {
           placeholder={t("DriverFirstName")}
           {...register("firstName", {
             required: {
-              value: true,
-              message: t("FirstNameValidation.required"),
+              value: true, // This specifies that the field is required
+              message: t("FirstNameValidation.required"), // Correctly translating the message
             },
             minLength: {
               value: 3,
               message: t("FirstNameValidation.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("FirstNameValidation.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("FirstNameValidation.singleWord"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -175,12 +185,20 @@ function CreateDriverForm({ onCloseModal }) {
           id="lastName"
           {...register("lastName", {
             required: {
-              value: true,
-              message: t("LastNameValidation.required"),
+              value: true, // This specifies that the field is required
+              message: t("LastNameValidation.required"), // Correctly translating the message
             },
             minLength: {
               value: 3,
               message: t("LastNameValidation.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("LastNameValidation.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("LastNameValidation.singleWord"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}

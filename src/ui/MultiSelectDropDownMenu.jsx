@@ -55,6 +55,7 @@ const MultiSelectDropDownMenu = forwardRef(
     return (
       <div
         style={{ ...styles.container, ...(disabled && styles.disabled) }}
+        onClick={handleIconClick}
         ref={(node) => {
           dropdownRef.current = node;
           if (ref) ref.current = node;
@@ -62,9 +63,7 @@ const MultiSelectDropDownMenu = forwardRef(
         {...props}
       >
         <label style={styles.label}>{getSelectedLabels()}</label>
-        <span style={styles.icon} onClick={handleIconClick}>
-          {isOpen ? "▲" : "▼"}
-        </span>
+        <span style={styles.icon}>{isOpen ? "▲" : "▼"}</span>
         {isOpen && !disabled && (
           <ul style={styles.options}>
             {Array.isArray(options) &&

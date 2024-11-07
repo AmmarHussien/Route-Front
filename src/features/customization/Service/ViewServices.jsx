@@ -3,7 +3,9 @@ import useCarService from "./useCarService";
 import Spinner from "../../../ui/Spinner";
 import ViewCarServiceModal from "./ViewCarServiceModal";
 import styled from "styled-components";
-import ButtonText from "../../../ui/ButtonText";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Button from "../../../ui/Button";
 import { useMoveBack } from "../../../hooks/useMoveBack";
 import AddCarService from "./AddCarService";
 import { useTranslation } from "react-i18next";
@@ -28,9 +30,14 @@ function ViewServices() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>
-            {isRTL ? "→" : "←"} {t("Back")}
-          </ButtonText>
+          <Button onClick={moveBack}>
+            {" "}
+            {isRTL ? (
+              <ArrowForwardIcon fontSize="large" />
+            ) : (
+              <ArrowBackIcon fontSize="large" />
+            )}
+          </Button>
         </Row>
         <AddCarService />
       </Row>

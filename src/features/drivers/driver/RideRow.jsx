@@ -41,7 +41,7 @@ function RideRow(rideInfo) {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`/adminPanel/user-information/${id}`);
+    navigate(`/adminPanel/users/user-information/${id}`);
     // Add your click handling logic here
   }
 
@@ -53,26 +53,32 @@ function RideRow(rideInfo) {
       created_at,
       price,
       currency,
+      site_commission,
       status,
       rate,
+      payment_method,
     },
   } = rideInfo;
 
   return (
-    <Table columns="1fr 1fr 1fr 1fr 1fr 1fr 1fr">
-      <Table.Row>
-        <div onClick={handleClick} style={{ cursor: "pointer" }}>
-          {full_name}
-        </div>
-        <div>{pickup_address}</div>
-        <div>{destination_address}</div>
-        <div>{created_at}</div>
-        <div>
-          {price} {currency}
-        </div>
-        <Status $status={status}>{t(`Stat.${status}`)}</Status>
-        <div>{rate}</div>
-      </Table.Row>
+    <Table columns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr">
+      <div onClick={handleClick} style={{ cursor: "pointer" }}>
+        <Table.Row>
+          <div>{full_name}</div>
+          <div>{pickup_address}</div>
+          <div>{destination_address}</div>
+          <div>{created_at}</div>
+          <div>
+            {price} {currency}
+          </div>
+          <div>
+            {site_commission} {currency}
+          </div>
+          <div>{payment_method}</div>
+          <Status $status={status}>{t(`Stat.${status}`)}</Status>
+          <div>{rate}</div>
+        </Table.Row>
+      </div>
     </Table>
   );
 }

@@ -60,11 +60,13 @@
   "first_name-desc": "Sort Name Z-A",
   "phone-asc": "Sort Phone Numbers (1-9)",
   "phone-desc": "Sort Phone Numbers (9-1)",
+
   "AddUser": "Add User",
 
   "UsersTables": "Users Tables",
   "UserID": "ID",
   "UserName": "User Name",
+
   "UserBlockedReason": "Blocked Reason",
   "UserPhoneNumber": "Phone Number",
   "UserEmail": "Email",
@@ -125,6 +127,7 @@
   "TotalRating": "Total Rating",
   "TotalEarning": "Total Earning",
   "TotalPoints": "Total Points",
+  "TotalSiteCommission": "Total Site Commission",
   "Drivers'sInfo": "Drivers's Info",
   "InternalNotes": "Internal Notes",
   "codeForCostPerKm": "Code For Cost Per Km",
@@ -133,6 +136,7 @@
   "Back": "Back",
   "Accept": "Accept",
   "Reject": "Reject",
+  "Paid": "Paid",
 
   "NAVDashboard": "Dashboard",
   "NAVUsers": "Users",
@@ -154,6 +158,7 @@
   "RideId": "Ride ID",
   "PickUpDate": "Pick Up Date",
   "DropOffDate": "Drop Off Date",
+  "ScheduledDate": "Scheduled Date",
   "Rate": "Rate",
   "Review": "Review",
   "Service": "Service",
@@ -272,11 +277,15 @@
   "__Validations Messages": "Validations",
   "FirstNameValidation": {
     "required": "First Name is required",
-    "minLength": "First Name must be at least 3 characters"
+    "minLength": "First Name must be at least 3 characters",
+    "maxLength": "First Name must be at most 20 characters",
+    "singleWord": "First Name must be One Word"
   },
   "LastNameValidation": {
     "required": "Last Name is required",
-    "minLength": "Last Name must be at least 3 characters"
+    "minLength": "Last Name must be at least 3 characters",
+    "maxLength": "Last Name must be at most 20 characters",
+    "singleWord": "Last Name must be One Word"
   },
   "EmailValidation": {
     "required": "Email is required",

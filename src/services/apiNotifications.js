@@ -25,6 +25,7 @@ export async function createNewNotification(formData) {
 export async function getAllNotification({
   resultSent,
   resultType,
+  searchTerm,
   resultPlatform,
   page,
   sortBy,
@@ -64,70 +65,7 @@ export async function getAllNotification({
     }
 
     // Make the API request
-    const response = await axios.get(`${URL}`, {
-      headers: {
-        ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
-      },
-      params, // Pass the prepared query parameters
-    });
-
-    const data = response.data.data || [];
-    const count = response.data.meta.total; // Count the exact number of objects
-
-    return { data, error: null, count };
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message ||
-        "Fetching notifications failed due to an unexpected error"
-    );
-  }
-}
-
-export async function getSearchNotification({
-  resultSent,
-  resultType,
-  resultPlatform,
-  page,
-  searchKey,
-  sortBy,
-  sortType,
-  perPage,
-  isRTL,
-}) {
-  try {
-    const token = await getAuthToken();
-
-    // Prepare query parameters
-    const params = {
-      select: "*",
-      count: "exact",
-    };
-
-    // Add filter parameters if provided
-    // Add filter parameters if provided
-    if (resultSent) {
-      params[resultSent.field] = resultSent.value;
-    }
-    if (resultType) {
-      params[resultType.field] = resultType.value;
-    }
-    if (resultPlatform) {
-      params[resultPlatform.field] = resultPlatform.value;
-    }
-
-    // sort by field
-    if (sortBy) {
-      params.sort_by = sortBy;
-      params.sort_type = sortType; // Assuming your API uses `sortType` for sorting order
-    }
-    // Add pagination parameters if provided
-    if (page) {
-      params.page = page;
-      params.per_page = perPage; // Assuming your API uses pageSize for pagination
-    }
-
-    // Make the API request
-    const response = await axios.get(`${URL}?search_key=${searchKey}`, {
+    const response = await axios.get(`${URL}?search_key=${searchTerm}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
       },

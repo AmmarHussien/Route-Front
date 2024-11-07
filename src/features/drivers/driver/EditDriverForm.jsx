@@ -46,12 +46,13 @@ function EditDriverForm({ onCloseModal }) {
     vehicle_license,
     criminal_record,
     car_spec,
-    organization: {
-      id: organizationId = null, // Fallback to null if organization or id is undefined
-      name: organizationName = "Unknown Organization", // Fallback to a default name
-    } = {}, // Fallback to empty object if organization is undefined organization: { id: organizationId, name: organizationName },
+    organization, // Fall,ack to empty object if organization is undefined organization: { id: organizationId, name: organizationName },
     car_type: { id: carTypeId, name: carTypeName },
   } = driverData || {};
+
+  const organizationId = organization?.id || null;
+  const organizationName = organization?.name || null;
+
   const { register, handleSubmit, setValue, reset, formState } = useForm();
   const { errors } = formState;
 
@@ -67,7 +68,7 @@ function EditDriverForm({ onCloseModal }) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle password visibility
 
   const [checkOrganization, setCheckOrganization] = useState(); // State to toggle organization visibility
-  const [selectedOrganization, setSelectedOrganization] = useState();
+  const [selectedOrganization, setSelectedOrganization] = useState(null);
 
   const { organizations = [] } = useOrganizations();
   const [selectCarType, setSelectCarType] = useState(); // select car to toggle
@@ -87,14 +88,17 @@ function EditDriverForm({ onCloseModal }) {
   };
 
   const handleOrganizationSelect = (id) => {
+    console.log(id);
     setSelectedOrganization(id);
   };
 
   useEffect(() => {
-    if (checkOrganization === false) {
+    if (checkOrganization === false || selectedOrganization == null) {
       setSelectedOrganization(null);
+    } else {
+      setCheckOrganization(true);
     }
-  }, [setSelectedOrganization, checkOrganization]);
+  }, [setSelectedOrganization, checkOrganization, selectedOrganization]);
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword); // Toggle password visibility
@@ -161,13 +165,14 @@ function EditDriverForm({ onCloseModal }) {
   ]);
 
   const onSubmit = (data) => {
+    console.log(data.first_name);
     try {
       const formData = new FormData();
 
       // Check if each field is changed; if not, use the default value from driverData
       // Append form data fields
-      formData.append("first_name", data.first_name || "");
-      formData.append("last_name", data.last_name || "");
+      formData.append("first_name", data.firstName || "");
+      formData.append("last_name", data.lastName || "");
       formData.append("email", data.email || "");
       formData.append("car_spec", data.car_spec || "");
       formData.append("organization_id", selectedOrganization);
@@ -216,12 +221,20 @@ function EditDriverForm({ onCloseModal }) {
           onChange={handleChange("first_name")}
           {...register("firstName", {
             required: {
-              value: true,
-              message: t("FirstNameValidation.required"),
+              value: true, // This specifies that the field is required
+              message: t("FirstNameValidation.required"), // Correctly translating the message
             },
             minLength: {
               value: 3,
               message: t("FirstNameValidation.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("FirstNameValidation.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("FirstNameValidation.singleWord"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -237,17 +250,25 @@ function EditDriverForm({ onCloseModal }) {
         <Input
           placeholder={t("DriverLastName")}
           type="text"
-          id="lastName"
+          id="last_Name"
           defaultValue={lastNames}
           onChange={handleChange("last_name")}
           {...register("lastName", {
             required: {
-              value: true,
-              message: t("LastNameValidation.required"),
+              value: true, // This specifies that the field is required
+              message: t("LastNameValidation.required"), // Correctly translating the message
             },
             minLength: {
               value: 3,
               message: t("LastNameValidation.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("LastNameValidation.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("LastNameValidation.singleWord"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -382,13 +403,9 @@ function EditDriverForm({ onCloseModal }) {
         <label style={{ display: "flex", alignItems: "center" }}>
           <Input
             type="checkbox"
-            checked={
-              selectedOrganization === null
-                ? checkOrganization
-                : !checkOrganization
-            }
+            checked={checkOrganization}
+            disabled={organizationId ? checkOrganization : !checkOrganization}
             onChange={(e) => setCheckOrganization(e.target.checked)}
-            disabled={organizationName === null ? false : true}
             style={{
               backgroundColor: "rgb(247, 248, 250)",
               width: "20px",
@@ -423,7 +440,7 @@ function EditDriverForm({ onCloseModal }) {
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
-      ) : selectedOrganization === null && checkOrganization === true ? (
+      ) : checkOrganization === true ? (
         <FormRowVertical>
           <StyledLabel htmlFor="Organizations">
             {" "}
@@ -546,8 +563,8 @@ function EditDriverForm({ onCloseModal }) {
         <StyledLabel htmlFor="carSpec">{t("DriverCarSpec")}</StyledLabel>
         <Textarea
           type="text"
-          id={t("DriverCarSpec")}
-          placeholder="Car Spec"
+          id="carSpec"
+          placeholder={t("DriverCarSpec")}
           defaultValue={car_spec}
           onChange={handleChange("car_spec")}
           {...register("car_spec", {

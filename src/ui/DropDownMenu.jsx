@@ -39,6 +39,7 @@ const DropDownMenu = forwardRef(
     return (
       <div
         style={{ ...styles.container, ...(disabled && styles.disabled) }}
+        onClick={handleIconClick}
         ref={(node) => {
           dropdownRef.current = node;
           if (ref) ref.current = node;
@@ -48,9 +49,7 @@ const DropDownMenu = forwardRef(
         <label style={styles.label}>
           {selectedOption ? selectedOption.name || selectedOption.model : title}
         </label>
-        <span style={styles.icon} onClick={handleIconClick}>
-          {isOpen ? "▲" : "▼"}
-        </span>
+        <span style={styles.icon}>{isOpen ? "▲" : "▼"}</span>
         {isOpen && !disabled && (
           <ul style={styles.options}>
             {Array.isArray(options) &&

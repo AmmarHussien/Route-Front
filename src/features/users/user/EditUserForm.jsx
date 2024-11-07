@@ -16,6 +16,7 @@ import { useUploader } from "../../../hooks/useUploader";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -80,18 +81,16 @@ function EditUserForm({ onCloseModal }) {
     name: year.toString(),
   }));
 
-  useEffect(() => {
-    //console.log("Fetched models:", models); // Log fetched models
-  }, [models]);
+  useEffect(() => {}, [models]);
 
-  useEffect(() => {
-    //console.log("Selected model ID updated:", selectedModel);
-  }, [selectedModel]);
+  useEffect(() => {}, [selectedModel]);
+
+  useEffect(() => {}, [selectedYearModel]);
 
   const handleBrandSelect = (id) => {
     setSelectedBrand(id);
-    //console.log("Selected Brand ID in handler:", id);
     setSelectedModel(null); // Reset model on brand change
+    setValue("model_id", null);
   };
 
   const handleModelSelect = (id) => {
@@ -100,7 +99,7 @@ function EditUserForm({ onCloseModal }) {
   };
   const handleModelYearSelect = (id) => {
     setSelectedYearModel(id);
-    setValue("registration_year", id); // Ensure the form state is updated
+    setValue("registration_year", selectedYearModel); // Ensure the form state is updated
   };
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -121,7 +120,7 @@ function EditUserForm({ onCloseModal }) {
       const response = await upload(uploadData);
       setProfileImage(response);
     } catch (error) {
-      console.error("Upload failed:", error.message);
+      toast.error("Upload failed:", error.message);
     }
   };
 
@@ -134,7 +133,11 @@ function EditUserForm({ onCloseModal }) {
       // This runs every time profileImage changes
       setValue("model_id", selectedModel);
     }
-  }, [profileImage, setValue, selectedModel]);
+    if (selectedYearModel) {
+      // This runs every time profileImage changes
+      setValue("registration_year", selectedYearModel);
+    }
+  }, [profileImage, setValue, selectedModel, selectedYearModel]);
 
   const onSubmit = async (data) => {
     try {
@@ -147,9 +150,7 @@ function EditUserForm({ onCloseModal }) {
           },
         }
       ); // Ensure correct parameters are passed
-    } catch (error) {
-      console.error("User update failed:", error.message);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -157,10 +158,6 @@ function EditUserForm({ onCloseModal }) {
       // Update the notes state to reflect the addition (already handled above with setNotes)
     }
   }, [isEditing, userInfoLoading]); //
-
-  const onError = (errors) => {
-    // console.log("Form errors:", errors);
-  };
 
   const manufactureOptions = manufactures.map(({ id, name }) => ({
     id,
@@ -193,7 +190,7 @@ function EditUserForm({ onCloseModal }) {
 
   return (
     <Form
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "grid" : "regular"}
     >
       <FormRowVertical error={errors?.first_name?.message}>
@@ -218,6 +215,14 @@ function EditUserForm({ onCloseModal }) {
             minLength: {
               value: 3,
               message: t("FirstNameValidation.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("FirstNameValidation.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("FirstNameValidation.singleWord"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -245,6 +250,14 @@ function EditUserForm({ onCloseModal }) {
             minLength: {
               value: 3,
               message: t("LastNameValidation.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("LastNameValidation.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("LastNameValidation.singleWord"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -401,7 +414,7 @@ function EditUserForm({ onCloseModal }) {
           title={t("UserCarModels")}
           options={modelOptions}
           onSelect={handleModelSelect}
-          disabled={!selectedBrand}
+          disabled={isEditing || !selectedBrand || modelOptions.length <= 0}
           selectedOption={modelOptions.find(
             (option) => option.id === selectedModel
           )}
@@ -428,6 +441,7 @@ function EditUserForm({ onCloseModal }) {
         <Button
           type="submit"
           variant="contained"
+          disabled={isEditing}
           sx={{
             width: 139,
             height: 56,

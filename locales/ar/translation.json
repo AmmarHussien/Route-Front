@@ -129,6 +129,9 @@
   "CreditBalance": "رصيد الائتمان",
   "TotalRating": "إجمالي التقييم",
   "TotalEarning": "إجمالي الأرباح",
+  "TotalSiteCommission": "إجمالي عمولة الموقع",
+  "Paid": "تم الدفع",
+
   "TotalPoints": "إجمالي النقاط",
   "Drivers'sInfo": "معلومات السائق",
   "InternalNotes": "ملاحظات داخلية",
@@ -155,6 +158,7 @@
   "RideID": "رقم الرحلة",
   "ALLRides": "الرحلات",
   "CreatedDate": "تاريخ الطلب",
+  "ScheduledDate": "تاريخ الحجز",
   "RideId": "معرف الرحلة",
   "PickUpDate": "تاريخ الاستلام",
   "DropOffDate": "تاريخ الاستلام",
@@ -279,11 +283,15 @@
   "__Validations Messages": "Validations",
   "FirstNameValidation": {
     "required": "الاسم الأول مطلوب",
-    "minLength": "يجب أن يتكون الاسم الأول من 3 أحرف على الأقل"
+    "minLength": "يجب أن يتكون الاسم الأول من 3 أحرف على الأقل",
+    "maxLength": "يجب أن يتكون الاسم الأول من 20 حرفًا على الأكثر",
+    "singleWord": "الاسم الاول يجب ان يكون كلمه واحده فقط"
   },
   "LastNameValidation": {
     "required": "الاسم الأخير مطلوب",
-    "minLength": "يجب أن يتكون الاسم الأخير من 3 أحرف على الأقل"
+    "minLength": "يجب أن يتكون الاسم الأخير من 3 أحرف على الأقل",
+    "maxLength": "يجب أن يتكون الاسم الأخير من 20 حرفًا على الأكثر",
+    "singleWord": "الاسم الأخير يجب ان يكون كلمه واحده فقط"
   },
   "EmailValidation": {
     "required": "البريد الإلكتروني مطلوب",

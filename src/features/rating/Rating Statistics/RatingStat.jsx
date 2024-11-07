@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StatContainer = styled.div`
   display: flex;
@@ -33,7 +33,18 @@ const Title = styled.p`
   font-size: 15px;
   font-weight: 400;
   line-height: 21px;
-  text-align: left;
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
+  
   color: #72788e;
 `;
 
@@ -115,7 +126,8 @@ function RatingStat({
   backgroundColor,
   colorIconBackground,
 }) {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   const changeNumber =
     pastMonthValue === 0
@@ -132,7 +144,7 @@ function RatingStat({
       </Icon>
 
       <TextContainer>
-        <Title>{title}</Title>
+        <Title lang={isRTL ? "ar-Eg" : "en-US"}>{title}</Title>
         <ValuesContainer>
           <Value>{thisMonthValue.toFixed(2)}</Value>
           <ChangeMetric>

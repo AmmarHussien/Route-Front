@@ -75,7 +75,7 @@ export async function updateModel(
   }
 }
 
-export async function createModels(brandId, englishName, arabicName) {
+export async function createModels(brandId, englishName, arabicName, isRTL) {
   try {
     const token = await getAuthToken();
 
@@ -90,6 +90,7 @@ export async function createModels(brandId, englishName, arabicName) {
       {
         headers: {
           ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+          "Accept-Language": isRTL ? "ar" : "en",
         },
       }
     );

@@ -17,15 +17,27 @@ const LanguageToggle = () => {
   return (
     <DropdownContainer>
       <DropdownButton onClick={toggleDropdown}>
-        {i18n.language === "en-US" ? `🇬🇧 English` : `🇪🇬 العربية`}
+        {i18n.language === "en-US" ? (
+          <>
+            <img src="/UnitedStates.svg" alt="UnitedStates" />{" "}
+            {/* <span> English </span> */}
+          </>
+        ) : (
+          <>
+            <img src="/EgyptFlag.svg" alt="EgyptFlag" />
+            {/* <span> العربية </span> */}
+          </>
+        )}
       </DropdownButton>
       {isOpen && (
         <DropdownMenu>
           <DropdownItem onClick={() => changeLanguage("en-US")}>
-            🇬🇧 English
+            <img src="/UnitedStates.svg" alt="UnitedStates" />
+            {/* <span> English</span> */}
           </DropdownItem>
           <DropdownItem onClick={() => changeLanguage("ar-EG")}>
-            🇪🇬 العربية
+            <img src="/EgyptFlag.svg" alt="EgyptFlag" />
+            {/* <span>العربية</span> */}
           </DropdownItem>
         </DropdownMenu>
       )}
@@ -38,7 +50,8 @@ const DropdownContainer = styled.div`
   display: flex;
   position: relative;
   display: inline-block;
-  width: 100px;
+  /* width: 100px; */
+  align-items: center;
   cursor: pointer;
 `;
 
@@ -55,8 +68,9 @@ const DropdownButton = styled.button`
 
 const DropdownMenu = styled.div`
   position: absolute;
-  width: 100%;
+  /* width: 100%; */
   top: 100%;
+  align-items: center;
   left: 0;
   background-color: #20232a;
   cursor: pointer;
@@ -68,10 +82,11 @@ const DropdownMenu = styled.div`
 
 const DropdownItem = styled.button`
   background-color: transparent;
+  align-items: center;
   border: none;
-  padding: 10px 10px;
+  /* padding: 10px 10px; */
   text-align: left;
-  width: 100%;
+  /* width: 100%; */
   cursor: pointer;
   font-size: 16px;
   color: white;

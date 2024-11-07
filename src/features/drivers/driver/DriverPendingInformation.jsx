@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import { useMoveBack } from "../../../hooks/useMoveBack";
-import ButtonText from "../../../ui/ButtonText";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Button from "../../../ui/Button";
 
 import useDriver from "./useDriver";
 import Spinner from "../../../ui/Spinner";
@@ -61,10 +63,14 @@ function DriverPendingInformation() {
     <>
       <Row type="horizontal">
         <Row type="vertical">
-          <ButtonText onClick={moveBack}>
+          <Button onClick={moveBack}>
             {" "}
-            {isRTL ? "→" : "←"} {t("Back")}
-          </ButtonText>
+            {isRTL ? (
+              <ArrowForwardIcon fontSize="large" />
+            ) : (
+              <ArrowBackIcon fontSize="large" />
+            )}
+          </Button>
         </Row>
       </Row>
 

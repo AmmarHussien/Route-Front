@@ -6,60 +6,6 @@ const URL = "https://route-service.app/dashboard-api/v1/";
 export async function getAllDrivers({
   filter,
   page,
-  sortBy,
-  sortType,
-  perPage,
-  isRTL,
-}) {
-  try {
-    const token = await getAuthToken();
-
-    // Prepare query parameters
-    const params = {
-      select: "*",
-      count: "exact",
-    };
-
-    // Add filter parameters if provided
-    if (filter) {
-      params[filter.field] = filter.value;
-    }
-
-    if (sortBy) {
-      params.sort_by = sortBy;
-      params.sort_type = sortType; // Assuming your API uses `sortType` for sorting order
-    }
-
-    // Add pagination parameters if provided
-    if (page) {
-      params.page = page;
-      params.per_page = perPage; // Assuming your API uses pageSize for pagination
-    }
-
-    // Make the API request
-    const response = await axios.get(`${URL}drivers`, {
-      headers: {
-        ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
-        "Accept-Language": isRTL ? "ar" : "en",
-      },
-      params, // Pass the prepared query parameters
-    });
-
-    const data = response.data.data || [];
-    const count = response.data.meta.total; // Count the exact number of objects
-
-    return { data, error: null, count };
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message ||
-        "Fetching drivers failed due to an unexpected error"
-    );
-  }
-}
-
-export async function getSearch({
-  filter,
-  page,
   searchKey,
   sortBy,
   sortType,
@@ -79,10 +25,12 @@ export async function getSearch({
     if (filter) {
       params[filter.field] = filter.value;
     }
+
     if (sortBy) {
       params.sort_by = sortBy;
       params.sort_type = sortType; // Assuming your API uses `sortType` for sorting order
     }
+
     // Add pagination parameters if provided
     if (page) {
       params.page = page;
@@ -105,7 +53,7 @@ export async function getSearch({
   } catch (error) {
     throw new Error(
       error.response?.data?.message ||
-        "Fetching Drivers failed due to an unexpected error"
+        "Fetching drivers failed due to an unexpected error"
     );
   }
 }
@@ -131,7 +79,7 @@ export async function getDriver(id, isRTL) {
   }
 }
 
-export async function addNewDriver(formData) {
+export async function addNewDriver(formData, isRTL) {
   try {
     const token = await getAuthToken();
 
@@ -139,6 +87,7 @@ export async function addNewDriver(formData) {
       headers: {
         "Content-Type": "multipart/form-data",
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
     });
 
@@ -198,6 +147,30 @@ export async function updateDriverStatus(id, reason, status) {
     throw new Error(
       error.response?.data?.message ||
         "Fetching Driver failed due to an unexpected error"
+    );
+  }
+}
+export async function paySiteCommission(id, isRTL) {
+  try {
+    const token = await getAuthToken();
+
+    const response = await axios.post(
+      `${URL}drivers/${id}/debits/pay`,
+      {},
+      {
+        headers: {
+          ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+          "Accept-Language": isRTL ? "ar" : "en",
+        },
+        // Pass the prepared query parameters
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+        "Fetching driver failed due to an unexpected error"
     );
   }
 }

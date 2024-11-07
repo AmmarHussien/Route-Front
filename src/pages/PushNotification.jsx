@@ -3,17 +3,13 @@ import Row from "../ui/Row";
 import NotificationTableOperations from "../features/notification/notificationTableOperations";
 import NewNotification from "../features/notification/NewNotification";
 import NotificationTable from "../features/notification/NotificationTable";
-import useSearchNotification from "../features/notification/useSearchNotification";
+
 import useNotification from "../features/notification/useNotification";
 
 function PushNotification() {
   const [searchTerm, setSearchTerm] = useState("");
-  const { searchNotification, count: searchCount } =
-    useSearchNotification(searchTerm);
-  const { isLoading, notification, count } = useNotification();
 
-  const usersToDisplay = searchTerm ? searchNotification : notification;
-  const countToDisplay = searchTerm ? searchCount : count;
+  const { isLoading, notification, count } = useNotification(searchTerm);
 
   return (
     <>
@@ -27,16 +23,10 @@ function PushNotification() {
         <NewNotification />
       </Row>
       <NotificationTable
-        notification={usersToDisplay}
+        notification={notification}
         isLoading={isLoading}
-        notificationCount={countToDisplay}
+        notificationCount={count}
       />
-
-      {/* <UsersTable
-        users={usersToDisplay}
-        isLoading={isLoading}
-        userCount={countToDisplay}
-      /> */}
     </>
   );
 }

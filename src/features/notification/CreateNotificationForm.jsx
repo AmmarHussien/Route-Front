@@ -119,7 +119,7 @@ function CreateNotificationForm({ onCloseModal }) {
   return !isAdded ? (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
-      type={onCloseModal ? "regular" : "regular"}
+      type={onCloseModal ? "grid" : "regular"}
     >
       <FormRowVertical $error={errors?.subject?.message}>
         <StyledLabel htmlFor="Subject"> {t("Subject")} </StyledLabel>

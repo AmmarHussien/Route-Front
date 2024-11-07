@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { getAllNotification } from "../../services/apiNotifications";
 import { useTranslation } from "react-i18next";
 
-function useNotification() {
+function useNotification(searchTerm) {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const { i18n } = useTranslation();
@@ -54,6 +54,7 @@ function useNotification() {
       "Notification",
       resultSent,
       resultType,
+      searchTerm,
       resultPlatform,
       page,
       sortBy,
@@ -65,6 +66,7 @@ function useNotification() {
       getAllNotification({
         resultSent,
         resultType,
+        searchTerm,
         resultPlatform,
         page,
         sortBy,
@@ -86,6 +88,7 @@ function useNotification() {
         "Notification",
         resultSent,
         resultType,
+        searchTerm,
         resultPlatform,
         page + 1,
         sortBy,
@@ -97,6 +100,7 @@ function useNotification() {
         getAllNotification({
           resultSent,
           resultType,
+          searchTerm,
           resultPlatform,
           page: page + 1,
           sortBy,
@@ -114,6 +118,7 @@ function useNotification() {
         "Notification",
         resultSent,
         resultType,
+        searchTerm,
         resultPlatform,
         page - 1,
         sortBy,
@@ -125,6 +130,7 @@ function useNotification() {
         getAllNotification({
           resultSent,
           resultType,
+          searchTerm,
           resultPlatform,
           page: page - 1,
           sortBy,

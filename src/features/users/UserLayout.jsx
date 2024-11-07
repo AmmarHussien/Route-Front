@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useSearchUsers from "./useSearchUser";
 import useUsers from "./useUsers";
 import Row from "../../ui/Row";
 import UsersTableOperations from "./UsersTableOperations";
@@ -8,11 +7,7 @@ import UsersTable from "./UsersTable";
 
 function UserLayout() {
   const [searchTerm, setSearchTerm] = useState("");
-  const { searchList, count: searchCount } = useSearchUsers(searchTerm);
-  const { users: allUsers, isLoading, count: userCount } = useUsers();
-
-  const usersToDisplay = searchTerm ? searchList : allUsers;
-  const countToDisplay = searchTerm ? searchCount : userCount;
+  const { users: allUsers, isLoading, count: userCount } = useUsers(searchTerm);
 
   return (
     <>
@@ -27,9 +22,9 @@ function UserLayout() {
       </Row>
 
       <UsersTable
-        users={usersToDisplay}
+        users={allUsers}
         isLoading={isLoading}
-        userCount={countToDisplay}
+        userCount={userCount}
       />
     </>
   );

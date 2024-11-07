@@ -3,7 +3,7 @@ import { getAllDrivers } from "../../services/apiDriver";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-function useDrivers() {
+function useDrivers(searchKey) {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const { i18n } = useTranslation();
@@ -38,9 +38,26 @@ function useDrivers() {
     data: driversData = {}, // Ensure default object
     error,
   } = useQuery({
-    queryKey: ["drivers", filter, page, sortBy, sortType, perPage, isRTL],
+    queryKey: [
+      "drivers",
+      filter,
+      page,
+      searchKey,
+      sortBy,
+      sortType,
+      perPage,
+      isRTL,
+    ],
     queryFn: () =>
-      getAllDrivers({ filter, page, sortBy, sortType, perPage, isRTL }),
+      getAllDrivers({
+        filter,
+        page,
+        searchKey,
+        sortBy,
+        sortType,
+        perPage,
+        isRTL,
+      }),
     keepPreviousData: true,
   });
 
@@ -51,11 +68,21 @@ function useDrivers() {
   // Prefetch Next Page
   if (page < pageCount) {
     queryClient.prefetchQuery({
-      queryKey: ["drivers", filter, page + 1, sortBy, sortType, perPage, isRTL],
+      queryKey: [
+        "drivers",
+        filter,
+        page + 1,
+        searchKey,
+        sortBy,
+        sortType,
+        perPage,
+        isRTL,
+      ],
       queryFn: () =>
         getAllDrivers({
           filter,
           page: page + 1,
+          searchKey,
           sortBy,
           sortType,
           perPage,
@@ -67,11 +94,21 @@ function useDrivers() {
   // Prefetch Previous Page
   if (page > 1) {
     queryClient.prefetchQuery({
-      queryKey: ["drivers", filter, page - 1, sortBy, sortType, perPage, isRTL],
+      queryKey: [
+        "drivers",
+        filter,
+        page - 1,
+        searchKey,
+        sortBy,
+        sortType,
+        perPage,
+        isRTL,
+      ],
       queryFn: () =>
         getAllDrivers({
           filter,
           page: page - 1,
+          searchKey,
           sortBy,
           sortType,
           perPage,

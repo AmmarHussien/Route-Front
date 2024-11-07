@@ -3,7 +3,14 @@ import getAuthToken from "./getAuthToken";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
-export async function getAllUsers({ filter, page, sortBy, sortType, perPage }) {
+export async function getAllUsers({
+  filter,
+  page,
+  searchKey,
+  sortBy,
+  sortType,
+  perPage,
+}) {
   try {
     const token = await getAuthToken();
 
@@ -25,57 +32,6 @@ export async function getAllUsers({ filter, page, sortBy, sortType, perPage }) {
       params.sort_type = sortType; // Assuming your API uses `sortType` for sorting order
     }
 
-    // Add pagination parameters if provided
-    if (page) {
-      params.page = page;
-      params.per_page = perPage; // Assuming your API uses pageSize for pagination
-    }
-
-    // Make the API request
-    const response = await axios.get(`${URL}users`, {
-      headers: {
-        ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
-      },
-      params, // Pass the prepared query parameters
-    });
-
-    const data = response.data.data || [];
-    const count = response.data.meta.total; // Count the exact number of objects
-
-    return { data, error: null, count };
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message ||
-        "Fetching Users failed due to an unexpected error"
-    );
-  }
-}
-
-export async function getSearch({
-  filter,
-  page,
-  searchKey,
-  sortBy,
-  sortType,
-  perPage,
-}) {
-  try {
-    const token = await getAuthToken();
-
-    // Prepare query parameters
-    const params = {
-      select: "*",
-      count: "exact",
-    };
-
-    // Add filter parameters if provided
-    if (filter) {
-      params[filter.field] = filter.value;
-    }
-    if (sortBy) {
-      params.sort_by = sortBy;
-      params.sort_type = sortType; // Assuming your API uses `sortType` for sorting order
-    }
     // Add pagination parameters if provided
     if (page) {
       params.page = page;
@@ -123,7 +79,7 @@ export async function getUser(id, isRTL) {
   }
 }
 
-export async function addNewUser(formData) {
+export async function addNewUser(formData, isRTL) {
   try {
     const token = await getAuthToken();
 
@@ -131,6 +87,7 @@ export async function addNewUser(formData) {
       headers: {
         "Content-Type": "multipart/form-data",
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
     });
 
@@ -143,13 +100,14 @@ export async function addNewUser(formData) {
   }
 }
 
-export async function editUser(id, formData) {
+export async function editUser(id, formData, isRTL) {
   try {
     const token = await getAuthToken();
 
     const response = await axios.put(`${URL}users/${id}`, formData, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+        "Accept-Language": isRTL ? "ar" : "en",
       },
       // Pass the prepared query parameters
     });
@@ -163,7 +121,7 @@ export async function editUser(id, formData) {
   }
 }
 
-export async function updateUserStatus(id, reason, status) {
+export async function updateUserStatus(id, reason, status, isRTL) {
   try {
     const token = await getAuthToken();
 
@@ -176,6 +134,7 @@ export async function updateUserStatus(id, reason, status) {
       {
         headers: {
           ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization
+          "Accept-Language": isRTL ? "ar" : "en",
         },
         // Pass the prepared query parameters
       }

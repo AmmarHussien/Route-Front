@@ -19,10 +19,21 @@ const Status = styled.div`
     css`
       color: #fc5555;
     `}
-  ${(props) =>
+    
+    ${(props) =>
     props.$status === "Scheduled" &&
     css`
-      color: #2405ec;
+      color: #5c5223;
+    `}
+${(props) =>
+    props.$status === "Pending" &&
+    css`
+      color: #fedf46;
+    `}
+${(props) =>
+    props.$status === "Confirmed" &&
+    css`
+      color: #1e48a3;
     `}
 `;
 
@@ -52,28 +63,43 @@ function RidesRow({ RideInfo }) {
 
   return (
     <Table columns="0.4fr 1fr 1fr 1fr 1fr 1fr">
-      <Table.Row>
-        {params === "All" || params === null ? (
+      {params === "All" || params === null ? (
+        <Table.Row>
           <div>{id}</div>
-        ) : (
-          <div onClick={handleClick} style={{ cursor: "pointer" }}>
-            {id}
-          </div>
-        )}
 
-        <div>{driverName}</div>
-        <div>{userName}</div>
-        <div>{createdDate}</div>
-        {params === "Scheduled" ? (
-          <div>{scheduled_date}</div>
-        ) : (
-          <div>
-            {price} {currency}
-          </div>
-        )}
+          <div>{driverName}</div>
+          <div>{userName}</div>
+          <div>{createdDate}</div>
+          {params === "Scheduled" ? (
+            <div>{scheduled_date}</div>
+          ) : (
+            <div>
+              {price} {currency}
+            </div>
+          )}
 
-        <Status $status={status}>{t(`Stat.${status}`)}</Status>
-      </Table.Row>
+          <Status $status={status}>{t(`Stat.${status}`)}</Status>
+        </Table.Row>
+      ) : (
+        <div onClick={handleClick} style={{ cursor: "pointer" }}>
+          <Table.Row>
+            <div> {id}</div>
+
+            <div>{driverName}</div>
+            <div>{userName}</div>
+            <div>{createdDate}</div>
+            {params === "Scheduled" ? (
+              <div>{scheduled_date}</div>
+            ) : (
+              <div>
+                {price} {currency}
+              </div>
+            )}
+
+            <Status $status={status}>{t(`Stat.${status}`)}</Status>
+          </Table.Row>
+        </div>
+      )}
     </Table>
   );
 }

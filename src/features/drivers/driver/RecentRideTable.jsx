@@ -6,7 +6,7 @@ function RecentRideTable({ rides }) {
   const { t } = useTranslation();
 
   return (
-    <Table columns="1fr 1fr 1fr 1fr 1fr 1fr 1fr">
+    <Table columns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr">
       <Table.TableNaView title={t("RecentRides")} />
       <Table.Header>
         <div>{t("UserName")}</div>
@@ -14,6 +14,8 @@ function RecentRideTable({ rides }) {
         <div>{t("DestinationB")}</div>
         <div>{t("Date")}</div>
         <div>{t("Price")}</div>
+        <div>{t("SiteCommission")}</div>
+        <div>{t("PaymentMethod")}</div>
         <div>{t("Status")}</div>
         <div>{t("UserRate")}</div>
       </Table.Header>

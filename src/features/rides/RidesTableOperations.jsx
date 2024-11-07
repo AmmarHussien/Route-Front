@@ -32,22 +32,14 @@ function RidesTableOperations({ searchTerm, setSearchTerm }) {
             value: "id-asc",
             label: t("id-asc"),
           },
-          // {
-          //   value: "driver-asc",
-          //   label: "Sort Drivers A-Z",
-          // },
-          // {
-          //   value: "driver-desc",
-          //   label: "Sort Drivers Z-A",
-          // },
-          // {
-          //   value: "user-asc",
-          //   label: "Sort Users A-Z",
-          // },
-          // {
-          //   value: "user-desc",
-          //   label: "Sort Users Z-A",
-          // },
+          {
+            value: "created_at-desc",
+            label: t("created_at-desc"),
+          },
+          {
+            value: "created_at-asc",
+            label: t("created_at-asc"),
+          },
         ]}
       />
     </TableOperations>

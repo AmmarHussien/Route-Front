@@ -4,7 +4,6 @@ import useViewManufactures from "./useViewManufactures";
 import InformationBrandTable from "./InformationBrandTable";
 import styled from "styled-components";
 import { useEffect } from "react";
-import ButtonText from "../../../../ui/ButtonText";
 import { useMoveBack } from "../../../../hooks/useMoveBack";
 import { useParams } from "react-router-dom";
 import Row from "../../../../ui/Row";
@@ -13,6 +12,9 @@ import ViewCarModel from "../Model/ViewCarModel";
 import useModel from "../Model/useModel";
 import AddModel from "../Model/AddModel";
 import { useTranslation } from "react-i18next";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Button from "../../../../ui/Button";
 import Empty from "../../../../ui/Empty";
 
 const Box = styled.div`
@@ -48,9 +50,14 @@ function ViewCarBrand() {
   return (
     <>
       <Box>
-        <ButtonText onClick={moveBack}>
-          {isRTL ? "→" : "←"} {t("Back")}
-        </ButtonText>
+        <Button onClick={moveBack}>
+          {" "}
+          {isRTL ? (
+            <ArrowForwardIcon fontSize="large" />
+          ) : (
+            <ArrowBackIcon fontSize="large" />
+          )}
+        </Button>
         <InformationBrandTable
           data={{
             [t("brandId")]: manufactures.id,

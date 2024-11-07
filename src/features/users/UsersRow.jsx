@@ -46,30 +46,26 @@ function UsersRow({ userInfo }) {
 
   return (
     <Table columns={columns}>
-      <Table.Row>
-        <>
-          <div onClick={handleClick} style={{ cursor: "pointer" }}>
-            {userInfo.id}
-          </div>
-          <div onClick={handleClick} style={{ cursor: "pointer" }}>
-            {userInfo.full_name}
-          </div>
-        </>
+      <div onClick={handleClick} style={{ cursor: "pointer" }}>
+        <Table.Row>
+          <div> {userInfo.id}</div>
+          <div>{userInfo.full_name}</div>
 
-        {searchParams.get("status") === "Blocked" && (
-          <div>
-            {userInfo.blocked_reason === "" ? "N/A" : userInfo.blocked_reason}
-          </div>
-        )}
-        <div>{userInfo.phone}</div>
-        <div>{userInfo.email}</div>
+          {searchParams.get("status") === "Blocked" && (
+            <div>
+              {userInfo.blocked_reason === "" ? "N/A" : userInfo.blocked_reason}
+            </div>
+          )}
+          <div>{userInfo.phone}</div>
+          <div>{userInfo.email}</div>
 
-        <div>{userInfo.num_rides}</div>
-        <div>{userInfo.rate}</div>
-        <Status $status={userInfo.status}>
-          {t(`Stat.${userInfo.status}`)}
-        </Status>
-      </Table.Row>
+          <div>{userInfo.num_rides}</div>
+          <div>{userInfo.rate}</div>
+          <Status $status={userInfo.status}>
+            {t(`Stat.${userInfo.status}`)}
+          </Status>
+        </Table.Row>
+      </div>
     </Table>
   );
 }

@@ -67,6 +67,7 @@ function DriverInformation() {
     total_rides,
     total_earning,
     currency,
+    total_site_commission,
   } = driverData;
 
   if (isLoading) return <Spinner />;
@@ -116,11 +117,12 @@ function DriverInformation() {
         />
         <InformationItemTable
           data={{
-            [t("CreditBalance")]: [0, " ", currency],
+            // [t("CreditBalance")]: [0, " ", currency],
             [t("TotalRating")]: total_rating,
             [t("TotalRides")]: total_rides,
             [t("TotalEarning")]: [total_earning, " ", currency],
             [t("TotalPoints")]: 0,
+            [t("TotalSiteCommission")]: [total_site_commission, " ", currency],
           }}
           title={t("ActivitiesInfo")}
         />

@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getAllUsers } from "../../services/apiUsers";
 
-function useUsers() {
+function useUsers(searchKey) {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
@@ -35,8 +35,9 @@ function useUsers() {
     data: usersData = {}, // Ensure default object
     error,
   } = useQuery({
-    queryKey: ["users", filter, page, sortBy, sortType, perPage],
-    queryFn: () => getAllUsers({ filter, page, sortBy, sortType, perPage }),
+    queryKey: ["users", filter, page, searchKey, sortBy, sortType, perPage],
+    queryFn: () =>
+      getAllUsers({ filter, page, searchKey, sortBy, sortType, perPage }),
     keepPreviousData: true,
   });
 
@@ -47,18 +48,48 @@ function useUsers() {
   // Prefetch Next Page
   if (page < pageCount) {
     queryClient.prefetchQuery({
-      queryKey: ["users", filter, page + 1, sortBy, sortType, perPage],
+      queryKey: [
+        "users",
+        filter,
+        page + 1,
+        searchKey,
+        sortBy,
+        sortType,
+        perPage,
+      ],
       queryFn: () =>
-        getAllUsers({ filter, page: page + 1, sortBy, sortType, perPage }),
+        getAllUsers({
+          filter,
+          page: page + 1,
+          searchKey,
+          sortBy,
+          sortType,
+          perPage,
+        }),
     });
   }
 
   // Prefetch Previous Page
   if (page > 1) {
     queryClient.prefetchQuery({
-      queryKey: ["users", filter, page - 1, sortBy, sortType, perPage],
+      queryKey: [
+        "users",
+        filter,
+        page - 1,
+        searchKey,
+        sortBy,
+        sortType,
+        perPage,
+      ],
       queryFn: () =>
-        getAllUsers({ filter, page: page - 1, sortBy, sortType, perPage }),
+        getAllUsers({
+          filter,
+          page: page - 1,
+          searchKey,
+          sortBy,
+          sortType,
+          perPage,
+        }),
     });
   }
 

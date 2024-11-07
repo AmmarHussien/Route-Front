@@ -111,6 +111,12 @@ function CreateUserForm({ onCloseModal }) {
   }, [profileImage]);
 
   useEffect(() => {
+    if (selectedBrand) {
+      // This runs every time profileImage changes
+    }
+  }, [selectedBrand]);
+
+  useEffect(() => {
     if (isAdded) {
       // Update the notes state to reflect the addition (already handled above with setNotes)
     }
@@ -152,7 +158,7 @@ function CreateUserForm({ onCloseModal }) {
         },
       });
     } catch (error) {
-      toast("User addition failed:", error.message);
+      toast(error.message);
     }
   };
 
@@ -181,6 +187,14 @@ function CreateUserForm({ onCloseModal }) {
               value: 3,
               message: t("FirstNameValidation.minLength"),
             },
+            maxLength: {
+              value: 20,
+              message: t("FirstNameValidation.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("FirstNameValidation.singleWord"),
+            },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
@@ -204,6 +218,14 @@ function CreateUserForm({ onCloseModal }) {
             minLength: {
               value: 3,
               message: t("LastNameValidation.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("LastNameValidation.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("LastNameValidation.singleWord"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -354,7 +376,7 @@ function CreateUserForm({ onCloseModal }) {
         />
       </FormRowVertical>
 
-      <FormRowVertical error={errors?.carBrand?.message}>
+      <FormRowVertical error={errors?.hiddenCarBrand?.message}>
         <StyledLabel htmlFor="carBrand">
           {t("UserCarBrands")}{" "}
           <span style={{ color: "red" }} title={t("hint")}>
@@ -362,6 +384,7 @@ function CreateUserForm({ onCloseModal }) {
           </span>
         </StyledLabel>
         <DropDownMenu
+          id="carBrand"
           title={t("UserCarBrands")}
           options={manufactureOptions}
           onSelect={handleBrandSelect}
@@ -369,7 +392,6 @@ function CreateUserForm({ onCloseModal }) {
           selectedOption={manufactureOptions?.find(
             (option) => option.id === selectedBrand
           )}
-          id="carBrand"
         />
       </FormRowVertical>
 

@@ -21,9 +21,9 @@ function CustomizationLayout() {
           height="340"
           width="340"
           image="/Header1.svg"
-          alt={"name"}
-          key={"name"}
-          id={"id"}
+          alt={"Header1"}
+          key={"Header1"}
+          id={"Header1"}
         />
       </CardContent>
       <CardContent key={2} sx={{ marginBottom: 2 }}>
@@ -31,9 +31,9 @@ function CustomizationLayout() {
           component="img"
           height="300"
           image="/Header2.svg"
-          alt={"name"}
-          key={"name"}
-          id={"id"}
+          alt={"Header2"}
+          key={"Header2"}
+          id={"Header2"}
         />
       </CardContent>
       <CardContent key={3} sx={{ marginBottom: 2 }}>
@@ -41,9 +41,9 @@ function CustomizationLayout() {
           component="img"
           height="300"
           image="/Header3.svg"
-          alt={"name"}
-          key={"name"}
-          id={"id"}
+          alt={"Header3"}
+          key={"Header3"}
+          id={"Header3"}
         />
       </CardContent>
     </CardGrid>

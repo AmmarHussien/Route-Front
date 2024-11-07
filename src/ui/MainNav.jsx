@@ -190,12 +190,33 @@ function MainNav() {
 
           <DropdownContainer lang={isRTL ? "ar-Eg" : "en-US"}>
             <DropdownItem to="/adminPanel/customization/services">
+              <img
+                id="services-img"
+                src="/services.svg"
+                alt="services"
+                width="30"
+                height="30"
+              />
               {t("NAVCustomization.Services")}
             </DropdownItem>
             <DropdownItem to="/adminPanel/customization/organization">
+              <img
+                id="organization-img"
+                src="/organizational.svg"
+                alt="organizational"
+                width="30"
+                height="30"
+              />
               {t("NAVCustomization.Organization")}
             </DropdownItem>
             <DropdownItem to="/adminPanel/customization/userCar">
+              <img
+                id="userCar-img"
+                src="/users_cars.svg"
+                alt="userCar"
+                width="30"
+                height="30"
+              />
               {t("NAVCustomization.UserCar")}
             </DropdownItem>
           </DropdownContainer>

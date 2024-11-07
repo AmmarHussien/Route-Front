@@ -67,7 +67,6 @@ const Heading = styled.h1`
   ${(props) =>
     props.$variant === "customHeading" &&
     css`
-      font-family: Noto Sans Display;
       font-size: 20.57px;
       font-weight: 700;
       line-height: 28.8px;
@@ -76,7 +75,6 @@ const Heading = styled.h1`
   ${(props) =>
     props.$variant === "statisticsItemText" &&
     css`
-      font-family: Noto Sans Display;
       font-size: 15px;
       font-weight: 700;
       line-height: 21px;
@@ -85,13 +83,11 @@ const Heading = styled.h1`
   ${(props) =>
     props.$variant === "statisticsItemNum" &&
     css`
-      font-family: Noto Sans Display;
       font-size: 20px;
       font-weight: 700;
       line-height: 24px;
       text-align: left;
     `}
-  line-height: 1.4;
 `;
 
 export default Heading;

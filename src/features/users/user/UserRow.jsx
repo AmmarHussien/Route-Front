@@ -54,25 +54,25 @@ function UserRow({ userInfo }) {
   } = userInfo;
 
   function handleClick() {
-    navigate(`/adminPanel/driver-information/${driverId}`);
+    navigate(`/adminPanel/drivers/driver-information/${driverId}`);
     // Add your click handling logic here
   }
 
   return (
     <Table columns="1fr 1fr 1fr 1fr 1fr 1fr 1fr">
-      <Table.Row>
-        <div onClick={handleClick} style={{ cursor: "pointer" }}>
-          {full_name}
-        </div>
-        <div>{pickup_address}</div>
-        <div>{destination_address}</div>
-        <div>{created_at}</div>
-        <div>
-          {price} {currency}
-        </div>
-        <Status $status={status}>{t(`Stat.${userInfo.status}`)}</Status>
-        <div>{rate}</div>
-      </Table.Row>
+      <div onClick={handleClick} style={{ cursor: "pointer" }}>
+        <Table.Row>
+          <div>{full_name}</div>
+          <div>{pickup_address}</div>
+          <div>{destination_address}</div>
+          <div>{created_at}</div>
+          <div>
+            {price} {currency}
+          </div>
+          <Status $status={status}>{t(`Stat.${userInfo.status}`)}</Status>
+          <div>{rate}</div>
+        </Table.Row>
+      </div>
     </Table>
   );
 }

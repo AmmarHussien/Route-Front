@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getModels } from "../../services/apiModel";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 function useModel(brandId) {
   const { i18n } = useTranslation();
@@ -14,9 +15,11 @@ function useModel(brandId) {
     queryFn: () => getModels(brandId, isRTL),
     enabled: !!brandId, // Only fetch if brandId is not null or undefined
     retry: false,
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
-
-  // Optional: Add console logs for debugging or remove in production
 
   return { modelLoading, models, error }; // Return `models` instead of `model`
 }

@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
 function useUserActivity() {
@@ -14,6 +15,10 @@ function useUserActivity() {
     queryKey: ["userActivity", Id],
     //queryFn: () => getUserActivity(Id),
     retry: false,
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
   return { isLoading, userActivity, error };
 }

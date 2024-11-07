@@ -4,15 +4,15 @@ import { addNewDriver } from "../../services/apiDriver";
 import { useTranslation } from "react-i18next";
 
 export function useAddDrive() {
-  const { t } = useTranslation();
-
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
   const queryClient = useQueryClient();
 
   const { mutate: addDriver, isLoading: isAdded } = useMutation({
-    mutationFn: (formData) => addNewDriver(formData),
+    mutationFn: (formData) => addNewDriver(formData, isRTL),
     onSuccess: () => {
       toast.success(t("useAddDriveValidations.Successfully"));
-      queryClient.invalidateQueries({ queryKey: ["drivers"] });
+      queryClient.invalidateQueries({ queryKey: ["drivers", isRTL] });
     },
     onError: (err) => toast.error(t("useAddDriveValidations.Error")),
   });

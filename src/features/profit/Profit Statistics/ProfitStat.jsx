@@ -154,7 +154,7 @@ const Tooltip = ({ text, children }) => {
       onMouseLeave={() => setShow(false)}
     >
       {children}
-      <TooltipText $show={text ? show : null}>{text}</TooltipText>
+      <TooltipText show={text ? show : false}>{text}</TooltipText>
     </TooltipWrapper>
   );
 };

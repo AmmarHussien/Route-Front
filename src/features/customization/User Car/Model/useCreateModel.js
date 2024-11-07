@@ -8,6 +8,8 @@ function useCreateModel() {
   const queryClient = useQueryClient();
   const { Id } = useParams();
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar-EG";
 
   const {
     mutate: createModel,
@@ -16,14 +18,14 @@ function useCreateModel() {
     error,
   } = useMutation({
     mutationFn: ({ englishName, arabicName }) =>
-      createModels(Id, englishName, arabicName),
+      createModels(Id, englishName, arabicName, isRTL),
     onSuccess: () => {
       toast.success(t("useCreateModelValidations.Successfully"));
       queryClient.invalidateQueries({
         queryKey: ["Customization-Models", Id],
       });
     },
-    onError: (err) => toast.error(t("useCreateModelValidations.Error")),
+    onError: (err) => toast.error(err),
   });
 
   return { createModel, isLoading, isError, error };
