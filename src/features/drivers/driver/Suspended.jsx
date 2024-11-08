@@ -16,7 +16,7 @@ function SuspendedDriver() {
     // Pass the required parameters to editStatus
     editStatus({ status: "Suspended" }); // Adjust reason and status as needed
 
-    navigate(`/adminPanel/drivers?status=Suspended`, {
+    navigate(`/drivers?status=Suspended`, {
       replace: true,
     });
   }

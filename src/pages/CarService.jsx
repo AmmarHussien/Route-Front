@@ -19,7 +19,7 @@ function CarService() {
         </Row>
         <Button
           onClick={() => {
-            navigate("/adminPanel/add-car-services");
+            navigate("/add-car-services");
           }}
           $variant="contained"
           startIcon={<AddIcon />}

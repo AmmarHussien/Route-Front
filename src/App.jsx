@@ -1,10 +1,6 @@
 import { Suspense, useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  HashRouter as Router,
-} from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
@@ -73,85 +69,70 @@ function AdminRoutes() {
         }
       >
         {/* Default route */}
-        <Route
-          index
-          element={<Navigate replace to="/adminPanel/dashboard" />}
-        />
-        <Route
-          path="/adminPanel"
-          element={<Navigate replace to="/adminPanel/dashboard" />}
-        />
+        {/* <Route index element={<Navigate replace to="/dashboard" />} /> */}
+        <Route path="/" element={<Navigate replace to="/dashboard" />} />
 
         {/* Admin routes */}
-        <Route path="/adminPanel/dashboard" element={<Dashboard />} />
-        <Route path="/adminPanel/car-services" element={<CarService />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/car-services" element={<CarService />} />
         <Route
-          path="/adminPanel/car-services/car-service-information/:Id"
+          path="/car-services/car-service-information/:Id"
           element={<ServiceInformation />}
         />
-        <Route path="/adminPanel/users" element={<Users />} />
+        <Route path="/users" element={<Users />} />
         <Route
-          path="/adminPanel/users/user-information/:Id"
+          path="/users/user-information/:Id"
           element={<UserInformation />}
         />
         <Route
-          path="/adminPanel/users/user-pending-information/:Id"
+          path="/users/user-pending-information/:Id"
           element={<UserPendingInformation />}
         />
-        <Route path="/adminPanel/drivers" element={<Drivers />} />
+        <Route path="/drivers" element={<Drivers />} />
         <Route
-          path="/adminPanel/drivers/driver-information/:userId"
+          path="/drivers/driver-information/:userId"
           element={<DriverInformation />}
         />
         <Route
-          path="/adminPanel/drivers/driver-pending-information/:userId"
+          path="/drivers/driver-pending-information/:userId"
           element={<DriverPendingInformation />}
         />
-        <Route path="/adminPanel/rides" element={<Rides />} />
+        <Route path="/rides" element={<Rides />} />
         <Route
-          path="/adminPanel/rides/ride-information/:Id"
+          path="/rides/ride-information/:Id"
           element={<RideInformation />}
         />
-        <Route path="/adminPanel/vehicles" element={<Vehicles />} />
+        <Route path="/vehicles" element={<Vehicles />} />
         <Route
-          path="/adminPanel/vehicles/vehicle-information/:Id"
+          path="/vehicles/vehicle-information/:Id"
           element={<VehicleInformation />}
         />
-        <Route path="/adminPanel/logistic" element={<Logistic />} />
-        <Route path="/adminPanel/profit" element={<Profit />} />
-        <Route path="/adminPanel/documents" element={<Documents />} />
+        <Route path="/logistic" element={<Logistic />} />
+        <Route path="/profit" element={<Profit />} />
+        <Route path="/documents" element={<Documents />} />
+        <Route path="/push-notification" element={<PushNotification />} />
+        <Route path="/rating" element={<Rating />} />
+        <Route path="/promos" element={<Promos />} />
+        <Route path="/customization" element={<Customization />} />
+        <Route path="/customization/services" element={<ServicesLayout />} />
         <Route
-          path="/adminPanel/push-notification"
-          element={<PushNotification />}
-        />
-        <Route path="/adminPanel/rating" element={<Rating />} />
-        <Route path="/adminPanel/promos" element={<Promos />} />
-        <Route path="/adminPanel/customization" element={<Customization />} />
-        <Route
-          path="/adminPanel/customization/services"
-          element={<ServicesLayout />}
-        />
-        <Route
-          path="/adminPanel/customization/services/viewServices/:serviceId"
+          path="/customization/services/viewServices/:serviceId"
           element={<ViewServices />}
         />
         <Route
-          path="/adminPanel/customization/organization"
+          path="/customization/organization"
           element={<OrganizationLayout />}
         />
+        <Route path="/customization/userCar" element={<CarBrandLayout />} />
         <Route
-          path="/adminPanel/customization/userCar"
-          element={<CarBrandLayout />}
-        />
-        <Route
-          path="/adminPanel/customization/userCar/:CarBrand/:Id"
+          path="/customization/userCar/:CarBrand/:Id"
           element={<ViewCarBrand />}
         />
       </Route>
 
       {/* Login and catch-all route */}
-      <Route path="/adminPanel/login" element={<Login />} />
-      <Route path="/adminPanel/*" element={<PageNotFound />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/*" element={<PageNotFound />} />
     </Routes>
   );
 }

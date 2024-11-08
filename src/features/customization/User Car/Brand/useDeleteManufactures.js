@@ -19,7 +19,7 @@ function useDeleteManufactures() {
         queryClient.invalidateQueries(["Customization-Manufactures"]);
         toast.success(t("useDeleteManufacturesValidations.Successfully"));
 
-        navigate("/adminPanel/customization/userCar");
+        navigate("/customization/userCar");
       },
       onError: (error) => {
         toast.error(t("useDeleteManufacturesValidations.Error"));

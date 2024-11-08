@@ -87,7 +87,7 @@ function InformationBrandTable({ title, data }) {
       deleteManufacture(undefined, {
         onSuccess: () => {
           // Navigate to the specified route after successful deletion
-          navigate("/adminPanel/customization/userCar");
+          navigate("/customization/userCar");
           setIsDelete(false); // Reset delete state after success
         },
         onError: (error) => {
@@ -101,7 +101,7 @@ function InformationBrandTable({ title, data }) {
     setOpenAlert(true);
   };
 
-  if (!data === null) return <Empty>No data to show at the moment</Empty>;
+  if (!data === null) return <Empty>{t("NoData")}</Empty>;
 
   return (
     <>

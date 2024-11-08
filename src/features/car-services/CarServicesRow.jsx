@@ -7,7 +7,7 @@ function CarServicesRow({ carService }) {
     carService;
 
   function handleClick() {
-    navigate(`/adminPanel/car-service-information/${id}`);
+    navigate(`/car-service-information/${id}`);
     // Add your click handling logic here
   }
 

@@ -8,7 +8,7 @@ function RejectDriver() {
   const { t } = useTranslation();
 
   function handleClick() {
-    navigate(`/adminPanel/drivers?status=Pending`, {
+    navigate(`/drivers?status=Pending`, {
       replace: true,
     });
     // Add your click handling logic here

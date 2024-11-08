@@ -13,7 +13,7 @@ function Vehicles() {
         <Heading $variant="h1">Vehicles</Heading>
         <Button
           onClick={() => {
-            navigate("/adminPanel/add-vehicle");
+            navigate("/add-vehicle");
           }}
           $variant="contained"
           startIcon={<AddIcon />}

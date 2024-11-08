@@ -26,7 +26,7 @@ function CarBrandLayout() {
   const { t } = useTranslation();
 
   const handleCardClick = (id, name) => {
-    navigation(`/adminPanel/customization/userCar/${name}/${id}`);
+    navigation(`/customization/userCar/${name}/${id}`);
   };
 
   useEffect(() => {}, [isLoading]);

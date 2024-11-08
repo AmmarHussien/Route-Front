@@ -56,7 +56,7 @@ function RidesRow({ RideInfo }) {
   } = RideInfo;
 
   function handleClick() {
-    navigate(`/adminPanel/rides/ride-information/${id}`);
+    navigate(`/rides/ride-information/${id}`);
 
     // Add your click handling logic here
   }

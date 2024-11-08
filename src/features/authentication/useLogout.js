@@ -16,7 +16,7 @@ export function useLogout() {
       localStorage.removeItem("authToken");
       toast.success(t("UseLogoutValidations.Successfully"));
       queryClient.removeQueries();
-      navigate("/adminPanel/login", {
+      navigate("/login", {
         replace: true,
       });
     },

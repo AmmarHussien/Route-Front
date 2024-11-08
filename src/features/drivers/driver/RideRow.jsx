@@ -41,7 +41,7 @@ function RideRow(rideInfo) {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`/adminPanel/users/user-information/${id}`);
+    navigate(`/users/user-information/${id}`);
     // Add your click handling logic here
   }
 

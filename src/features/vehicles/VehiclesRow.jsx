@@ -8,7 +8,7 @@ function VehiclesRow({ userInfo }) {
   const { id, modal, owner, licenseExpiry, status } = userInfo;
 
   function handleClick() {
-    navigate(`/adminPanel/Vehicle-information/${id}`);
+    navigate(`/Vehicle-information/${id}`);
     // Add your click handling logic here
   }
   const Div = styled.div`

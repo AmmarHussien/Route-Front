@@ -35,7 +35,7 @@ export default function BlockUserForm() {
       {
         onSuccess: () => {
           // Call editStatus or perform any other actions
-          navigate(`/adminPanel/users?status=Blocked`, {
+          navigate(`/users?status=Blocked`, {
             replace: true,
           });
         },

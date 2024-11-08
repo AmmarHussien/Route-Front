@@ -34,7 +34,7 @@ export default function BlockDriverForm() {
       {
         onSuccess: () => {
           // Call editStatus or perform any other actions
-          navigate(`/adminPanel/drivers?status=Blocked`, {
+          navigate(`/drivers?status=Blocked`, {
             replace: true,
           });
         },

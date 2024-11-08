@@ -91,7 +91,7 @@ function MainNav() {
     <nav>
       <NavList>
         <li>
-          <StyledNavLink to="/adminPanel/dashboard">
+          <StyledNavLink to="/dashboard">
             <img
               id="dashboard-img"
               src="/Dashboard.svg"
@@ -104,7 +104,7 @@ function MainNav() {
         </li>
 
         <li>
-          <StyledNavLink to="/adminPanel/users">
+          <StyledNavLink to="/users">
             <img
               id="users-img"
               src="/Users.svg"
@@ -116,7 +116,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/adminPanel/drivers">
+          <StyledNavLink to="/drivers">
             <img
               id="drivers-img"
               src="/Drivers.svg"
@@ -128,7 +128,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/adminPanel/rides">
+          <StyledNavLink to="/rides">
             <img
               id="rides-img"
               src="/Rides.svg"
@@ -140,7 +140,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/adminPanel/rating">
+          <StyledNavLink to="/rating">
             <img
               id="rating-img"
               src="/Rating.svg"
@@ -152,7 +152,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/adminPanel/profit">
+          <StyledNavLink to="/profit">
             <img
               id="Profit-img"
               src="/Profit.svg"
@@ -164,7 +164,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/adminPanel/push-notification">
+          <StyledNavLink to="/push-notification">
             <img
               id="Notification-img"
               src="/Notification.svg"
@@ -177,7 +177,7 @@ function MainNav() {
         </li>
 
         <li>
-          <StyledNavLink to="/adminPanel/customization">
+          <StyledNavLink to="/customization">
             <img
               id="Customization-img"
               src="/Customization.svg"
@@ -189,7 +189,7 @@ function MainNav() {
           </StyledNavLink>
 
           <DropdownContainer lang={isRTL ? "ar-Eg" : "en-US"}>
-            <DropdownItem to="/adminPanel/customization/services">
+            <DropdownItem to="/customization/services">
               <img
                 id="services-img"
                 src="/services.svg"
@@ -199,7 +199,7 @@ function MainNav() {
               />
               {t("NAVCustomization.Services")}
             </DropdownItem>
-            <DropdownItem to="/adminPanel/customization/organization">
+            <DropdownItem to="/customization/organization">
               <img
                 id="organization-img"
                 src="/organizational.svg"
@@ -209,7 +209,7 @@ function MainNav() {
               />
               {t("NAVCustomization.Organization")}
             </DropdownItem>
-            <DropdownItem to="/adminPanel/customization/userCar">
+            <DropdownItem to="/customization/userCar">
               <img
                 id="userCar-img"
                 src="/users_cars.svg"

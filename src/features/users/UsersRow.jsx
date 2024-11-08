@@ -33,7 +33,7 @@ function UsersRow({ userInfo }) {
   const [searchParams] = useSearchParams();
 
   function handleClick() {
-    navigate(`/adminPanel/users/user-information/${userInfo.id}`);
+    navigate(`/users/user-information/${userInfo.id}`);
 
     // Add your click handling logic here
   }

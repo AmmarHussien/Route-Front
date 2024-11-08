@@ -13,7 +13,7 @@ function UnSuspended() {
     // Pass the required parameters to editStatus
     editStatus({ status: "Approved" }); // Adjust reason and status as needed
 
-    navigate(`/adminPanel/drivers?status=Approved`, {
+    navigate(`/drivers?status=Approved`, {
       replace: true,
     });
   }

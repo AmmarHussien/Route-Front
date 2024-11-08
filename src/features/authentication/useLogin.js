@@ -20,7 +20,7 @@ export function useLogin() {
         return;
       }
       toast.success(t("UseLoginValidations.Successfully"));
-      navigate("/adminPanel/dashboard", {
+      navigate("/dashboard", {
         replace: true,
       });
       queryClient.setQueryData(["user"], response);

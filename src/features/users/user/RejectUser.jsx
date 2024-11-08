@@ -6,7 +6,7 @@ function RejectUser() {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`/adminPanel/users?status=Pending`, {
+    navigate(`/users?status=Pending`, {
       replace: true,
     });
     // Add your click handling logic here

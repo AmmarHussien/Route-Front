@@ -13,7 +13,7 @@ function Unblock() {
     // Pass the required parameters to editStatus
     editStatus({ status: "Approved" }); // Adjust reason and status as needed
 
-    navigate(`/adminPanel/users?status=Approved`, {
+    navigate(`/users?status=Approved`, {
       replace: true,
     });
   }

@@ -53,7 +53,7 @@ function ServiceInformation() {
         <Row type="horizontal">
           <Button
             onClick={() => {
-              navigate("/adminPanel/edit-car-services");
+              navigate("/edit-car-services");
             }}
             variant="contained"
             //startIcon={<AddIcon />}

@@ -58,7 +58,7 @@ function ServicesLayout() {
                   services.is_active
                     ? () => {
                         navigate(
-                          `/adminPanel/customization/services/viewServices/${services.id}`
+                          `/customization/services/viewServices/${services.id}`
                         );
                       }
                     : null
