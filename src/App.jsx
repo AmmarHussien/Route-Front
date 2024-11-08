@@ -40,9 +40,9 @@ import RideInformation from "./features/rides/ride/RideInformation";
 import UserPendingInformation from "./features/users/user/UserPendingInformation";
 import Spinner from "./ui/Spinner";
 import Customization from "./pages/Customization";
-import ViewCarBrand from "./features/customization/User Car//Brand/ViewCarBrand";
+import ViewCarBrand from "./features/customization/UserCar/Brand/ViewCarBrand";
 import ServicesLayout from "./features/customization/Service/ServicesLayout";
-import CarBrandLayout from "./features/customization/User Car/Brand/CarBrandLayout";
+import CarBrandLayout from "./features/customization/UserCar/Brand/CarBrandLayout";
 import ViewServices from "./features/customization/Service/ViewServices";
 import OrganizationLayout from "./features/customization/Organization/OrganizationLayout";
 import { useTranslation } from "react-i18next";
@@ -69,7 +69,7 @@ function AdminRoutes() {
         }
       >
         {/* Default route */}
-        {/* <Route index element={<Navigate replace to="/dashboard" />} /> */}
+        <Route index element={<Navigate replace to="/dashboard" />} />
         <Route path="/" element={<Navigate replace to="/dashboard" />} />
 
         {/* Admin routes */}
