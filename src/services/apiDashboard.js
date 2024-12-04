@@ -17,6 +17,10 @@ export async function getStatistic(isRTL) {
 
     return response.data;
   } catch (error) {
+    if (error.response && error.response.status === 401) {
+      // Handle the 401 error - for example, redirect to login
+      window.location.href = "/login";
+    }
     throw new Error(
       error.response?.data?.message ||
         "Statistics failed due to an unexpected error"

@@ -36,6 +36,7 @@ export async function login({ email, password }) {
     if (response && response.data) {
       // Assuming the response contains a token
       const { access_token } = response.data.data;
+
       localStorage.setItem("authToken", access_token);
 
       // Redirect or update UI as needed

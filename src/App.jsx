@@ -1,6 +1,10 @@
 import { Suspense, useEffect } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
@@ -47,6 +51,7 @@ import ViewServices from "./features/customization/Service/ViewServices";
 import OrganizationLayout from "./features/customization/Organization/OrganizationLayout";
 import { useTranslation } from "react-i18next";
 import "../i18n"; // Import the i18n configuration
+import { AuthProvider } from "./Context/AuthContext";
 
 // Configure QueryClient
 const queryClient = new QueryClient({
@@ -61,6 +66,11 @@ const queryClient = new QueryClient({
 function AdminRoutes() {
   return (
     <Routes>
+      {/* Public Routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/*" element={<PageNotFound />} />
+
+      {/* Protected Routes */}
       <Route
         element={
           <ProtectedRoute>
@@ -129,10 +139,6 @@ function AdminRoutes() {
           element={<ViewCarBrand />}
         />
       </Route>
-
-      {/* Login and catch-all route */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/*" element={<PageNotFound />} />
     </Routes>
   );
 }
@@ -155,9 +161,11 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyles />
         <Router>
-          <Suspense fallback={<Spinner />}>
-            <AdminRoutes />
-          </Suspense>
+          <AuthProvider>
+            <Suspense fallback={<Spinner />}>
+              <AdminRoutes />
+            </Suspense>
+          </AuthProvider>
         </Router>
         <Toaster
           position="top-center"
