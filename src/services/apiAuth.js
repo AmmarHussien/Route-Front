@@ -41,7 +41,9 @@ export async function login({ email, password }) {
 
       // Redirect or update UI as needed
 
-      return response.data;
+      console.log(response.data.data);
+
+      return response.data.data;
     } else {
       throw new Error("Login failed: No response data");
     }

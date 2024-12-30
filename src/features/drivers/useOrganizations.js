@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllOrganizations } from "../../services/apiOrganizations";
+import { getAllOrganization } from "../../services/apiOrganizations";
 
 function useOrganizations() {
   const {
@@ -8,7 +8,7 @@ function useOrganizations() {
     error,
   } = useQuery({
     queryKey: ["Organizations"],
-    queryFn: () => getAllOrganizations(),
+    queryFn: () => getAllOrganization(),
     retry: false,
   });
   return { isLoading, organizations, error };

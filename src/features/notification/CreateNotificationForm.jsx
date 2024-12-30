@@ -81,7 +81,7 @@ function CreateNotificationForm({ onCloseModal }) {
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-    const imagePath = notificationImage ? notificationImage.path : "";
+    const imagePath = notificationImage ? notificationImage.path : null;
 
     const formattedDate = dayjs(dateValue).format("YYYY-MM-DD HH:mm");
 
@@ -102,7 +102,7 @@ function CreateNotificationForm({ onCloseModal }) {
       console.log(`${key}: ${value}`);
     });
 
-    formData.append("photo", imagePath);
+    formData?.append("photo", imagePath);
 
     try {
       addNotification(formData, {
@@ -205,7 +205,7 @@ function CreateNotificationForm({ onCloseModal }) {
           render={({ field: { onChange, value } }) => (
             <MultiSelectDropDownMenu
               title={t("Reserver")}
-              options={[t("Driver"), t("User")]}
+              options={[t("appTypeItem.Driver"), t("appTypeItem.User")]}
               onSelect={onChange} // Update the form state
               selectedOptions={value} // Provide current value to the component
             />

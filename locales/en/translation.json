@@ -178,7 +178,8 @@
     "Blocked": "Blocked",
     "Suspended": "Suspended",
     "Ongoing": "Ongoing",
-    "Confirmed": "Confirmed"
+    "Confirmed": "Confirmed",
+    "Draft": "Draft"
   },
 
   "_Rating Page": "Rating Page",
@@ -232,11 +233,11 @@
   "Subject": "Subject",
   "Message": "Message",
   "Platform": "Platform",
-  "Receiver": "Receiver",
+  "Reserver": "Receiver",
   "Photo": "Photo",
   "appTypeItem": {
-    "Driver": "Drivers",
-    "User": "Users"
+    "Driver": "Driver",
+    "User": "User"
   },
   "platformItem": {
     "Android": "Android",

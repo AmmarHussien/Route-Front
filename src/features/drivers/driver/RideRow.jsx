@@ -29,10 +29,15 @@ const Status = styled.div`
     css`
       color: #fedf46;
     `}
-${(props) =>
+    ${(props) =>
     props.$status === "Confirmed" &&
     css`
       color: #1e48a3;
+    `}
+    ${(props) =>
+    props.$status === "Draft" &&
+    css`
+      color: #a0f206;
     `}
 `;
 

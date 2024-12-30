@@ -182,7 +182,8 @@
     "Blocked": "محظور",
     "Suspended": "تعلق مؤقت",
     "Ongoing": "جارية",
-    "Confirmed": "مؤكدة"
+    "Confirmed": "مؤكدة",
+    "Draft": "مسودة"
   },
 
   "_Rating Page": "Rating Page",
@@ -236,7 +237,7 @@
   "Subject": "الموضوع",
   "Message": "الرسالة",
   "Platform": "المنصة",
-  "Receiver": "المستقبل",
+  "Reserver": "المستقبل",
   "Photo": "صورة",
   "appTypeItem": {
     "Driver": "السائقين",

@@ -1,26 +1,43 @@
 // src/context/AuthContext.jsx
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState, useMemo } from "react";
+import { TokenService } from "../utils/TokenService";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return !!localStorage.getItem("authToken"); // Check if there's a token in local storage
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const token = TokenService.getToken();
+        setIsAuthenticated(!!token);
+      } catch (error) {
+        console.error("Error checking auth token:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   const login = (token) => {
-    localStorage.setItem("authToken", token);
+    TokenService.setToken(token);
     setIsAuthenticated(true);
   };
 
   const logout = () => {
-    localStorage.removeItem("authToken");
+    TokenService.removeToken();
     setIsAuthenticated(false);
+    // QueryClient.clear(); // Clear all query data
   };
 
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({ isAuthenticated, login, logout, loading }),
+    [isAuthenticated, loading]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

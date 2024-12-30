@@ -4,6 +4,22 @@ import { useParams } from "react-router-dom";
 import { useDriverNotes } from "../../features/drivers/driver/useDriverNotes";
 import { useRideNotes } from "../../features/rides/ride/useRideNotes";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
+
+const Note = styled.div`
+  position: relative;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+`;
+
+const CurrentDate = styled.div`
+  font-size: 0.8em;
+  color: grey;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+`;
 
 const InternalNotes = ({ notes: initialNotes }) => {
   const { t } = useTranslation();
@@ -42,6 +58,12 @@ const InternalNotes = ({ notes: initialNotes }) => {
     }
   }, [DriverLoading, RideLoading]); // This effect runs when `isAdded` changes
 
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const date = today.getDate();
+  const currentDate = month + "/" + date + "/" + year;
+
   return (
     <div className="internal-notes">
       <h2>{t("InternalNotes")}</h2>
@@ -50,9 +72,10 @@ const InternalNotes = ({ notes: initialNotes }) => {
           <div className="no-note">There is no note</div>
         ) : (
           notes.map((note) => (
-            <div key={note.id} className="note">
+            <Note key={note.id} className="note">
               {note.description}
-            </div>
+              <CurrentDate>{currentDate}</CurrentDate>
+            </Note>
           ))
         )}
       </div>

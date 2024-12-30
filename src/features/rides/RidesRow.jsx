@@ -35,6 +35,11 @@ ${(props) =>
     css`
       color: #1e48a3;
     `}
+    ${(props) =>
+    props.$status === "Draft" &&
+    css`
+      color: #a0f206;
+    `}
 `;
 
 function RidesRow({ RideInfo }) {

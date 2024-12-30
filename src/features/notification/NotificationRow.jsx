@@ -67,7 +67,7 @@ function NotificationRow({ notification }) {
         <div>{notification.date}</div>
 
         <PlatformWrapper
-          $multiple={notification.platform.split("-").length > 1}
+          $multiple={notification.platform.split(" ").length > 1}
         >
           {notification.platform
             .split("-")
