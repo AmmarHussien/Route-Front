@@ -167,6 +167,12 @@ function CreateDriverForm({ onCloseModal }) {
             validate: {
               singleWord: (value) =>
                 /^[^\s]+$/.test(value) || t("FirstNameValidation.singleWord"),
+              noSpecialCharacters: (value) =>
+                /^[a-zA-Z0-9\s]*$/.test(value) ||
+                t("FirstNameValidation.noSpecialCharacters"),
+              noSQLInjection: (value) =>
+                !/[;'"|#-]/.test(value) ||
+                t("FirstNameValidation.noSQLInjection"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -199,6 +205,12 @@ function CreateDriverForm({ onCloseModal }) {
             validate: {
               singleWord: (value) =>
                 /^[^\s]+$/.test(value) || t("LastNameValidation.singleWord"),
+              noSpecialCharacters: (value) =>
+                /^[a-zA-Z0-9\s]*$/.test(value) ||
+                t("FirstNameValidation.noSpecialCharacters"),
+              noSQLInjection: (value) =>
+                !/[;'"|#-]/.test(value) ||
+                t("FirstNameValidation.noSQLInjection"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -504,6 +516,14 @@ function CreateDriverForm({ onCloseModal }) {
             maxLength: {
               value: 180,
               message: t("CarSpecValidation.maxLength"),
+            },
+            validate: {
+              noSpecialCharacters: (value) =>
+                /^[a-zA-Z0-9\s]*$/.test(value) ||
+                t("FirstNameValidation.noSpecialCharacters"),
+              noSQLInjection: (value) =>
+                !/['";-|#]/.test(value) ||
+                t("FirstNameValidation.noSQLInjection"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}

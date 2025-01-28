@@ -57,7 +57,12 @@ import { AuthProvider } from "./Context/AuthContext";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: 5 * 60 * 1000, // 5 minutes: Keep data fresh for 5 minutes
+      cacheTime: 10 * 60 * 1000, // 10 minutes: Retain cached data for 10 minutes
+      refetchOnWindowFocus: false, // Do not refetch on window focus
+      refetchOnMount: false, // Do not refetch on component mount if data is cached
+      refetchOnReconnect: false, // Do not refetch on network reconnect
+      keepPreviousData: true, // Retain previous data while fetching
     },
   },
 });

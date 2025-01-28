@@ -1,28 +1,15 @@
-import { Box, Modal } from "@mui/material";
 import FormRowVertical from "../../../ui/FormRowVertical";
 import Input from "../../../ui/Input";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../../ui/Button";
 import useEditCarService from "./useEditCarService";
 import Spinner from "../../../ui/Spinner";
 import useViewCarService from "./useViewCarService";
 import { useTranslation } from "react-i18next";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  backgroundColor: "white",
-  border: "2px solid #000",
-  boxShadow: "0px 4px 24px rgba(0, 0, 0, 0.1)",
-  padding: "16px",
-  display: "grid",
-  gridTemplateColumns: "repeat(2, 1fr)",
-  gridGap: "16px",
-  width: 700,
-};
+import Form from "../../../ui/Form";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -32,50 +19,35 @@ const StyledLabel = styled.label`
   display: inline-block;
 `;
 
-function EditCarService({ open, setOpen, data, isLoading: loading }) {
-  const { carService } = useViewCarService(data);
+function EditCarService({ id, onCloseModal }) {
+  console.log(id);
+  const { carService } = useViewCarService(id);
 
-  const handleClose = () => setOpen(false);
+  const {
+    after_separation_price,
+    before_separation_price,
+    driver_commission,
+    in_out_separation_km,
+    name,
+    opening_price,
+    separation_km,
+  } = carService;
+
   const { t } = useTranslation();
 
   // Initialize state
-  const [arName, setArName] = useState("");
-  const [egName, setEgName] = useState("");
-  const [driverCommission, setDriverCommission] = useState("");
-  const [openingPrice, setOpeningPrice] = useState("");
-  const [separationKm, setSeparationKm] = useState("");
-  const [beforeSeparationPrice, setBeforeSeparationPrice] = useState("");
-  const [afterSeparationPrice, setAfterSeparationPrice] = useState("");
-  const [inOutSeparationKm, setInOutSeparationKm] = useState("");
-  const { editCarService, isLoading } = useEditCarService(data);
+  const [setArName] = useState("");
+  const [setEgName] = useState("");
+  const [setDriverCommission] = useState("");
+  const [setOpeningPrice] = useState("");
+  const [setSeparationKm] = useState("");
+  const [setBeforeSeparationPrice] = useState("");
+  const [setAfterSeparationPrice] = useState("");
+  const [setInOutSeparationKm] = useState("");
+  const { editCarService, isLoading } = useEditCarService(id);
 
-  const [editError, setEditError] = useState(null); // Error state
-  useEffect(() => {
-    if (open && data) {
-      // Extract data from the passed `data` object
-      const {
-        name: { en = "", ar = "" },
-        driver_commission = 0, // Default to 0 if undefined
-        opening_price = 0, // Default to 0 if undefined
-        separation_km = 0, // Default to 0 if undefined
-        before_separation_price = 0, // Default to 0 if undefined
-        after_separation_price = 0, // Default to 0 if undefined
-        in_out_separation_km = 0, // Default to 0 if undefined
-      } = carService;
-
-      // Update state with values from the data prop
-      setArName(ar);
-      setEgName(en);
-      setDriverCommission(driver_commission.toString());
-      setOpeningPrice(opening_price.toString());
-      setSeparationKm(separation_km.toString());
-      setBeforeSeparationPrice(before_separation_price.toString());
-      setAfterSeparationPrice(after_separation_price.toString());
-      setInOutSeparationKm(in_out_separation_km.toString());
-    }
-  }, [open, carService, data]);
-
-  if (loading) return <Spinner />;
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
 
   const handleEnglishNameChange = (event) => setEgName(event.target.value);
   const handleArabicNameChange = (event) => setArName(event.target.value);
@@ -92,167 +64,281 @@ function EditCarService({ open, setOpen, data, isLoading: loading }) {
   const handleInOutSeparationKmChange = (event) =>
     setInOutSeparationKm(event.target.value);
 
-  const validateArabicName = (name) => {
-    const arabicRegex = /^[\u0600-\u06FF\s]+$/; // Arabic character range
-    return name.trim() !== "" && arabicRegex.test(name);
+  const onError = (errors) => {
+    toast.error(errors);
+    // console.log(errors);
   };
+  const onSubmit = (data) => {
+    // console.log(data);
 
-  const handleClick = () => {
-    // Clear previous error before new submission
-    setEditError(null);
-
-    if (
-      !arName ||
-      !egName ||
-      driverCommission < 0 ||
-      openingPrice < 0 ||
-      separationKm < 0 ||
-      beforeSeparationPrice < 0 ||
-      afterSeparationPrice < 0 ||
-      inOutSeparationKm < 0
-    ) {
-      setEditError(t("CarServiceValidation.allRequired"));
-      return;
-    }
-
-    if (validateArabicName(arName)) {
-      editCarService(
-        {
-          arabicName: arName,
-          englishName: egName,
-          driverCommission,
-          openingPrice,
-          separationKm,
-          beforeSeparationPrice,
-          afterSeparationPrice,
-          inOutSeparationKm,
+    editCarService(
+      {
+        englishName: data.englishName,
+        arabicName: data.arabicName,
+        driverCommission: data.driverCommission,
+        openingPrice: data.openingPrice,
+        separationKm: data.separationKm,
+        beforeSeparationPrice: data.beforeSeparationPrice,
+        afterSeparationPrice: data.afterSeparationPrice,
+        inOutSeparationKm: data.InOutSeparationKm,
+      },
+      {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
         },
-        {
-          onSuccess: () => {
-            setOpen(false); // Close the modal only if successful
-          },
-          onError: (error) => {
-            setEditError(error.message);
-          },
-        }
-      );
-    } else {
-      setEditError(t("CarServiceValidation.arabicName"));
-      return;
-    }
+      }
+    );
   };
 
-  return (
-    <>
-      {isLoading && <Spinner />}
-      <Modal open={open} onClose={handleClose}>
-        <Box sx={style}>
-          <FormRowVertical>
-            <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
-            <Input
-              type="text"
-              id="EnglishName"
-              placeholder={t("englishName")}
-              value={egName || ""} // Controlled input with fallback
-              onChange={handleEnglishNameChange}
-            />
-          </FormRowVertical>
-          <FormRowVertical>
-            <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
-            <Input
-              type="text"
-              id={t("arabicName")}
-              placeholder="Arabic Name"
-              value={arName} // Controlled input with fallback
-              onChange={handleArabicNameChange}
-            />
-          </FormRowVertical>
-          <FormRowVertical>
-            <StyledLabel htmlFor="driverCommission">
-              {t("driverCommission")}
-            </StyledLabel>
-            <Input
-              type="number"
-              id="driverCommission"
-              placeholder={t("driverCommission")}
-              value={driverCommission || ""} // Controlled input with fallback
-              onChange={handleDriverCommissionChange}
-            />
-          </FormRowVertical>
-          <FormRowVertical>
-            <StyledLabel htmlFor="openingPrice">
-              {t("openingPrice")}
-            </StyledLabel>
-            <Input
-              type="number"
-              id="openingPrice"
-              placeholder={t("openingPrice")}
-              value={openingPrice || ""} // Controlled input with fallback
-              onChange={handleOpeningPriceChange}
-            />
-          </FormRowVertical>
-          <FormRowVertical>
-            <StyledLabel htmlFor="separationKm">
-              {t("separationKm")}
-            </StyledLabel>
-            <Input
-              type="number"
-              id="separationKm"
-              placeholder={t("separationKm")}
-              value={separationKm || ""} // Controlled input with fallback
-              onChange={handleSeparationKmChange}
-            />
-          </FormRowVertical>
-          <FormRowVertical>
-            <StyledLabel htmlFor="beforeSeparationPrice">
-              {t("beforeSeparationPrice")}
-            </StyledLabel>
-            <Input
-              type="number"
-              id="beforeSeparationPrice"
-              placeholder={t("beforeSeparationPrice")}
-              value={beforeSeparationPrice || ""} // Controlled input with fallback
-              onChange={handleBeforeSeparationPriceChange}
-            />
-          </FormRowVertical>
-          <FormRowVertical>
-            <StyledLabel htmlFor="afterSeparationPrice">
-              {t("afterSeparationPrice")}
-            </StyledLabel>
-            <Input
-              type="number"
-              id="afterSeparationPrice"
-              placeholder={t("afterSeparationPrice")}
-              value={afterSeparationPrice || ""} // Controlled input with fallback
-              onChange={handleAfterSeparationPriceChange}
-            />
-          </FormRowVertical>
-          <FormRowVertical>
-            <StyledLabel htmlFor="InOutSeparationKm">
-              {t("inOutSeparationKm")}
-            </StyledLabel>
-            <Input
-              type="number"
-              id="InOutSeparationKm"
-              placeholder={t("inOutSeparationKm")}
-              value={inOutSeparationKm || ""} // Controlled input with fallback
-              onChange={handleInOutSeparationKmChange}
-            />
-          </FormRowVertical>
+  return isLoading ? (
+    <Spinner />
+  ) : (
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "grid" : "regular"}
+    >
+      <FormRowVertical error={errors?.englishName?.message}>
+        <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
+        <Input
+          type="text"
+          id="EnglishName"
+          placeholder={t("englishName")}
+          //value={after_separation_price || ""} // Controlled input with fallback
+          defaultValue={name.en}
+          onChange={handleEnglishNameChange}
+          {...register("englishName", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("englishName.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 3,
+              message: t("englishName.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("englishName.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("englishName.singleWord"),
+              noSpecialCharacters: (value) =>
+                /^[a-zA-Z0-9\s]*$/.test(value) ||
+                t("englishName.noSpecialCharacters"),
+              noSQLInjection: (value) =>
+                !/[;'"|#-]/.test(value) || t("englishName.noSQLInjection"),
+            },
+          })}
+        />
+      </FormRowVertical>
+      <FormRowVertical error={errors?.arabicName?.message}>
+        <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
+        <Input
+          type="text"
+          id={t("arabicName")}
+          placeholder="Arabic Name"
+          // value={arName} // Controlled input with fallback
+          defaultValue={name.ar}
+          onChange={handleArabicNameChange}
+          {...register("arabicName", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("arabicName.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 3,
+              message: t("arabicName.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("arabicName.maxLength"),
+            },
+            validate: {
+              singleWord: (value) =>
+                /^[^\s]+$/.test(value) || t("arabicName.singleWord"),
+              // noSpecialCharacters: (value) =>
+              //   /^[a-zA-Z0-9\s]*$/.test(value) ||
+              //   t("arabicName.noSpecialCharacters"),
+              noSQLInjection: (value) =>
+                !/[;'"|#-]/.test(value) || t("arabicName.noSQLInjection"),
+              arabicValidation: (value) =>
+                /^[\u0600-\u06FF\s]+$/.test(value) ||
+                t("arabicName.arabicOnly"),
+            },
+          })}
+        />
+      </FormRowVertical>
+      <FormRowVertical error={errors?.driverCommission?.message}>
+        <StyledLabel htmlFor="driverCommission">
+          {t("driverCommission")}
+        </StyledLabel>
+        <Input
+          type="number"
+          id="driverCommission"
+          placeholder={t("driverCommission")}
+          //value={driverCommission || ""} // Controlled input with fallback
+          defaultValue={driver_commission}
+          onChange={handleDriverCommissionChange}
+          min={0}
+          {...register("driverCommission", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("driverCommission.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 1,
+              message: t("driverCommission.minLength"),
+            },
+            maxLength: {
+              value: 10,
+              message: t("driverCommission.maxLength"),
+            },
+          })}
+        />
+      </FormRowVertical>
+      <FormRowVertical error={errors?.openingPrice?.message}>
+        <StyledLabel htmlFor="openingPrice">{t("openingPrice")}</StyledLabel>
+        <Input
+          type="number"
+          id="openingPrice"
+          placeholder={t("openingPrice")}
+          // value={openingPrice || ""} // Controlled input with fallback
+          defaultValue={opening_price}
+          onChange={handleOpeningPriceChange}
+          min={0}
+          {...register("openingPrice", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("openingPrice.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 1,
+              message: t("openingPrice.minLength"),
+            },
+            maxLength: {
+              value: 10,
+              message: t("openingPrice.maxLength"),
+            },
+          })}
+        />
+      </FormRowVertical>
+      <FormRowVertical error={errors?.separationKm?.message}>
+        <StyledLabel htmlFor="separationKm">{t("separationKm")}</StyledLabel>
+        <Input
+          type="number"
+          id="separationKm"
+          placeholder={t("separationKm")}
+          //value={separationKm || ""} // Controlled input with fallback
+          defaultValue={separation_km}
+          onChange={handleSeparationKmChange}
+          min={0}
+          {...register("separationKm", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("separationKm.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 1,
+              message: t("separationKm.minLength"),
+            },
+            maxLength: {
+              value: 10,
+              message: t("separationKm.maxLength"),
+            },
+          })}
+        />
+      </FormRowVertical>
+      <FormRowVertical error={errors?.beforeSeparationPrice?.message}>
+        <StyledLabel htmlFor="beforeSeparationPrice">
+          {t("beforeSeparationPrice")}
+        </StyledLabel>
+        <Input
+          type="number"
+          id="beforeSeparationPrice"
+          placeholder={t("beforeSeparationPrice")}
+          //value={beforeSeparationPrice || ""} // Controlled input with fallback
+          defaultValue={before_separation_price}
+          onChange={handleBeforeSeparationPriceChange}
+          min={0}
+          {...register("beforeSeparationPrice", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("beforeSeparationPrice.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 1,
+              message: t("beforeSeparationPrice.minLength"),
+            },
+            maxLength: {
+              value: 10,
+              message: t("beforeSeparationPrice.maxLength"),
+            },
+          })}
+        />
+      </FormRowVertical>
+      <FormRowVertical error={errors?.afterSeparationPrice?.message}>
+        <StyledLabel htmlFor="afterSeparationPrice">
+          {t("afterSeparationPrice")}
+        </StyledLabel>
+        <Input
+          type="number"
+          id="afterSeparationPrice"
+          placeholder={t("afterSeparationPrice")}
+          //value={afterSeparationPrice || ""} // Controlled input with fallback
+          defaultValue={after_separation_price}
+          onChange={handleAfterSeparationPriceChange}
+          min={0}
+          {...register("afterSeparationPrice", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("afterSeparationPrice.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 1,
+              message: t("afterSeparationPrice.minLength"),
+            },
+            maxLength: {
+              value: 10,
+              message: t("afterSeparationPrice.maxLength"),
+            },
+          })}
+        />
+      </FormRowVertical>
+      <FormRowVertical error={errors?.InOutSeparationKm?.message}>
+        <StyledLabel htmlFor="InOutSeparationKm">
+          {t("inOutSeparationKm")}
+        </StyledLabel>
+        <Input
+          type="number"
+          id="InOutSeparationKm"
+          placeholder={t("inOutSeparationKm")}
+          //value={inOutSeparationKm || ""} // Controlled input with fallback
+          defaultValue={in_out_separation_km}
+          onChange={handleInOutSeparationKmChange}
+          min={0}
+          {...register("InOutSeparationKm", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("InOutSeparationKm.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 1,
+              message: t("InOutSeparationKm.minLength"),
+            },
+            maxLength: {
+              value: 10,
+              message: t("InOutSeparationKm.maxLength"),
+            },
+          })}
+        />
+      </FormRowVertical>
 
-          {/* Error message display */}
-          <FormRowVertical>
-            {editError && (
-              <div style={{ color: "red", gridColumn: "span 2" }}>
-                {editError}
-              </div>
-            )}
-          </FormRowVertical>
+      {/* Error message display */}
+      <FormRowVertical></FormRowVertical>
 
-          <Button onClick={handleClick}>{t("Submit")}</Button>
-        </Box>
-      </Modal>
-    </>
+      <Button>{t("Submit")}</Button>
+    </Form>
   );
 }
 

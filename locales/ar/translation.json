@@ -111,6 +111,7 @@
   "DriverStatus": "الحاله",
   "AddDriver": "إضافه",
   "CarInfo": "معلومات السيارة",
+  "codeForCostPerKm": "التكلفة لكل كيلومتر",
 
   "DriverFirstName": "الاسم الأول",
   "DriverLastName": "الاسم الأخير",

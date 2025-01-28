@@ -10,10 +10,10 @@ function useCreateCarService() {
   const queryClient = useQueryClient();
   const { serviceId } = useParams();
 
-  const mutation = useMutation({
+  const { mutate: addCarService, isLoading: isAdded } = useMutation({
     mutationFn: ({
-      arabicName,
       englishName,
+      arabicName,
       driverCommission,
       openingPrice,
       separationKm,
@@ -23,8 +23,8 @@ function useCreateCarService() {
     }) =>
       createCar(
         serviceId,
-        arabicName,
         englishName,
+        arabicName,
         driverCommission,
         openingPrice,
         separationKm,
@@ -42,9 +42,8 @@ function useCreateCarService() {
   });
 
   return {
-    isLoading: mutation.isLoading,
-    createCarService: mutation.mutate,
-    error: mutation.error,
+    addCarService,
+    isAdded,
   };
 }
 

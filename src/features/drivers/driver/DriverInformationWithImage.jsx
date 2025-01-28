@@ -74,6 +74,26 @@ const Value = styled.div`
   color: #272424;
 `;
 
+const Missing = styled.p`
+  flex: 1;
+
+  ${(props) =>
+    props.lang === "ar-Eg" &&
+    css`
+      text-align: right;
+    `}
+
+  ${(props) =>
+    props.lang === "en-US" &&
+    css`
+      text-align: left;
+    `}
+
+font-weight: 600px;
+
+  color: #f50606;
+`;
+
 const View = styled.div`
   flex: 1;
   ${(props) =>
@@ -183,15 +203,23 @@ function DriverInformationWithImage({ data, title }) {
                 <>
                   <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
                   <View>
-                    <Link to={value} target="_blank">
-                      {t("View")}
-                    </Link>
+                    {value === "" ? (
+                      <Missing>Missing</Missing>
+                    ) : (
+                      <Link to={value} target="_blank">
+                        {t("View")}
+                      </Link>
+                    )}
                   </View>
                 </>
               ) : (
                 <>
                   <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
-                  <Value>{value}</Value>
+                  {value === "" ? (
+                    <Missing>Missing</Missing>
+                  ) : (
+                    <Value>{value}</Value>
+                  )}
                 </>
               )}
             </RowItem>

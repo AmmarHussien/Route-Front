@@ -121,13 +121,13 @@ function CreateNotificationForm({ onCloseModal }) {
       onSubmit={handleSubmit(onSubmit, onError)}
       type={onCloseModal ? "grid" : "regular"}
     >
-      <FormRowVertical $error={errors?.subject?.message}>
+      <FormRowVertical error={errors?.subject?.message}>
         <StyledLabel htmlFor="Subject"> {t("Subject")} </StyledLabel>
 
         <Input
           type="text"
           id="Subject"
-          placeholder={t("Subject")}
+          placeholder={t("subject")}
           {...register("subject", {
             required: {
               value: true,
@@ -136,6 +136,14 @@ function CreateNotificationForm({ onCloseModal }) {
             minLength: {
               value: 3,
               message: t("SubjectValidation.minLength"),
+            },
+            validate: {
+              noSpecialCharacters: (value) =>
+                /^[a-zA-Z0-9\s]*$/.test(value) ||
+                t("FirstNameValidation.noSpecialCharacters"),
+              noSQLInjection: (value) =>
+                !/[;'"|#-]/.test(value) ||
+                t("FirstNameValidation.noSQLInjection"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -162,6 +170,14 @@ function CreateNotificationForm({ onCloseModal }) {
             maxLength: {
               value: 180,
               message: t("MessageValidation.maxLength"),
+            },
+            validate: {
+              noSpecialCharacters: (value) =>
+                /^[a-zA-Z0-9\s]*$/.test(value) ||
+                t("FirstNameValidation.noSpecialCharacters"),
+              noSQLInjection: (value) =>
+                !/[;'"|#-]/.test(value) ||
+                t("FirstNameValidation.noSQLInjection"),
             },
           })}
           $sx={{

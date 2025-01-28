@@ -108,7 +108,6 @@ export async function deleteCar(brandId, carId) {
 
 export async function createCar(
   brandId,
-
   arabicName,
   englishName,
   driverCommission,
@@ -120,13 +119,12 @@ export async function createCar(
 ) {
   try {
     const token = await getAuthToken();
-
     const response = await axios.post(
       `${URL}${brandId}/car_types`,
       {
         name: {
-          ar: arabicName,
           en: englishName,
+          ar: arabicName,
         },
         driver_commission: driverCommission,
         opening_price: openingPrice,

@@ -43,55 +43,55 @@ function useUsers(searchKey) {
 
   const { data: users = [], count } = usersData;
 
-  const pageCount = Math.ceil(count / perPage);
+  // const pageCount = Math.ceil(count / perPage);
 
-  // Prefetch Next Page
-  if (page < pageCount) {
-    queryClient.prefetchQuery({
-      queryKey: [
-        "users",
-        filter,
-        page + 1,
-        searchKey,
-        sortBy,
-        sortType,
-        perPage,
-      ],
-      queryFn: () =>
-        getAllUsers({
-          filter,
-          page: page + 1,
-          searchKey,
-          sortBy,
-          sortType,
-          perPage,
-        }),
-    });
-  }
+  // // Prefetch Next Page
+  // if (page < pageCount) {
+  //   queryClient.prefetchQuery({
+  //     queryKey: [
+  //       "users",
+  //       filter,
+  //       page + 1,
+  //       searchKey,
+  //       sortBy,
+  //       sortType,
+  //       perPage,
+  //     ],
+  //     queryFn: () =>
+  //       getAllUsers({
+  //         filter,
+  //         page: page + 1,
+  //         searchKey,
+  //         sortBy,
+  //         sortType,
+  //         perPage,
+  //       }),
+  //   });
+  // }
 
-  // Prefetch Previous Page
-  if (page > 1) {
-    queryClient.prefetchQuery({
-      queryKey: [
-        "users",
-        filter,
-        page - 1,
-        searchKey,
-        sortBy,
-        sortType,
-        perPage,
-      ],
-      queryFn: () =>
-        getAllUsers({
-          filter,
-          page: page - 1,
-          searchKey,
-          sortBy,
-          sortType,
-          perPage,
-        }),
-    });
-  }
+  // // Prefetch Previous Page
+  // if (page > 1) {
+  //   queryClient.prefetchQuery({
+  //     queryKey: [
+  //       "users",
+  //       filter,
+  //       page - 1,
+  //       searchKey,
+  //       sortBy,
+  //       sortType,
+  //       perPage,
+  //     ],
+  //     queryFn: () =>
+  //       getAllUsers({
+  //         filter,
+  //         page: page - 1,
+  //         searchKey,
+  //         sortBy,
+  //         sortType,
+  //         perPage,
+  //       }),
+  //   });
+  // }
 
   return { isLoading, users, count, error };
 }

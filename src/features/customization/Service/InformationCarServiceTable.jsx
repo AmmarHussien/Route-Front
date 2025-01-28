@@ -11,6 +11,7 @@ import useDeleteCar from "./useDeleteCar";
 import Spinner from "../../../ui/Spinner";
 import { useTranslation } from "react-i18next";
 import useViewCarService from "./useViewCarService";
+import Modal from "../../../ui/Modal";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -79,10 +80,8 @@ function InformationCarServiceTable({
 
   const { i18n, t } = useTranslation();
   const isRTL = i18n.language === "ar-EG";
-  const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
-  const handleOpen = () => setOpen(true);
 
   const dataRow = {
     [t("serviceId")]: carService.id,
@@ -127,9 +126,16 @@ function InformationCarServiceTable({
         <Row type={"horizontal"}>
           <Title>{title}</Title>
           <div>
-            <IconButton aria-label="Edit" onClick={handleOpen}>
-              <ModeEditIcon fontSize="large" color="primary" />
-            </IconButton>
+            <Modal>
+              <Modal.Open opens="edit-car-service-form">
+                <IconButton aria-label="Edit">
+                  <ModeEditIcon fontSize="large" color="primary" />
+                </IconButton>
+              </Modal.Open>
+              <Modal.Window name="edit-car-service-form">
+                <EditCarService id={id} />
+              </Modal.Window>
+            </Modal>
             <IconButton
               aria-label="delete"
               size="large"
@@ -149,14 +155,14 @@ function InformationCarServiceTable({
           />
         )}
 
-        {dataRow && (
+        {/* {dataRow && (
           <EditCarService
             open={open}
             setOpen={setOpen}
             data={id}
             isLoading={EditLoading}
           />
-        )}
+        )} */}
 
         <Table>
           {Object.entries(dataRow).map(([key, value], index) => (
