@@ -14,7 +14,7 @@ function useDeleteModel(modelId) {
       // Invalidate the query to refresh the manufactures list after deletion
       toast.success(t("useDeleteModelValidations.Successfully"));
 
-      queryClient.invalidateQueries(["Customization-Models", Id]);
+      queryClient.invalidateQueries({ queryKey: ["Customization-Models", Id] });
     },
     onError: (error) => {
       toast.error(t("useDeleteModelValidations.Error"));

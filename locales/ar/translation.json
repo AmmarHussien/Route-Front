@@ -156,6 +156,15 @@
     "UserCar": "سيارات المستخدمين"
   },
 
+  "NAVSetting": {
+    "Setting": "الإعدادات",
+    "Admin": "المشرفين",
+    "Role": "الادوار",
+    "Permission": "التخصص"
+  },
+
+  "Setting": "الإعدادات",
+
   "RideID": "رقم الرحلة",
   "ALLRides": "الرحلات",
   "CreatedDate": "تاريخ الطلب",

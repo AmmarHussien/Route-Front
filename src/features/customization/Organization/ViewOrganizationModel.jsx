@@ -12,8 +12,6 @@ function ViewOrganizationModel({ id }) {
 
   const { id: viewId } = viewOrganizations;
 
-  // const { id: viewId } = viewOrganizations;
-
   return (
     <InformationOrganizationTable
       data={viewId}

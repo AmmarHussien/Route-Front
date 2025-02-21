@@ -52,6 +52,12 @@ import OrganizationLayout from "./features/customization/Organization/Organizati
 import { useTranslation } from "react-i18next";
 import "../i18n"; // Import the i18n configuration
 import { AuthProvider } from "./Context/AuthContext";
+import SettingLayout from "./features/Setting/SettingLayout";
+import ViewRole from "./features/Setting/Role/Role Informations/ViewRole";
+import RoleLayout from "./features/Setting/Role/RoleLayout";
+import AdminLayout from "./features/Setting/Admin/AdminsLayout";
+import AddRoleScreen from "./features/Setting/Role/AddRoleScreen";
+import ViewAdmin from "./features/Setting/Admin/Admin Informations/ViewAdmin";
 
 // Configure QueryClient
 const queryClient = new QueryClient({
@@ -143,6 +149,29 @@ function AdminRoutes() {
           path="/customization/userCar/:CarBrand/:Id"
           element={<ViewCarBrand />}
         />
+
+        <Route path="/setting" element={<SettingLayout />} />
+
+        <Route path="/setting/admin" element={<AdminLayout />} />
+
+        <Route
+          path="/setting/admin/admin-information/:id"
+          element={<ViewAdmin />}
+        />
+
+        <Route path="/setting/role" element={<RoleLayout />} />
+
+        <Route
+          path="/setting/role/role-information/:id"
+          element={<ViewRole />}
+        />
+
+        <Route path="/setting/role/add-role" element={<AddRoleScreen />} />
+
+        {/* <Route
+          path="/setting/rolePermission"
+          element={<RolePermissionLayout />}
+        /> */}
       </Route>
     </Routes>
   );

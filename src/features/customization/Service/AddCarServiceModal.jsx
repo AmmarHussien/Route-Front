@@ -8,6 +8,7 @@ import { useState } from "react";
 import useCreateCarService from "./useCreateCarService";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
+import Spinner from "../../../ui/Spinner";
 // import useCreateOrganization from "./useCreateOrganization";
 
 const StyledLabel = styled.label`
@@ -75,7 +76,9 @@ function AddCarServiceModal({ onCloseModal }) {
     );
   };
 
-  return (
+  return isAdded ? (
+    <Spinner />
+  ) : (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
       type={onCloseModal ? "grid" : "regular"}
@@ -102,8 +105,8 @@ function AddCarServiceModal({ onCloseModal }) {
               message: t("englishName.maxLength"),
             },
             validate: {
-              singleWord: (value) =>
-                /^[^\s]+$/.test(value) || t("englishName.singleWord"),
+              // singleWord: (value) =>
+              //   /^[^\s]+$/.test(value) || t("englishName.singleWord"),
               noSpecialCharacters: (value) =>
                 /^[a-zA-Z0-9\s]*$/.test(value) ||
                 t("englishName.noSpecialCharacters"),

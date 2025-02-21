@@ -220,6 +220,40 @@ function MainNav() {
               {t("NAVCustomization.UserCar")}
             </DropdownItem>
           </DropdownContainer>
+
+          <StyledNavLink to="/setting">
+            <img
+              id="Setting-img"
+              src="/Setting.svg"
+              alt="Setting"
+              width="30"
+              height="30"
+            />
+            <span>{t("NAVSetting.Setting")}</span>
+          </StyledNavLink>
+
+          <DropdownContainer lang={isRTL ? "ar-Eg" : "en-US"}>
+            <DropdownItem to="/setting/admin">
+              <img
+                id="services-img"
+                src="/services.svg"
+                alt="services"
+                width="30"
+                height="30"
+              />
+              {t("NAVSetting.Admin")}
+            </DropdownItem>
+            <DropdownItem to="/setting/role">
+              <img
+                id="organization-img"
+                src="/organizational.svg"
+                alt="organizational"
+                width="30"
+                height="30"
+              />
+              {t("NAVSetting.Role")}
+            </DropdownItem>
+          </DropdownContainer>
         </li>
       </NavList>
     </nav>

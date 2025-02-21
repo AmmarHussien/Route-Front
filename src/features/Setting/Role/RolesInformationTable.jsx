@@ -1,17 +1,13 @@
+import { useTranslation } from "react-i18next";
 import styled, { css } from "styled-components";
-import Row from "../../../../ui/Row";
+import Spinner from "../../../ui/Spinner";
+import Row from "../../../ui/Row";
 import { IconButton } from "@mui/material";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-import EditBrand from "./EditBrand";
-import useDeleteManufactures from "./useDeleteManufactures";
-import Spinner from "../../../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
-import AlertConfirmation from "../../../../ui/AlertConfirmation";
-import { useTranslation } from "react-i18next";
-import Modal from "../../../../ui/Modal";
+import AlertConfirmation from "../../../ui/AlertConfirmation";
+import useDeleteRole from "./useDeleteRole";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -21,12 +17,6 @@ const TableContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   height: fit-content;
-`;
-
-const Title = styled.h2`
-  margin-bottom: 20px;
-  font-size: 1.5em;
-  color: #333;
 `;
 
 const Table = styled.div`
@@ -71,24 +61,28 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
-function InformationBrandTable({ title, data }) {
+const Title = styled.h2`
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #333;
+`;
+
+function RolesInformationTable({ title, data, isLoading }) {
   const { i18n, t } = useTranslation();
   const isRTL = i18n.language === "ar-EG";
-  const [setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
-  const handleOpen = () => setOpen(true);
-
-  const { mutate: deleteManufacture, isLoading } = useDeleteManufactures();
   const navigate = useNavigate();
+  const [isDelete, setIsDelete] = useState(false);
+
+  const { mutate: deleteRole } = useDeleteRole(data.id);
 
   useEffect(() => {
     if (isDelete) {
       // Trigger the delete mutation
-      deleteManufacture(undefined, {
+      deleteRole(undefined, {
         onSuccess: () => {
           // Navigate to the specified route after successful deletion
-          navigate("/customization/userCar");
+          navigate("/setting/role");
           setIsDelete(false); // Reset delete state after success
         },
         onError: (error) => {
@@ -96,40 +90,40 @@ function InformationBrandTable({ title, data }) {
         },
       });
     }
-  }, [isDelete, deleteManufacture, navigate]);
+  }, [isDelete, deleteRole, navigate]);
 
-  const handleClick = () => {
+  const handleClicks = () => {
     setOpenAlert(true);
   };
 
-  if (!data === null) return <Empty>{t("NoData")}</Empty>;
+  function handleCLick(id) {
+    navigate(`/setting/role/role-information/${id}`);
+  }
 
-  return (
+  if (!data) return <Empty>{t("NoData")}</Empty>;
+
+  const dataAdmin = {
+    [t("Role Id")]: data.id,
+    [t("Name")]: data.name,
+    [t("Users-Count")]: data.users_count || 0,
+    // [t("Status")]: data.status,
+  };
+
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <>
-      {isLoading && <Spinner />} {/* Show the Spinner while deleting */}
       <TableContainer>
         <Row type={"horizontal"}>
-          <Title>{title}</Title>
-          <div>
-            <Modal>
-              <Modal.Open opens="add-Brand">
-                <IconButton aria-label="Edit" onClick={handleOpen}>
-                  <ModeEditIcon fontSize="large" color="primary" />
-                </IconButton>
-              </Modal.Open>
-              <Modal.Window name="add-Brand">
-                <EditBrand data={data} />
-              </Modal.Window>
-            </Modal>
-            <IconButton
-              aria-label="delete"
-              size="large"
-              color="error"
-              onClick={handleClick}
-            >
-              <DeleteIcon fontSize="inherit" />
-            </IconButton>
-          </div>
+          <Title>{data.name}</Title>
+          <IconButton
+            aria-label="delete"
+            size="large"
+            color="error"
+            onClick={handleClicks}
+          >
+            <DeleteIcon fontSize="inherit" />
+          </IconButton>
         </Row>
 
         {openAlert && (
@@ -139,9 +133,11 @@ function InformationBrandTable({ title, data }) {
             deleting={setIsDelete}
           />
         )}
-
-        <Table>
-          {Object.entries(data).map(([key, value], index) => (
+        <Table
+          onClick={() => handleCLick(data.id)}
+          style={{ cursor: "pointer" }}
+        >
+          {Object.entries(dataAdmin).map(([key, value], index) => (
             <RowItem key={key} $even={index % 2 === 1}>
               <Label>{key.replace(/([A-Z])/g, " $1")}</Label>
               <Value lang={isRTL ? "ar-Eg" : "en-US"}> {value} </Value>
@@ -153,4 +149,4 @@ function InformationBrandTable({ title, data }) {
   );
 }
 
-export default InformationBrandTable;
+export default RolesInformationTable;

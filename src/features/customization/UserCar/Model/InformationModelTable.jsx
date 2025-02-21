@@ -10,6 +10,7 @@ import AlertConfirmation from "../../../../ui/AlertConfirmation";
 import useDeleteModel from "./useDeleteModel";
 import Spinner from "../../../../ui/Spinner";
 import { useTranslation } from "react-i18next";
+import Modal from "../../../../ui/Modal";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -70,10 +71,8 @@ const Empty = styled.p`
 `;
 
 function InformationModelTable({ title, data, id }) {
-  const { i18n, t } = useTranslation();
-  const isRTL = i18n.language === "ar-EG";
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const { t } = useTranslation();
+
   const [openAlert, setOpenAlert] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
 
@@ -103,16 +102,25 @@ function InformationModelTable({ title, data, id }) {
 
   if (!data) return <Empty>{t("NoData")}</Empty>;
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <>
-      {isLoading && <Spinner />} {/* Show the Spinner while deleting */}
       <TableContainer>
         <Row type={"horizontal"}>
           <Title>{title}</Title>
           <div>
-            <IconButton aria-label="Edit" onClick={handleOpen}>
-              <ModeEditIcon fontSize="large" color="primary" />
-            </IconButton>
+            <Modal>
+              <Modal.Open opens="add-Brand">
+                <IconButton aria-label="Edit">
+                  <ModeEditIcon fontSize="large" color="primary" />
+                </IconButton>
+              </Modal.Open>
+              <Modal.Window name="add-Brand">
+                <EditModel data={id} />
+              </Modal.Window>
+            </Modal>
+
             <IconButton
               aria-label="delete"
               size="large"
@@ -132,8 +140,8 @@ function InformationModelTable({ title, data, id }) {
           />
         )}
 
-        {/* Ensure that data is valid before passing it to EditModel */}
-        {data && <EditModel open={open} setOpen={setOpen} data={id} />}
+        {/* Ensure that data is valid before passing it to EditModel
+        {data && <EditModel open={open} setOpen={setOpen} data={id} />} */}
 
         <Table>
           {Object.entries(data).map(([key, value], index) => (

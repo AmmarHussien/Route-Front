@@ -121,8 +121,8 @@ function EditCarService({ id, onCloseModal }) {
               message: t("englishName.maxLength"),
             },
             validate: {
-              singleWord: (value) =>
-                /^[^\s]+$/.test(value) || t("englishName.singleWord"),
+              // singleWord: (value) =>
+              //   /^[^\s]+$/.test(value) || t("englishName.singleWord"),
               noSpecialCharacters: (value) =>
                 /^[a-zA-Z0-9\s]*$/.test(value) ||
                 t("englishName.noSpecialCharacters"),

@@ -1,24 +1,15 @@
-import { Box, Modal, Switch } from "@mui/material";
+import { Switch } from "@mui/material";
 import FormRowVertical from "../../../../ui/FormRowVertical";
 import Input from "../../../../ui/Input";
 import Button from "../../../../ui/Button";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useEditModel from "./useEditModel";
 import Spinner from "../../../../ui/Spinner";
 import useViewModel from "./useViewModel";
-
-const style = {
-  position: "absolute",
-  top: "34%",
-  left: "70%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { useForm } from "react-hook-form";
+import Form from "../../../../ui/Form";
+import { useTranslation } from "react-i18next";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -28,31 +19,20 @@ const StyledLabel = styled.label`
   display: inline-block;
 `;
 
-function EditModel({ open, setOpen, data }) {
-  const handleClose = () => setOpen(false);
-
-  const [arName, setArName] = useState(""); // Arabic name state
-  const [egName, setEgName] = useState(""); // English name state
-  const [isActive, setIsActive] = useState(""); // IsActive state
-  const [editError, setEditError] = useState(null); // Error state
+function EditModel({ onCloseModal, data }) {
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
   const { models } = useViewModel(data);
-
   const { editModels, isLoading } = useEditModel(data);
+  const {
+    name: { ar: arabicName, en: englishName },
+    is_active,
+  } = models;
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    if (open && data) {
-      const {
-        name: { ar: arabicName, en: englishName },
-        is_active,
-      } = models;
-
-      setArName(arabicName); // Reset Arabic name field
-      setEgName(englishName); // Reset English name field
-      setIsActive(is_active); // Reset is_active field
-    }
-  }, [open, data, models]);
-
-  if (isLoading) return <Spinner />;
+  const [setArName] = useState(""); // Arabic name state
+  const [setEgName] = useState(""); // English name state
+  const [isActive, setIsActive] = useState(is_active); // IsActive state
 
   const handleEnglishNameChange = (event) => {
     setEgName(event.target.value);
@@ -66,47 +46,99 @@ function EditModel({ open, setOpen, data }) {
     setIsActive(event.target.checked);
   };
 
-  const handleClick = () => {
-    setEditError(null); // Clear previous error before new submission
+  const onError = (errors) => {};
+
+  const onSubmit = (data) => {
     editModels(
       {
-        englishName: egName,
-        arabicName: arName,
+        englishName: data.englishName,
+        arabicName: data.arabicName,
         isActive: isActive,
       },
       {
         onSuccess: () => {
-          setOpen(false); // Close the modal only if successful
-        },
-        onError: (error) => {
-          setEditError(error.message); // Set the error message and keep the modal open
+          reset();
+          onCloseModal?.();
         },
       }
     );
   };
 
-  return (
-    <Modal open={open} onClose={handleClose}>
-      <Box sx={style}>
-        <FormRowVertical>
+  return isLoading ? (
+    <Spinner />
+  ) : (
+    <>
+      <Form onSubmit={handleSubmit(onSubmit, onError)} type="regular">
+        <FormRowVertical error={errors?.englishName?.message}>
           <StyledLabel htmlFor="EnglishName">English Name</StyledLabel>
           <Input
             type="text"
             id="EnglishName"
             placeholder="English Name"
-            value={egName}
+            // value={egName}
+            defaultValue={englishName}
             onChange={handleEnglishNameChange}
+            {...register("englishName", {
+              required: {
+                value: true, // This specifies that the field is required
+                message: t("englishName.required"), // Correctly translating the message
+              },
+              minLength: {
+                value: 3,
+                message: t("englishName.minLength"),
+              },
+              maxLength: {
+                value: 20,
+                message: t("englishName.maxLength"),
+              },
+              validate: {
+                // singleWord: (value) =>
+                //   /^[^\s]+$/.test(value) || t("englishName.singleWord"),
+                noSpecialCharacters: (value) =>
+                  /^[a-zA-Z0-9\s]*$/.test(value) ||
+                  t("englishName.noSpecialCharacters"),
+                noSQLInjection: (value) =>
+                  !/[;'"|#-]/.test(value) || t("englishName.noSQLInjection"),
+              },
+            })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
-        <FormRowVertical>
+        <FormRowVertical error={errors?.arabicName?.message}>
           <StyledLabel htmlFor="ArabicName">Arabic Name</StyledLabel>
           <Input
             type="text"
             id="ArabicName"
             placeholder="Arabic Name"
-            value={arName}
+            // value={arName}
+            defaultValue={arabicName}
             onChange={handleArabicNameChange}
+            {...register("arabicName", {
+              required: {
+                value: true, // This specifies that the field is required
+                message: t("arabicName.required"), // Correctly translating the message
+              },
+              minLength: {
+                value: 3,
+                message: t("arabicName.minLength"),
+              },
+              maxLength: {
+                value: 20,
+                message: t("arabicName.maxLength"),
+              },
+              validate: {
+                // singleWord: (value) =>
+                //   /^[^\s]+$/.test(value) || t("arabicName.singleWord"),
+                // noSpecialCharacters: (value) =>
+                //   /^[a-zA-Z0-9\s]*$/.test(value) ||
+                //   t("arabicName.noSpecialCharacters"),
+                noSQLInjection: (value) =>
+                  !/[;'"|#-]/.test(value) || t("arabicName.noSQLInjection"),
+                arabicValidation: (value) =>
+                  /^[\u0600-\u06FF\s]+$/.test(value) ||
+                  t("arabicName.arabicOnly"),
+              },
+            })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
@@ -119,15 +151,10 @@ function EditModel({ open, setOpen, data }) {
         />
 
         <FormRowVertical>
-          <Button type="submit" onClick={handleClick}>
-            Edit
-          </Button>
+          <Button type="submit">Edit</Button>
         </FormRowVertical>
-        {editError && (
-          <p style={{ color: "red", marginTop: "10px" }}>Error: {editError}</p>
-        )}
-      </Box>
-    </Modal>
+      </Form>
+    </>
   );
 }
 

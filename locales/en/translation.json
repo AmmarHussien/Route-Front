@@ -152,6 +152,15 @@
     "UserCar": "Users Car"
   },
 
+  "NAVSetting": {
+    "Setting": "Settings",
+    "Role": "Role",
+    "Admin": "Admin",
+    "Permission": "Permission"
+  },
+
+  "Setting": "Setting",
+
   "RideID": "Ride ID",
   "ALLRides": "All Rides",
   "CreatedDate": "Created Date",

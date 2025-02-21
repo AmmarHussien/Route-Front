@@ -11,6 +11,7 @@ import useDeleteOrganization from "./useDeleteOrganization";
 import EditOrganization from "./EditOrganization";
 import useViewOrganization from "./useViewOrganization";
 import { useTranslation } from "react-i18next";
+import Modal from "../../../ui/Modal";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -73,8 +74,6 @@ const Empty = styled.p`
 function InformationOrganizationTable({ title, data }) {
   const { i18n, t } = useTranslation();
   const isRTL = i18n.language === "ar-EG";
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
   const [openAlert, setOpenAlert] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const { viewOrganizations, isLoading: viewLoading } =
@@ -129,9 +128,16 @@ function InformationOrganizationTable({ title, data }) {
         <Row type={"horizontal"}>
           <Title>{title}</Title>
           <div>
-            <IconButton aria-label="Edit" onClick={handleOpen}>
-              <ModeEditIcon fontSize="large" color="primary" />
-            </IconButton>
+            <Modal>
+              <Modal.Open opens="edit-Organization">
+                <IconButton aria-label="Edit">
+                  <ModeEditIcon fontSize="large" color="primary" />
+                </IconButton>
+              </Modal.Open>
+              <Modal.Window name="edit-Organization">
+                <EditOrganization id={data} />
+              </Modal.Window>
+            </Modal>
             <IconButton
               aria-label="delete"
               size="large"
@@ -152,7 +158,6 @@ function InformationOrganizationTable({ title, data }) {
         )}
 
         {/* Ensure that data is valid before passing it to EditModel */}
-        {data && <EditOrganization open={open} setOpen={setOpen} data={data} />}
 
         <Table>
           {Object.entries(dataOrganization).map(([key, value], index) => (

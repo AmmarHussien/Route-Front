@@ -1,22 +1,25 @@
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import AddCarModel from "./AddCarModel";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import Modal from "../../../../ui/Modal";
+import Modal from "../../../ui/Modal";
+import CreateAdminForm from "./CreateAdminForm";
 
-function AddModel() {
+function AddAdmin() {
+  const [setOpen] = useState(false);
   const { i18n, t } = useTranslation();
   const isRTL = i18n.language === "ar-EG";
-
+  const handleOpen = () => setOpen(true);
   return (
     <>
       <div>
         <Modal>
-          <Modal.Open opens="add-Organization">
+          <Modal.Open opens="add-Admin">
             <Button
               variant="contained"
               endIcon={isRTL ? <AddIcon sx={{ marginRight: 1 }} /> : null}
               startIcon={isRTL ? null : <AddIcon />}
+              onClick={handleOpen}
               sx={{
                 height: 56,
                 borderRadius: 5,
@@ -27,11 +30,11 @@ function AddModel() {
                 boxShadow: "0 4px 60px 0 rgba(0, 56, 255, 0.15)", // Updated shadow property
               }}
             >
-              {t("AddModel")}
+              {t("AddAdmin")}
             </Button>
           </Modal.Open>
-          <Modal.Window name="add-Organization">
-            <AddCarModel />
+          <Modal.Window name="add-Admin">
+            <CreateAdminForm />
           </Modal.Window>
         </Modal>
       </div>
@@ -39,4 +42,4 @@ function AddModel() {
   );
 }
 
-export default AddModel;
+export default AddAdmin;

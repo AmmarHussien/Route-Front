@@ -1,25 +1,15 @@
-import { Box, Modal, Switch } from "@mui/material";
+import { Switch } from "@mui/material";
 import FormRowVertical from "../../../ui/FormRowVertical";
 import Input from "../../../ui/Input";
 import Button from "../../../ui/Button";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Spinner from "../../../ui/Spinner";
 import useEditOrganization from "./useEditOrganization";
 import useViewOrganization from "./useViewOrganization";
 import { useTranslation } from "react-i18next";
-
-const style = {
-  position: "absolute",
-  top: "34%",
-  left: "70%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import Form from "../../../ui/Form";
+import { useForm } from "react-hook-form";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -29,32 +19,19 @@ const StyledLabel = styled.label`
   display: inline-block;
 `;
 
-function EditOrganization({ open, setOpen, data }) {
-  const handleClose = () => setOpen(false);
+function EditOrganization({ onCloseModal, id }) {
   const { t } = useTranslation();
 
-  const [arName, setArName] = useState(""); // Arabic name state
-  const [egName, setEgName] = useState(""); // English name state
-  const [isActive, setIsActive] = useState(""); // IsActive state
-  const [editError, setEditError] = useState(null); // Error state
-  const { viewOrganizations, isLoading: viewLoading } =
-    useViewOrganization(data);
-  const { mutate: editOrganization, isLoading } = useEditOrganization(data);
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
 
-  useEffect(() => {
-    if (open && data) {
-      const {
-        name: { ar, en },
-        is_active,
-      } = viewOrganizations;
+  const { viewOrganizations, isLoading: viewLoading } = useViewOrganization(id);
+  const { name, is_active } = viewOrganizations;
 
-      setArName(ar); // Reset Arabic name field
-      setEgName(en); // Reset English name field
-      setIsActive(is_active); // Reset is_active field
-    }
-  }, [open, data, viewOrganizations]);
-
-  if (isLoading || viewLoading) return <Spinner />;
+  const [setArName] = useState(""); // Arabic name state
+  const [setEgName] = useState(""); // English name state
+  const [isActive, setIsActive] = useState(is_active); // IsActive state
+  const { mutate: editOrganization, isLoading } = useEditOrganization(id);
 
   const handleEnglishNameChange = (event) => {
     setEgName(event.target.value);
@@ -68,86 +45,113 @@ function EditOrganization({ open, setOpen, data }) {
     setIsActive(event.target.checked);
   };
 
-  const validateArabicName = (name) => {
-    // Check if the string is not empty and contains Arabic characters
-    const arabicRegex = /^[\u0600-\u06FF\s]+$/; // Arabic character range
-    return name.trim() !== "" && arabicRegex.test(name);
-  };
+  const onError = (errors) => {};
 
-  const handleClick = () => {
-    setEditError(null); // Clear previous error before new submission
-
-    if (!egName || !arName) {
-      setEditError(t("OrganizationValidation.allRequired"));
-      return;
-    }
-
-    if (validateArabicName(arName)) {
-      // Proceed with the form submission
-      editOrganization(
-        {
-          englishName: egName,
-          arabicName: arName,
-          isActive: isActive,
+  const onSubmit = (data) => {
+    console.log(data, isActive);
+    editOrganization(
+      {
+        englishName: data.englishName,
+        arabicName: data.arabicName,
+        isActive: isActive,
+      },
+      {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
         },
-        {
-          onSuccess: () => {
-            handleClose(); // Close the modal only if successful
-          },
-          onError: (error) => {
-            setEditError(error.message); // Set the error message and keep the modal open
-          },
-        }
-      );
-    } else {
-      setEditError(t("OrganizationValidation.arabicName"));
-      return;
-    }
+      }
+    );
   };
 
-  return (
-    <Modal open={open} onClose={handleClose}>
-      <Box sx={style}>
-        <FormRowVertical>
-          <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
-          <Input
-            type="text"
-            id="EnglishName"
-            placeholder={t("englishName")}
-            value={egName}
-            onChange={handleEnglishNameChange}
-            $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
-          />
-        </FormRowVertical>
-        <FormRowVertical>
-          <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
-          <Input
-            type="text"
-            id="ArabicName"
-            placeholder={t("arabicName")}
-            value={arName}
-            onChange={handleArabicNameChange}
-            $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
-          />
-        </FormRowVertical>
-
-        <StyledLabel htmlFor="isActive">{t("isActive")}</StyledLabel>
-        <Switch
-          checked={Boolean(isActive)}
-          onChange={handleSwitchChange}
-          color="primary"
+  return viewLoading || isLoading ? (
+    <Spinner />
+  ) : (
+    <Form onSubmit={handleSubmit(onSubmit, onError)} type={"regular"}>
+      <FormRowVertical error={errors?.englishName?.message}>
+        <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
+        <Input
+          type="text"
+          id="EnglishName"
+          placeholder={t("englishName")}
+          // value={egName}
+          defaultValue={name.en}
+          onChange={handleEnglishNameChange}
+          {...register("englishName", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("englishName.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 3,
+              message: t("englishName.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("englishName.maxLength"),
+            },
+            validate: {
+              // singleWord: (value) =>
+              //   /^[^\s]+$/.test(value) || t("englishName.singleWord"),
+              noSpecialCharacters: (value) =>
+                /^[a-zA-Z0-9\s]*$/.test(value) ||
+                t("englishName.noSpecialCharacters"),
+              noSQLInjection: (value) =>
+                !/[;'"|#-]/.test(value) || t("englishName.noSQLInjection"),
+            },
+          })}
+          $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
         />
+      </FormRowVertical>
+      <FormRowVertical error={errors?.arabicName?.message}>
+        <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
+        <Input
+          type="text"
+          id="ArabicName"
+          placeholder={t("arabicName")}
+          // value={arName}
+          defaultValue={name.ar}
+          onChange={handleArabicNameChange}
+          {...register("arabicName", {
+            required: {
+              value: true, // This specifies that the field is required
+              message: t("arabicName.required"), // Correctly translating the message
+            },
+            minLength: {
+              value: 3,
+              message: t("arabicName.minLength"),
+            },
+            maxLength: {
+              value: 20,
+              message: t("arabicName.maxLength"),
+            },
+            validate: {
+              // singleWord: (value) =>
+              //   /^[^\s]+$/.test(value) || t("arabicName.singleWord"),
+              // noSpecialCharacters: (value) =>
+              //   /^[a-zA-Z0-9\s]*$/.test(value) ||
+              //   t("arabicName.noSpecialCharacters"),
+              noSQLInjection: (value) =>
+                !/[;'"|#-]/.test(value) || t("arabicName.noSQLInjection"),
+              arabicValidation: (value) =>
+                /^[\u0600-\u06FF\s]+$/.test(value) ||
+                t("arabicName.arabicOnly"),
+            },
+          })}
+          $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
+        />
+      </FormRowVertical>
+      <StyledLabel htmlFor="isActive">{t("isActive")}</StyledLabel>
+      <Switch
+        checked={Boolean(isActive)}
+        onChange={handleSwitchChange}
+        color="primary"
+      />
 
-        <FormRowVertical>
-          <Button type="submit" onClick={handleClick}>
-            {t("Submit")}
-          </Button>
-        </FormRowVertical>
-        {editError && (
-          <p style={{ color: "red", marginTop: "10px" }}>{editError}</p>
-        )}
-      </Box>
-    </Modal>
+      <FormRowVertical>
+        <Button type="submit">{t("Submit")}</Button>
+      </FormRowVertical>
+    </Form>
   );
 }
 

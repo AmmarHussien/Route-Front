@@ -1,24 +1,14 @@
-import { Box, Modal, Switch } from "@mui/material";
+import { Switch } from "@mui/material";
 import FormRowVertical from "../../../../ui/FormRowVertical";
 import Input from "../../../../ui/Input";
 import Button from "../../../../ui/Button";
 import useViewManufactures from "./useViewManufactures";
 import styled from "styled-components";
 import useEditManufactures from "./useEditManufactures";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-
-const style = {
-  position: "absolute",
-  top: "34%",
-  left: "70%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import Form from "../../../../ui/Form";
+import { useForm } from "react-hook-form";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -28,29 +18,21 @@ const StyledLabel = styled.label`
   display: inline-block;
 `;
 
-function EditBrand({ open, setOpen }) {
-  const handleClose = () => setOpen(false);
+function EditBrand({ onCloseModal }) {
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
   const { manufactures } = useViewManufactures();
+  const {
+    name: { ar: arabicName, en: englishName },
+    is_active,
+  } = manufactures;
+
   const { t } = useTranslation();
-  const [arName, setArName] = useState(""); // Arabic name state
-  const [egName, setEgName] = useState(""); // English name state
-  const [isActive, setIsActive] = useState(""); // IsActive state
-  const [editError, setEditError] = useState(null); // Error state
+  const [setArName] = useState(""); // Arabic name state
+  const [setEgName] = useState(""); // English name state
+  const [isActive, setIsActive] = useState(is_active); // IsActive state
 
   const { editManufacture, isLoading } = useEditManufactures();
-
-  useEffect(() => {
-    if (open && manufactures) {
-      const {
-        name: { ar: arabicName, en: englishName },
-        is_active,
-      } = manufactures;
-
-      setArName(arabicName); // Reset Arabic name field
-      setEgName(englishName); // Reset English name field
-      setIsActive(is_active); // Reset is_active field
-    }
-  }, [open, manufactures]); // Reset when modal opens or manufactures data changes
 
   const handleEnglishNameChange = (event) => {
     setEgName(event.target.value);
@@ -64,84 +46,118 @@ function EditBrand({ open, setOpen }) {
     setIsActive(event.target.checked);
   };
 
-  const validateArabicName = (name) => {
-    // Check if the string is not empty and contains Arabic characters
-    const arabicRegex = /^[\u0600-\u06FF\s]+$/; // Arabic character range
-    return name.trim() !== "" && arabicRegex.test(name);
-  };
+  const onError = (errors) => {};
 
-  const handleClick = () => {
-    setEditError(null); // Clear previous error before new submission
-
-    if (!arName || !egName) {
-      setEditError(t("BrandValidations.allRequired"));
-      return;
-    }
-
-    if (validateArabicName(arName)) {
-      editManufacture(
-        {
-          englishName: egName,
-          arabicName: arName,
-          isActive: isActive,
+  const onSubmit = (data) => {
+    editManufacture(
+      {
+        englishName: data.englishName,
+        arabicName: data.arabicName,
+        isActive: isActive,
+      },
+      {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
         },
-        {
-          onSuccess: () => {
-            setOpen(false); // Close the modal only if successful
-          },
-          onError: (error) => {
-            setEditError(error.message); // Set the error message and keep the modal open
-          },
-        }
-      );
-    } else {
-      setEditError(t("BrandValidations.arabicName"));
-      return;
-    }
+      }
+    );
   };
 
   return (
-    <Modal open={open} onClose={handleClose}>
-      <Box sx={style}>
-        <FormRowVertical>
+    <>
+      <Form onSubmit={handleSubmit(onSubmit, onError)} type="regular">
+        <FormRowVertical error={errors?.englishName?.message}>
           <StyledLabel htmlFor="EnglishName">{t("englishName")}</StyledLabel>
           <Input
             type="text"
             id="EnglishName"
             placeholder="English Name"
-            value={egName} // Controlled input to reflect state
+            // value={egName} // Controlled input to reflect state
             onChange={handleEnglishNameChange}
+            defaultValue={englishName}
+            {...register("englishName", {
+              required: {
+                value: true, // This specifies that the field is required
+                message: t("englishName.required"), // Correctly translating the message
+              },
+              minLength: {
+                value: 3,
+                message: t("englishName.minLength"),
+              },
+              maxLength: {
+                value: 20,
+                message: t("englishName.maxLength"),
+              },
+              validate: {
+                // singleWord: (value) =>
+                //   /^[^\s]+$/.test(value) || t("englishName.singleWord"),
+                noSpecialCharacters: (value) =>
+                  /^[a-zA-Z0-9\s]*$/.test(value) ||
+                  t("englishName.noSpecialCharacters"),
+                noSQLInjection: (value) =>
+                  !/[;'"|#-]/.test(value) || t("englishName.noSQLInjection"),
+              },
+            })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
-        <FormRowVertical>
+
+        <FormRowVertical error={errors?.arabicName?.message}>
           <StyledLabel htmlFor="ArabicName">{t("arabicName")}</StyledLabel>
           <Input
             type="text"
             id="ArabicName"
             placeholder="Arabic Name"
-            value={arName} // Controlled input to reflect state
+            // value={arName} // Controlled input to reflect state
+            defaultValue={arabicName}
             onChange={handleArabicNameChange}
+            {...register("arabicName", {
+              required: {
+                value: true, // This specifies that the field is required
+                message: t("arabicName.required"), // Correctly translating the message
+              },
+              minLength: {
+                value: 3,
+                message: t("arabicName.minLength"),
+              },
+              maxLength: {
+                value: 20,
+                message: t("arabicName.maxLength"),
+              },
+              validate: {
+                // singleWord: (value) =>
+                //   /^[^\s]+$/.test(value) || t("arabicName.singleWord"),
+                // noSpecialCharacters: (value) =>
+                //   /^[a-zA-Z0-9\s]*$/.test(value) ||
+                //   t("arabicName.noSpecialCharacters"),
+                noSQLInjection: (value) =>
+                  !/[;'"|#-]/.test(value) || t("arabicName.noSQLInjection"),
+                arabicValidation: (value) =>
+                  /^[\u0600-\u06FF\s]+$/.test(value) ||
+                  t("arabicName.arabicOnly"),
+              },
+            })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
-        <StyledLabel htmlFor="isActive">{t("isActive")}</StyledLabel>
-        <Switch
-          checked={Boolean(isActive)}
-          onChange={handleSwitchChange}
-          color="primary"
-        />
+
         <FormRowVertical>
-          <Button type="submit" onClick={handleClick} disabled={isLoading}>
+          <StyledLabel htmlFor="isActive">{t("isActive")}</StyledLabel>
+          <Switch
+            checked={Boolean(isActive)}
+            onChange={handleSwitchChange}
+            color="primary"
+          />
+        </FormRowVertical>
+
+        <FormRowVertical>
+          <Button type="submit" disabled={isLoading}>
             {isLoading ? "Updating..." : t("Submit")}
           </Button>
         </FormRowVertical>
-        {editError && (
-          <p style={{ color: "red", marginTop: "10px" }}> {editError}</p>
-        )}{" "}
-        {/* Display error message */}
-      </Box>
-    </Modal>
+      </Form>
+    </>
   );
 }
 

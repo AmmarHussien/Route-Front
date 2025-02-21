@@ -133,7 +133,7 @@ function InformationCarServiceTable({
                 </IconButton>
               </Modal.Open>
               <Modal.Window name="edit-car-service-form">
-                <EditCarService id={id} />
+                <EditCarService date={id} />
               </Modal.Window>
             </Modal>
             <IconButton
