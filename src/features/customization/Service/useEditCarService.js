@@ -39,7 +39,10 @@ function useEditCarService(carId) {
         queryKey: ["Customization-Car-Services", carId, isRTL],
       });
     },
-    onError: (err) => toast.error(t("useEditCarServiceValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return {

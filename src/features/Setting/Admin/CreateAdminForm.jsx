@@ -88,12 +88,12 @@ function CreateAdminForm({ onCloseModal }) {
       type={onCloseModal ? "grid" : "regular"}
     >
       <FormRowVertical error={errors?.firstName?.message}>
-        <StyledLabel htmlFor="firstName"> {t("FirstName")} </StyledLabel>
+        <StyledLabel htmlFor="firstName"> {t("UserFirstName")} </StyledLabel>
 
         <Input
           type="text"
           id="firstName"
-          placeholder={t("FirstName")}
+          placeholder={t("UserFirstName")}
           {...register("firstName", {
             required: {
               value: true,
@@ -116,12 +116,12 @@ function CreateAdminForm({ onCloseModal }) {
         />
       </FormRowVertical>
       <FormRowVertical error={errors?.lastName?.message}>
-        <StyledLabel htmlFor="lastName"> {t("lastName")} </StyledLabel>
+        <StyledLabel htmlFor="lastName"> {t("UserLastName")} </StyledLabel>
 
         <Input
           type="text"
           id="lastName"
-          placeholder={t("LastName")}
+          placeholder={t("UserLastName")}
           {...register("lastName", {
             required: {
               value: true,
@@ -171,14 +171,14 @@ function CreateAdminForm({ onCloseModal }) {
       </FormRowVertical>
 
       <FormRowVertical>
-        <StyledLabel htmlFor="Role"> {t("Role")} </StyledLabel>
+        <StyledLabel htmlFor="Role"> {t("NAVSetting.Role")} </StyledLabel>
 
         <Controller
           name="Role"
           control={control}
           render={({ field: { onChange, value } }) => (
             <MultiSelectDropDownMenu
-              title={t("Role")}
+              title={t("NAVSetting.Role")}
               options={RolesOptions}
               onSelect={onChange} // Update the form state
               selectedOptions={value} // Provide current value to the component

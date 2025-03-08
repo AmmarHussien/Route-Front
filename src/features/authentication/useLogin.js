@@ -26,8 +26,9 @@ export function useLogin() {
       queryClient.setQueryData(["user"], response);
     },
 
-    onError: (err) => {
-      toast.error(t("UseLoginValidations.Error"));
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
     },
   });
 

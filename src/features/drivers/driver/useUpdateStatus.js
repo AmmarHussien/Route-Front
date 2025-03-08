@@ -16,7 +16,10 @@ function useUpdateStatus() {
       toast.success(t("useUpdateStatus.Successfully"));
       queryClient.invalidateQueries({ queryKey: ["drivers", userId] });
     },
-    onError: (err) => toast.error(t("useUpdateStatus.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { editStatus, isLoading };

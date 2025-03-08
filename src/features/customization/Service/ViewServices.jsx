@@ -10,6 +10,7 @@ import { useMoveBack } from "../../../hooks/useMoveBack";
 import AddCarService from "./AddCarService";
 import { useTranslation } from "react-i18next";
 import Empty from "../../../ui/Empty";
+import Permission from "../../../ui/permission";
 
 const BoxModels = styled.div`
   display: grid;
@@ -39,7 +40,9 @@ function ViewServices() {
             )}
           </Button>
         </Row>
-        <AddCarService />
+        <Permission requiredPermissions="createCarType">
+          <AddCarService />
+        </Permission>
       </Row>
 
       <BoxModels>

@@ -247,7 +247,7 @@
   "Subject": "الموضوع",
   "Message": "الرسالة",
   "Platform": "المنصة",
-  "Reserver": "المستقبل",
+  "Receiver": "المستقبل",
   "Photo": "صورة",
   "appTypeItem": {
     "Driver": "السائقين",
@@ -291,6 +291,13 @@
   "AddModel": "اضف موديل",
   "brandId": "رقم النوع",
 
+  "AddAdmin": "إضافه",
+  "AdminId": "رقم المسؤول",
+  "Name": "الاسم",
+  "Users-Count": "عدد المستخدمين",
+  "AddRole": "إضافه",
+  "Permissions": "الأذونات",
+
   "__Validations Messages": "Validations",
   "FirstNameValidation": {
     "required": "الاسم الأول مطلوب",
@@ -298,6 +305,56 @@
     "maxLength": "يجب أن يتكون الاسم الأول من 20 حرفًا على الأكثر",
     "singleWord": "الاسم الاول يجب ان يكون كلمه واحده فقط"
   },
+
+  "NameValidation": {
+    "required": "الاسم الأول مطلوب",
+    "minLength": "يجب أن يتكون الاسم الأول من 3 أحرف على الأقل",
+    "maxLength": "يجب أن يتكون الاسم الأول من 20 حرفًا على الأكثر"
+  },
+
+  "englishNameValidation": {
+    "required": "الاسم الانجليزي مطلوب",
+    "minLength": "يجب أن يتكون الاسم الانجليزي من 3 أحرف على الأقل",
+    "maxLength": "يجب أن يتكون الاسم الانجليزي من 20 حرفًا على الأكثر"
+  },
+  "arabicNameValidation": {
+    "required": "الاسم العربي مطلوب",
+    "minLength": "يجب أن يتكون الاسم العربي من 3 أحرف على الأقل",
+    "maxLength": "يجب أن يتكون الاسم العربي من 20 حرفًا على الأكثر"
+  },
+  "driverCommissionValidation": {
+    "required": "مطلوب",
+    "minLength": "يجب أن يتكون من ١ رقم على الأقل",
+    "maxLength": "يجب أن يتكون من ١٠ ارقام على الاكثر"
+  },
+  "openingPriceValidation": {
+    "required": "مطلوب",
+    "minLength": "يجب أن يتكون من ١ رقم على الأقل",
+    "maxLength": "يجب أن يتكون من ١٠ ارقام على الاكثر"
+  },
+  "separationKmValidation": {
+    "required": "مطلوب",
+    "minLength": "يجب أن يتكون من ١ رقم على الأقل",
+    "maxLength": "يجب أن يتكون من ١٠ ارقام على الاكثر"
+  },
+  "beforeSeparationPriceValidation": {
+    "required": "مطلوب",
+    "minLength": "يجب أن يتكون من ١ رقم على الأقل",
+    "maxLength": "يجب أن يتكون من ١٠ ارقام على الاكثر"
+  },
+
+  "afterSeparationPriceValidation": {
+    "required": "مطلوب",
+    "minLength": "يجب أن يتكون من ١ رقم على الأقل",
+    "maxLength": "يجب أن يتكون من ١٠ ارقام على الاكثر"
+  },
+
+  "InOutSeparationKmValidation": {
+    "required": "مطلوب",
+    "minLength": "يجب أن يتكون من ١ رقم على الأقل",
+    "maxLength": "يجب أن يتكون من ١٠ ارقام على الاكثر"
+  },
+
   "LastNameValidation": {
     "required": "الاسم الأخير مطلوب",
     "minLength": "يجب أن يتكون الاسم الأخير من 3 أحرف على الأقل",
@@ -462,6 +519,31 @@
   },
 
   "useEditUserValidations": {
+    "Successfully": "تم التعديل بنجاح",
+    "Error": "خطأ في تعديل المستخدم"
+  },
+
+  "useEditRoleValidations": {
+    "Successfully": "تم التعديل بنجاح",
+    "Error": "خطأ في تعديل المستخدم"
+  },
+
+  "useCreateRoleValidations": {
+    "Successfully": "تم الإنشاء بنجاح",
+    "Error": "خطأ في الإنشاء"
+  },
+
+  "useDeleteRoleValidations": {
+    "Successfully": "تم الحذف بنجاح",
+    "Error": "خطأ في الحذف"
+  },
+
+  "useCreateAdminValidations": {
+    "Successfully": "تم الإنشاء بنجاح",
+    "Error": "خطأ في الإنشاء"
+  },
+
+  "useEditAdminValidations": {
     "Successfully": "تم التعديل بنجاح",
     "Error": "خطأ في تعديل المستخدم"
   },

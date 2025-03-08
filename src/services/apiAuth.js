@@ -35,13 +35,14 @@ export async function login({ email, password }) {
 
     if (response && response.data) {
       // Assuming the response contains a token
+
       const { access_token } = response.data.data;
 
       localStorage.setItem("authToken", access_token);
+      const { permissions } = response.data.data.user;
 
-      // Redirect or update UI as needed
-
-      console.log(response.data.data);
+      // Store permissions in localStorage
+      localStorage.setItem("permissions", JSON.stringify(permissions));
 
       return response.data.data;
     } else {

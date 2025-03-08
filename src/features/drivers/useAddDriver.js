@@ -14,7 +14,10 @@ export function useAddDrive() {
       toast.success(t("useAddDriveValidations.Successfully"));
       queryClient.invalidateQueries({ queryKey: ["drivers", isRTL] });
     },
-    onError: (err) => toast.error(t("useAddDriveValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { isAdded, addDriver };

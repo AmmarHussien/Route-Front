@@ -24,11 +24,11 @@ function HeaderMenu() {
         <LanguageToggle />
       </li>
 
-      <li>
+      {/* <li>
         <ButtonIcon>
           <IoMdNotificationsOutline />
         </ButtonIcon>
-      </li>
+      </li> */}
 
       <li>
         <Logout />

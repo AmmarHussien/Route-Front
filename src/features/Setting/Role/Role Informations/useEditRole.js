@@ -23,7 +23,10 @@ function useEditRole() {
         queryKey: ["Setting-Role", id],
       });
     },
-    onError: (err) => toast.error(t("useEditRoleValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { editRole, isLoading, isError, error };

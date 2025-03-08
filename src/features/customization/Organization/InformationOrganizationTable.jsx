@@ -12,6 +12,7 @@ import EditOrganization from "./EditOrganization";
 import useViewOrganization from "./useViewOrganization";
 import { useTranslation } from "react-i18next";
 import Modal from "../../../ui/Modal";
+import Permission from "../../../ui/permission";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -130,22 +131,26 @@ function InformationOrganizationTable({ title, data }) {
           <div>
             <Modal>
               <Modal.Open opens="edit-Organization">
-                <IconButton aria-label="Edit">
-                  <ModeEditIcon fontSize="large" color="primary" />
-                </IconButton>
+                <Permission requiredPermissions="editOrganization">
+                  <IconButton aria-label="Edit">
+                    <ModeEditIcon fontSize="large" color="primary" />
+                  </IconButton>
+                </Permission>
               </Modal.Open>
               <Modal.Window name="edit-Organization">
                 <EditOrganization id={data} />
               </Modal.Window>
             </Modal>
-            <IconButton
-              aria-label="delete"
-              size="large"
-              color="error"
-              onClick={handleClick}
-            >
-              <DeleteIcon fontSize="inherit" />
-            </IconButton>
+            <Permission requiredPermissions="deleteOrganization">
+              <IconButton
+                aria-label="delete"
+                size="large"
+                color="error"
+                onClick={handleClick}
+              >
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
+            </Permission>
           </div>
         </Row>
 

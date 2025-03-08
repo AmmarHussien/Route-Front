@@ -12,6 +12,7 @@ import AddBrand from "./AddBrand";
 import useGetManufactures from "./useGetManufactures";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import Permission from "../../../../ui/permission";
 
 const CardGrid = styled.div`
   display: grid;
@@ -39,7 +40,10 @@ function CarBrandLayout() {
         <Row type="vertical">
           <Heading $variant="h1">{t("CarBrands")}</Heading>
         </Row>
-        <AddBrand />
+
+        <Permission requiredPermissions="createManufactures">
+          <AddBrand />
+        </Permission>
       </Row>
       <CardGrid>
         {manufactures.map((manufacture, index) => (

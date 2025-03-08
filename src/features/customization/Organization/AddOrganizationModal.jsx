@@ -67,24 +67,25 @@ function AddOrganizationModal({ onCloseModal, setOpen }) {
           {...register("englishName", {
             required: {
               value: true, // This specifies that the field is required
-              message: t("englishName.required"), // Correctly translating the message
+              message: t("englishNameValidation.required"), // Correctly translating the message
             },
             minLength: {
               value: 3,
-              message: t("englishName.minLength"),
+              message: t("englishNameValidation.minLength"),
             },
             maxLength: {
               value: 20,
-              message: t("englishName.maxLength"),
+              message: t("englishNameValidation.maxLength"),
             },
             validate: {
               // singleWord: (value) =>
               //   /^[^\s]+$/.test(value) || t("englishName.singleWord"),
               noSpecialCharacters: (value) =>
                 /^[a-zA-Z0-9\s]*$/.test(value) ||
-                t("englishName.noSpecialCharacters"),
+                t("englishNameValidation.noSpecialCharacters"),
               noSQLInjection: (value) =>
-                !/[;'"|#-]/.test(value) || t("englishName.noSQLInjection"),
+                !/[;'"|#-]/.test(value) ||
+                t("englishNameValidation.noSQLInjection"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -101,15 +102,15 @@ function AddOrganizationModal({ onCloseModal, setOpen }) {
           {...register("arabicName", {
             required: {
               value: true, // This specifies that the field is required
-              message: t("arabicName.required"), // Correctly translating the message
+              message: t("arabicNameValidation.required"), // Correctly translating the message
             },
             minLength: {
               value: 3,
-              message: t("arabicName.minLength"),
+              message: t("arabicNameValidation.minLength"),
             },
             maxLength: {
               value: 20,
-              message: t("arabicName.maxLength"),
+              message: t("arabicNameValidation.maxLength"),
             },
             validate: {
               // singleWord: (value) =>
@@ -118,10 +119,11 @@ function AddOrganizationModal({ onCloseModal, setOpen }) {
               //   /^[a-zA-Z0-9\s]*$/.test(value) ||
               //   t("arabicName.noSpecialCharacters"),
               noSQLInjection: (value) =>
-                !/[;'"|#-]/.test(value) || t("arabicName.noSQLInjection"),
+                !/[;'"|#-]/.test(value) ||
+                t("arabicNameValidation.noSQLInjection"),
               arabicValidation: (value) =>
                 /^[\u0600-\u06FF\s]+$/.test(value) ||
-                t("arabicName.arabicOnly"),
+                t("arabicNameValidation.arabicOnly"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}

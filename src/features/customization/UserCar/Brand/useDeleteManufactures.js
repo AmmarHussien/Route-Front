@@ -22,7 +22,8 @@ function useDeleteManufactures() {
         navigate("/customization/userCar");
       },
       onError: (error) => {
-        toast.error(t("useDeleteManufacturesValidations.Error"));
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(errorMessage);
       },
     }
   );

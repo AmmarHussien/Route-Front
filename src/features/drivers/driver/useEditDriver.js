@@ -15,7 +15,10 @@ function useEditDriver() {
       toast.success(t("useEditDriverValidations.Successfully"));
       queryClient.invalidateQueries({ queryKey: ["DriverInfo", userId] });
     },
-    onError: (err) => toast.error(t("useEditDriverValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { editDrivers, isEditing };

@@ -63,28 +63,28 @@ function AddRoleScreen({ onCloseModal }) {
           <Input
             type="text"
             id="name"
-            placeholder={t("name")}
+            placeholder={t("Name")}
             value={name}
             onChange={handleNameChange}
             {...register("name", {
               required: {
                 value: true, // This specifies that the field is required
-                message: t("name.required"), // Correctly translating the message
+                message: t("NameValidation.required"), // Correctly translating the message
               },
               minLength: {
                 value: 3,
-                message: t("name.minLength"),
+                message: t("NameValidation.minLength"),
               },
               maxLength: {
                 value: 20,
-                message: t("name.maxLength"),
+                message: t("NameValidation.maxLength"),
               },
               validate: {
                 noSpecialCharacters: (value) =>
                   /^[a-zA-Z0-9\s]*$/.test(value) ||
-                  t("name.noSpecialCharacters"),
+                  t("NameValidation.noSpecialCharacters"),
                 noSQLInjection: (value) =>
-                  !/[;'"|#-]/.test(value) || t("name.noSQLInjection"),
+                  !/[;'"|#-]/.test(value) || t("NameValidation.noSQLInjection"),
               },
             })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}

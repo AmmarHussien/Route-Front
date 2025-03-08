@@ -4,6 +4,7 @@ import DriversTable from "../features/drivers/DriversTable";
 import DriversTableOperations from "../features/drivers/DriversTableOperations";
 import Row from "../ui/Row";
 import useDrivers from "../features/drivers/useDrivers";
+import Permission from "../ui/permission";
 
 function Drivers() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,7 +23,9 @@ function Drivers() {
             setSearchTerm={setSearchTerm}
           />
         </Row>
-        <AddDriver />
+        <Permission requiredPermissions="createDriver">
+          <AddDriver />
+        </Permission>
       </Row>
 
       <DriversTable

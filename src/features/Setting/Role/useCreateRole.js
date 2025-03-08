@@ -23,7 +23,10 @@ function useCreateRole() {
       toast.success(t("useCreateRoleValidations.Successfully"));
       navigate("/setting/role");
     },
-    onError: (err) => toast.error(t("useCreateRoleValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { createRoles, isLoading, isError, error };

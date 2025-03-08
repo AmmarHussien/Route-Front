@@ -4,6 +4,7 @@ import Row from "../../ui/Row";
 import UsersTableOperations from "./UsersTableOperations";
 import AddUser from "./AddUser";
 import UsersTable from "./UsersTable";
+import Permission from "../../ui/permission";
 
 function UserLayout() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,7 +19,9 @@ function UserLayout() {
             setSearchTerm={setSearchTerm}
           />
         </Row>
-        <AddUser />
+        <Permission requiredPermissions="createUser">
+          <AddUser />
+        </Permission>
       </Row>
 
       <UsersTable

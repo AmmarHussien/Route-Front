@@ -2,15 +2,15 @@ import useViewAdmin from "./useViewAdmin";
 import Spinner from "../../../ui/Spinner";
 import AdminInformationTable from "./AdminInformationTable";
 
-function ViewAdmins({ id }) {
-  const { isLoading, viewAdmin } = useViewAdmin(id);
+function ViewAdmins({ data }) {
+  const { isLoading } = useViewAdmin(data.id);
 
-  return isLoading ? (
-    <Spinner />
-  ) : (
+  if (isLoading) return <Spinner />;
+
+  return (
     <AdminInformationTable
-      data={viewAdmin}
-      title={viewAdmin.name}
+      data={data}
+      title={data.name}
       isLoading={isLoading}
     />
   );

@@ -5,6 +5,7 @@ import ViewRoles from "./ViewRoles";
 import Empty from "../../../ui/Empty";
 import Spinner from "../../../ui/Spinner";
 import AddRole from "./AddRole";
+import Permission from "../../../ui/permission";
 
 const BoxModels = styled.div`
   display: grid;
@@ -22,7 +23,9 @@ function RoleLayout() {
     <div>
       <Row type="horizontal">
         <Row type="vertical"></Row>
-        <AddRole />
+        <Permission requiredPermissions="createRole">
+          <AddRole />
+        </Permission>
       </Row>
       <Row type="horizontal">
         <Row type="vertical"></Row>

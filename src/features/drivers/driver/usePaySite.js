@@ -22,6 +22,10 @@ function usePaySite() {
       toast.success(t("useEditDriverValidations.Successfully"));
       queryClient.invalidateQueries({ queryKey: ["DriverInfo", userId] });
     },
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { paySite, isLoading, data, error };

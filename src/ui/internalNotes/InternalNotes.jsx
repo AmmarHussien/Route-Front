@@ -5,6 +5,7 @@ import { useDriverNotes } from "../../features/drivers/driver/useDriverNotes";
 import { useRideNotes } from "../../features/rides/ride/useRideNotes";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import Permission from "../permission";
 
 const Note = styled.div`
   position: relative;
@@ -79,12 +80,14 @@ const InternalNotes = ({ notes: initialNotes }) => {
           ))
         )}
       </div>
-      <textarea
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-        placeholder={t("InternalNotesHolder")}
-      />
-      <button onClick={handleAddNote}>{t("AddNote")}</button>
+      <Permission requiredPermissions="createNotes">
+        <textarea
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder={t("InternalNotesHolder")}
+        />
+        <button onClick={handleAddNote}>{t("AddNote")}</button>
+      </Permission>
     </div>
   );
 };

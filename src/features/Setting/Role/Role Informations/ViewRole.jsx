@@ -16,6 +16,7 @@ import FormRowVertical from "../../../../ui/FormRowVertical";
 import styled from "styled-components";
 import useEditRole from "./useEditRole";
 import { useForm } from "react-hook-form";
+import Permission from "../../../../ui/permission";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -98,9 +99,11 @@ function ViewRole() {
         </Button>
 
         {/* ✅ Single Button for Edit & Save */}
-        <Button onClick={toggleEditAndShowAll}>
-          {isEditable ? t("Save") : t("Edit")}
-        </Button>
+        <Permission requiredPermissions="editRole">
+          <Button onClick={toggleEditAndShowAll}>
+            {isEditable ? t("Save") : t("Edit")}
+          </Button>
+        </Permission>
       </Row>
 
       <Form onSubmit={handleSubmit(onSubmit)} type="grid">
@@ -109,19 +112,19 @@ function ViewRole() {
           <Input
             type="text"
             id="Name"
-            placeholder="Name"
+            placeholder={t("Name")}
             defaultValue={viewRole.name}
             disabled={!isEditable}
             {...register("Name", {
-              required: { value: true, message: t("englishName.required") },
-              minLength: { value: 3, message: t("englishName.minLength") },
-              maxLength: { value: 20, message: t("englishName.maxLength") },
+              required: { value: true, message: t("NameValidation.required") },
+              minLength: { value: 3, message: t("NameValidation.minLength") },
+              maxLength: { value: 20, message: t("NameValidation.maxLength") },
               validate: {
                 noSpecialCharacters: (value) =>
                   /^[a-zA-Z0-9\s]*$/.test(value) ||
-                  t("englishName.noSpecialCharacters"),
+                  t("NameValidation.noSpecialCharacters"),
                 noSQLInjection: (value) =>
-                  !/[;'"|#-]/.test(value) || t("englishName.noSQLInjection"),
+                  !/[;'"|#-]/.test(value) || t("NameValidation.noSQLInjection"),
               },
             })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}

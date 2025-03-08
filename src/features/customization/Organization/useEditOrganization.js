@@ -16,7 +16,10 @@ function useEditOrganization(id) {
         queryKey: ["Customization-Organizations", id],
       });
     },
-    onError: (err) => toast.error(t("useEditOrganizationValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return mutation;

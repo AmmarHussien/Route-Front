@@ -21,7 +21,8 @@ function useDeleteRole(id) {
         navigate("/setting");
       },
       onError: (error) => {
-        toast.error(t("useDeleteRoleValidations.Error"));
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(errorMessage);
       },
     }
   );

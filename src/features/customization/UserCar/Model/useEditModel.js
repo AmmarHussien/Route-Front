@@ -23,7 +23,10 @@ function useEditModel(modelId) {
         queryKey: ["Customization-Models", modelId],
       });
     },
-    onError: (err) => toast.error(t("useEditModelValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { editModels, isLoading, isError, error };

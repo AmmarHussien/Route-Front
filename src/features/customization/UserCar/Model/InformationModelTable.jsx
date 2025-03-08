@@ -11,6 +11,7 @@ import useDeleteModel from "./useDeleteModel";
 import Spinner from "../../../../ui/Spinner";
 import { useTranslation } from "react-i18next";
 import Modal from "../../../../ui/Modal";
+import Permission from "../../../../ui/permission";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -112,23 +113,26 @@ function InformationModelTable({ title, data, id }) {
           <div>
             <Modal>
               <Modal.Open opens="add-Brand">
-                <IconButton aria-label="Edit">
-                  <ModeEditIcon fontSize="large" color="primary" />
-                </IconButton>
+                <Permission requiredPermissions="editModel">
+                  <IconButton aria-label="Edit">
+                    <ModeEditIcon fontSize="large" color="primary" />
+                  </IconButton>
+                </Permission>
               </Modal.Open>
               <Modal.Window name="add-Brand">
                 <EditModel data={id} />
               </Modal.Window>
             </Modal>
-
-            <IconButton
-              aria-label="delete"
-              size="large"
-              color="error"
-              onClick={handleClick}
-            >
-              <DeleteIcon fontSize="inherit" />
-            </IconButton>
+            <Permission requiredPermissions="deleteModel">
+              <IconButton
+                aria-label="delete"
+                size="large"
+                color="error"
+                onClick={handleClick}
+              >
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
+            </Permission>
           </div>
         </Row>
 

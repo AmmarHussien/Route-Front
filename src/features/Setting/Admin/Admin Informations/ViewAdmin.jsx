@@ -16,6 +16,7 @@ import useViewAdmin from "../useViewAdmin";
 import useGetRole from "../../Role/useGetRole";
 import RoleCheckboxList from "./RoleCheckBoxList";
 import useEditAdmin from "./useEditAdmin";
+import Permission from "../../../../ui/permission";
 
 const StyledLabel = styled.label`
   font-size: 16px;
@@ -115,62 +116,84 @@ function ViewAdmin() {
         </Button>
 
         {/* ✅ Single Button for Edit & Save */}
-        <Button onClick={toggleEditAndShowAll}>
-          {isEditable ? t("Save") : t("Edit")}
-        </Button>
+        <Permission requiredPermissions="editAdmin">
+          <Button onClick={toggleEditAndShowAll}>
+            {isEditable ? t("Save") : t("Edit")}
+          </Button>
+        </Permission>
       </Row>
 
       <Form onSubmit={handleSubmit(onSubmit)} type="gridx3">
         <FormRowVertical>
-          <StyledLabel htmlFor="ID">{t("Id")}</StyledLabel>
+          <StyledLabel htmlFor="ID">{t("ID")}</StyledLabel>
           <Input
             type="Number"
             id="ID"
-            placeholder="Id"
+            placeholder={t("ID")}
             disabled
             defaultValue={viewAdmin.id}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
         <FormRowVertical error={errors?.FirstName?.message}>
-          <StyledLabel htmlFor="FirstName">{t("FirstName")}</StyledLabel>
+          <StyledLabel htmlFor="FirstName">{t("UserFirstName")}</StyledLabel>
           <Input
             type="text"
             id="FirstName"
-            placeholder="FirstName"
+            placeholder={t("UserFirstName")}
             disabled={!isEditable}
             {...register("FirstName", {
-              required: { value: true, message: t("FirstName.required") },
-              minLength: { value: 3, message: t("FirstName.minLength") },
-              maxLength: { value: 20, message: t("FirstName.maxLength") },
+              required: {
+                value: true,
+                message: t("FirstNameValidation.required"),
+              },
+              minLength: {
+                value: 3,
+                message: t("FirstNameValidation.minLength"),
+              },
+              maxLength: {
+                value: 20,
+                message: t("FirstNameValidation.maxLength"),
+              },
               validate: {
                 noSpecialCharacters: (value) =>
                   /^[a-zA-Z0-9\s]*$/.test(value) ||
-                  t("FirstName.noSpecialCharacters"),
+                  t("FirstNameValidation.noSpecialCharacters"),
                 noSQLInjection: (value) =>
-                  !/[;'"|#-]/.test(value) || t("FirstName.noSQLInjection"),
+                  !/[;'"|#-]/.test(value) ||
+                  t("FirstNameValidation.noSQLInjection"),
               },
             })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
           />
         </FormRowVertical>
         <FormRowVertical error={errors?.LastName?.message}>
-          <StyledLabel htmlFor="LastName">{t("LastName")}</StyledLabel>
+          <StyledLabel htmlFor="LastName">{t("UserLastName")}</StyledLabel>
           <Input
             type="text"
             id="LastName"
-            placeholder="LastName"
+            placeholder={t("UserLastName")}
             disabled={!isEditable}
             {...register("LastName", {
-              required: { value: true, message: t("LastName.required") },
-              minLength: { value: 3, message: t("LastName.minLength") },
-              maxLength: { value: 20, message: t("LastName.maxLength") },
+              required: {
+                value: true,
+                message: t("LastNameValidation.required"),
+              },
+              minLength: {
+                value: 3,
+                message: t("LastNameValidation.minLength"),
+              },
+              maxLength: {
+                value: 20,
+                message: t("LastNameValidation.maxLength"),
+              },
               validate: {
                 noSpecialCharacters: (value) =>
                   /^[a-zA-Z0-9\s]*$/.test(value) ||
-                  t("LastName.noSpecialCharacters"),
+                  t("LastNameValidation.noSpecialCharacters"),
                 noSQLInjection: (value) =>
-                  !/[;'"|#-]/.test(value) || t("LastName.noSQLInjection"),
+                  !/[;'"|#-]/.test(value) ||
+                  t("LastNameValidation.noSQLInjection"),
               },
             })}
             $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -178,11 +201,11 @@ function ViewAdmin() {
         </FormRowVertical>
 
         <FormRowVertical error={errors?.email?.message}>
-          <StyledLabel htmlFor="email">{t("email")}</StyledLabel>
+          <StyledLabel htmlFor="email">{t("UserEmail")}</StyledLabel>
           <Input
             type="email"
             id="email"
-            placeholder="email"
+            placeholder={t("UserEmail")}
             disabled
             defaultValue={viewAdmin.email}
             {...register("email")}
@@ -204,7 +227,7 @@ function ViewAdmin() {
         </FormRowVertical>
         <FormRowVertical></FormRowVertical>
 
-        <StyledLabel htmlFor="Roles">{t("Roles")}</StyledLabel>
+        <StyledLabel htmlFor="Roles">{t("NAVSetting.Role")}</StyledLabel>
       </Form>
 
       <RoleCheckboxList

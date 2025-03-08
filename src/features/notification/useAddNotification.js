@@ -13,7 +13,10 @@ function useAddNotification() {
       toast.success(t("useAddNotificationValidations.Successfully"));
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
-    onError: (err) => toast.error(t("useAddNotificationValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
   return { addNotification, isAdded };
 }

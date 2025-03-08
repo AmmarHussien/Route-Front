@@ -17,7 +17,8 @@ function useDeleteModel(modelId) {
       queryClient.invalidateQueries({ queryKey: ["Customization-Models", Id] });
     },
     onError: (error) => {
-      toast.error(t("useDeleteModelValidations.Error"));
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
     },
   });
 }

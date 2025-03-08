@@ -7,6 +7,7 @@ import Heading from "../../../ui/Heading";
 import AddOrganization from "./AddOrganization";
 import { useTranslation } from "react-i18next";
 import Empty from "../../../ui/Empty";
+import Permission from "../../../ui/permission";
 
 const BoxModels = styled.div`
   display: grid;
@@ -27,7 +28,9 @@ function OrganizationLayout() {
         <Row type="vertical">
           <Heading $variant="h1">{t("Organizations")}</Heading>
         </Row>
-        <AddOrganization />
+        <Permission requiredPermissions="createOrganization">
+          <AddOrganization />
+        </Permission>
       </Row>
       <Row type="horizontal">
         <BoxModels>

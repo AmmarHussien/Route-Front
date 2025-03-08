@@ -16,6 +16,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useTranslation } from "react-i18next";
 import Button from "../../../ui/Button";
+import Permission from "../../../ui/permission";
 
 const Row = styled.div.withConfig({
   shouldForwardProp: (prop) => !["even"].includes(prop),
@@ -86,18 +87,22 @@ function DriverInformation() {
           </Button>
         </Row>
         <Row type="horizontal">
-          <EditDriver />
+          <Permission requiredPermissions="createDriver">
+            <EditDriver />
+          </Permission>
 
-          {status === "Suspended" ? null : status === "Blocked" ? (
-            <Unblock />
-          ) : (
-            <BlockDriver />
-          )}
-          {status === "Blocked" ? null : status === "Suspended" ? (
-            <UnSuspended />
-          ) : (
-            <SuspendedDriver />
-          )}
+          <Permission requiredPermissions="editDriverStatus">
+            {status === "Suspended" ? null : status === "Blocked" ? (
+              <Unblock />
+            ) : (
+              <BlockDriver />
+            )}
+            {status === "Blocked" ? null : status === "Suspended" ? (
+              <UnSuspended />
+            ) : (
+              <SuspendedDriver />
+            )}
+          </Permission>
         </Row>
       </Row>
 

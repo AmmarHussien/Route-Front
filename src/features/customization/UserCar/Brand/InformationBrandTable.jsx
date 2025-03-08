@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import AlertConfirmation from "../../../../ui/AlertConfirmation";
 import { useTranslation } from "react-i18next";
 import Modal from "../../../../ui/Modal";
+import Permission from "../../../../ui/permission";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -113,22 +114,26 @@ function InformationBrandTable({ title, data }) {
           <div>
             <Modal>
               <Modal.Open opens="add-Brand">
-                <IconButton aria-label="Edit" onClick={handleOpen}>
-                  <ModeEditIcon fontSize="large" color="primary" />
-                </IconButton>
+                <Permission requiredPermissions="editManufactures">
+                  <IconButton aria-label="Edit" onClick={handleOpen}>
+                    <ModeEditIcon fontSize="large" color="primary" />
+                  </IconButton>
+                </Permission>
               </Modal.Open>
               <Modal.Window name="add-Brand">
                 <EditBrand data={data} />
               </Modal.Window>
             </Modal>
-            <IconButton
-              aria-label="delete"
-              size="large"
-              color="error"
-              onClick={handleClick}
-            >
-              <DeleteIcon fontSize="inherit" />
-            </IconButton>
+            <Permission requiredPermissions="deleteManufactures">
+              <IconButton
+                aria-label="delete"
+                size="large"
+                color="error"
+                onClick={handleClick}
+              >
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
+            </Permission>
           </div>
         </Row>
 

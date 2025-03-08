@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
+import Permission from "./permission";
 
 const StyledNavLink = styled(NavLink)`
   &:link,
@@ -16,7 +17,6 @@ const StyledNavLink = styled(NavLink)`
     transition: all 0.3s;
   }
 
-  /* This works because react-router places the active class on the active NavLink */
   &:hover,
   &:active,
   &.active:link,
@@ -54,10 +54,8 @@ const DropdownContainer = styled.div`
       margin-left: 20px;
     `}
   
-  /* margin-right: 20px; */
   display: flex;
   flex-direction: column;
-
   padding: 5px;
 
   &:hover > ul {
@@ -103,158 +101,196 @@ function MainNav() {
           </StyledNavLink>
         </li>
 
-        <li>
-          <StyledNavLink to="/users">
-            <img
-              id="users-img"
-              src="/Users.svg"
-              alt="Users"
-              width="30"
-              height="30"
-            />
-            <span>{t("NAVUsers")}</span>
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/drivers">
-            <img
-              id="drivers-img"
-              src="/Drivers.svg"
-              alt="Drivers"
-              width="30"
-              height="30"
-            />
-            <span>{t("NAVDrivers")}</span>
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/rides">
-            <img
-              id="rides-img"
-              src="/Rides.svg"
-              alt="Rides"
-              width="30"
-              height="30"
-            />
-            <span>{t("NAVRides")}</span>
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/rating">
-            <img
-              id="rating-img"
-              src="/Rating.svg"
-              alt="Rating"
-              width="30"
-              height="30"
-            />
-            <span>{t("NAVRating")}</span>
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/profit">
-            <img
-              id="Profit-img"
-              src="/Profit.svg"
-              alt="Profit"
-              width="30"
-              height="30"
-            />
-            <span>{t("NAVProfit")}</span>
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/push-notification">
-            <img
-              id="Notification-img"
-              src="/Notification.svg"
-              alt="Notification"
-              width="30"
-              height="30"
-            />
-            <span>{t("NAVPushNotification")}</span>
-          </StyledNavLink>
-        </li>
+        <Permission requiredPermissions="users">
+          <li>
+            <StyledNavLink to="/users">
+              <img
+                id="users-img"
+                src="/Users.svg"
+                alt="Users"
+                width="30"
+                height="30"
+              />
+              <span>{t("NAVUsers")}</span>
+            </StyledNavLink>
+          </li>
+        </Permission>
 
-        <li>
-          <StyledNavLink to="/customization">
-            <img
-              id="Customization-img"
-              src="/Customization.svg"
-              alt="Customization"
-              width="30"
-              height="30"
-            />
-            <span>{t("NAVCustomization.Customization")}</span>
-          </StyledNavLink>
+        <Permission requiredPermissions="drivers">
+          <li>
+            <StyledNavLink to="/drivers">
+              <img
+                id="drivers-img"
+                src="/Drivers.svg"
+                alt="Drivers"
+                width="30"
+                height="30"
+              />
+              <span>{t("NAVDrivers")}</span>
+            </StyledNavLink>
+          </li>
+        </Permission>
 
-          <DropdownContainer lang={isRTL ? "ar-Eg" : "en-US"}>
-            <DropdownItem to="/customization/services">
+        <Permission requiredPermissions="rides">
+          <li>
+            <StyledNavLink to="/rides">
               <img
-                id="services-img"
-                src="/services.svg"
-                alt="services"
+                id="rides-img"
+                src="/Rides.svg"
+                alt="Rides"
                 width="30"
                 height="30"
               />
-              {t("NAVCustomization.Services")}
-            </DropdownItem>
-            <DropdownItem to="/customization/organization">
-              <img
-                id="organization-img"
-                src="/organizational.svg"
-                alt="organizational"
-                width="30"
-                height="30"
-              />
-              {t("NAVCustomization.Organization")}
-            </DropdownItem>
-            <DropdownItem to="/customization/userCar">
-              <img
-                id="userCar-img"
-                src="/users_cars.svg"
-                alt="userCar"
-                width="30"
-                height="30"
-              />
-              {t("NAVCustomization.UserCar")}
-            </DropdownItem>
-          </DropdownContainer>
+              <span>{t("NAVRides")}</span>
+            </StyledNavLink>
+          </li>
+        </Permission>
 
-          <StyledNavLink to="/setting">
-            <img
-              id="Setting-img"
-              src="/Setting.svg"
-              alt="Setting"
-              width="30"
-              height="30"
-            />
-            <span>{t("NAVSetting.Setting")}</span>
-          </StyledNavLink>
+        <Permission requiredPermissions="rating">
+          <li>
+            <StyledNavLink to="/rating">
+              <img
+                id="rating-img"
+                src="/Rating.svg"
+                alt="Rating"
+                width="30"
+                height="30"
+              />
+              <span>{t("NAVRating")}</span>
+            </StyledNavLink>
+          </li>
+        </Permission>
 
-          <DropdownContainer lang={isRTL ? "ar-Eg" : "en-US"}>
-            <DropdownItem to="/setting/admin">
+        <Permission requiredPermissions="profit">
+          <li>
+            <StyledNavLink to="/profit">
               <img
-                id="services-img"
-                src="/services.svg"
-                alt="services"
+                id="Profit-img"
+                src="/Profit.svg"
+                alt="Profit"
                 width="30"
                 height="30"
               />
-              {t("NAVSetting.Admin")}
-            </DropdownItem>
-            <DropdownItem to="/setting/role">
+              <span>{t("NAVProfit")}</span>
+            </StyledNavLink>
+          </li>
+        </Permission>
+
+        <Permission requiredPermissions="notification">
+          <li>
+            <StyledNavLink to="/push-notification">
               <img
-                id="organization-img"
-                src="/organizational.svg"
-                alt="organizational"
+                id="Notification-img"
+                src="/Notification.svg"
+                alt="Notification"
                 width="30"
                 height="30"
               />
-              {t("NAVSetting.Role")}
-            </DropdownItem>
-          </DropdownContainer>
-        </li>
+              <span>{t("NAVPushNotification")}</span>
+            </StyledNavLink>
+          </li>
+        </Permission>
+
+        <Permission
+          requiredPermissions={["organizations", "services", "manufactures"]}
+        >
+          <li>
+            <StyledNavLink to="/customization">
+              <img
+                id="Customization-img"
+                src="/Customization.svg"
+                alt="Customization"
+                width="30"
+                height="30"
+              />
+              <span>{t("NAVCustomization.Customization")}</span>
+            </StyledNavLink>
+
+            <DropdownContainer lang={isRTL ? "ar-Eg" : "en-US"}>
+              <Permission requiredPermissions="services">
+                <DropdownItem key="services" to="/customization/services">
+                  <img
+                    id="services-img"
+                    src="/services.svg"
+                    alt="services"
+                    width="30"
+                    height="30"
+                  />
+                  {t("NAVCustomization.Services")}
+                </DropdownItem>
+              </Permission>
+              <Permission requiredPermissions="organizations">
+                <DropdownItem
+                  key="organizations"
+                  to="/customization/organization"
+                >
+                  <img
+                    id="organization-img"
+                    src="/organizational.svg"
+                    alt="organizational"
+                    width="30"
+                    height="30"
+                  />
+                  {t("NAVCustomization.Organization")}
+                </DropdownItem>
+              </Permission>
+              <Permission requiredPermissions="manufactures">
+                <DropdownItem key="userCar" to="/customization/userCar">
+                  <img
+                    id="userCar-img"
+                    src="/users_cars.svg"
+                    alt="userCar"
+                    width="30"
+                    height="30"
+                  />
+                  {t("NAVCustomization.UserCar")}
+                </DropdownItem>
+              </Permission>
+            </DropdownContainer>
+          </li>
+        </Permission>
+
+        <Permission requiredPermissions={["admins", "roles"]}>
+          <li>
+            <StyledNavLink to="/setting">
+              <img
+                id="Setting-img"
+                src="/Setting.svg"
+                alt="Setting"
+                width="30"
+                height="30"
+              />
+              <span>{t("NAVSetting.Setting")}</span>
+            </StyledNavLink>
+
+            <DropdownContainer lang={isRTL ? "ar-Eg" : "en-US"}>
+              <Permission requiredPermissions="admins">
+                <DropdownItem key="admin" to="/setting/admin">
+                  <img
+                    id="services-img"
+                    src="/services.svg"
+                    alt="services"
+                    width="30"
+                    height="30"
+                  />
+                  {t("NAVSetting.Admin")}
+                </DropdownItem>
+              </Permission>
+              <Permission requiredPermissions="roles">
+                <DropdownItem key="role" to="/setting/role">
+                  <img
+                    id="organization-img"
+                    src="/organizational.svg"
+                    alt="organizational"
+                    width="30"
+                    height="30"
+                  />
+                  {t("NAVSetting.Role")}
+                </DropdownItem>
+              </Permission>
+            </DropdownContainer>
+          </li>
+        </Permission>
       </NavList>
     </nav>
   );

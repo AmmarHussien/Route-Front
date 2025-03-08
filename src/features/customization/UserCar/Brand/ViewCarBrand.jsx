@@ -16,6 +16,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Button from "../../../../ui/Button";
 import Empty from "../../../../ui/Empty";
+import Permission from "../../../../ui/permission";
 
 const Box = styled.div`
   width: 50%;
@@ -78,7 +79,9 @@ function ViewCarBrand() {
               : `${manufactures.name.en} ${t("Models")}`}{" "}
           </Heading>
         </Row>
-        <AddModel />
+        <Permission requiredPermissions="createModel">
+          <AddModel />
+        </Permission>
       </Row>
 
       <Row type="horizontal">

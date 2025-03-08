@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Empty from "../../../ui/Empty";
 import ViewAdmin from "./ViewAdmins";
 import AddAdmin from "./AddAdminButton";
+import Permission from "../../../ui/permission";
 
 const BoxModels = styled.div`
   display: grid;
@@ -22,13 +23,15 @@ function AdminLayout() {
     <div>
       <Row type="horizontal">
         <Row type="vertical"></Row>
-        <AddAdmin />
+        <Permission requiredPermissions="createAdmin">
+          <AddAdmin />
+        </Permission>
       </Row>
       <Row type="horizontal">
         <BoxModels>
           {Array.isArray(getAdmin) && getAdmin.length > 0 ? (
             getAdmin.map((getAdmin, index) => (
-              <ViewAdmin id={getAdmin.id} key={index} />
+              <ViewAdmin data={getAdmin} key={index} />
             ))
           ) : (
             <Empty>{"NoData"}</Empty> // You can add a fallback message or placeholder here

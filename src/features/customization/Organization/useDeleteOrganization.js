@@ -15,7 +15,8 @@ function useDeleteOrganization(id) {
       queryClient.invalidateQueries("Customization-Organizations");
     },
     onError: (error) => {
-      toast.error(t("Error"));
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
     },
   });
 }

@@ -25,7 +25,10 @@ function useCreateModel() {
         queryKey: ["Customization-Models", Id],
       });
     },
-    onError: (err) => toast.error(err),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { createModel, isLoading, isError, error };

@@ -242,7 +242,7 @@
   "Subject": "Subject",
   "Message": "Message",
   "Platform": "Platform",
-  "Reserver": "Receiver",
+  "Receiver": "Receiver",
   "Photo": "Photo",
   "appTypeItem": {
     "Driver": "Driver",
@@ -284,6 +284,13 @@
   "AddModel": "Add Model",
   "brandId": "Brand Id",
 
+  "AddAdmin": "Add Admin",
+  "AdminId": "AdminId",
+  "Name": "Name",
+  "Users-Count": "Users Count",
+  "AddRole": "Add Role",
+  "Permissions": "Permissions",
+
   "__Validations Messages": "Validations",
   "FirstNameValidation": {
     "required": "First Name is required",
@@ -291,6 +298,55 @@
     "maxLength": "First Name must be at most 20 characters",
     "singleWord": "First Name must be One Word"
   },
+  "NameValidation": {
+    "required": "First Name is required",
+    "minLength": "First Name must be at least 3 characters",
+    "maxLength": "First Name must be at most 20 characters"
+  },
+  "englishNameValidation": {
+    "required": "English Name is required",
+    "minLength": "English Name must be at least 3 characters",
+    "maxLength": "English Name must be at most 20 characters",
+    "singleWord": "English Name must be One Word"
+  },
+  "arabicNameValidation": {
+    "required": "Arabic Name is required",
+    "minLength": "Arabic Name must be at least 3 characters",
+    "maxLength": "Arabic Name must be at most 20 characters"
+  },
+  "driverCommissionValidation": {
+    "required": "Driver Commission is required",
+    "minLength": "Driver Commission must be at least 1 Number",
+    "maxLength": "Driver Commission must be at most 10 Number"
+  },
+  "openingPriceValidation": {
+    "required": "Opening Price is required",
+    "minLength": "Opening Price must be at least 1 Number",
+    "maxLength": "Opening Price must be at most 10 Number"
+  },
+
+  "separationKmValidation": {
+    "required": "separation Km is required",
+    "minLength": "separation Km must be at least 1 Number",
+    "maxLength": "separation Km must be at most 10 Number"
+  },
+  "beforeSeparationPriceValidation": {
+    "required": "Before Separation Price is required",
+    "minLength": "Before Separation Price must be at least 1 Number",
+    "maxLength": "Before Separation Price must be at most 10 Number"
+  },
+
+  "afterSeparationPriceValidation": {
+    "required": "After Separation Price is required",
+    "minLength": "After Separation Price must be at least 1 Number",
+    "maxLength": "After Separation Price must be at most 10 Number"
+  },
+  "InOutSeparationKmValidation": {
+    "required": "In OutSeparation Km is required",
+    "minLength": "In Out Separation Km must be at least 1 Number",
+    "maxLength": "In Out Separation Km must be at most 10 Number"
+  },
+
   "LastNameValidation": {
     "required": "Last Name is required",
     "minLength": "Last Name must be at least 3 characters",
@@ -463,6 +519,31 @@
   "useEditUserValidations": {
     "Successfully": "User successfully Edited",
     "Error": "Error Editing User"
+  },
+
+  "useEditRoleValidations": {
+    "Successfully": "Role successfully Edited",
+    "Error": "Error Editing Role"
+  },
+
+  "useCreateRoleValidations": {
+    "Successfully": "Role successfully Created",
+    "Error": "Error Created Role"
+  },
+
+  "useDeleteRoleValidations": {
+    "Successfully": "Role successfully Deleted",
+    "Error": "Error Delete Role"
+  },
+
+  "useCreateAdminValidations": {
+    "Successfully": "Admin successfully Created",
+    "Error": "Error Created Admin"
+  },
+
+  "useEditAdminValidations": {
+    "Successfully": "Admin successfully Edited",
+    "Error": "Error Edit Admin"
   },
 
   "hint": "This field is required"

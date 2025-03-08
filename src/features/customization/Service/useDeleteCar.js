@@ -18,7 +18,8 @@ function useDeleteCar(carId) {
       queryClient.invalidateQueries(["Customization-Car-Services", serviceId]);
     },
     onError: (error) => {
-      toast.error(t("useDeleteCarServiceValidations.Error"));
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
     },
   });
 }

@@ -5,6 +5,7 @@ import Spinner from "../../../ui/Spinner";
 import { useTranslation } from "react-i18next";
 
 import { useNavigate } from "react-router-dom";
+import usePermissions from "../../../hooks/usePermissions";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -68,10 +69,16 @@ function AdminInformationTable({ title, data, isLoading }) {
   const navigate = useNavigate();
   const { i18n, t } = useTranslation();
   const isRTL = i18n.language === "ar-EG";
+  const { hasPermission } = usePermissions();
+
   if (!data) return <Empty>{t("NoData")}</Empty>;
 
-  function handleCLick(id) {
-    navigate(`/setting/admin/admin-information/${id}`);
+  const requiredPermission = "viewAdmin";
+
+  function handleClick(id) {
+    if (hasPermission(requiredPermission)) {
+      navigate(`/setting/admin/admin-information/${id}`);
+    }
   }
 
   const dataAdmin = {
@@ -79,6 +86,9 @@ function AdminInformationTable({ title, data, isLoading }) {
     [t("Name")]: data.name,
     [t("Status")]: data.status,
   };
+
+  // Check if the user has permission
+  const hasAccess = hasPermission(requiredPermission);
 
   return isLoading ? (
     <Spinner />
@@ -90,8 +100,8 @@ function AdminInformationTable({ title, data, isLoading }) {
         </Row>
 
         <Table
-          onClick={() => handleCLick(data.id)}
-          style={{ cursor: "pointer" }}
+          onClick={hasAccess ? () => handleClick(data.id) : undefined} // Disable onClick if no permission
+          style={{ cursor: hasAccess ? "pointer" : "not-allowed" }} // Change cursor style based on permission
         >
           {Object.entries(dataAdmin).map(([key, value], index) => (
             <RowItem key={key} $even={index % 2 === 1}>

@@ -38,7 +38,10 @@ function useCreateCarService() {
         queryKey: ["Customization-Car-Services", serviceId],
       });
     },
-    onError: (err) => toast.error(t("useCreateCarServiceValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return {

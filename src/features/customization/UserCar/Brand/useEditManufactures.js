@@ -23,7 +23,10 @@ function useEditManufactures() {
         queryKey: ["Customization-Manufactures", Id],
       });
     },
-    onError: (err) => toast.error(t("useEditManufacturesValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { editManufacture, isLoading, isError, error };

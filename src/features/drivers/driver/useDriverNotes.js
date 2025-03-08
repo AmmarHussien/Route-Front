@@ -16,7 +16,10 @@ export function useDriverNotes() {
       toast.success(t("useDriverNotesValidations.Successfully"));
       queryClient.invalidateQueries({ queryKey: ["DriverInfo", userId] });
     },
-    onError: (err) => toast.error(t("useDriverNotesValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { isAdded, addNote };

@@ -21,7 +21,10 @@ function useCreateAdmin() {
         queryKey: ["Setting-Admin"],
       });
     },
-    onError: (err) => toast.error(t("useCreateAdminValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { addAdmin, isLoading, isError: !!error, error };

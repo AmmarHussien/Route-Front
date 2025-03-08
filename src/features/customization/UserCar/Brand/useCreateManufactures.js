@@ -21,7 +21,10 @@ function useCreateManufactures() {
         queryKey: ["Customization-Manufactures"],
       });
     },
-    onError: (err) => toast.error(t("useCreateManufacturesValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { addManufacture, isLoading, isError, error };

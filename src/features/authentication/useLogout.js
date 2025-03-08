@@ -14,11 +14,16 @@ export function useLogout() {
     mutationFn: logoutApi,
     onSuccess: () => {
       localStorage.removeItem("authToken");
+      localStorage.removeItem("permissions");
       toast.success(t("UseLogoutValidations.Successfully"));
       queryClient.removeQueries();
       navigate("/login", {
         replace: true,
       });
+    },
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
     },
   });
 

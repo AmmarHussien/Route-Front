@@ -5,6 +5,7 @@ import NewNotification from "../features/notification/NewNotification";
 import NotificationTable from "../features/notification/NotificationTable";
 
 import useNotification from "../features/notification/useNotification";
+import Permission from "../ui/permission";
 
 function PushNotification() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +21,9 @@ function PushNotification() {
             setSearchTerm={setSearchTerm}
           />
         </Row>
-        <NewNotification />
+        <Permission requiredPermissions="createNotification">
+          <NewNotification />
+        </Permission>
       </Row>
       <NotificationTable
         notification={notification}

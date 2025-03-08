@@ -21,7 +21,10 @@ function useCreateOrganization() {
         queryKey: ["Customization-Organizations"],
       });
     },
-    onError: (err) => toast.error(t("useCreateOrganizationValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { createOrganizations, isLoading, isError: !!error, error };

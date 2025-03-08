@@ -8,6 +8,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import AlertConfirmation from "../../../ui/AlertConfirmation";
 import useDeleteRole from "./useDeleteRole";
+import Permission from "../../../ui/permission";
+import usePermissions from "../../../hooks/usePermissions";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -72,6 +74,8 @@ function RolesInformationTable({ title, data, isLoading }) {
   const isRTL = i18n.language === "ar-EG";
   const [openAlert, setOpenAlert] = useState(false);
   const navigate = useNavigate();
+  const { hasPermission } = usePermissions();
+
   const [isDelete, setIsDelete] = useState(false);
 
   const { mutate: deleteRole } = useDeleteRole(data.id);
@@ -96,18 +100,24 @@ function RolesInformationTable({ title, data, isLoading }) {
     setOpenAlert(true);
   };
 
-  function handleCLick(id) {
-    navigate(`/setting/role/role-information/${id}`);
+  const requiredPermission = "viewRole";
+
+  function handleClick(id) {
+    if (hasPermission(requiredPermission)) {
+      navigate(`/setting/role/role-information/${id}`);
+    }
   }
 
   if (!data) return <Empty>{t("NoData")}</Empty>;
 
   const dataAdmin = {
-    [t("Role Id")]: data.id,
+    [t("ID")]: data.id,
     [t("Name")]: data.name,
     [t("Users-Count")]: data.users_count || 0,
     // [t("Status")]: data.status,
   };
+  // Check if the user has permission
+  const hasAccess = hasPermission(requiredPermission);
 
   return isLoading ? (
     <Spinner />
@@ -116,14 +126,16 @@ function RolesInformationTable({ title, data, isLoading }) {
       <TableContainer>
         <Row type={"horizontal"}>
           <Title>{data.name}</Title>
-          <IconButton
-            aria-label="delete"
-            size="large"
-            color="error"
-            onClick={handleClicks}
-          >
-            <DeleteIcon fontSize="inherit" />
-          </IconButton>
+          <Permission requiredPermissions="deleteRole">
+            <IconButton
+              aria-label="delete"
+              size="large"
+              color="error"
+              onClick={handleClicks}
+            >
+              <DeleteIcon fontSize="inherit" />
+            </IconButton>
+          </Permission>
         </Row>
 
         {openAlert && (
@@ -134,8 +146,8 @@ function RolesInformationTable({ title, data, isLoading }) {
           />
         )}
         <Table
-          onClick={() => handleCLick(data.id)}
-          style={{ cursor: "pointer" }}
+          onClick={hasAccess ? () => handleClick(data.id) : undefined} // Disable onClick if no permission
+          style={{ cursor: hasAccess ? "pointer" : "not-allowed" }} // Change cursor style based on permission
         >
           {Object.entries(dataAdmin).map(([key, value], index) => (
             <RowItem key={key} $even={index % 2 === 1}>

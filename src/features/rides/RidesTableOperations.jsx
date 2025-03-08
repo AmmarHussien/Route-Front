@@ -12,11 +12,12 @@ function RidesTableOperations({ searchTerm, setSearchTerm }) {
       <Filter
         filterField="status"
         options={[
-          { value: "All", label: t("AllRide") },
-          { value: "Completed", label: t("Completed") },
-          // { value: "Ongoing", label: "Ongoing" },
-          { value: "Scheduled", label: t("Scheduled") },
+          { value: "All", label: t("ALLRides") },
+          { value: "Completed", label: t("Stat.Completed") },
+          { value: "Ongoing", label: "Ongoing" },
+          { value: "Scheduled", label: t("Stat.Scheduled") },
           { value: "Cancelled", label: t("Cancelled") },
+          { value: "Draft", label: t("Draft") },
         ]}
       />
 

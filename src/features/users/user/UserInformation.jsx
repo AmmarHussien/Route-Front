@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Button from "../../../ui/Button";
+import Permission from "../../../ui/permission";
 
 const Row = styled.div.withConfig({
   shouldForwardProp: (prop) => !["even"].includes(prop),
@@ -83,8 +84,12 @@ function UserInformation() {
           </Button>
         </Row>
         <Row type="horizontal">
-          <EditUser />
-          {status === "Blocked" ? <Unblock /> : <BlockUser />}
+          <Permission requiredPermissions="editUser">
+            <EditUser />
+          </Permission>
+          <Permission requiredPermissions="editUserStatus">
+            {status === "Blocked" ? <Unblock /> : <BlockUser />}
+          </Permission>
         </Row>
       </Row>
 

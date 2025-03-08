@@ -24,7 +24,10 @@ function useEditAdmin() {
         queryKey: ["Setting-Admin", id],
       });
     },
-    onError: (err) => toast.error(t("useEditAdminValidations.Error")),
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+    },
   });
 
   return { editAdmin, isLoading, isError, error };
