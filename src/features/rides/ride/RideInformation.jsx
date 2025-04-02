@@ -42,6 +42,8 @@ function RideInformation() {
 
   const { isLoading, rideInfo } = useRideInfo();
 
+  // console.log(rideInfo);
+
   if (isLoading) return <Spinner />;
 
   const {

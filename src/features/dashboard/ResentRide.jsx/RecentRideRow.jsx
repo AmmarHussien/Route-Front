@@ -54,10 +54,8 @@ function RideRow({ ride }) {
       <Table.Row>
         <p>{ride.id}</p>
         <p>{ride.driver}</p>
-
-        <TableData>{ride.pickup_address}</TableData>
-
-        <TableData>{ride.destination_address}</TableData>
+        <p>{ride.pickup_address}</p>
+        <p>{ride.destination_address}</p>
         <p>{ride.created_at}</p>
         <p>
           {ride.price} {ride.currency}

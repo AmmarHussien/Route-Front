@@ -1,5 +1,5 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/profits";
 
@@ -10,7 +10,7 @@ const lastMonth = date.getMonth();
 
 export async function getProfitStatisticCurrentMonth(isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}`, {
       headers: {
@@ -35,7 +35,7 @@ export async function getProfitStatisticCurrentMonth(isRTL) {
 
 export async function getProfitStatisticLastMonth(isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}`, {
       headers: {
@@ -60,7 +60,7 @@ export async function getProfitStatisticLastMonth(isRTL) {
 
 export async function getProfits() {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}/admin`, {
       headers: {
@@ -90,7 +90,7 @@ export async function getAdminProfit({
   isRTL,
 }) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     // Prepare query parameters
     const params = {
@@ -147,7 +147,7 @@ export async function getAdminProfitSearch({
   isRTL,
 }) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     // Prepare query parameters
     const params = {
@@ -199,7 +199,7 @@ export async function getDriverProfit({
   isRTL,
 }) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     // Prepare query parameters
     const params = {
@@ -256,7 +256,7 @@ export async function getDriverProfitSearch({
   isRTL,
 }) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     // Prepare query parameters
     const params = {

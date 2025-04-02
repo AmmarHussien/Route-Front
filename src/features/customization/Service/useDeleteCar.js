@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 function useDeleteCar(carId) {
   const queryClient = useQueryClient();
-  const { t } = useTranslation();
+  const { t, isRTL } = useTranslation();
 
   const { serviceId } = useParams();
 
@@ -15,7 +15,11 @@ function useDeleteCar(carId) {
       // Invalidate the query to refresh the manufactures list after deletion
       toast.success(t("useDeleteCarServiceValidations.Successfully"));
 
-      queryClient.invalidateQueries(["Customization-Car-Services", serviceId]);
+      queryClient.invalidateQueries([
+        "Customization-Car-Services",
+        serviceId,
+        isRTL,
+      ]);
     },
     onError: (error) => {
       const errorMessage = error.response?.data?.message || error.message;

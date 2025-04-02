@@ -1,5 +1,5 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
@@ -13,7 +13,7 @@ export async function getAllRides({
   isRTL,
 }) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     // Prepare query parameters
     const params = {
@@ -60,7 +60,7 @@ export async function getAllRides({
 
 export async function getRide(id, isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}rides/${id}`, {
       headers: {

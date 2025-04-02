@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
 export async function addNewNotes(id, note, type) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.post(
       `${URL}notes/${id}/${type}`,

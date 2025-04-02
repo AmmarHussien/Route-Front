@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/notifications";
 
 export async function createNewNotification(formData) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.post(`${URL}`, formData, {
       headers: {
@@ -34,7 +34,7 @@ export async function getAllNotification({
   isRTL,
 }) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     // Prepare query parameters
     const params = {

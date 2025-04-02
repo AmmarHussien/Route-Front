@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/api/manufactures";
 
 export async function getAllManufactures(isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}`, {
       headers: {

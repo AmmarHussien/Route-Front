@@ -14,7 +14,7 @@ function RecentRide() {
         <Table.TableNaView title={t("RecentRides")} />
         <Table.Header>
           <div>{t("ID")}</div>
-          <div>{t("RiderName")}</div>
+          <div>{t("DriverName")}</div>
           <div>{t("DestinationA")}</div>
           <div>{t("DestinationB")}</div>
           <div>{t("Date")}</div>

@@ -1,11 +1,13 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
+import { PermissionServices } from "../utils/PermissionService";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
 export async function logout() {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
+    //const token = await getAuthToken();
 
     const response = await axios.post(
       `${URL}logout`,
@@ -38,11 +40,11 @@ export async function login({ email, password }) {
 
       const { access_token } = response.data.data;
 
-      localStorage.setItem("authToken", access_token);
+      TokenServices.setToken("authToken", access_token);
       const { permissions } = response.data.data.user;
-
-      // Store permissions in localStorage
-      localStorage.setItem("permissions", JSON.stringify(permissions));
+      console.log("permissions", permissions);
+      PermissionServices.setPermission(JSON.stringify(permissions));
+      //TokenServices.setItem("permissions", JSON.stringify(permissions));
 
       return response.data.data;
     } else {
@@ -55,14 +57,14 @@ export async function login({ email, password }) {
   }
 }
 
-export async function getCurrentUser() {
-  const { data: session } = localStorage.getItem("authToken");
+// export async function getCurrentUser() {
+//   const { data: session } = TokenServices.getToken("authToken");
 
-  if (!session.session) return null;
+//   if (!session.session) return null;
 
-  const { data, error } = localStorage.getItem("authToken");
+//   const { data, error } = TokenServices.getToken("authToken");
 
-  if (error) throw new Error(error.message);
+//   if (error) throw new Error(error.message);
 
-  return data?.user;
-}
+//   return data?.user;
+// }

@@ -167,6 +167,7 @@ function CreateDriverForm({ onCloseModal }) {
             validate: {
               singleWord: (value) =>
                 /^[^\s]+$/.test(value) || t("FirstNameValidation.singleWord"),
+
               noSpecialCharacters: (value) =>
                 /^[a-zA-Z0-9\s]*$/.test(value) ||
                 t("FirstNameValidation.noSpecialCharacters"),

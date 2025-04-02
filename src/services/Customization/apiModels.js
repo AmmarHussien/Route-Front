@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "../getAuthToken";
+import { TokenServices } from "../../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/manufactures/";
 
 export async function getAllModels(brandId) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}${brandId}/models`, {
       headers: {
@@ -23,7 +23,7 @@ export async function getAllModels(brandId) {
 
 export async function getModel(brandId, modelId) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}${brandId}/models/${modelId}`, {
       headers: {
@@ -48,7 +48,7 @@ export async function updateModel(
   isActive
 ) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.put(
       `${URL}${brandId}/models/${modelId}`,
@@ -77,7 +77,7 @@ export async function updateModel(
 
 export async function createModels(brandId, englishName, arabicName, isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.post(
       `${URL}${brandId}/models`,
@@ -106,7 +106,7 @@ export async function createModels(brandId, englishName, arabicName, isRTL) {
 
 export async function deleteModel(brandId, modelId) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.delete(
       `${URL}${brandId}/models/${modelId}`,

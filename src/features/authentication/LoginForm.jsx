@@ -32,8 +32,8 @@ const Button = styled.button`
 function LoginForm() {
   const { t } = useTranslation();
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const { login, isLoading } = useLogin();

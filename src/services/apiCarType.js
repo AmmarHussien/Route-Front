@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/car_types";
 
 export async function getAllCarType() {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
     const response = await axios.get(`${URL}`, {
       headers: {
         ApiToken: `Bearer ${token}`, // Corrected the header name to Authorization

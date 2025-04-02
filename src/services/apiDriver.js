@@ -1,5 +1,5 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
@@ -13,7 +13,7 @@ export async function getAllDrivers({
   isRTL,
 }) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     // Prepare query parameters
     const params = {
@@ -60,7 +60,7 @@ export async function getAllDrivers({
 
 export async function getDriver(id, isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}drivers/${id}`, {
       headers: {
@@ -81,7 +81,7 @@ export async function getDriver(id, isRTL) {
 
 export async function addNewDriver(formData, isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.post(`${URL}drivers`, formData, {
       headers: {
@@ -102,7 +102,7 @@ export async function addNewDriver(formData, isRTL) {
 
 export async function editDriver(id, formData) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.post(`${URL}drivers/${id}`, formData, {
       params: {
@@ -126,7 +126,7 @@ export async function editDriver(id, formData) {
 
 export async function updateDriverStatus(id, reason, status) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.put(
       `${URL}drivers/${id}/status/update`,
@@ -152,7 +152,7 @@ export async function updateDriverStatus(id, reason, status) {
 }
 export async function paySiteCommission(id, isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.post(
       `${URL}drivers/${id}/debits/pay`,

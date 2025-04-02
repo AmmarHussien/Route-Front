@@ -1,10 +1,10 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/api/";
 
 export async function upload(formData) {
-  const token = await getAuthToken();
+  const token = TokenServices.getToken();
 
   try {
     const response = await axios.post(`${URL}upload`, formData, {

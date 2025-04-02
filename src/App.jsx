@@ -58,6 +58,7 @@ import RoleLayout from "./features/Setting/Role/RoleLayout";
 import AdminLayout from "./features/Setting/Admin/AdminsLayout";
 import AddRoleScreen from "./features/Setting/Role/AddRoleScreen";
 import ViewAdmin from "./features/Setting/Admin/Admin Informations/ViewAdmin";
+import { useAuth } from "./context/useAuth";
 
 // Configure QueryClient
 const queryClient = new QueryClient({
@@ -75,6 +76,8 @@ const queryClient = new QueryClient({
 
 // Admin Routes Component
 function AdminRoutes() {
+  const { loading } = useAuth();
+  if (loading) return <div>Loading app...</div>; // prevents early redirect
   return (
     <Routes>
       {/* Public Routes */}
@@ -194,13 +197,13 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyles />
-        <Router>
-          <AuthProvider>
+        <AuthProvider>
+          <Router>
             <Suspense fallback={<Spinner />}>
               <AdminRoutes />
             </Suspense>
-          </AuthProvider>
-        </Router>
+          </Router>
+        </AuthProvider>
         <Toaster
           position="top-center"
           gutter={12}

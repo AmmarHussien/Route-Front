@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "../getAuthToken";
+import { TokenServices } from "../../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/roles";
 
 export async function getAllRole() {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}`, {
       headers: {
@@ -23,7 +23,7 @@ export async function getAllRole() {
 
 export async function getRole(id) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}/${id}`, {
       headers: {
@@ -42,7 +42,7 @@ export async function getRole(id) {
 
 export async function createRole(name, permissions) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.post(
       `${URL}`,
@@ -68,7 +68,7 @@ export async function createRole(name, permissions) {
 
 export async function updateRole(id, name, permissions) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.put(
       `${URL}/${id}`,
@@ -94,7 +94,7 @@ export async function updateRole(id, name, permissions) {
 
 export async function deleteRole(id) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.delete(`${URL}/${id}`, {
       headers: {

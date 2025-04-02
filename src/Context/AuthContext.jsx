@@ -1,7 +1,7 @@
-// src/context/AuthContext.jsx
+// src/context/AuthContext.js
 import { createContext, useEffect, useState, useMemo } from "react";
-import { TokenService } from "../utils/TokenService";
-
+import { TokenServices } from "../utils/TokenService";
+import { PermissionServices } from "../utils/PermissionService";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
@@ -9,29 +9,25 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const token = TokenService.getToken();
-        setIsAuthenticated(!!token);
-      } catch (error) {
-        console.error("Error checking auth token:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const token = TokenServices.getToken();
+    const permission = PermissionServices.getPermission();
 
-    checkAuth();
+    console.log("AuthContext check token:", token);
+    if (token && permission) {
+      setIsAuthenticated(true);
+    }
+    setLoading(false);
   }, []);
 
   const login = (token) => {
-    TokenService.setToken(token);
+    TokenServices.setToken(token);
     setIsAuthenticated(true);
+    console.log("User logged in, token set:", token);
   };
 
   const logout = () => {
-    TokenService.removeToken();
+    TokenServices.removeToken();
     setIsAuthenticated(false);
-    // QueryClient.clear(); // Clear all query data
   };
 
   const value = useMemo(

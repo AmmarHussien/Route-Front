@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
 export async function getStatistic(isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}statistics`, {
       headers: {
@@ -30,7 +30,7 @@ export async function getStatistic(isRTL) {
 
 export async function getRevenues(year, month) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}revenues/${year}/${month}`, {
       headers: {

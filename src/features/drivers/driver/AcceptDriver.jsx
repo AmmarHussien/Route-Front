@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useUpdateStatus from "./useUpdateStatus";
 import { useTranslation } from "react-i18next";
 
-function AcceptDriver() {
+function AcceptDriver({ check }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -21,7 +21,8 @@ function AcceptDriver() {
     <div>
       <Button
         onClick={handleClick}
-        $variant="contained"
+        variant="contained"
+        disabled={check}
         sx={{
           width: 139,
           height: 56,

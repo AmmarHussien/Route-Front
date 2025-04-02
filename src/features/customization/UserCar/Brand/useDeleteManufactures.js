@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
 function useDeleteManufactures() {
-  const { t } = useTranslation();
+  const { t, isRTL } = useTranslation();
 
   const { Id } = useParams(); // Get the Id from URL params
   const queryClient = useQueryClient(); // To manage query cache
@@ -16,7 +16,8 @@ function useDeleteManufactures() {
     {
       onSuccess: () => {
         // Invalidate the query to refresh the manufactures list after deletion
-        queryClient.invalidateQueries(["Customization-Manufactures"]);
+
+        queryClient.invalidateQueries(["Customization-Manufactures", isRTL]);
         toast.success(t("useDeleteManufacturesValidations.Successfully"));
 
         navigate("/customization/userCar");

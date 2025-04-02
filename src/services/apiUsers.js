@@ -1,5 +1,5 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/";
 
@@ -12,7 +12,7 @@ export async function getAllUsers({
   perPage,
 }) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     // Prepare query parameters
     const params = {
@@ -60,7 +60,7 @@ export async function getAllUsers({
 
 export async function getUser(id, isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}users/${id}`, {
       headers: {
@@ -81,7 +81,7 @@ export async function getUser(id, isRTL) {
 
 export async function addNewUser(formData, isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.post(`${URL}users`, formData, {
       headers: {
@@ -102,7 +102,7 @@ export async function addNewUser(formData, isRTL) {
 
 export async function editUser(id, formData, isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.put(`${URL}users/${id}`, formData, {
       headers: {
@@ -123,7 +123,7 @@ export async function editUser(id, formData, isRTL) {
 
 export async function updateUserStatus(id, reason, status, isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.put(
       `${URL}users/${id}/status/update`,

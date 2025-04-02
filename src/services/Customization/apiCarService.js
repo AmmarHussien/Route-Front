@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "../getAuthToken";
+import { TokenServices } from "../../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/services/";
 
 export async function getAllCars(brandId) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}${brandId}/car_types`, {
       headers: {
@@ -23,7 +23,7 @@ export async function getAllCars(brandId) {
 
 export async function getCar(brandId, carId) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}${brandId}/car_types/${carId}`, {
       headers: {
@@ -52,7 +52,7 @@ export async function editCar(
   inOutSeparationKm
 ) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.put(
       `${URL}${brandId}/car_types/${carId}`,
@@ -85,7 +85,7 @@ export async function editCar(
 
 export async function deleteCar(brandId, carId) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.delete(
       `${URL}${brandId}/car_types/${carId}`,
@@ -118,7 +118,8 @@ export async function createCar(
   inOutSeparationKm
 ) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
+
     const response = await axios.post(
       `${URL}${brandId}/car_types`,
       {

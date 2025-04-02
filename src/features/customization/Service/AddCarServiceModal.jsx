@@ -294,7 +294,7 @@ function AddCarServiceModal({ onCloseModal }) {
         <Input
           type="number"
           id="InOutSeparationKm"
-          placeholder="In Out Separation Km"
+          placeholder={t("inOutSeparationKm")}
           value={inOutSeparationKm} // Controlled input with fallback
           onChange={handleInOutSeparationKmChange}
           min={0}

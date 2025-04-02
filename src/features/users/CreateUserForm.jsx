@@ -435,7 +435,7 @@ function CreateUserForm({ onCloseModal }) {
           </span>
         </StyledLabel>
         <DropDownMenu
-          title={t("UserCarModels")}
+          title={t("UserModelYear")}
           options={yearOptions}
           onSelect={handleModelYearSelect}
           selectedOption={yearOptions?.find(

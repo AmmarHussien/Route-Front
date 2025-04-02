@@ -1,5 +1,6 @@
-export const TokenService = {
-  getToken: () => localStorage.getItem("authToken"),
-  setToken: (token) => localStorage.setItem("authToken", token),
-  removeToken: () => localStorage.removeItem("authToken"),
+// Description: This module provides functions to manage authentication tokens in session storage.
+export const TokenServices = {
+  getToken: () => sessionStorage.getItem("authToken"),
+  setToken: (token) => sessionStorage.setItem("authToken", token),
+  removeToken: () => sessionStorage.removeItem("authToken"),
 };

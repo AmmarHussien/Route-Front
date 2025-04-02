@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "../getAuthToken";
+import { TokenServices } from "../../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/manufactures";
 
 export async function getAllManufactures(isRTL) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}`, {
       headers: {
@@ -25,7 +25,7 @@ export async function getAllManufactures(isRTL) {
 
 export async function getManufacture(id) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}/${id}`, {
       headers: {
@@ -44,7 +44,7 @@ export async function getManufacture(id) {
 
 export async function createManufacture(englishName, arabicName, logo) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.post(
       `${URL}`,
@@ -73,7 +73,7 @@ export async function createManufacture(englishName, arabicName, logo) {
 
 export async function updateManufacture(id, englishName, arabicName, isActive) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.put(
       `${URL}/${id}`,
@@ -102,7 +102,7 @@ export async function updateManufacture(id, englishName, arabicName, isActive) {
 
 export async function deleteManufacture(id) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.delete(`${URL}/${id}`, {
       headers: {

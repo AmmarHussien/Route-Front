@@ -1,12 +1,12 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/organizations";
 const URLS = "https://route-service.app/api/organizations";
 
 export async function getAllOrganizations() {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}`, {
       headers: {
@@ -25,7 +25,7 @@ export async function getAllOrganizations() {
 
 export async function getAllOrganization() {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URLS}`, {
       headers: {

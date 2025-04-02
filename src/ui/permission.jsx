@@ -4,6 +4,8 @@ import usePermissions from "../hooks/usePermissions";
 const Permission = ({ children, requiredPermissions, fallback = null }) => {
   const { hasPermission } = usePermissions();
 
+  console.log(requiredPermissions);
+
   // Ensure requiredPermissions is an array
   const permissionsToCheck = Array.isArray(requiredPermissions)
     ? requiredPermissions

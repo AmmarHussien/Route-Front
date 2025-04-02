@@ -28,16 +28,22 @@ const MapWithDirections = ({ location }) => {
 
   // Ensure center has valid lat/lng values
   const center = useMemo(() => {
-    const lat1 = locations[0].location.lat;
-    const lng1 = locations[0].location.lng;
-    const lat2 = locations[1].location.lat;
-    const lng2 = locations[1].location.lng;
-
-    // Check for NaN and provide default values
-    if (isNaN(lat1) || isNaN(lng1) || isNaN(lat2) || isNaN(lng2)) {
-      console.error("Invalid coordinates detected");
+    if (!Array.isArray(locations) || locations.length < 2) {
+      console.error("Invalid locations array:", locations);
       return { lat: 0, lng: 0 }; // Default center
     }
+
+    const getValidCoord = (coord) =>
+      typeof coord === "number" && !isNaN(coord) ? coord : 0;
+
+    const lat1 = getValidCoord(locations[0]?.location?.lat);
+    const lng1 = getValidCoord(locations[0]?.location?.lng);
+    const lat2 = getValidCoord(locations[1]?.location?.lat);
+    const lng2 = getValidCoord(locations[1]?.location?.lng);
+
+    // if (lat1 === 0 && lng1 === 0 && lat2 === 0 && lng2 === 0) {
+    //   console.warn("All coordinates are defaulting to (0,0)");
+    // }
 
     return {
       lat: (lat1 + lat2) / 2,

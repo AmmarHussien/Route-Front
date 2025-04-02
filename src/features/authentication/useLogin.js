@@ -3,7 +3,7 @@ import { login as loginApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../../Context/useAuth";
+import { useAuth } from "../../context/useAuth";
 
 export function useLogin() {
   const { t } = useTranslation();
@@ -19,7 +19,8 @@ export function useLogin() {
         toast.error(t("UseLoginValidations.undefined"));
         return;
       }
-      setAuth(response.access_token); // Update AuthContext and localStorage
+      setAuth(response.access_token); // Update AuthContext and Session
+      console.log("Login successful, token saved:", response.access_token);
       navigate("/dashboard", { replace: true });
       toast.success(t("UseLoginValidations.Successfully"));
 

@@ -1,11 +1,11 @@
 import axios from "axios";
-import getAuthToken from "../getAuthToken";
+import { TokenServices } from "../../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/admins";
 
 export async function getAllAdmins() {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}`, {
       headers: {
@@ -23,7 +23,7 @@ export async function getAllAdmins() {
 
 export async function getAdmin(id) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}/${id}`, {
       headers: {
@@ -42,7 +42,7 @@ export async function getAdmin(id) {
 
 export async function CreateAdmin(FormData) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     // ✅ Log the FormData
     console.log("Logging FormData: from api");
@@ -82,7 +82,7 @@ export async function updateAdmin(
   roles
 ) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.put(
       `${URL}/${id}`,

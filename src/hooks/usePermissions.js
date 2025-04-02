@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import { PermissionServices } from "../utils/PermissionService";
 
 const usePermissions = () => {
   const [storedPermissions, setStoredPermissions] = useState([]);
@@ -93,9 +94,12 @@ const usePermissions = () => {
 
   useEffect(() => {
     try {
-      const permissions = JSON.parse(localStorage.getItem("permissions")) || [];
-      // console.log("Permissions loaded from localStorage:", permissions);
-      setStoredPermissions(Array.isArray(permissions) ? permissions : []);
+      const fetchedPermissions =
+        PermissionServices.getPermission("permission") || [];
+
+      setStoredPermissions(
+        Array.isArray(fetchedPermissions) ? fetchedPermissions : []
+      );
     } catch (error) {
       console.error("Failed to parse permissions from localStorage:", error);
       setStoredPermissions([]);

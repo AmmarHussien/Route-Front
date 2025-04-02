@@ -42,8 +42,11 @@ function UserRow({ userInfo }) {
 
   const navigate = useNavigate();
 
+  // console.log(userInfo);
+
+  const driverId = userInfo.driver?.id ?? "";
+  const fullName = userInfo.driver?.full_name ?? "";
   const {
-    driver: { id: driverId, full_name },
     pickup_address,
     destination_address,
     created_at,
@@ -51,7 +54,7 @@ function UserRow({ userInfo }) {
     status,
     rate,
     currency,
-  } = userInfo;
+  } = userInfo; // Ensure userInfo is never null or undefined
 
   function handleClick() {
     navigate(`/drivers/driver-information/${driverId}`);
@@ -62,7 +65,7 @@ function UserRow({ userInfo }) {
     <Table columns="1fr 1fr 1fr 1fr 1fr 1fr 1fr">
       <div onClick={handleClick} style={{ cursor: "pointer" }}>
         <Table.Row>
-          <div>{full_name}</div>
+          <div>{fullName}</div>
           <div>{pickup_address}</div>
           <div>{destination_address}</div>
           <div>{created_at}</div>

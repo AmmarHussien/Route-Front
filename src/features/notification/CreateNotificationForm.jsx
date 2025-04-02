@@ -98,9 +98,9 @@ function CreateNotificationForm({ onCloseModal }) {
     });
     formData.append("date", formattedDate);
 
-    formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
+    // formData.forEach((value, key) => {
+    //   console.log(`${key}: ${value}`);
+    // });
 
     formData?.append("photo", imagePath);
 
@@ -140,10 +140,10 @@ function CreateNotificationForm({ onCloseModal }) {
             validate: {
               noSpecialCharacters: (value) =>
                 /^[a-zA-Z0-9\s]*$/.test(value) ||
-                t("FirstNameValidation.noSpecialCharacters"),
+                t("SubjectValidation.noSpecialCharacters"),
               noSQLInjection: (value) =>
                 !/[;'"|#-]/.test(value) ||
-                t("FirstNameValidation.noSQLInjection"),
+                t("SubjectValidation.noSQLInjection"),
             },
           })}
           $sx={{ backgroundColor: "rgb(247, 248, 250)" }}
@@ -173,11 +173,11 @@ function CreateNotificationForm({ onCloseModal }) {
             },
             validate: {
               noSpecialCharacters: (value) =>
-                /^[a-zA-Z0-9\s]*$/.test(value) ||
-                t("FirstNameValidation.noSpecialCharacters"),
+                /^[\u0600-\u06FFa-zA-Z0-9\s]+$/.test(value) ||
+                t("MessageValidation.noSpecialCharacters"),
               noSQLInjection: (value) =>
                 !/[;'"|#-]/.test(value) ||
-                t("FirstNameValidation.noSQLInjection"),
+                t("MessageValidation.noSQLInjection"),
             },
           })}
           $sx={{

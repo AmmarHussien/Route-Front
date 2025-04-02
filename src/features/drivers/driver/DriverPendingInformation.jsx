@@ -45,6 +45,8 @@ function DriverPendingInformation() {
 
   if (isLoading) return <Spinner />;
 
+  // console.log(driverData.tow_truck_registration);
+
   const {
     full_name,
     email,
@@ -59,6 +61,24 @@ function DriverPendingInformation() {
     car_spec,
     organization,
   } = driverData;
+
+  console.log({
+    vehicle_license,
+    tow_truck_registration,
+    national_id,
+    criminal_record,
+    driver_license,
+  });
+
+  const isAnyEmpty = [
+    vehicle_license,
+    tow_truck_registration,
+    national_id,
+    criminal_record,
+    driver_license,
+  ].some((value) => !value); // Returns true if any value is empty, undefined, or null
+
+  console.log("isAllEmpty:", isAnyEmpty);
   return (
     <>
       <Row type="horizontal">
@@ -80,7 +100,7 @@ function DriverPendingInformation() {
             [t("UserName")]: full_name || "",
             [t("UserEmail")]: email || "",
             [t("UserPhoneNumber")]: phone || "",
-            [t("DriverOrganization")]: organization.name,
+            [t("DriverOrganization")]: organization.name || "",
             [t("profileImage")]: profile_image,
             [t("DriverNationalId")]: national_id,
             [t("DriverLicense")]: driver_license,
@@ -111,7 +131,7 @@ function DriverPendingInformation() {
           data={{
             [t("DriverVehicleImage")]: vehicle_image,
             [t("DriverVehicleLicense")]: vehicle_license,
-            [t("DriverTowTruckRegistration")]: tow_truck_registration,
+            [t("DriverTowTruckRegistration")]: tow_truck_registration || "",
             [t("DriverCarSpec")]: car_spec,
             // ...(vehicle_image === " "
             //   ? { [t("DriverVehicleImage")]: vehicle_image }
@@ -137,7 +157,7 @@ function DriverPendingInformation() {
       </Row>
 
       <Row type="horizontal">
-        <AcceptDriver />
+        <AcceptDriver check={isAnyEmpty} />
         <RejectDriver />
       </Row>
     </>

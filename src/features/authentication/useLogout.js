@@ -3,6 +3,8 @@ import { logout as logoutApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { TokenServices } from "../../utils/TokenService";
+import { PermissionServices } from "../../utils/PermissionService";
 
 export function useLogout() {
   const { t } = useTranslation();
@@ -13,8 +15,9 @@ export function useLogout() {
   const { mutate: logout, isLoading } = useMutation({
     mutationFn: logoutApi,
     onSuccess: () => {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("permissions");
+      TokenServices.removeToken("authToken");
+      PermissionServices.removePermission("permission");
+
       toast.success(t("UseLogoutValidations.Successfully"));
       queryClient.removeQueries();
       navigate("/login", {

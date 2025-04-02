@@ -1,5 +1,5 @@
 import axios from "axios";
-import getAuthToken from "./getAuthToken";
+import { TokenServices } from "../utils/TokenService";
 
 const URL = "https://route-service.app/dashboard-api/v1/ratings/";
 
@@ -9,7 +9,7 @@ const year = date.getFullYear();
 
 export async function getOverAllRatingUser() {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}all?type=User`, {
       headers: {
@@ -32,7 +32,7 @@ export async function getOverAllRatingUser() {
 
 export async function getOverAllRatingDriver() {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(`${URL}all?type=Driver`, {
       headers: {
@@ -51,7 +51,7 @@ export async function getOverAllRatingDriver() {
 
 export async function getTotalRatings(type, year, month) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(
       `${URL}${type}`,
@@ -78,7 +78,7 @@ export async function getTotalRatings(type, year, month) {
 
 export async function getRatingsReview(year, month) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(
       `${URL}reviews`,
@@ -126,7 +126,7 @@ export async function getRatingsReview(year, month) {
 
 export async function getTotalReviewDriver(year, month) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(
       `${URL}all?type=Driver`,
@@ -153,7 +153,7 @@ export async function getTotalReviewDriver(year, month) {
 
 export async function getTotalReviewUser(year, month) {
   try {
-    const token = await getAuthToken();
+    const token = TokenServices.getToken();
 
     const response = await axios.get(
       `${URL}all?type=User`,
