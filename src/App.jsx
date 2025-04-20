@@ -58,8 +58,7 @@ import RoleLayout from "./features/Setting/Role/RoleLayout";
 import AdminLayout from "./features/Setting/Admin/AdminsLayout";
 import AddRoleScreen from "./features/Setting/Role/AddRoleScreen";
 import ViewAdmin from "./features/Setting/Admin/Admin Informations/ViewAdmin";
-import { useAuth } from "./context/useAuth";
-
+import { useAuth } from "./Context/useAuth";
 // Configure QueryClient
 const queryClient = new QueryClient({
   defaultOptions: {
