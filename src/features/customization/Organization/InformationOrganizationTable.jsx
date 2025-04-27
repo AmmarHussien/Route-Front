@@ -130,16 +130,19 @@ function InformationOrganizationTable({ title, data }) {
           <Title>{title}</Title>
           <div>
             <Modal>
-              <Modal.Open opens="edit-Organization">
-                <Permission requiredPermissions="editOrganization">
-                  <IconButton aria-label="Edit">
+              <Permission requiredPermissions="editOrganization">
+                <Modal.Open opens="edit-Organization">
+                  <IconButton
+                    aria-label="Edit"
+                    onClick={() => console.log("Edit")}
+                  >
                     <ModeEditIcon fontSize="large" color="primary" />
                   </IconButton>
-                </Permission>
-              </Modal.Open>
-              <Modal.Window name="edit-Organization">
-                <EditOrganization id={data} />
-              </Modal.Window>
+                </Modal.Open>
+                <Modal.Window name="edit-Organization">
+                  <EditOrganization id={data} />
+                </Modal.Window>
+              </Permission>
             </Modal>
             <Permission requiredPermissions="deleteOrganization">
               <IconButton

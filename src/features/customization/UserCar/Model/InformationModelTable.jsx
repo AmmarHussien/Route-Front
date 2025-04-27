@@ -112,16 +112,16 @@ function InformationModelTable({ title, data, id }) {
           <Title>{title}</Title>
           <div>
             <Modal>
-              <Modal.Open opens="add-Brand">
-                <Permission requiredPermissions="editModel">
+              <Permission requiredPermissions="editModel">
+                <Modal.Open opens="add-Brand">
                   <IconButton aria-label="Edit">
                     <ModeEditIcon fontSize="large" color="primary" />
                   </IconButton>
-                </Permission>
-              </Modal.Open>
-              <Modal.Window name="add-Brand">
-                <EditModel data={id} />
-              </Modal.Window>
+                </Modal.Open>
+                <Modal.Window name="add-Brand">
+                  <EditModel data={id} />
+                </Modal.Window>
+              </Permission>
             </Modal>
             <Permission requiredPermissions="deleteModel">
               <IconButton

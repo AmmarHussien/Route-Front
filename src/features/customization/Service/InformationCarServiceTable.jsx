@@ -128,16 +128,16 @@ function InformationCarServiceTable({
           <Title>{title}</Title>
           <div>
             <Modal>
-              <Modal.Open opens="edit-car-service-form">
-                <Permission requiredPermissions="editCarType">
+              <Permission requiredPermissions="editCarType">
+                <Modal.Open opens="edit-car-service-form">
                   <IconButton aria-label="Edit">
                     <ModeEditIcon fontSize="large" color="primary" />
                   </IconButton>
-                </Permission>
-              </Modal.Open>
-              <Modal.Window name="edit-car-service-form">
-                <EditCarService date={id} />
-              </Modal.Window>
+                </Modal.Open>
+                <Modal.Window name="edit-car-service-form">
+                  <EditCarService date={id} />
+                </Modal.Window>
+              </Permission>
             </Modal>
             <Permission requiredPermissions="deleteCarType">
               <IconButton

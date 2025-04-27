@@ -113,16 +113,16 @@ function InformationBrandTable({ title, data }) {
           <Title>{title}</Title>
           <div>
             <Modal>
-              <Modal.Open opens="add-Brand">
-                <Permission requiredPermissions="editManufactures">
+              <Permission requiredPermissions="editManufactures">
+                <Modal.Open opens="add-Brand">
                   <IconButton aria-label="Edit" onClick={handleOpen}>
                     <ModeEditIcon fontSize="large" color="primary" />
                   </IconButton>
-                </Permission>
-              </Modal.Open>
-              <Modal.Window name="add-Brand">
-                <EditBrand data={data} />
-              </Modal.Window>
+                </Modal.Open>
+                <Modal.Window name="add-Brand">
+                  <EditBrand data={data} />
+                </Modal.Window>
+              </Permission>
             </Modal>
             <Permission requiredPermissions="deleteManufactures">
               <IconButton
